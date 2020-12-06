@@ -1,0 +1,35 @@
+App\Entity\WebApp\Post:
+  type: entity
+  table: post
+  repositoryClass: Repository\Doctrine\PostRepository
+  indexes:
+    name:
+      columns: [ name ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 50
+      nullable: false
+    description:
+      type: text
+      nullable: false
+    createdAt:
+      type: date
+      nullable: false
+    updatedAt:
+      type: date
+      nullable: false
+  manyToOne:
+    user:
+      targetEntity: App\Entity\WebApp\User
+      inversedBy: posts
+      joinColumn:
+        name: user_id
+        nullable: true
+        referencedColumnName: id
+        onDelete: "SET NULL"

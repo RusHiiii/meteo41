@@ -1,0 +1,47 @@
+App\Entity\WebApp\User:
+  type: entity
+  table: user
+  repositoryClass: Repository\Doctrine\UserRepository
+  indexes:
+    email:
+      columns: [ email ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    firstname:
+      type: string
+      length: 100
+      nullable: false
+    lastname:
+      type: string
+      length: 100
+      nullable: false
+    email:
+      type: string
+      length: 100
+      nullable: false
+    password:
+      type: string
+      length: 255
+      nullable: false
+    roles:
+      type: json
+      nullable: false
+    createdAt:
+      type: date
+      nullable: false
+    updatedAt:
+      type: date
+      nullable: false
+  oneToMany:
+    posts:
+      targetEntity: App\Entity\WebApp\Post
+      mappedBy: user
+      cascade: [ "persist", "merge"]
+    observations:
+      targetEntity: App\Entity\WebApp\Observation
+      mappedBy: user
+      cascade: [ "persist", "merge"]

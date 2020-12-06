@@ -1,0 +1,70 @@
+App\Entity\WebApp\WeatherStation:
+  type: entity
+  table: weather_station
+  repositoryClass: Repository\Doctrine\WeatherStationRepository
+  indexes:
+    name:
+      columns: [ name ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 50
+      nullable: false
+    description:
+      type: text
+      nullable: false
+    shortDescription:
+      type: string
+      length: 255
+      nullable: false
+    country:
+      type: string
+      length: 100
+      nullable: false
+    address:
+      type: string
+      length: 255
+      nullable: false
+    city:
+      type: string
+      length: 100
+      nullable: false
+    lat:
+      type: decimal
+      precision: 6
+      scale: 4
+      nullable: false
+    lng:
+      type: decimal
+      precision: 6
+      scale: 4
+      nullable: false
+    apiToken:
+      type: string
+      length: 255
+      nullable: false
+    model:
+      type: string
+      length: 255
+      nullable: false
+    elevation:
+      type: string
+      length: 10
+      nullable: false
+    createdAt:
+      type: date
+      nullable: false
+    updatedAt:
+      type: date
+      nullable: false
+  oneToMany:
+    observations:
+      targetEntity: App\Entity\WebApp\Observation
+      mappedBy: weatherStation
+      cascade: [ "persist", "merge" ]
+      orphanRemoval: true

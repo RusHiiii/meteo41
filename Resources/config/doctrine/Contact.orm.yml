@@ -1,0 +1,31 @@
+App\Entity\WebApp\Contact:
+  type: entity
+  table: contact
+  repositoryClass: Repository\Doctrine\ContactRepository
+  indexes:
+    email:
+      columns: [ email ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 50
+      nullable: false
+    email:
+      type: string
+      length: 32
+      nullable: false
+    subject:
+      type: string
+      length: 50
+      nullable: false
+    message:
+      type: text
+      nullable: false
+    createdAt:
+      type: date
+      nullable: false

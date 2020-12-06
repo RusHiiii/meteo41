@@ -1,0 +1,153 @@
+App\Entity\WebApp\WeatherData:
+  type: entity
+  table: weather_data
+  repositoryClass: Repository\Doctrine\WeatherDataRepository
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    temperature:
+      type: decimal
+      precision: 3
+      scale: 1
+      nullable: false
+    humidity:
+      type: integer
+      nullable: false
+    relativePressure:
+      type: decimal
+      precision: 5
+      scale: 1
+      nullable: false
+    absolutePressure:
+      type: decimal
+      precision: 5
+      scale: 1
+      nullable: false
+    windDirection:
+      type: integer
+      nullable: false
+    windDirectionAvg:
+      type: integer
+      nullable: false
+    windSpeed:
+      type: decimal
+      precision: 4
+      scale: 1
+      nullable: false
+    windSpeedAvg:
+      type: decimal
+      precision: 4
+      scale: 1
+      nullable: false
+    windGust:
+      type: decimal
+      precision: 4
+      scale: 1
+      nullable: false
+    windMaxDailyGust:
+      type: decimal
+      precision: 4
+      scale: 1
+      nullable: false
+    rainRate:
+      type: decimal
+      precision: 4
+      scale: 1
+      nullable: false
+    rainEvent:
+      type: decimal
+      precision: 4
+      scale: 1
+      nullable: false
+    rainHourly:
+      type: decimal
+      precision: 4
+      scale: 1
+      nullable: false
+    rainDaily:
+      type: decimal
+      precision: 4
+      scale: 1
+      nullable: false
+    rainWeekly:
+      type: decimal
+      precision: 4
+      scale: 1
+      nullable: false
+    rainMonthly:
+      type: decimal
+      precision: 4
+      scale: 1
+      nullable: false
+    rainYearly:
+      type: decimal
+      precision: 5
+      scale: 1
+      nullable: false
+    solarRadiation:
+      type: decimal
+      precision: 5
+      scale: 1
+      nullable: false
+    uv:
+      type: integer
+      nullable: false
+    pm25:
+      type: decimal
+      precision: 4
+      scale: 1
+      nullable: false
+    pm25Avg:
+      type: decimal
+      precision: 4
+      scale: 1
+      nullable: false
+    humidex:
+      type: integer
+      nullable: false
+    dewPoint:
+      type: decimal
+      precision: 3
+      scale: 1
+      nullable: false
+    windChill:
+      type: decimal
+      precision: 3
+      scale: 1
+      nullable: true
+    cloudBase:
+      type: integer
+      nullable: false
+    lastRain:
+      type: date
+      nullable: false
+    beaufortScale:
+      type: integer
+      nullable: false
+    aqi:
+      type: integer
+      nullable: false
+    aqiAvg:
+      type: integer
+      nullable: false
+    createdAt:
+      type: date
+      nullable: false
+  manyToOne:
+    unit:
+      targetEntity: App\Entity\WebApp\Unit
+      joinColumn:
+        name: unit_id
+        referencedColumnName: id
+        nullable: false
+        onDelete: "CASCADE"
+    weatherStation:
+      targetEntity: App\Entity\WebApp\WeatherStation
+      joinColumn:
+        name: weather_station_id
+        referencedColumnName: id
+        nullable: false
+        onDelete: "CASCADE"

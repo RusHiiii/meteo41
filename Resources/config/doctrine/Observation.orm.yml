@@ -1,0 +1,40 @@
+App\Entity\WebApp\Observation:
+  type: entity
+  table: observation
+  repositoryClass: Repository\Doctrine\ObservationRepository
+  indexes:
+    message:
+      columns: [ message ]
+  id:
+    id:
+      type: integer
+      generator:
+      strategy: AUTO
+  fields:
+    message:
+      type: string
+      length: 255
+      nullable: false
+    createdAt:
+      type: date
+      nullable: false
+    updatedAt:
+      type: date
+      nullable: false
+  manyToOne:
+    user:
+      targetEntity: App\Entity\WebApp\User
+      inversedBy: observations
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+        nullable: true
+        onDelete: "SET NULL"
+    weatherStation:
+      targetEntity: App\Entity\WebApp\WeatherStation
+      inversedBy: observations
+      joinColumn:
+        name: weather_station_id
+        nullable: false
+        referencedColumnName: id
+        onDelete: "CASCADE"

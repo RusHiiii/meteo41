@@ -1,0 +1,44 @@
+App\Entity\WebApp\Unit:
+  type: entity
+  table: unit
+  repositoryClass: Repository\Doctrine\UnitRepository
+  indexes:
+    type:
+      columns: [ type ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    temperatureUnit:
+      type: string
+      length: 5
+      nullable: false
+    speedUnit:
+      type: string
+      length: 5
+      nullable: false
+    rainUnit:
+      type: string
+      length: 5
+      nullable: false
+    solarRadiationUnit:
+      type: string
+      length: 5
+      nullable: false
+    pmUnit:
+      type: string
+      length: 5
+      nullable: false
+    humidityUnit:
+      type: string
+      length: 5
+      nullable: false
+    type:
+      type: string
+      length: 32
+      nullable: false
+    createdAt:
+      type: date
+      nullable: false
