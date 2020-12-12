@@ -5,8 +5,9 @@ namespace App\Entity\WebApp;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class User
+class User implements UserInterface
 {
     private int $id;
 
@@ -24,9 +25,9 @@ class User
 
     private \DateTime $updatedAt;
 
-    private ArrayCollection $posts;
+    private $posts;
 
-    private ArrayCollection $observations;
+    private $observations;
 
     /**
      * User constructor.
@@ -170,7 +171,7 @@ class User
     /**
      * @return ArrayCollection
      */
-    public function getPosts(): ArrayCollection
+    public function getPosts()
     {
         return $this->posts;
     }
@@ -178,7 +179,7 @@ class User
     /**
      * @param ArrayCollection $posts
      */
-    public function setPosts(ArrayCollection $posts): void
+    public function setPosts($posts): void
     {
         $this->posts = $posts;
     }
@@ -217,7 +218,7 @@ class User
     /**
      * @return ArrayCollection
      */
-    public function getObservations(): ArrayCollection
+    public function getObservations()
     {
         return $this->observations;
     }
@@ -225,7 +226,7 @@ class User
     /**
      * @param ArrayCollection $observations
      */
-    public function setObservations(ArrayCollection $observations): void
+    public function setObservations($observations): void
     {
         $this->observations = $observations;
     }
@@ -259,5 +260,26 @@ class User
         }
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->getEmail();
+    }
+
+    public function eraseCredentials()
+    {
+
     }
 }

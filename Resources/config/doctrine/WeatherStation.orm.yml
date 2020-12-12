@@ -1,7 +1,7 @@
 App\Entity\WebApp\WeatherStation:
   type: entity
   table: weather_station
-  repositoryClass: Repository\Doctrine\WeatherStationRepository
+  repositoryClass: App\Repository\Doctrine\WeatherStationRepository
   indexes:
     name:
       columns: [ name ]

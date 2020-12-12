@@ -1,7 +1,7 @@
 App\Entity\WebApp\WeatherData:
   type: entity
   table: weather_data
-  repositoryClass: Repository\Doctrine\WeatherDataRepository
+  repositoryClass: App\Repository\Doctrine\WeatherDataRepository
   id:
     id:
       type: integer

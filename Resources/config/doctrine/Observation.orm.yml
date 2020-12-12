@@ -1,7 +1,7 @@
 App\Entity\WebApp\Observation:
   type: entity
   table: observation
-  repositoryClass: Repository\Doctrine\ObservationRepository
+  repositoryClass: App\Repository\Doctrine\ObservationRepository
   indexes:
     message:
       columns: [ message ]

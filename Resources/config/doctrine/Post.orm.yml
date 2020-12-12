@@ -1,7 +1,7 @@
 App\Entity\WebApp\Post:
   type: entity
   table: post
-  repositoryClass: Repository\Doctrine\PostRepository
+  repositoryClass: App\Repository\Doctrine\PostRepository
   indexes:
     name:
       columns: [ name ]

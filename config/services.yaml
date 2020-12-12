@@ -27,5 +27,17 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\Fixtures\Provider\UserProvider:
+        arguments:
+            - "@password_encoder"
+        tags: ['nelmio_alice.faker.provider']
+
+    App\Security\LoginAuthenticator:
+        arguments:
+            - '@App\Repository\UserRepository'
+            - "@password_encoder"
+            - "@lexik_jwt_authentication.jwt_manager"
+        tags: [ 'nelmio_alice.faker.provider' ]
+
+    password_encoder:
+        class: Symfony\Component\Security\Core\Encoder\NativePasswordEncoder
