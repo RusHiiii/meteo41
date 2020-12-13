@@ -36,7 +36,7 @@ class WeatherStation
 
     private \DateTime $updatedAt;
 
-    private ArrayCollection $observations;
+    private $observations;
 
     /**
      * WeatherStation constructor.
@@ -289,7 +289,7 @@ class WeatherStation
     /**
      * @return ArrayCollection
      */
-    public function getObservations(): ArrayCollection
+    public function getObservations()
     {
         return $this->observations;
     }
@@ -297,7 +297,7 @@ class WeatherStation
     /**
      * @param ArrayCollection $observations
      */
-    public function setObservations(ArrayCollection $observations): void
+    public function setObservations($observations): void
     {
         $this->observations = $observations;
     }

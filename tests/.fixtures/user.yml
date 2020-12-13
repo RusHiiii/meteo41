@@ -1,0 +1,19 @@
+App\Entity\WebApp\User:
+    user_1:
+        __construct: false
+        firstname: 'florent'
+        lastname: 'damiens'
+        email: 'damiens.florent@orange.fr'
+        password: "<encodePassword('pass')>"
+        roles: '[ROLE_ADMIN]'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'
+    user_2:
+        __construct: false
+        firstname: 'florent'
+        lastname: 'damiens'
+        email: 'admin@orange.fr'
+        password: "<encodePassword('pass')>"
+        roles: '[ROLE_EDITOR]'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'

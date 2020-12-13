@@ -1,0 +1,76 @@
+name: Full CI process for Symfony
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+        branches:
+            - master
+jobs:
+    symfony:
+        name: Meteo41 - CI
+        runs-on: ubuntu-18.04
+        services:
+            mysql:
+                image: mysql:5.7
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        strategy:
+            fail-fast: true
+            matrix:
+                php-versions: ['7.4']
+        steps:
+            # —— Setup
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup PHP, extensions and composer
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-versions }}
+                  extensions: xml, ctype, intl, filter, json, mbstring, pdo, xdebug
+                  tools: composer:v1
+                  coverage: xdebug
+              env:
+                  update: true
+
+            # —— Composer
+            - name: Get composer cache directory
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Cache composer dependencies
+              uses: actions/cache@v1
+              with:
+                path: ${{ steps.composer-cache.outputs.dir }}
+                key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                restore-keys: ${{ runner.os }}-composer-
+
+            - name: Install Composer dependencies
+              run: composer install
+
+            # —— Symfony
+            - name: Check Symfony requirements
+              run: vendor/bin/requirements-checker
+
+            - name: Database migration
+              run: |
+                 bin/console doctrine:database:create --env=test
+                 bin/console doctrine:migration:migrate --env=test
+
+            # —— Test
+            - name: Execute functionnal tests
+              run: vendor/bin/behat --format=progress
+
+            - name: Execute integration tests
+              run: bin/phpunit --testdox
+
+            # —— Coding standards
+            - name: Coding standards checks
+              run: vendor/bin/phpstan analyse -l 4 src
+
+            - name: Run infection
+              run: vendor/bin/infection --min-msi=0 --threads=4

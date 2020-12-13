@@ -1,7 +1,7 @@
 App\Entity\WebApp\Contact:
   type: entity
   table: contact
-  repositoryClass: Repository\Doctrine\ContactRepository
+  repositoryClass: App\Repository\Doctrine\ContactRepository
   indexes:
     email:
       columns: [ email ]

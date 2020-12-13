@@ -1,7 +1,7 @@
 App\Entity\WebApp\User:
   type: entity
   table: user
-  repositoryClass: Repository\Doctrine\UserRepository
+  repositoryClass: App\Repository\Doctrine\UserRepository
   indexes:
     email:
       columns: [ email ]

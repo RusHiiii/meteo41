@@ -1,7 +1,7 @@
 App\Entity\WebApp\Unit:
   type: entity
   table: unit
-  repositoryClass: Repository\Doctrine\UnitRepository
+  repositoryClass: App\Repository\Doctrine\UnitRepository
   indexes:
     type:
       columns: [ type ]

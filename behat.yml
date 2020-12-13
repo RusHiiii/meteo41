@@ -1,0 +1,8 @@
+default:
+    suites:
+        default:
+            contexts:
+                - Behat\Context\FixtureContext
+                - Behat\Context\RequestContext
+    extensions:
+        FriendsOfBehat\SymfonyExtension: ~
