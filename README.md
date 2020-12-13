@@ -13,6 +13,7 @@ De multiples outils ont été utilisés dans le but d'améliorer la qualité du 
 * Infection: mutation testing
 * Behat: framework de test en langage naturel
 * PHPunit: Pour les tests
+* CI/CD: Utilisation des Github Actions
 
 ## Documentation :
 * Analyse de la base de données: MCD et MLD
