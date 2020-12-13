@@ -5,7 +5,13 @@ Damiens Florent - 2020
 TODO
 
 ## Durée du projet
-TODO
+Le projet a été commencé à partir de Juillet 2020.
+
+| Type            |               Temps                |
+|-----------------|:----------------------------------:|
+| Back-End        | -                                  |
+| Front-End       | -                                  |
+| Mise en ligne   | -                                  |
 
 ## Les outils
 De multiples outils ont été utilisés dans le but d'améliorer la qualité du code. On note la présence de:
