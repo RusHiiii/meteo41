@@ -33,8 +33,6 @@ class CommandMapper
     }
 
     /**
-     * @param $json
-     * @param $classToMap
      * @return array|object
      * @throws InvalidCommandException
      */
