@@ -134,7 +134,7 @@ App\Entity\WebApp\WeatherData:
       type: integer
       nullable: false
     createdAt:
-      type: date
+      type: datetime
       nullable: false
   manyToOne:
     unit:

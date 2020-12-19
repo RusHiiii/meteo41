@@ -7,7 +7,6 @@ use Behat\Gherkin\Node\PyStringNode;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Webmozart\Assert\Assert;
 
 final class RequestContext implements Context
@@ -30,8 +29,7 @@ final class RequestContext implements Context
     public function __construct(
         KernelInterface $kernel,
         KernelBrowser $client
-    )
-    {
+    ) {
         $this->kernel = $kernel;
         $this->client = $client;
     }
@@ -53,7 +51,7 @@ final class RequestContext implements Context
     }
 
     /**
-     * @Then the content should have the following content
+     * @Then the response should have the following content
      */
     public function theContentShouldBe(PyStringNode $payload = null)
     {

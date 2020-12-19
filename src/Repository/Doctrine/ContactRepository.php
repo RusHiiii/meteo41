@@ -15,4 +15,22 @@ class ContactRepository extends ServiceEntityRepository implements ContactReposi
     {
         parent::__construct($registry, Contact::class);
     }
+
+    /**
+     * @param string $email
+     * @return array
+     */
+    public function findByEmailSpamming(string $email)
+    {
+        $qb = $this
+            ->createQueryBuilder('contact')
+            ->andWhere('contact.email = :email')
+            ->andWhere('contact.createdAt > :date')
+            ->setParameter('date', (new \DateTime())->modify('-1 day'))
+            ->setParameter('email', $email);
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 }

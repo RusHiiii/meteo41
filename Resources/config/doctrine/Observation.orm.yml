@@ -16,10 +16,10 @@ App\Entity\WebApp\Observation:
       length: 255
       nullable: false
     createdAt:
-      type: date
+      type: datetime
       nullable: false
     updatedAt:
-      type: date
+      type: datetime
       nullable: false
   manyToOne:
     user:

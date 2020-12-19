@@ -19,10 +19,10 @@ App\Entity\WebApp\Post:
       type: text
       nullable: false
     createdAt:
-      type: date
+      type: datetime
       nullable: false
     updatedAt:
-      type: date
+      type: datetime
       nullable: false
   manyToOne:
     user:

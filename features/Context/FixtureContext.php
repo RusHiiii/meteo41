@@ -16,8 +16,7 @@ final class FixtureContext implements Context
 
     public function __construct(
         KernelInterface $kernel
-    )
-    {
+    ) {
         $this->kernel = $kernel;
     }
 

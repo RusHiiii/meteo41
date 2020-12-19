@@ -40,5 +40,5 @@ App\Entity\WebApp\Unit:
       length: 32
       nullable: false
     createdAt:
-      type: date
+      type: datetime
       nullable: false

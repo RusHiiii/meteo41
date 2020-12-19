@@ -1,0 +1,15 @@
+App\Entity\WebApp\Contact:
+    contact_1:
+        __construct: false
+        email: 'etst@orange.fr'
+        name: 'nom'
+        subject: 'subject'
+        message: 'message'
+        createdAt: '<date_create()>'
+    contact_2:
+        __construct: false
+        email: 'etst@orange.fr'
+        name: 'nom'
+        subject: 'subject'
+        message: 'message'
+        createdAt: '<date_create()>'
