@@ -160,6 +160,31 @@ Feature: Contact
       | email       | edit@test.fr   |
 
   @database
+  Scenario: Check contact edit with bad data
+    Given I load the fixture "contact"
+    And I am logged with the email "admin@test.fr"
+    When I request the url "/api/contact/2" with http verb "PUT" and with the payload
+    """
+    {
+      "email": "edit@test.fr",
+      "name": "",
+      "subject": "asasasas",
+      "message": "asazsasa"
+    }
+    """
+    Then the status code should be 400
+    And the response should have the following content
+    """
+     [
+       {
+          "message": "Cette valeur ne doit pas être vide.",
+          "messageTemplate": "This value should not be blank.",
+          "propertyPath": "name"
+       }
+     ]
+    """
+
+  @database
   Scenario: Check contact edit without user logged
     Given I load the fixture "contact"
     When I request the url "/api/contact/2" with http verb "PUT" and with the payload

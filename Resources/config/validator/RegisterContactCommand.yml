@@ -6,3 +6,5 @@ App\Core\Tactician\Command\Contact\RegisterContactCommand:
             - Email: ~
         subject:
             - NotBlank: ~
+        name:
+            - NotBlank: ~
