@@ -27,5 +27,8 @@ App\Entity\WebApp\Contact:
       type: text
       nullable: false
     createdAt:
-      type: date
+      type: datetime
       nullable: false
+    updatedAt:
+        type: datetime
+        nullable: false

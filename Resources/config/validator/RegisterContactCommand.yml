@@ -1,0 +1,10 @@
+App\Core\Tactician\Command\Contact\RegisterContactCommand:
+    properties:
+        message:
+            - NotBlank: ~
+        email:
+            - Email: ~
+        subject:
+            - NotBlank: ~
+        name:
+            - NotBlank: ~

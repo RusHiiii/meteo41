@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    contact.register_handler:
+        class: App\Core\Tactician\Handler\Contact\RegisterContactHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\Contact\RegisterContactCommand }
+
+    contact.delete_handler:
+        class: App\Core\Tactician\Handler\Contact\DeleteContactHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\Contact\DeleteContactCommand }
+
+    contact.edit_handler:
+        class: App\Core\Tactician\Handler\Contact\EditContactHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\Contact\EditContactCommand }

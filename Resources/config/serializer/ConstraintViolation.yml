@@ -1,0 +1,8 @@
+Symfony\Component\Validator\ConstraintViolation:
+    attributes:
+        message:
+            groups: ['constraint']
+        propertyPath:
+            groups: ['constraint']
+        messageTemplate:
+            groups: ['constraint']

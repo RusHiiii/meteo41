@@ -1,0 +1,45 @@
+App\Entity\WebApp\Contact:
+    contact_1:
+        __construct: false
+        email: 'etst@orange.fr'
+        name: 'nom'
+        subject: 'subject'
+        message: 'message'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'
+    contact_2:
+        __construct: false
+        email: 'etst@orange.fr'
+        name: 'nom'
+        subject: 'subject'
+        message: 'message'
+        createdAt: '<date_create("2020-12-12 00:12:12")>'
+        updatedAt: '<date_create("2020-12-12 00:12:12")>'
+    contact_3:
+        __construct: false
+        email: 'etst@orange.fr'
+        name: 'nom'
+        subject: 'subject'
+        message: 'message'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'
+
+App\Entity\WebApp\User:
+    user_1:
+        __construct: false
+        firstname: 'florent'
+        lastname: 'damiens'
+        email: 'admin@test.fr'
+        password: "<encodePassword('pass')>"
+        roles: '[ROLE_ADMIN]'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'
+    user_2:
+        __construct: false
+        firstname: 'florent'
+        lastname: 'damiens'
+        email: 'editor@test.fr'
+        password: "<encodePassword('pass')>"
+        roles: '[ROLE_EDITOR]'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'

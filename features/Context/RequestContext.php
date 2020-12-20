@@ -2,12 +2,13 @@
 
 namespace Behat\Context;
 
+use App\Repository\UserRepository;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Webmozart\Assert\Assert;
 
 final class RequestContext implements Context
@@ -27,13 +28,26 @@ final class RequestContext implements Context
      */
     private $client;
 
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * @var JWTTokenManagerInterface
+     */
+    private $JWTManager;
+
     public function __construct(
         KernelInterface $kernel,
-        KernelBrowser $client
-    )
-    {
+        KernelBrowser $client,
+        UserRepository $userRepository,
+        JWTTokenManagerInterface $JWTManager
+    ) {
         $this->kernel = $kernel;
         $this->client = $client;
+        $this->userRepository = $userRepository;
+        $this->JWTManager = $JWTManager;
     }
 
     /**
@@ -53,7 +67,7 @@ final class RequestContext implements Context
     }
 
     /**
-     * @Then the content should have the following content
+     * @Then the response should have the following content
      */
     public function theContentShouldBe(PyStringNode $payload = null)
     {
@@ -79,5 +93,34 @@ final class RequestContext implements Context
         );
 
         $this->response = $this->client->getResponse();
+    }
+
+    /**
+     * @When I request the url :uri with http verb :method
+     */
+    public function iRequestTheUrlWithHttpVerb($uri, $method)
+    {
+        $this->client->request(
+            $method,
+            $uri,
+            ['content-type' => 'application/json'],
+            [],
+            [],
+            null
+        );
+
+        $this->response = $this->client->getResponse();
+    }
+
+    /**
+     * @Given I am logged with the email :arg1
+     */
+    public function iAmLoggedWithTheEmail(string $email)
+    {
+        $user = $this->userRepository->findByEmail($email);
+
+        $this
+            ->client
+            ->setServerParameter('HTTP_AUTHORIZATION', sprintf('Bearer %s', $this->JWTManager->create($user)));
     }
 }

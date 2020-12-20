@@ -34,6 +34,7 @@ jobs:
                   extensions: xml, ctype, intl, filter, json, mbstring, pdo, xdebug
                   tools: composer:v1
                   coverage: xdebug
+                  ini-values: date.timezone=Europe/Paris
               env:
                   update: true
 
