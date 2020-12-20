@@ -1,3 +1,6 @@
+imports:
+    - { resource: '../Resources/config/service/' }
+
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -41,8 +44,3 @@ services:
 
     password_encoder:
         class: Symfony\Component\Security\Core\Encoder\NativePasswordEncoder
-
-    contact.register_contact_handler:
-        class: App\Core\Tactician\Handler\Contact\RegisterContactHandler
-        tags:
-            - { name: tactician.handler, command: App\Core\Tactician\Command\Contact\RegisterContactCommand }

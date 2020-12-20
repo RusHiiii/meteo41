@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Entity\WebApp;
+namespace App\Entity\Core\ViewModels\Contact;
 
 
-class Contact
+class ContactView
 {
     private int $id;
 
@@ -21,19 +21,23 @@ class Contact
     private string $message;
 
     /**
-     * Contact constructor.
+     * ContactView constructor.
+     * @param int $id
      * @param string $name
      * @param string $subject
      * @param string $email
+     * @param \DateTime $createdAt
+     * @param \DateTime $updatedAt
      * @param string $message
      */
-    public function __construct(string $name, string $subject, string $email, string $message)
+    public function __construct(int $id, string $name, string $subject, string $email, \DateTime $createdAt, \DateTime $updatedAt, string $message)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->subject = $subject;
         $this->email = $email;
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
+        $this->createdAt = $createdAt;
+        $this->updatedAt = $updatedAt;
         $this->message = $message;
     }
 
@@ -54,27 +58,11 @@ class Contact
     }
 
     /**
-     * @param string $name
-     */
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    /**
      * @return string
      */
     public function getSubject(): string
     {
         return $this->subject;
-    }
-
-    /**
-     * @param string $subject
-     */
-    public function setSubject(string $subject): void
-    {
-        $this->subject = $subject;
     }
 
     /**
@@ -86,43 +74,11 @@ class Contact
     }
 
     /**
-     * @param string $email
-     */
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt(\DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return $this->message;
-    }
-
-    /**
-     * @param mixed $message
-     */
-    public function setMessage($message): void
-    {
-        $this->message = $message;
     }
 
     /**
@@ -134,10 +90,10 @@ class Contact
     }
 
     /**
-     * @param \DateTime $updatedAt
+     * @return string
      */
-    public function setUpdatedAt(\DateTime $updatedAt): void
+    public function getMessage(): string
     {
-        $this->updatedAt = $updatedAt;
+        return $this->message;
     }
 }

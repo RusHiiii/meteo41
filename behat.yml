@@ -4,6 +4,5 @@ default:
             contexts:
                 - Behat\Context\FixtureContext
                 - Behat\Context\RequestContext
-                - Behat\Context\LoginContext
     extensions:
         FriendsOfBehat\SymfonyExtension: ~

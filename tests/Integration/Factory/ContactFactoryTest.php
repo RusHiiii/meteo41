@@ -1,15 +1,14 @@
 <?php
 
 
-namespace App\Tests\Integration\Assembler;
+namespace App\Tests\Integration\Factory;
 
-use App\Core\Assembler\ContactAssembler;
+use App\Core\Factory\ContactFactory;
 use App\Core\Tactician\Command\Contact\RegisterContactCommand;
 use App\Repository\Doctrine\ContactRepository;
 use App\Tests\TestCase;
-use Doctrine\ORM\EntityManagerInterface;
 
-class ContactAssemblerTest extends TestCase
+class ContactFactoryTest extends TestCase
 {
     /**
      * @var ContactRepository
@@ -17,27 +16,21 @@ class ContactAssemblerTest extends TestCase
     private $contactRepository;
 
     /**
-     * @var EntityManagerInterface
+     * @var ContactFactory
      */
-    private $entityManager;
-
-    /**
-     * @var ContactAssembler
-     */
-    private $contactAssembler;
+    private $contactFactory;
 
     protected function setUp()
     {
         parent::setUp();
         $this->contactRepository = self::$container->get(ContactRepository::class);
-        $this->entityManager = self::$container->get(EntityManagerInterface::class);
-        $this->contactAssembler = self::$container->get(ContactAssembler::class);
+        $this->contactFactory = self::$container->get(ContactFactory::class);
     }
 
     public function testCreateContactFromCommand()
     {
         $command = new RegisterContactCommand('name', 'email@email.fr', 'subject', 'message');
-        $contact = $this->contactAssembler->createContactFromCommand($command);
+        $contact = $this->contactFactory->createContactFromCommand($command);
 
         $this->assertEquals('name', $contact->getName());
         $this->assertEquals('subject', $contact->getSubject());

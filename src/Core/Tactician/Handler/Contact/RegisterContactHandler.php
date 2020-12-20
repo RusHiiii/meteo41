@@ -3,9 +3,8 @@
 
 namespace App\Core\Tactician\Handler\Contact;
 
-
-use App\Core\Assembler\ContactAssembler;
 use App\Core\Exception\Contact\ContactLimitException;
+use App\Core\Factory\ContactFactory;
 use App\Core\Tactician\Command\Contact\RegisterContactCommand;
 use App\Repository\Doctrine\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,9 +17,9 @@ class RegisterContactHandler
     private $contactRepository;
 
     /**
-     * @var ContactAssembler
+     * @var ContactFactory
      */
-    private $contactAssembler;
+    private $contactFactory;
 
     /**
      * @var EntityManagerInterface
@@ -29,11 +28,11 @@ class RegisterContactHandler
 
     public function __construct(
         ContactRepository $contactRepository,
-        ContactAssembler $assembler,
+        ContactFactory $factory,
         EntityManagerInterface $entityManager
     ) {
         $this->contactRepository = $contactRepository;
-        $this->contactAssembler = $assembler;
+        $this->contactFactory = $factory;
         $this->entityManager = $entityManager;
     }
 
@@ -45,7 +44,7 @@ class RegisterContactHandler
             throw new ContactLimitException();
         }
 
-        $contact = $this->contactAssembler->createContactFromCommand($command);
+        $contact = $this->contactFactory->createContactFromCommand($command);
 
         $this->entityManager->persist($contact);
     }
