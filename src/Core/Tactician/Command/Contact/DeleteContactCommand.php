@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Core\Tactician\Command\Contact;
-
 
 class DeleteContactCommand
 {

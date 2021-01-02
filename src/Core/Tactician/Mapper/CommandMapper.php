@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Core\Tactician\Mapper;
 
 use App\Core\Exception\InvalidCommandException;

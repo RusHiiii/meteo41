@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Core\Factory;
-
 
 use App\Core\Tactician\Command\Contact\EditContactCommand;
 use App\Core\Tactician\Command\Contact\RegisterContactCommand;
@@ -14,7 +12,7 @@ class ContactFactory
      * @param RegisterContactCommand $command
      * @return Contact
      */
-    public function createContactFromCommand(RegisterContactCommand  $command)
+    public function createContactFromCommand(RegisterContactCommand $command)
     {
         return new Contact(
             $command->getName(),

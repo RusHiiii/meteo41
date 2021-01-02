@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repository\Doctrine;
-
 
 use App\Core\Constant\Contact\ApiSearch;
 use App\Entity\WebApp\Contact;

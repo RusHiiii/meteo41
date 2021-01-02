@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Entity\WebApp;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -280,6 +278,5 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
-
     }
 }

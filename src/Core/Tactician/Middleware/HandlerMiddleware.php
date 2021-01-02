@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Core\Tactician\Middleware;
 
 use Doctrine\ORM\EntityManagerInterface;

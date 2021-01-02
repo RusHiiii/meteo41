@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Security;
-
 
 use App\Repository\UserRepository;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
@@ -27,9 +25,9 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
     private $JWTManager;
 
     public function __construct(
-      UserRepository $userRepository,
-      NativePasswordEncoder $passwordEncoder,
-      JWTTokenManagerInterface $JWTManager
+        UserRepository $userRepository,
+        NativePasswordEncoder $passwordEncoder,
+        JWTTokenManagerInterface $JWTManager
     ) {
         $this->userRepository = $userRepository;
         $this->passwordEncoder = $passwordEncoder;

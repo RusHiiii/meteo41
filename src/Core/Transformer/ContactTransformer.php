@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Core\Transformer;
-
 
 use App\Entity\Core\ViewModels\Contact\ContactSearchView;
 use App\Entity\Core\ViewModels\Contact\ContactView;

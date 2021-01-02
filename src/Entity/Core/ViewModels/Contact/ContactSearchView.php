@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Entity\Core\ViewModels\Contact;
-
 
 class ContactSearchView
 {

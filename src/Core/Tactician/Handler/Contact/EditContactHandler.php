@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Core\Tactician\Handler\Contact;
-
 
 use App\Core\Exception\Contact\ContactNotFoundException;
 use App\Core\Factory\ContactFactory;

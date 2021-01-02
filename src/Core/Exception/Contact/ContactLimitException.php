@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Core\Exception\Contact;
-
 
 class ContactLimitException extends \Exception
 {
