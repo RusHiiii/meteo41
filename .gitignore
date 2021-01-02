@@ -20,3 +20,8 @@
 /config/jwt/private.pem
 /config/jwt/public.pem
 ###< lexik/jwt-authentication-bundle ###
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###

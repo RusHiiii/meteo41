@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\Constant\Contact\ApiSearch;
 use App\Core\Exception\Contact\ContactLimitException;
 use App\Core\Exception\Contact\ContactNotFoundException;
 use App\Core\Exception\InvalidCommandException;
@@ -156,6 +157,30 @@ class ContactController extends AbstractController
         }
 
         $contact = $this->contactTransformer->transformContactToView($contact);
+
+        return new SerializedResponse($this->serializer->serialize($contact, 'json'), 200);
+    }
+
+    /**
+     * @Route("/api/contact", name="list_contact", methods={"GET"})
+     */
+    public function listContactAction(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
+        try {
+            $contacts = $this->contactRepository->findPaginatedContacts(
+                $request->query->get('searchBy', []),
+                $request->query->get('order', ApiSearch::CONTACT_ORDER_BY_ASC),
+                $request->query->get('page', 1),
+                $request->query->get('maxResult', 10)
+            );
+        } catch (\InvalidArgumentException $e) {
+            $error = $this->errorFactory->create($e);
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
+        }
+
+        $contact = $this->contactTransformer->transformContactToSearchView($contacts);
 
         return new SerializedResponse($this->serializer->serialize($contact, 'json'), 200);
     }
