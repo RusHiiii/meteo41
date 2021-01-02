@@ -77,4 +77,4 @@ jobs:
               run: vendor/bin/phpcs --warning-severity=0 --standard=PSR12 src/
 
             - name: Run infection
-              run: vendor/bin/infection --min-msi=0 --threads=4
+              run: vendor/bin/infection --min-msi=50 --threads=4
