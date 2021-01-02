@@ -5,8 +5,8 @@ App\Entity\WebApp\Contact:
         name: 'nom'
         subject: 'subject'
         message: 'message'
-        createdAt: '<date_create()>'
-        updatedAt: '<date_create()>'
+        createdAt: '<date_create("2020-12-11 00:12:12")>'
+        updatedAt: '<date_create("2020-12-11 00:12:12")>'
     contact_2:
         __construct: false
         email: 'etst@orange.fr'
@@ -21,8 +21,8 @@ App\Entity\WebApp\Contact:
         name: 'nom'
         subject: 'subject'
         message: 'message'
-        createdAt: '<date_create()>'
-        updatedAt: '<date_create()>'
+        createdAt: '<date_create("2020-12-10 00:12:12")>'
+        updatedAt: '<date_create("2020-12-10 00:12:12")>'
 
 App\Entity\WebApp\User:
     user_1:

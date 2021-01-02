@@ -105,14 +105,7 @@ Feature: Contact
       "message": "ezfezf"
     }
     """
-    Then the status code should be 400
-    And the response should have the following content
-    """
-     {
-        "type": "ContactLimitException",
-        "content": "ContactLimitException"
-     }
-    """
+    Then the status code should be 201
 
   @database
   Scenario: Delete contact without user logged
@@ -255,4 +248,140 @@ Feature: Contact
       "createdAt": "2020-12-12T00:12:12+01:00",
       "updatedAt": "2020-12-12T00:12:12+01:00"
     }
+    """
+
+  @database
+  Scenario: Show list of contact with user logged
+    Given I load the fixture "contact"
+    And I am logged with the email "admin@test.fr"
+    When I request the url "/api/contact" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "numberOfResult": 3,
+       "contacts": [
+         {
+          "id": "1",
+          "email": "etst@orange.fr",
+          "name": "nom",
+          "subject": "subject",
+          "message": "message",
+          "createdAt": "2020-12-11T00:12:12+01:00",
+          "updatedAt": "2020-12-11T00:12:12+01:00"
+        },
+         {
+          "id": "2",
+          "email": "etst@orange.fr",
+          "name": "nom",
+          "subject": "subject",
+          "message": "message",
+          "createdAt": "2020-12-12T00:12:12+01:00",
+          "updatedAt": "2020-12-12T00:12:12+01:00"
+        },
+         {
+          "id": "3",
+          "email": "etst@orange.fr",
+          "name": "nom",
+          "subject": "subject",
+          "message": "message",
+          "createdAt": "2020-12-10T00:12:12+01:00",
+          "updatedAt": "2020-12-10T00:12:12+01:00"
+        }
+      ]
+    }
+    """
+
+  @database
+  Scenario: Show list of contact with user logged with params
+    Given I load the fixture "contact"
+    And I am logged with the email "admin@test.fr"
+    When I request the url "/api/contact?searchBy[email]=etst@orange.fr" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "numberOfResult": 3,
+       "contacts": [
+         {
+          "id": "1",
+          "email": "etst@orange.fr",
+          "name": "nom",
+          "subject": "subject",
+          "message": "message",
+          "createdAt": "2020-12-11T00:12:12+01:00",
+          "updatedAt": "2020-12-11T00:12:12+01:00"
+        },
+         {
+          "id": "2",
+          "email": "etst@orange.fr",
+          "name": "nom",
+          "subject": "subject",
+          "message": "message",
+          "createdAt": "2020-12-12T00:12:12+01:00",
+          "updatedAt": "2020-12-12T00:12:12+01:00"
+        },
+         {
+          "id": "3",
+          "email": "etst@orange.fr",
+          "name": "nom",
+          "subject": "subject",
+          "message": "message",
+          "createdAt": "2020-12-10T00:12:12+01:00",
+          "updatedAt": "2020-12-10T00:12:12+01:00"
+        }
+      ]
+    }
+    """
+
+  @database
+  Scenario: Show list of contact with user logged with params
+    Given I load the fixture "contact"
+    And I am logged with the email "admin@test.fr"
+    When I request the url "/api/contact?searchBy[email]=bad@orange.fr" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "numberOfResult": 0,
+       "contacts": []
+    }
+    """
+
+  @database
+  Scenario: Show list of contact with user logged with params order
+    Given I load the fixture "contact"
+    And I am logged with the email "admin@test.fr"
+    When I request the url "/api/contact?searchBy[email]=etst@orange.fr&order=DESC&maxResult=1&page=2" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "numberOfResult": 3,
+       "contacts": [
+       {
+          "id": "2",
+          "email": "etst@orange.fr",
+          "name": "nom",
+          "subject": "subject",
+          "message": "message",
+          "createdAt": "2020-12-12T00:12:12+01:00",
+          "updatedAt": "2020-12-12T00:12:12+01:00"
+        }
+      ]
+    }
+    """
+
+  @database
+  Scenario: Show list of contact with user logged with bad params order
+    Given I load the fixture "contact"
+    And I am logged with the email "admin@test.fr"
+    When I request the url "/api/contact?searchBy[email]=etst@orange.fr&order=DESCAS&maxResult=1&page=2" with http verb "GET"
+    Then the status code should be 400
+    And the response should have the following content
+    """
+     {
+        "type": "InvalidArgumentException",
+        "content": "Order not valid"
+     }
     """

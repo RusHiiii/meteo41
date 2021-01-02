@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repository\Doctrine;
-
 
 use App\Entity\WebApp\WeatherData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

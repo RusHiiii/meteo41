@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Core\Tactician\Handler\Contact;
 
 use App\Core\Exception\Contact\ContactLimitException;

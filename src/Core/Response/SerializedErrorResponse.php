@@ -1,9 +1,6 @@
 <?php
 
-
 namespace App\Core\Response;
-
-
 
 use Symfony\Component\HttpFoundation\Response;
 

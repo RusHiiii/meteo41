@@ -70,8 +70,11 @@ jobs:
               run: bin/phpunit --testdox
 
             # —— Coding standards
-            - name: Coding standards checks
+            - name: Coding standards checks with PHPStan
               run: vendor/bin/phpstan analyse -l 4 src
+
+            - name: Coding standards checks with PHPCS
+              run: vendor/bin/phpcs --warning-severity=0 --standard=PSR12 src/
 
             - name: Run infection
               run: vendor/bin/infection --min-msi=0 --threads=4

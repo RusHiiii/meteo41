@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Fixtures\Provider;
 
 use Faker\Provider\Base as BaseProvider;

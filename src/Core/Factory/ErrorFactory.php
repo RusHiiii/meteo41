@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Core\Factory;
-
 
 use App\Entity\Core\Error;
 
