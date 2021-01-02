@@ -19,7 +19,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $queryBuilder
+     * @param mixed $queryBuilder
      * @param int $page
      * @param int $maxResult
      * @return Paginator
