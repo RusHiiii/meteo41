@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    weather_station.delete_handler:
+        class: App\Core\Tactician\Handler\WeatherStation\DeleteWeatherStationHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\WeatherStation\DeleteWeatherStationCommand }
+
+    weather_station.register_handler:
+        class: App\Core\Tactician\Handler\WeatherStation\RegisterWeatherStationHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\WeatherStation\RegisterWeatherStationCommand }
