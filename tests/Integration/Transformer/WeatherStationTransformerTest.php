@@ -3,13 +3,10 @@
 
 namespace App\Tests\Integration\Transformer;
 
-use App\Core\Constant\Contact\ApiSearch;
-use App\Core\Transformer\ContactTransformer;
+use App\Core\Constant\WeatherStation\ApiSearch;
 use App\Core\Transformer\WeatherStationTransformer;
-use App\Entity\Core\ViewModels\Contact\ContactSearchView;
-use App\Entity\Core\ViewModels\Contact\ContactView;
+use App\Entity\Core\ViewModels\WeatherStation\WeatherStationSearchView;
 use App\Entity\Core\ViewModels\WeatherStation\WeatherStationView;
-use App\Repository\Doctrine\ContactRepository;
 use App\Repository\Doctrine\WeatherStationRepository;
 use App\Tests\TestCase;
 
@@ -50,5 +47,22 @@ class WeatherStationTransformerTest extends TestCase
         $this->assertEquals(4.2356, $weatherStationView->getLng());
         $this->assertEquals('HP 2551', $weatherStationView->getModel());
         $this->assertEquals('200m', $weatherStationView->getElevation());
+    }
+
+    public function testTransformToSearchView()
+    {
+        $entities = $this->loadFile('tests/.fixtures/weatherStation.yml');
+
+        $weatherStations = $this->weatherStationRepository->findPaginatedWeatherStations(
+            [],
+            ApiSearch::WEATHER_STATION_ORDER_BY_ASC,
+            1,
+            10
+        );
+
+        $weatherStationSearchView = $this->weatherStationTransformer->transformWeatherStationToSearchView($weatherStations);
+
+        $this->assertInstanceOf(WeatherStationSearchView::class, $weatherStationSearchView);
+        $this->assertEquals(2, $weatherStationSearchView->getNumberOfResult());
     }
 }

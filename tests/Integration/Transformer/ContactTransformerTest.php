@@ -45,6 +45,8 @@ class ContactTransformerTest extends TestCase
 
     public function testTransformToSearchView()
     {
+        $entities = $this->loadFile('tests/.fixtures/contact.yml');
+
         $contacts = $this->contactRepository->findPaginatedContacts(
             [],
             ApiSearch::CONTACT_ORDER_BY_ASC,
@@ -55,7 +57,7 @@ class ContactTransformerTest extends TestCase
         $contactView = $this->contactTransformer->transformContactToSearchView($contacts);
 
         $this->assertInstanceOf(ContactSearchView::class, $contactView);
-        $this->assertEquals('3', $contactView->getNumberOfResult());
+        $this->assertEquals(3, $contactView->getNumberOfResult());
         $this->assertIsArray($contactView->getContacts());
     }
 }
