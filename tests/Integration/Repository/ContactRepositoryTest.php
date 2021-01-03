@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Tests\Integration\Repository\Contact;
+namespace App\Tests\Integration\Repository;
 
 
 use App\Core\Constant\Contact\ApiSearch;
@@ -43,7 +43,7 @@ class ContactRepositoryTest extends TestCase
 
         $contacts = $this->contactRepository->findPaginatedContacts(
             [
-                'email' => 'orange.fr'
+                ApiSearch::CONTACT_SEARCH_BY_EMAIL => 'orange.fr'
             ],
             ApiSearch::CONTACT_ORDER_BY_ASC,
             1,

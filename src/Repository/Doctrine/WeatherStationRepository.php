@@ -2,12 +2,13 @@
 
 namespace App\Repository\Doctrine;
 
+use App\Core\Constant\WeatherStation\ApiSearch;
 use App\Entity\WebApp\WeatherStation;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Repository\WeatherStationRepository as WeatherStationRepositoryInterface;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-class WeatherStationRepository extends ServiceEntityRepository implements WeatherStationRepositoryInterface
+class WeatherStationRepository extends AbstractRepository implements WeatherStationRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -34,5 +35,67 @@ class WeatherStationRepository extends ServiceEntityRepository implements Weathe
         return $qb
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @param array $searchBy
+     * @param string $order
+     * @param int $page
+     * @param int $maxResult
+     * @return \Doctrine\ORM\Tools\Pagination\Paginator
+     */
+    public function findPaginatedWeatherStations(array $searchBy, string $order, int $page, int $maxResult)
+    {
+        $qb = $this
+            ->createQueryBuilder('weatherStation');
+
+        return $this
+            ->addSearchBy($qb, $searchBy)
+            ->addOrderBy($qb, $order)
+            ->getPaginatedResult($qb, $page, $maxResult);
+    }
+
+    /**
+     * @param QueryBuilder $qb
+     * @param array $searchBy
+     * @return $this
+     */
+    private function addSearchBy(QueryBuilder $qb, array $searchBy)
+    {
+        foreach ($searchBy as $key => $value) {
+            switch ($key) {
+                case ApiSearch::WEATHER_STATION_SEARCH_BY_COUNTRY:
+                    $qb
+                        ->andWhere('weatherStation.country = :country')
+                        ->setParameter('country', $value);
+                    break;
+                case ApiSearch::WEATHER_STATION_SEARCH_BY_NAME:
+                    $qb
+                        ->andWhere('weatherStation.name LIKE :name')
+                        ->setParameter('name', sprintf('%%%s%%', $value));
+                    break;
+                default:
+                    throw new \InvalidArgumentException('Invalid search value');
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param QueryBuilder $qb
+     * @param string $order
+     * @return $this
+     */
+    private function addOrderBy(QueryBuilder $qb, string $order)
+    {
+        if (!in_array($order, [ApiSearch::WEATHER_STATION_ORDER_BY_ASC, ApiSearch::WEATHER_STATION_ORDER_BY_DESC])) {
+            throw new \InvalidArgumentException('Order not valid');
+        }
+
+        $qb
+            ->addOrderBy('weatherStation.id', $order);
+
+        return $this;
     }
 }

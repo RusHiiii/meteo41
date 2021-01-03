@@ -2,31 +2,23 @@
 
 namespace App\Controller;
 
-use App\Core\Constant\Contact\ApiSearch;
-use App\Core\Exception\Contact\ContactLimitException;
-use App\Core\Exception\Contact\ContactNotFoundException;
+use App\Core\Constant\WeatherStation\ApiSearch;
 use App\Core\Exception\InvalidCommandException;
 use App\Core\Exception\WeatherStation\DuplicateWeatherStationFoundException;
 use App\Core\Exception\WeatherStation\WeatherStationNotFoundException;
 use App\Core\Factory\ErrorFactory;
 use App\Core\Response\SerializedErrorResponse;
 use App\Core\Response\SerializedResponse;
-use App\Core\Tactician\Command\Contact\DeleteContactCommand;
-use App\Core\Tactician\Command\Contact\EditContactCommand;
-use App\Core\Tactician\Command\Contact\RegisterContactCommand;
 use App\Core\Tactician\Command\WeatherStation\DeleteWeatherStationCommand;
 use App\Core\Tactician\Command\WeatherStation\EditWeatherStationCommand;
 use App\Core\Tactician\Command\WeatherStation\RegisterWeatherStationCommand;
 use App\Core\Tactician\Mapper\CommandMapper;
-use App\Core\Transformer\ContactTransformer;
 use App\Core\Transformer\WeatherStationTransformer;
-use App\Repository\Doctrine\ContactRepository;
 use App\Repository\Doctrine\WeatherStationRepository;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -164,6 +156,30 @@ class WeatherStationController extends AbstractController
         }
 
         $contact = $this->weatherStationTransformer->transformWeatherStationToView($weatherStation);
+
+        return new SerializedResponse($this->serializer->serialize($contact, 'json'), 200);
+    }
+
+    /**
+     * @Route("/api/weatherStation", name="list_weather_station", methods={"GET"})
+     */
+    public function listWeatherStationAction(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+
+        try {
+            $weatherStations = $this->weatherStationRepository->findPaginatedWeatherStations(
+                $request->query->get('searchBy', []),
+                $request->query->get('order', ApiSearch::WEATHER_STATION_ORDER_BY_ASC),
+                $request->query->get('page', 1),
+                $request->query->get('maxResult', 10)
+            );
+        } catch (\InvalidArgumentException $e) {
+            $error = $this->errorFactory->create($e);
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
+        }
+
+        $contact = $this->weatherStationTransformer->transformWeatherStationToSearchView($weatherStations);
 
         return new SerializedResponse($this->serializer->serialize($contact, 'json'), 200);
     }
