@@ -9,7 +9,7 @@ App\Entity\WebApp\Observation:
     id:
       type: integer
       generator:
-      strategy: AUTO
+        strategy: AUTO
   fields:
     message:
       type: string

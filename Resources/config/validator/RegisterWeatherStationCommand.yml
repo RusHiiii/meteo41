@@ -1,0 +1,27 @@
+App\Core\Tactician\Command\WeatherStation\RegisterWeatherStationCommand:
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                min: 5
+                max: 50
+        description:
+            - NotBlank: ~
+        shortDescription:
+            - NotBlank: ~
+        country:
+            - Country: ~
+        address:
+            - NotBlank: ~
+        city:
+            - NotBlank: ~
+        lat:
+            - NotBlank: ~
+        lng:
+            - NotBlank: ~
+        apiToken:
+            - NotBlank: ~
+        model:
+            - NotBlank: ~
+        elevation:
+            - NotBlank: ~

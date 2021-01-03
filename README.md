@@ -40,7 +40,7 @@ Pour lancer Infection:
 `vendor/bin/infection --threads=4 --min-msi=48`
 
 Pour lancer PHPCS:
-`vendor/bin/phpcs --standard=PSR12 src/`
+`vendor/bin/phpcs --standard=PSR12 src/ --warning-severity=0`
 
 Pour lancer PHPCBF:
 `vendor/bin/phpcbf --standard=PSR12 src/`
