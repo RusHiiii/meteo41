@@ -15,9 +15,11 @@ use App\Core\Tactician\Command\Contact\DeleteContactCommand;
 use App\Core\Tactician\Command\Contact\EditContactCommand;
 use App\Core\Tactician\Command\Contact\RegisterContactCommand;
 use App\Core\Tactician\Command\WeatherStation\DeleteWeatherStationCommand;
+use App\Core\Tactician\Command\WeatherStation\EditWeatherStationCommand;
 use App\Core\Tactician\Command\WeatherStation\RegisterWeatherStationCommand;
 use App\Core\Tactician\Mapper\CommandMapper;
 use App\Core\Transformer\ContactTransformer;
+use App\Core\Transformer\WeatherStationTransformer;
 use App\Repository\Doctrine\ContactRepository;
 use App\Repository\Doctrine\WeatherStationRepository;
 use League\Tactician\CommandBus;
@@ -55,18 +57,25 @@ class WeatherStationController extends AbstractController
      */
     private $weatherStationRepository;
 
+    /**
+     * @var WeatherStationTransformer
+     */
+    private $weatherStationTransformer;
+
     public function __construct(
         CommandBus $commandBus,
         CommandMapper $commandMapper,
         ErrorFactory $errorFactory,
         SerializerInterface $serializer,
-        WeatherStationRepository $weatherStationRepository
+        WeatherStationRepository $weatherStationRepository,
+        WeatherStationTransformer $weatherStationTransformer
     ) {
         $this->commandBus = $commandBus;
         $this->commandMapper = $commandMapper;
         $this->errorFactory = $errorFactory;
         $this->serializer = $serializer;
         $this->weatherStationRepository = $weatherStationRepository;
+        $this->weatherStationTransformer = $weatherStationTransformer;
     }
 
     /**
@@ -95,6 +104,34 @@ class WeatherStationController extends AbstractController
     }
 
     /**
+     * @Route("/api/weatherStation/{id}", name="edit_weather_station", methods={"POST"})
+     */
+    public function editWeatherStationAction(Request $request, $id): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        try {
+            /** @var EditWeatherStationCommand $command */
+            $command = $this
+                ->commandMapper
+                ->map($request->getContent(), EditWeatherStationCommand::class);
+        } catch (InvalidCommandException $e) {
+            return new SerializedErrorResponse($e->getMessage(), 400);
+        }
+
+        $command->setId($id);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (WeatherStationNotFoundException $e) {
+            $error = $this->errorFactory->create($e);
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);
+        }
+
+        return new SerializedResponse(null, 204);
+    }
+
+    /**
      * @Route("/api/weatherStation/{id}", name="delete_weather_station", methods={"DELETE"})
      */
     public function deleteContactAction(Request $request, $id): Response
@@ -111,5 +148,23 @@ class WeatherStationController extends AbstractController
         }
 
         return new SerializedResponse(null, 204);
+    }
+
+    /**
+     * @Route("/api/weatherStation/{id}", name="show_weather_station", methods={"GET"})
+     */
+    public function showWeatherStationAction(Request $request, $id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+
+        $weatherStation = $this->weatherStationRepository->find($id);
+        if ($weatherStation === null) {
+            $error = $this->errorFactory->create(new WeatherStationNotFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);
+        }
+
+        $contact = $this->weatherStationTransformer->transformWeatherStationToView($weatherStation);
+
+        return new SerializedResponse($this->serializer->serialize($contact, 'json'), 200);
     }
 }

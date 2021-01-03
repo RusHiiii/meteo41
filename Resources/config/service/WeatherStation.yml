@@ -12,3 +12,8 @@ services:
         class: App\Core\Tactician\Handler\WeatherStation\RegisterWeatherStationHandler
         tags:
             - { name: tactician.handler, command: App\Core\Tactician\Command\WeatherStation\RegisterWeatherStationCommand }
+
+    weather_station.edit_handler:
+        class: App\Core\Tactician\Handler\WeatherStation\EditWeatherStationHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\WeatherStation\EditWeatherStationCommand }
