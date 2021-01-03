@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Core\Constant\WeatherStation;
-
 
 class ApiSearch
 {
