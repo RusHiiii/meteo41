@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    unit.register_handler:
+        class: App\Core\Tactician\Handler\Unit\RegisterUnitHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\Unit\RegisterUnitCommand }

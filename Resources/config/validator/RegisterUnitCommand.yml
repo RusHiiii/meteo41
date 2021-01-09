@@ -1,0 +1,16 @@
+App\Core\Tactician\Command\Unit\RegisterUnitCommand:
+    properties:
+        temperatureUnit:
+            - NotBlank: ~
+        speedUnit:
+            - NotBlank: ~
+        rainUnit:
+            - NotBlank: ~
+        solarRadiationUnit:
+            - NotBlank: ~
+        pmUnit:
+            - NotBlank: ~
+        humidityUnit:
+            - NotBlank: ~
+        type:
+            - NotBlank: ~

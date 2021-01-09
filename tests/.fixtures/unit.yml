@@ -1,0 +1,31 @@
+App\Entity\WebApp\User:
+    user_1:
+        __construct: false
+        firstname: 'florent'
+        lastname: 'damiens'
+        email: 'admin@orange.fr'
+        password: "<encodePassword('pass')>"
+        roles: '[ROLE_ADMIN]'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'
+    user_2:
+        __construct: false
+        firstname: 'florent'
+        lastname: 'damiens'
+        email: 'editor@orange.fr'
+        password: "<encodePassword('pass')>"
+        roles: '[ROLE_EDITOR]'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'
+App\Entity\WebApp\Unit:
+    unit_1:
+        __construct: false
+        temperatureUnit: '°C'
+        speedUnit: 'm/s'
+        rainUnit: 'mm'
+        solarRadiationUnit: "lux"
+        pmUnit: 'um/m'
+        humidityUnit: '%'
+        type: 'metric'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'

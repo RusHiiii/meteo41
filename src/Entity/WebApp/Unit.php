@@ -22,6 +22,8 @@ class Unit
 
     private \DateTime $createdAt;
 
+    private \DateTime $updatedAt;
+
     /**
      * Unit constructor.
      * @param string $temperatureUnit
@@ -42,6 +44,7 @@ class Unit
         $this->humidityUnit = $humidityUnit;
         $this->type = $type;
         $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -178,5 +181,21 @@ class Unit
     public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt(\DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }
