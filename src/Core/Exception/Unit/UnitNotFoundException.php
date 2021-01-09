@@ -2,7 +2,7 @@
 
 namespace App\Core\Exception\Unit;
 
-class UnitAlreadyExistException extends \Exception
+class UnitNotFoundException extends \Exception
 {
     public function __construct($messages = null, $code = 0, \Exception $previous = null)
     {

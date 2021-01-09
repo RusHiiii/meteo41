@@ -7,3 +7,13 @@ services:
         class: App\Core\Tactician\Handler\Unit\RegisterUnitHandler
         tags:
             - { name: tactician.handler, command: App\Core\Tactician\Command\Unit\RegisterUnitCommand }
+
+    unit.edit_handler:
+        class: App\Core\Tactician\Handler\Unit\EditUnitHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\Unit\EditUnitCommand }
+
+    unit.delete_handler:
+        class: App\Core\Tactician\Handler\Unit\DeleteUnitHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\Unit\DeleteUnitCommand }

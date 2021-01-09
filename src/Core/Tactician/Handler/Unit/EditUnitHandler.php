@@ -2,13 +2,13 @@
 
 namespace App\Core\Tactician\Handler\Unit;
 
-use App\Core\Exception\Unit\UnitAlreadyExistException;
+use App\Core\Exception\Unit\UnitNotFoundException;
 use App\Core\Factory\UnitFactory;
-use App\Core\Tactician\Command\Unit\RegisterUnitCommand;
+use App\Core\Tactician\Command\Unit\EditUnitCommand;
 use App\Repository\Doctrine\UnitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class RegisterUnitHandler
+class EditUnitHandler
 {
     /**
      * @var UnitRepository
@@ -35,15 +35,13 @@ class RegisterUnitHandler
         $this->entityManager = $entityManager;
     }
 
-    public function handle(RegisterUnitCommand $command)
+    public function handle(EditUnitCommand $command)
     {
-        $unit = $this->unitRepository->findByType($command->getType());
-        if ($unit !== null) {
-            throw new UnitAlreadyExistException();
+        $unit = $this->unitRepository->find($command->getId());
+        if ($unit === null) {
+            throw new UnitNotFoundException();
         }
 
-        $unit = $this->unitFactory->createUnitFromCommand($command);
-
-        $this->entityManager->persist($unit);
+        $unit = $this->unitFactory->editUnitFromCommand($unit, $command);
     }
 }

@@ -86,3 +86,74 @@ Feature: Unit
     }
     """
     Then the status code should be 401
+
+  @database
+  Scenario: Check unit edit
+    Given I load the fixture "unit"
+    And I am logged with the email "admin@orange.fr"
+    When I request the url "/api/unit/1" with http verb "PUT" and with the payload
+    """
+    {
+      "temperatureUnit": "aa",
+      "speedUnit": "aa",
+      "rainUnit": "a",
+      "solarRadiationUnit": "wa/m²",
+      "pmUnit": "wm3",
+      "humidityUnit": "wa",
+      "type": "metrics"
+    }
+    """
+    Then the status code should be 201
+    And Object "Unit" in namespace "WebApp" with the following data should exist in database
+      | attribute           | value     |
+      | temperatureUnit     | aa        |
+      | speedUnit           | aa        |
+      | rainUnit            | a         |
+      | solarRadiationUnit  | wa/m²     |
+      | pmUnit              | wm3       |
+      | humidityUnit        | wa        |
+      | type                | metrics   |
+
+  @database
+  Scenario: Check unit edit with bad data
+    Given I load the fixture "unit"
+    And I am logged with the email "admin@orange.fr"
+    When I request the url "/api/unit/1" with http verb "PUT" and with the payload
+    """
+    {
+      "temperatureUnit": "aa",
+      "speedUnit": "",
+      "rainUnit": "a",
+      "solarRadiationUnit": "wa/m²",
+      "pmUnit": "wm3",
+      "humidityUnit": "wa",
+      "type": "metrics"
+    }
+    """
+    Then the status code should be 400
+    And the response should have the following content
+    """
+     [
+       {
+          "message": "Cette valeur ne doit pas être vide.",
+          "messageTemplate": "This value should not be blank.",
+          "propertyPath": "speedUnit"
+       }
+     ]
+    """
+
+  @database
+  Scenario: Check delete unit
+    Given I load the fixture "unit"
+    And I am logged with the email "admin@orange.fr"
+    When I request the url "/api/unit/1" with http verb "DELETE"
+    Then the status code should be 204
+    And Object "Unit" in namespace "WebApp" with the following data shouldn't exist in database
+      | attribute | value     |
+      | id        | 1         |
+
+  @database
+  Scenario: Check delete unit without user
+    Given I load the fixture "unit"
+    When I request the url "/api/unit/1" with http verb "DELETE"
+    Then the status code should be 401

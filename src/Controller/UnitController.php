@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Core\Exception\InvalidCommandException;
 use App\Core\Exception\Unit\UnitAlreadyExistException;
+use App\Core\Exception\Unit\UnitNotFoundException;
 use App\Core\Factory\ErrorFactory;
 use App\Core\Response\SerializedErrorResponse;
 use App\Core\Response\SerializedResponse;
+use App\Core\Tactician\Command\Unit\DeleteUnitCommand;
+use App\Core\Tactician\Command\Unit\EditUnitCommand;
 use App\Core\Tactician\Command\Unit\RegisterUnitCommand;
 use App\Core\Tactician\Mapper\CommandMapper;
 use App\Core\Transformer\UnitTransformer;
@@ -89,5 +92,52 @@ class UnitController extends AbstractController
         }
 
         return new SerializedResponse(null, 201);
+    }
+
+    /**
+     * @Route("/api/unit/{id}", name="update_unit", methods={"PUT"})
+     */
+    public function updateUnitAction(Request $request, $id): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        try {
+            /** @var EditUnitCommand $command */
+            $command = $this
+                ->commandMapper
+                ->map($request->getContent(), EditUnitCommand::class);
+        } catch (InvalidCommandException $e) {
+            return new SerializedErrorResponse($e->getMessage(), 400);
+        }
+
+        $command->setId($id);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (UnitNotFoundException $e) {
+            $error = $this->errorFactory->create($e);
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'));
+        }
+
+        return new SerializedResponse(null, 201);
+    }
+
+    /**
+     * @Route("/api/unit/{id}", name="delete_unit", methods={"DELETE"})
+     */
+    public function deleteUnitAction(Request $request, $id): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $command = new DeleteUnitCommand($id);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (UnitNotFoundException $e) {
+            $error = $this->errorFactory->create($e);
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);
+        }
+
+        return new SerializedResponse(null, 204);
     }
 }
