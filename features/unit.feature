@@ -157,3 +157,58 @@ Feature: Unit
     Given I load the fixture "unit"
     When I request the url "/api/unit/1" with http verb "DELETE"
     Then the status code should be 401
+
+  @database
+  Scenario: Get unit with user logged
+    Given I load the fixture "unit"
+    And I am logged with the email "admin@orange.fr"
+    When I request the url "/api/unit/1" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "id":1,
+       "temperatureUnit":"°C",
+       "speedUnit":"m\/s",
+       "rainUnit":"mm",
+       "solarRadiationUnit":"lux",
+       "pmUnit":"um\/m",
+       "humidityUnit":"%",
+       "type":"metric",
+       "createdAt":"2020-12-10T00:12:12+01:00",
+       "updatedAt":"2020-12-10T00:12:12+01:00"
+    }
+    """
+
+  @database
+  Scenario: Get unit without user logged
+    Given I load the fixture "unit"
+    When I request the url "/api/unit/1" with http verb "GET"
+    Then the status code should be 401
+
+  @database
+  Scenario: Show unit list with user logged
+    Given I load the fixture "unit"
+    And I am logged with the email "admin@orange.fr"
+    When I request the url "/api/unit" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "numberOfResult":1,
+       "units":[
+          {
+             "id":1,
+             "temperatureUnit":"°C",
+             "speedUnit":"m/s",
+             "rainUnit":"mm",
+             "solarRadiationUnit":"lux",
+             "pmUnit":"um/m",
+             "humidityUnit":"%",
+             "type":"metric",
+             "createdAt":"2020-12-10T00:12:12+01:00",
+             "updatedAt":"2020-12-10T00:12:12+01:00"
+          }
+       ]
+    }
+    """

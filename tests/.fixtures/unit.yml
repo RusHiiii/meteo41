@@ -27,5 +27,5 @@ App\Entity\WebApp\Unit:
         pmUnit: 'um/m'
         humidityUnit: '%'
         type: 'metric'
-        createdAt: '<date_create()>'
-        updatedAt: '<date_create()>'
+        createdAt: '<date_create("2020-12-10 00:12:12")>'
+        updatedAt: '<date_create("2020-12-10 00:12:12")>'

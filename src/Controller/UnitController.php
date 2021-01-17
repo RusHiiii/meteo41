@@ -140,4 +140,36 @@ class UnitController extends AbstractController
 
         return new SerializedResponse(null, 204);
     }
+
+    /**
+     * @Route("/api/unit/{id}", name="show_unit", methods={"GET"})
+     */
+    public function showUnitAction(Request $request, $id): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $unit = $this->unitRepository->find($id);
+        if ($unit === null) {
+            $error = $this->errorFactory->create(new UnitNotFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);
+        }
+
+        $unit = $this->unitTransformer->transformUnitToView($unit);
+
+        return new SerializedResponse($this->serializer->serialize($unit, 'json'), 200);
+    }
+
+    /**
+     * @Route("/api/unit", name="list_unit", methods={"GET"})
+     */
+    public function listUnitAction(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $units = $this->unitRepository->findAll();
+
+        $units = $this->unitTransformer->transformUnitToSearchView($units);
+
+        return new SerializedResponse($this->serializer->serialize($units, 'json'), 200);
+    }
 }
