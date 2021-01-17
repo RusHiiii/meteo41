@@ -14,4 +14,20 @@ class UnitRepository extends ServiceEntityRepository implements UnitRepositoryIn
     {
         parent::__construct($registry, Unit::class);
     }
+
+    /**
+     * @param string $type
+     * @return int|mixed|string
+     */
+    public function findByType(string $type)
+    {
+        $qb = $this
+            ->createQueryBuilder('unit')
+            ->andWhere('unit.type = :type')
+            ->setParameter('type', $type);
+
+        return $qb
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

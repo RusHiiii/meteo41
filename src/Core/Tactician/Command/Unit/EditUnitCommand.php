@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Core\Tactician\Command\Unit;
+
+class EditUnitCommand extends RegisterUnitCommand
+{
+    private $id;
+
+    /**
+     * EditUnitCommand constructor.
+     * @param string $temperatureUnit
+     * @param string $speedUnit
+     * @param string $rainUnit
+     * @param string $solarRadiationUnit
+     * @param string $pmUnit
+     * @param string $humidityUnit
+     * @param string $type
+     */
+    public function __construct(string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type)
+    {
+        parent::__construct($temperatureUnit, $speedUnit, $rainUnit, $solarRadiationUnit, $pmUnit, $humidityUnit, $type);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+}

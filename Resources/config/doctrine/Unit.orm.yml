@@ -42,3 +42,6 @@ App\Entity\WebApp\Unit:
     createdAt:
       type: datetime
       nullable: false
+    updatedAt:
+      type: datetime
+      nullable: false

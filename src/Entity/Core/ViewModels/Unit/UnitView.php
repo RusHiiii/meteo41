@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity\WebApp;
+namespace App\Entity\Core\ViewModels\Unit;
 
-class Unit
+class UnitView
 {
     private int $id;
 
@@ -25,7 +25,8 @@ class Unit
     private \DateTime $updatedAt;
 
     /**
-     * Unit constructor.
+     * UnitView constructor.
+     * @param int $id
      * @param string $temperatureUnit
      * @param string $speedUnit
      * @param string $rainUnit
@@ -33,9 +34,12 @@ class Unit
      * @param string $pmUnit
      * @param string $humidityUnit
      * @param string $type
+     * @param \DateTime $createdAt
+     * @param \DateTime $updatedAt
      */
-    public function __construct(string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type)
+    public function __construct(int $id, string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type, \DateTime $createdAt, \DateTime $updatedAt)
     {
+        $this->id = $id;
         $this->temperatureUnit = $temperatureUnit;
         $this->speedUnit = $speedUnit;
         $this->rainUnit = $rainUnit;
@@ -43,8 +47,8 @@ class Unit
         $this->pmUnit = $pmUnit;
         $this->humidityUnit = $humidityUnit;
         $this->type = $type;
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
+        $this->createdAt = $createdAt;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
@@ -64,27 +68,11 @@ class Unit
     }
 
     /**
-     * @param string $temperatureUnit
-     */
-    public function setTemperatureUnit(string $temperatureUnit): void
-    {
-        $this->temperatureUnit = $temperatureUnit;
-    }
-
-    /**
      * @return string
      */
     public function getSpeedUnit(): string
     {
         return $this->speedUnit;
-    }
-
-    /**
-     * @param string $speedUnit
-     */
-    public function setSpeedUnit(string $speedUnit): void
-    {
-        $this->speedUnit = $speedUnit;
     }
 
     /**
@@ -96,27 +84,11 @@ class Unit
     }
 
     /**
-     * @param string $rainUnit
-     */
-    public function setRainUnit(string $rainUnit): void
-    {
-        $this->rainUnit = $rainUnit;
-    }
-
-    /**
      * @return string
      */
     public function getSolarRadiationUnit(): string
     {
         return $this->solarRadiationUnit;
-    }
-
-    /**
-     * @param string $solarRadiationUnit
-     */
-    public function setSolarRadiationUnit(string $solarRadiationUnit): void
-    {
-        $this->solarRadiationUnit = $solarRadiationUnit;
     }
 
     /**
@@ -128,27 +100,11 @@ class Unit
     }
 
     /**
-     * @param string $pmUnit
-     */
-    public function setPmUnit(string $pmUnit): void
-    {
-        $this->pmUnit = $pmUnit;
-    }
-
-    /**
      * @return string
      */
     public function getHumidityUnit(): string
     {
         return $this->humidityUnit;
-    }
-
-    /**
-     * @param string $humidityUnit
-     */
-    public function setHumidityUnit(string $humidityUnit): void
-    {
-        $this->humidityUnit = $humidityUnit;
     }
 
     /**
@@ -160,14 +116,6 @@ class Unit
     }
 
     /**
-     * @param string $type
-     */
-    public function setType(string $type): void
-    {
-        $this->type = $type;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getCreatedAt(): \DateTime
@@ -176,26 +124,10 @@ class Unit
     }
 
     /**
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt(\DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     */
-    public function setUpdatedAt(\DateTime $updatedAt): void
-    {
-        $this->updatedAt = $updatedAt;
     }
 }

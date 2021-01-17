@@ -72,7 +72,6 @@ final class RequestContext implements Context
     public function theContentShouldBe(PyStringNode $payload = null)
     {
         $dataContent = json_decode($payload->getRaw(), true);
-
         Assert::eq($dataContent, json_decode($this->response->getContent(), true));
     }
 
