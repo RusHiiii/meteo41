@@ -20,8 +20,8 @@ class UnitTransformer
         }
 
         return new UnitSearchView(
-          count($units),
-          $views
+            count($units),
+            $views
         );
     }
 
