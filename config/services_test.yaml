@@ -5,3 +5,8 @@ services:
 
     Behat\Context\:
         resource: '../features/Context/*'
+
+    Behat\Context\UserContext:
+        arguments:
+            - '@App\Repository\UserRepository'
+            - "@password_encoder"

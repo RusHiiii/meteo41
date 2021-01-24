@@ -7,6 +7,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
 {
+    const EXISTING_ROLES = ['ROLE_USER', 'ROLE_EDITOR', 'ROLE_ADMIN'];
+
     private int $id;
 
     private string $firstname;
@@ -32,14 +34,12 @@ class User implements UserInterface
      * @param string $firstname
      * @param string $lastname
      * @param string $email
-     * @param string $password
      */
-    public function __construct(string $firstname, string $lastname, string $email, string $password)
+    public function __construct(string $firstname, string $lastname, string $email)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->email = $email;
-        $this->password = $password;
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->posts = new ArrayCollection();

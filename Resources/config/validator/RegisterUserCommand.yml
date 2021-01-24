@@ -1,0 +1,24 @@
+App\Core\Tactician\Command\User\RegisterUserCommand:
+    properties:
+        firstname:
+            - NotBlank: ~
+        email:
+            - Email: ~
+        lastname:
+            - NotBlank: ~
+        password:
+            - NotBlank: ~
+            - Regex: '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!#$*]{8,15}$/'
+            - Length:
+                min: 2
+                max: 30
+        passwordConfirmation:
+            - NotBlank: ~
+            - Regex: '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!#$*]{8,15}$/'
+            - Length:
+                min: 2
+                max: 30
+        roles:
+            - Choice:
+                choices: [ROLE_USER, ROLE_EDITOR, ROLE_ADMIN]
+                multiple: true

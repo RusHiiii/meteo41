@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    user.register_handler:
+        class: App\Core\Tactician\Handler\User\RegisterUserHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\User\RegisterUserCommand }
+
+    user.delete_handler:
+        class: App\Core\Tactician\Handler\User\DeleteUserHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\User\DeleteUserCommand }
+
+    user.edit_handler:
+        class: App\Core\Tactician\Handler\User\EditUserHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\User\EditUserCommand }
