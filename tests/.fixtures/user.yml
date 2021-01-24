@@ -6,8 +6,8 @@ App\Entity\WebApp\User:
         email: 'damiens.florent@orange.fr'
         password: "<encodePassword('pass')>"
         roles: '[ROLE_ADMIN]'
-        createdAt: '<date_create()>'
-        updatedAt: '<date_create()>'
+        createdAt: '<date_create("2020-12-11 00:12:12")>'
+        updatedAt: '<date_create("2020-12-11 00:12:12")>'
     user_2:
         __construct: false
         firstname: 'florent'
@@ -15,5 +15,5 @@ App\Entity\WebApp\User:
         email: 'admin@orange.fr'
         password: "<encodePassword('pass')>"
         roles: '[ROLE_EDITOR]'
-        createdAt: '<date_create()>'
-        updatedAt: '<date_create()>'
+        createdAt: '<date_create("2020-12-11 00:12:12")>'
+        updatedAt: '<date_create("2020-12-11 00:12:12")>'
