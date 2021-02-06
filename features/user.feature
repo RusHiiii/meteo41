@@ -136,17 +136,7 @@ Feature: User
   Scenario: Delete user
     Given I load the fixture "user"
     And I am logged with the email "damiens.florent@orange.fr"
-    When I request the url "/api/user/1" with http verb "DELETE" and with the payload
-    """
-    {
-      "firstname": "patrick",
-      "lastname": "dupond",
-      "email": "damiens.florent@orange.fr",
-      "password": "jeSuis5*mDp",
-      "passwordConfirmation": "jeSuis5*mDpp",
-      "roles": ["ROLE_USER", "ROLE_F1AUX"]
-    }
-    """
+    When I request the url "/api/user/1" with http verb "DELETE"
     Then the status code should be 204
     And Object "User" in namespace "WebApp" with the following data shouldn't exist in database
       | attribute   | value        |

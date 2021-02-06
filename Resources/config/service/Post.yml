@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    post.register_handler:
+        class: App\Core\Tactician\Handler\Post\RegisterPostHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\Post\RegisterPostCommand }
+
+    post.delete_handler:
+        class: App\Core\Tactician\Handler\Post\DeletePostHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\Post\DeletePostCommand }
+
+    post.edit_handler:
+        class: App\Core\Tactician\Handler\Post\EditPostHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\Post\EditPostCommand }
