@@ -86,3 +86,58 @@ Feature: Post
     }
     """
     Then the status code should be 404
+
+  @database
+  Scenario: Show post without user
+    Given I load the fixture "post"
+    When I request the url "/api/post/1" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "id":1,
+       "name":"nale",
+       "createdAt":"2020-12-11T00:12:12+01:00",
+       "updatedAt":"2020-12-11T00:12:12+01:00",
+       "description":"subject",
+       "user":{
+          "firstname":"florent",
+          "lastname":"damiens",
+          "email":"admin@test.fr",
+          "roles":[
+             "ROLE_ADMIN"
+          ],
+          "createdAt":"2020-12-11T00:12:12+01:00",
+          "updatedAt":"2020-12-11T00:12:12+01:00",
+          "id":1
+       }
+    }
+    """
+
+  @database
+  Scenario: Show post with user
+    Given I load the fixture "post"
+    And I am logged with the email "admin@test.fr"
+    When I request the url "/api/post/1" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "id":1,
+       "name":"nale",
+       "createdAt":"2020-12-11T00:12:12+01:00",
+       "updatedAt":"2020-12-11T00:12:12+01:00",
+       "description":"subject",
+       "user":{
+          "firstname":"florent",
+          "lastname":"damiens",
+          "email":"admin@test.fr",
+          "roles":[
+             "ROLE_ADMIN"
+          ],
+          "createdAt":"2020-12-11T00:12:12+01:00",
+          "updatedAt":"2020-12-11T00:12:12+01:00",
+          "id":1
+       }
+    }
+    """
