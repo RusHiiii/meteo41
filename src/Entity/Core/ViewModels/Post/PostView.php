@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Entity\Core\ViewModels\Post;
-
 
 use App\Entity\Core\ViewModels\User\UserView;
 

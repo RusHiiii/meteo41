@@ -17,7 +17,7 @@ class PostTransformer
      * @param UserTransformer $userTransformer
      */
     public function __construct(
-      UserTransformer $userTransformer
+        UserTransformer $userTransformer
     ) {
         $this->userTransformer = $userTransformer;
     }
