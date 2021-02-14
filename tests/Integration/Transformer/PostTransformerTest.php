@@ -3,7 +3,9 @@
 
 namespace App\Tests\Integration\Transformer;
 
+use App\Core\Constant\Post\ApiSearch;
 use App\Core\Transformer\PostTransformer;
+use App\Entity\Core\ViewModels\Post\PostSearchView;
 use App\Entity\Core\ViewModels\Post\PostView;
 use App\Entity\Core\ViewModels\User\UserView;
 use App\Repository\PostRepository;
@@ -45,5 +47,26 @@ class PostTransformerTest extends TestCase
         $this->assertEquals('damiens', $postView->getUser()->getLastname());
         $this->assertEquals('admin@test.fr', $postView->getUser()->getEmail());
         $this->assertEquals(['ROLE_ADMIN'], $postView->getUser()->getRoles());
+    }
+
+    public function testTransformToSearchView()
+    {
+        $entities = $this->loadFile('tests/.fixtures/post.yml');
+
+        $posts = $this->postRepository->findPaginatedPosts(
+            [],
+            ApiSearch::POST_ORDER_BY_ASC,
+            1,
+            10
+        );
+
+        $postView = $this->postTransformer->transformPostToSearchView($posts);
+
+        $this->assertInstanceOf(PostSearchView::class, $postView);
+        $this->assertEquals('1', $postView->getNumberOfResult());
+        $this->assertEquals('1', $postView->getPosts()[0]->getId());
+        $this->assertEquals('nale', $postView->getPosts()[0]->getName());
+        $this->assertInstanceOf(UserView::class, $postView->getPosts()[0]->getUser());
+        $this->assertEquals('1', $postView->getPosts()[0]->getUser()->getId());
     }
 }

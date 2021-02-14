@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\Constant\Post\ApiSearch;
 use App\Core\Exception\InvalidCommandException;
 use App\Core\Exception\Post\PostNotFoundException;
 use App\Core\Exception\User\UserNotFoundException;
@@ -166,5 +167,29 @@ class PostController extends AbstractController
         $post = $this->postTransformer->transformPostToView($post);
 
         return new SerializedResponse($this->serializer->serialize($post, 'json'), 200);
+    }
+
+    /**
+     * @Route("/api/post", name="list_post", methods={"GET"})
+     */
+    public function listPostAction(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+
+        try {
+            $contacts = $this->postRepository->findPaginatedPosts(
+                $request->query->get('searchBy', []),
+                $request->query->get('order', ApiSearch::POST_ORDER_BY_ASC),
+                $request->query->get('page', 1),
+                $request->query->get('maxResult', 10)
+            );
+        } catch (\InvalidArgumentException $e) {
+            $error = $this->errorFactory->create($e);
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
+        }
+
+        $contact = $this->postTransformer->transformPostToSearchView($contacts);
+
+        return new SerializedResponse($this->serializer->serialize($contact, 'json'), 200);
     }
 }

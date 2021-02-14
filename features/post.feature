@@ -141,3 +141,68 @@ Feature: Post
        }
     }
     """
+
+  @database
+  Scenario: Show list post with user
+    Given I load the fixture "post"
+    And I am logged with the email "admin@test.fr"
+    When I request the url "/api/post" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "numberOfResult":1,
+       "posts":[
+          {
+             "id":1,
+             "name":"nale",
+             "createdAt":"2020-12-11T00:12:12+01:00",
+             "updatedAt":"2020-12-11T00:12:12+01:00",
+             "description":"subject",
+             "user":{
+                "firstname":"florent",
+                "lastname":"damiens",
+                "email":"admin@test.fr",
+                "roles":[
+                   "ROLE_ADMIN"
+                ],
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00",
+                "id":1
+             }
+          }
+       ]
+    }
+    """
+
+  @database
+  Scenario: Show list post without user
+    Given I load the fixture "post"
+    When I request the url "/api/post" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "numberOfResult":1,
+       "posts":[
+          {
+             "id":1,
+             "name":"nale",
+             "createdAt":"2020-12-11T00:12:12+01:00",
+             "updatedAt":"2020-12-11T00:12:12+01:00",
+             "description":"subject",
+             "user":{
+                "firstname":"florent",
+                "lastname":"damiens",
+                "email":"admin@test.fr",
+                "roles":[
+                   "ROLE_ADMIN"
+                ],
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00",
+                "id":1
+             }
+          }
+       ]
+    }
+    """
