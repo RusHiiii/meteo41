@@ -206,3 +206,67 @@ Feature: Post
        ]
     }
     """
+
+  @database
+  Scenario: Show list post without user with search params
+    Given I load the fixture "post"
+    When I request the url "/api/post?searchBy[user]=1" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "numberOfResult":1,
+       "posts":[
+          {
+             "id":1,
+             "name":"nale",
+             "createdAt":"2020-12-11T00:12:12+01:00",
+             "updatedAt":"2020-12-11T00:12:12+01:00",
+             "description":"subject",
+             "user":{
+                "firstname":"florent",
+                "lastname":"damiens",
+                "email":"admin@test.fr",
+                "roles":[
+                   "ROLE_ADMIN"
+                ],
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00",
+                "id":1
+             }
+          }
+       ]
+    }
+    """
+
+  @database
+  Scenario: Show list post without user with search params
+    Given I load the fixture "post"
+    When I request the url "/api/post?searchBy[user]=1&searchBy[name]=na" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "numberOfResult":1,
+       "posts":[
+          {
+             "id":1,
+             "name":"nale",
+             "createdAt":"2020-12-11T00:12:12+01:00",
+             "updatedAt":"2020-12-11T00:12:12+01:00",
+             "description":"subject",
+             "user":{
+                "firstname":"florent",
+                "lastname":"damiens",
+                "email":"admin@test.fr",
+                "roles":[
+                   "ROLE_ADMIN"
+                ],
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00",
+                "id":1
+             }
+          }
+       ]
+    }
+    """
