@@ -1,0 +1,11 @@
+App\Core\Tactician\Command\Post\RegisterPostCommand:
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                min: 5
+                max: 50
+        description:
+            - NotBlank: ~
+            - Length:
+                min: 5

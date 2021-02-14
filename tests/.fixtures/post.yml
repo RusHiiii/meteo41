@@ -1,0 +1,28 @@
+App\Entity\WebApp\Post:
+    post_1:
+        __construct: false
+        name: 'nale'
+        description: 'subject'
+        user: '@user_1'
+        createdAt: '<date_create("2020-12-11 00:12:12")>'
+        updatedAt: '<date_create("2020-12-11 00:12:12")>'
+
+App\Entity\WebApp\User:
+    user_1:
+        __construct: false
+        firstname: 'florent'
+        lastname: 'damiens'
+        email: 'admin@test.fr'
+        password: "<encodePassword('pass')>"
+        roles: '[ROLE_ADMIN]'
+        createdAt: '<date_create("2020-12-11 00:12:12")>'
+        updatedAt: '<date_create("2020-12-11 00:12:12")>'
+    user_2:
+        __construct: false
+        firstname: 'florent'
+        lastname: 'damiens'
+        email: 'editor@test.fr'
+        password: "<encodePassword('pass')>"
+        roles: '[ROLE_EDITOR]'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'
