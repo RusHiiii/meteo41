@@ -1,0 +1,45 @@
+App\Entity\WebApp\Observation:
+    post_1:
+        __construct: false
+        message: 'test de message'
+        weatherStation: '@weather_station_1'
+        user: '@user_1'
+        createdAt: '<date_create("2020-12-11 00:12:12")>'
+        updatedAt: '<date_create("2020-12-11 00:12:12")>'
+
+App\Entity\WebApp\User:
+    user_1:
+        __construct: false
+        firstname: 'florent'
+        lastname: 'damiens'
+        email: 'admin@test.fr'
+        password: "<encodePassword('pass')>"
+        roles: '[ROLE_ADMIN]'
+        createdAt: '<date_create("2020-12-11 00:12:12")>'
+        updatedAt: '<date_create("2020-12-11 00:12:12")>'
+    user_2:
+        __construct: false
+        firstname: 'florent'
+        lastname: 'damiens'
+        email: 'editor@test.fr'
+        password: "<encodePassword('pass')>"
+        roles: '[ROLE_EDITOR]'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'
+
+App\Entity\WebApp\WeatherStation:
+    weather_station_1:
+        __construct: false
+        name: 'Station de Blois'
+        description: 'ma longue description'
+        shortDescription: 'courte descrition'
+        country: 'FR'
+        address: '46 rue des moulins'
+        city: 'Blois'
+        lat: '4.5956'
+        lng: '4.2356'
+        apiToken: 'XXXXXXXXX'
+        model: 'HP 2551'
+        elevation: '200m'
+        createdAt: '<date_create("2020-12-11 00:12:12")>'
+        updatedAt: '<date_create("2020-12-11 00:12:12")>'

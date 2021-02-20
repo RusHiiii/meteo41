@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    observation.register_handler:
+        class: App\Core\Tactician\Handler\Observation\RegisterObservationHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\Observation\RegisterObservationCommand }
+
+    observation.edit_handler:
+        class: App\Core\Tactician\Handler\Observation\EditObservationHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\Observation\EditObservationCommand }
+
+    observation.delete_handler:
+        class: App\Core\Tactician\Handler\Observation\DeleteObservationHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\Observation\DeleteObservationCommand }

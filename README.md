@@ -24,7 +24,7 @@ De multiples outils ont été utilisés dans le but d'améliorer la qualité du 
 ## Documentation :
 * Analyse de la base de données: MCD et MLD
 * Maquette HTML/CSS 
-* Mise en place de test unitaire, d'intégration et fonctionnel
+* Mise en place de tests (unitaire, intégration et fonctionnel)
 		
 ## ToolKit
 Pour lancer PHPStan:
