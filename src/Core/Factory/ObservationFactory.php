@@ -13,7 +13,7 @@ class ObservationFactory
     /**
      * @param RegisterObservationCommand $command
      * @param User $user
-     * @param WeatherStation $weatherStation
+     * @param WeatherStation $station
      * @return Observation
      */
     public function createObservationFromCommand(RegisterObservationCommand $command, User $user, WeatherStation $station)
