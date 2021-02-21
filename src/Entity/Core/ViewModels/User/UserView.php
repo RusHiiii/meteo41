@@ -10,9 +10,9 @@ class UserView
 
     private string $lastname;
 
-    private string $email;
+    private ?string $email;
 
-    private array $roles;
+    private ?array $roles;
 
     private \DateTime $createdAt;
 
@@ -23,12 +23,12 @@ class UserView
      * @param int $id
      * @param string $firstname
      * @param string $lastname
-     * @param string $email
-     * @param array $roles
+     * @param string|null $email
+     * @param array|null $roles
      * @param \DateTime $createdAt
      * @param \DateTime $updatedAt
      */
-    public function __construct(int $id, string $firstname, string $lastname, string $email, array $roles, \DateTime $createdAt, \DateTime $updatedAt)
+    public function __construct(int $id, string $firstname, string $lastname, ?string $email, ?array $roles, \DateTime $createdAt, \DateTime $updatedAt)
     {
         $this->id = $id;
         $this->firstname = $firstname;
@@ -58,7 +58,7 @@ class UserView
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -66,7 +66,7 @@ class UserView
     /**
      * @return array
      */
-    public function getRoles(): array
+    public function getRoles(): ?array
     {
         return $this->roles;
     }

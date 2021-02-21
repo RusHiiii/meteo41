@@ -39,7 +39,7 @@ class UserTransformerTest extends TestCase
         $this->assertEquals('1', $userView->getId());
         $this->assertEquals('florent', $userView->getFirstname());
         $this->assertEquals('damiens', $userView->getLastname());
-        $this->assertEquals('damiens.florent@orange.fr', $userView->getEmail());
-        $this->assertEquals(["ROLE_ADMIN"], $userView->getRoles());
+        $this->assertNull($userView->getEmail());
+        $this->assertNull($userView->getRoles());
     }
 }

@@ -103,10 +103,8 @@ Feature: Post
        "user":{
           "firstname":"florent",
           "lastname":"damiens",
-          "email":"admin@test.fr",
-          "roles":[
-             "ROLE_ADMIN"
-          ],
+          "email":null,
+          "roles":null,
           "createdAt":"2020-12-11T00:12:12+01:00",
           "updatedAt":"2020-12-11T00:12:12+01:00",
           "id":1
@@ -194,10 +192,8 @@ Feature: Post
              "user":{
                 "firstname":"florent",
                 "lastname":"damiens",
-                "email":"admin@test.fr",
-                "roles":[
-                   "ROLE_ADMIN"
-                ],
+                "email":null,
+                "roles":null,
                 "createdAt":"2020-12-11T00:12:12+01:00",
                 "updatedAt":"2020-12-11T00:12:12+01:00",
                 "id":1
@@ -226,10 +222,8 @@ Feature: Post
              "user":{
                 "firstname":"florent",
                 "lastname":"damiens",
-                "email":"admin@test.fr",
-                "roles":[
-                   "ROLE_ADMIN"
-                ],
+                "email":null,
+                "roles":null,
                 "createdAt":"2020-12-11T00:12:12+01:00",
                 "updatedAt":"2020-12-11T00:12:12+01:00",
                 "id":1
@@ -258,10 +252,8 @@ Feature: Post
              "user":{
                 "firstname":"florent",
                 "lastname":"damiens",
-                "email":"admin@test.fr",
-                "roles":[
-                   "ROLE_ADMIN"
-                ],
+                "email":null,
+                "roles":null,
                 "createdAt":"2020-12-11T00:12:12+01:00",
                 "updatedAt":"2020-12-11T00:12:12+01:00",
                 "id":1

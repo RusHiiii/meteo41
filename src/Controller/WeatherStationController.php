@@ -96,7 +96,7 @@ class WeatherStationController extends AbstractController
     }
 
     /**
-     * @Route("/api/weatherStation/{id}", name="edit_weather_station", methods={"POST"})
+     * @Route("/api/weatherStation/{id}", name="edit_weather_station", methods={"PUT"})
      */
     public function editWeatherStationAction(Request $request, $id): Response
     {

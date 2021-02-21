@@ -131,7 +131,7 @@ Feature: Weather station
   Scenario: Check weather station edition
     Given I load the fixture "weatherStation"
     And I am logged with the email "admin@test.fr"
-    When I request the url "/api/weatherStation/1" with http verb "POST" and with the payload
+    When I request the url "/api/weatherStation/1" with http verb "PUT" and with the payload
     """
     {
       "name": "station 1",
@@ -166,7 +166,7 @@ Feature: Weather station
   Scenario: Check weather station edition with bad data
     Given I load the fixture "weatherStation"
     And I am logged with the email "admin@test.fr"
-    When I request the url "/api/weatherStation/1" with http verb "POST" and with the payload
+    When I request the url "/api/weatherStation/1" with http verb "PUT" and with the payload
     """
     {
       "name": "station 1",

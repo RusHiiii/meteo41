@@ -45,8 +45,8 @@ class PostTransformerTest extends TestCase
         $this->assertEquals('1', $postView->getUser()->getId());
         $this->assertEquals('florent', $postView->getUser()->getFirstname());
         $this->assertEquals('damiens', $postView->getUser()->getLastname());
-        $this->assertEquals('admin@test.fr', $postView->getUser()->getEmail());
-        $this->assertEquals(['ROLE_ADMIN'], $postView->getUser()->getRoles());
+        $this->assertNull($postView->getUser()->getEmail());
+        $this->assertNull($postView->getUser()->getRoles());
     }
 
     public function testTransformToSearchView()

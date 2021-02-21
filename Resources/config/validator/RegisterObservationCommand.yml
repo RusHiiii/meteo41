@@ -1,0 +1,8 @@
+App\Core\Tactician\Command\Observation\RegisterObservationCommand:
+    properties:
+        message:
+            - NotBlank: ~
+            - Length:
+                min: 5
+        weatherStationId:
+            - NotBlank: ~

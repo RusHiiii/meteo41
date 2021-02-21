@@ -6,9 +6,25 @@ use App\Entity\Core\ViewModels\User\UserSearchView;
 use App\Entity\Core\ViewModels\User\UserView;
 use App\Entity\WebApp\User;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Security;
 
 class UserTransformer
 {
+    /**
+     * @var Security
+     */
+    private $security;
+
+    /**
+     * UserTransformer constructor.
+     */
+    public function __construct(
+        Security $security
+    ) {
+        $this->security = $security;
+    }
+
     /**
      * @param Paginator $paginator
      * @return UserSearchView
@@ -33,12 +49,20 @@ class UserTransformer
      */
     public function transformUserToView(User $user)
     {
+        $email = $roles = null;
+
+        $token = $this->security->getToken();
+        if ($token && $this->security->isGranted('ROLE_EDITOR')) {
+            $email = $user->getEmail();
+            $roles = $user->getRoles();
+        }
+
         return new UserView(
             $user->getId(),
             $user->getFirstname(),
             $user->getLastname(),
-            $user->getEmail(),
-            $user->getRoles(),
+            $email,
+            $roles,
             $user->getCreatedAt(),
             $user->getUpdatedAt()
         );
