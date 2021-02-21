@@ -20,6 +20,7 @@ use App\Core\Tactician\Command\Post\EditPostCommand;
 use App\Core\Tactician\Command\Post\RegisterPostCommand;
 use App\Core\Tactician\Command\WeatherStation\DeleteWeatherStationCommand;
 use App\Core\Tactician\Mapper\CommandMapper;
+use App\Core\Transformer\ObservationTransformer;
 use App\Core\Transformer\PostTransformer;
 use App\Repository\Doctrine\ObservationRepository;
 use App\Repository\Doctrine\PostRepository;
@@ -57,18 +58,25 @@ class ObservationController extends AbstractController
      */
     private $observationRepository;
 
+    /**
+     * @var ObservationTransformer
+     */
+    private $observationTransformer;
+
     public function __construct(
         CommandBus $commandBus,
         CommandMapper $commandMapper,
         ErrorFactory $errorFactory,
         SerializerInterface $serializer,
-        ObservationRepository $observationRepository
+        ObservationRepository $observationRepository,
+        ObservationTransformer $observationTransformer
     ) {
         $this->commandBus = $commandBus;
         $this->commandMapper = $commandMapper;
         $this->errorFactory = $errorFactory;
         $this->serializer = $serializer;
         $this->observationRepository = $observationRepository;
+        $this->observationTransformer = $observationTransformer;
     }
 
     /**
@@ -156,5 +164,47 @@ class ObservationController extends AbstractController
         }
 
         return new SerializedResponse(null, 204);
+    }
+
+    /**
+     * @Route("/api/observation/{id}", name="show_observation", methods={"GET"})
+     */
+    public function showObservationAction(Request $request, $id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+
+        $observation = $this->observationRepository->find($id);
+        if ($observation === null) {
+            $error = $this->errorFactory->create(new ObservationNotFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);
+        }
+
+        $observation = $this->observationTransformer->transformObservationToView($observation);
+
+        return new SerializedResponse($this->serializer->serialize($observation, 'json'), 200);
+    }
+
+    /**
+     * @Route("/api/observation", name="list_observation", methods={"GET"})
+     */
+    public function listObservationAction(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+
+        try {
+            $observations = $this->observationRepository->findPaginatedObservation(
+                $request->query->get('searchBy', []),
+                $request->query->get('order', \App\Core\Constant\Observation\ApiSearch::OBSERVATION_ORDER_BY_DESC),
+                $request->query->get('page', 1),
+                $request->query->get('maxResult', 10)
+            );
+        } catch (\InvalidArgumentException $e) {
+            $error = $this->errorFactory->create($e);
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
+        }
+
+        $observations = $this->observationTransformer->transformObservationToSearchView($observations);
+
+        return new SerializedResponse($this->serializer->serialize($observations, 'json'), 200);
     }
 }

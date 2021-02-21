@@ -51,7 +51,7 @@ class ObservationFactoryTest extends TestCase
         $entities = $this->loadFile('tests/.fixtures/observation.yml');
 
         $command = new EditObservationCommand('mesage', 1, 10);
-        $observation = $this->observationFactory->editObservationFromCommand($entities['post_1'], $command, $entities['weather_station_1']);
+        $observation = $this->observationFactory->editObservationFromCommand($entities['obs_1'], $command, $entities['weather_station_1']);
 
         $this->assertEquals('mesage', $observation->getMessage());
         $this->assertInstanceOf(WeatherStation::class, $observation->getWeatherStation());

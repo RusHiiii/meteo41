@@ -4,5 +4,5 @@ namespace App\Repository;
 
 interface ObservationRepository
 {
-
+    public function findPaginatedObservation(array $searchBy, string $order, int $page, int $maxResult);
 }

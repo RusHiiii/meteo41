@@ -112,3 +112,276 @@ Feature: Observation
     And I am logged with the email "admin@test.fr"
     When I request the url "/api/observation/10" with http verb "DELETE"
     Then the status code should be 404
+
+  @database
+  Scenario: Show observation with logged user
+    Given I load the fixture "observation"
+    And I am logged with the email "admin@test.fr"
+    When I request the url "/api/observation/1" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "id":1,
+       "message":"test de message",
+       "createdAt":"2020-12-11T00:12:12+01:00",
+       "updatedAt":"2020-12-11T00:12:12+01:00",
+       "user":{
+          "firstname":"florent",
+          "lastname":"damiens",
+          "email":"admin@test.fr",
+          "roles":[
+             "ROLE_ADMIN"
+          ],
+          "createdAt":"2020-12-11T00:12:12+01:00",
+          "updatedAt":"2020-12-11T00:12:12+01:00",
+          "id":1
+       },
+       "weatherStation":{
+          "id":1,
+          "name":"Station de Blois",
+          "description":"ma longue description",
+          "shortDescription":"courte descrition",
+          "country":"FR",
+          "address":"46 rue des moulins",
+          "city":"Blois",
+          "lat":4.5956,
+          "lng":4.2356,
+          "model":"HP 2551",
+          "elevation":"200m",
+          "createdAt":"2020-12-11T00:12:12+01:00",
+          "updatedAt":"2020-12-11T00:12:12+01:00"
+       }
+    }
+    """
+
+  @database
+  Scenario: Show observation without logged user
+    Given I load the fixture "observation"
+    When I request the url "/api/observation/1" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "id":1,
+       "message":"test de message",
+       "createdAt":"2020-12-11T00:12:12+01:00",
+       "updatedAt":"2020-12-11T00:12:12+01:00",
+       "user":{
+          "firstname":"florent",
+          "lastname":"damiens",
+          "email":null,
+          "roles":null,
+          "createdAt":"2020-12-11T00:12:12+01:00",
+          "updatedAt":"2020-12-11T00:12:12+01:00",
+          "id":1
+       },
+       "weatherStation":{
+          "id":1,
+          "name":"Station de Blois",
+          "description":"ma longue description",
+          "shortDescription":"courte descrition",
+          "country":"FR",
+          "address":"46 rue des moulins",
+          "city":"Blois",
+          "lat":4.5956,
+          "lng":4.2356,
+          "model":"HP 2551",
+          "elevation":"200m",
+          "createdAt":"2020-12-11T00:12:12+01:00",
+          "updatedAt":"2020-12-11T00:12:12+01:00"
+       }
+    }
+    """
+
+  @database
+  Scenario: List observation without parameter
+    Given I load the fixture "observation"
+    When I request the url "/api/observation" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "numberOfResult":3,
+       "observations":[
+          {
+             "id":3,
+             "message":"test de message2",
+             "createdAt":"2020-12-11T00:12:12+01:00",
+             "updatedAt":"2020-12-11T00:12:12+01:00",
+             "user":{
+                "firstname":"florent",
+                "lastname":"damiens",
+                "email":null,
+                "roles":null,
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00",
+                "id":1
+             },
+             "weatherStation":{
+                "id":1,
+                "name":"Station de Blois",
+                "description":"ma longue description",
+                "shortDescription":"courte descrition",
+                "country":"FR",
+                "address":"46 rue des moulins",
+                "city":"Blois",
+                "lat":4.5956,
+                "lng":4.2356,
+                "model":"HP 2551",
+                "elevation":"200m",
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00"
+             }
+          },
+          {
+             "id":2,
+             "message":"meteo",
+             "createdAt":"2020-12-11T00:12:12+01:00",
+             "updatedAt":"2020-12-11T00:12:12+01:00",
+             "user":{
+                "firstname":"florent",
+                "lastname":"damiens",
+                "email":null,
+                "roles":null,
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00",
+                "id":1
+             },
+             "weatherStation":{
+                "id":2,
+                "name":"Station de Romo",
+                "description":"ma longue description",
+                "shortDescription":"courte descrition",
+                "country":"FR",
+                "address":"46 rue des moulins",
+                "city":"Blois",
+                "lat":4.5956,
+                "lng":4.2356,
+                "model":"HP 2551",
+                "elevation":"200m",
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00"
+             }
+          },
+          {
+             "id":1,
+             "message":"test de message",
+             "createdAt":"2020-12-11T00:12:12+01:00",
+             "updatedAt":"2020-12-11T00:12:12+01:00",
+             "user":{
+                "firstname":"florent",
+                "lastname":"damiens",
+                "email":null,
+                "roles":null,
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00",
+                "id":1
+             },
+             "weatherStation":{
+                "id":1,
+                "name":"Station de Blois",
+                "description":"ma longue description",
+                "shortDescription":"courte descrition",
+                "country":"FR",
+                "address":"46 rue des moulins",
+                "city":"Blois",
+                "lat":4.5956,
+                "lng":4.2356,
+                "model":"HP 2551",
+                "elevation":"200m",
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00"
+             }
+          }
+       ]
+    }
+    """
+
+  @database
+  Scenario: List observation with parameter
+    Given I load the fixture "observation"
+    When I request the url "/api/observation?searchBy[weatherStation]=2" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "numberOfResult":1,
+       "observations":[
+          {
+             "id":2,
+             "message":"meteo",
+             "createdAt":"2020-12-11T00:12:12+01:00",
+             "updatedAt":"2020-12-11T00:12:12+01:00",
+             "user":{
+                "firstname":"florent",
+                "lastname":"damiens",
+                "email":null,
+                "roles":null,
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00",
+                "id":1
+             },
+             "weatherStation":{
+                "id":2,
+                "name":"Station de Romo",
+                "description":"ma longue description",
+                "shortDescription":"courte descrition",
+                "country":"FR",
+                "address":"46 rue des moulins",
+                "city":"Blois",
+                "lat":4.5956,
+                "lng":4.2356,
+                "model":"HP 2551",
+                "elevation":"200m",
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00"
+             }
+          }
+       ]
+    }
+    """
+
+  @database
+  Scenario: List observation with message parameter
+    Given I load the fixture "observation"
+    When I request the url "/api/observation?searchBy[message]=meteo" with http verb "GET"
+    Then the status code should be 200
+    And the response should have the following content
+    """
+     {
+       "numberOfResult":1,
+       "observations":[
+          {
+             "id":2,
+             "message":"meteo",
+             "createdAt":"2020-12-11T00:12:12+01:00",
+             "updatedAt":"2020-12-11T00:12:12+01:00",
+             "user":{
+                "firstname":"florent",
+                "lastname":"damiens",
+                "email":null,
+                "roles":null,
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00",
+                "id":1
+             },
+             "weatherStation":{
+                "id":2,
+                "name":"Station de Romo",
+                "description":"ma longue description",
+                "shortDescription":"courte descrition",
+                "country":"FR",
+                "address":"46 rue des moulins",
+                "city":"Blois",
+                "lat":4.5956,
+                "lng":4.2356,
+                "model":"HP 2551",
+                "elevation":"200m",
+                "createdAt":"2020-12-11T00:12:12+01:00",
+                "updatedAt":"2020-12-11T00:12:12+01:00"
+             }
+          }
+       ]
+    }
+    """
