@@ -17,6 +17,7 @@ App\Entity\WebApp\User:
         roles: '[ROLE_EDITOR]'
         createdAt: '<date_create()>'
         updatedAt: '<date_create()>'
+
 App\Entity\WebApp\Unit:
     unit_1:
         __construct: false

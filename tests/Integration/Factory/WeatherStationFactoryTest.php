@@ -30,6 +30,8 @@ class WeatherStationFactoryTest extends TestCase
 
     public function testCreateContactFromCommand()
     {
+        $entities = $this->loadFile('tests/.fixtures/weatherStation.yml');
+
         $command = new RegisterWeatherStationCommand(
             'name',
             'description',
@@ -41,9 +43,10 @@ class WeatherStationFactoryTest extends TestCase
             4.5623,
             'XXXX',
             'HP2551',
-            '250m'
+            '250m',
+            '1'
         );
-        $weatherStation = $this->weatherStationFactory->createWeatherStationFromCommand($command);
+        $weatherStation = $this->weatherStationFactory->createWeatherStationFromCommand($command, $entities['unit_1']);
 
         $this->assertEquals('name', $weatherStation->getName());
         $this->assertEquals('description', $weatherStation->getDescription());
@@ -73,10 +76,11 @@ class WeatherStationFactoryTest extends TestCase
             4.5623,
             'XXXX',
             'HP2551',
-            '250m'
+            '250m',
+            '1'
         );
 
-        $weatherStation = $this->weatherStationFactory->editWeatherStationFromCommand($entities['weather_station_1'], $command);
+        $weatherStation = $this->weatherStationFactory->editWeatherStationFromCommand($entities['weather_station_1'], $command, $entities['unit_1']);
 
         $this->assertEquals('name', $weatherStation->getName());
         $this->assertEquals('description', $weatherStation->getDescription());
@@ -86,7 +90,7 @@ class WeatherStationFactoryTest extends TestCase
         $this->assertEquals('Blois', $weatherStation->getCity());
         $this->assertEquals(4.1562, $weatherStation->getLat());
         $this->assertEquals(4.5623, $weatherStation->getLng());
-        $this->assertEquals('XXXX', $weatherStation->getApiToken());
+        $this->assertEquals('7b346904f63cc07f1d8cc2d88d7dae08a3f088a0e4159d5214c27a6571a51eb4', $weatherStation->getApiToken());
         $this->assertEquals('HP2551', $weatherStation->getModel());
         $this->assertEquals('250m', $weatherStation->getElevation());
     }

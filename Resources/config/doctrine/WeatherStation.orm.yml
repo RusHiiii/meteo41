@@ -68,3 +68,11 @@ App\Entity\WebApp\WeatherStation:
       mappedBy: weatherStation
       cascade: [ "persist", "merge" ]
       orphanRemoval: true
+  manyToOne:
+    preferedUnit:
+      targetEntity: App\Entity\WebApp\Unit
+      joinColumn:
+        name: prefered_unit_id
+        referencedColumnName: id
+        nullable: false
+        onDelete: "CASCADE"

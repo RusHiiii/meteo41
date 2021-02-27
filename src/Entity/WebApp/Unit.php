@@ -4,6 +4,9 @@ namespace App\Entity\WebApp;
 
 class Unit
 {
+    const UNIT_METRIC = 'metric';
+    const UNIT_IMPERIAL = 'imperial';
+
     private int $id;
 
     private string $temperatureUnit;

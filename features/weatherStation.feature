@@ -43,7 +43,8 @@ Feature: Weather station
       "lng": 4.1236,
       "apiToken": "XYXYXXYX",
       "model": "HP 2551",
-      "elevation": "250m"
+      "elevation": "250m",
+      "preferedUnitId": 1
     }
     """
     Then the status code should be 201
@@ -78,7 +79,8 @@ Feature: Weather station
       "lng": 4.1236,
       "apiToken": "",
       "model": "HP 2551",
-      "elevation": "250m"
+      "elevation": "250m",
+      "preferedUnitId": 1
     }
     """
     Then the status code should be 400
@@ -115,7 +117,8 @@ Feature: Weather station
       "lng": 4.1236,
       "apiToken": "XXXXXXX",
       "model": "HP 2551",
-      "elevation": "250m"
+      "elevation": "250m",
+      "preferedUnitId": 1
     }
     """
     Then the status code should be 400
@@ -144,7 +147,8 @@ Feature: Weather station
       "lng": 4.1236,
       "apiToken": "XYXYXXYX",
       "model": "HP 2551",
-      "elevation": "250m"
+      "elevation": "250m",
+      "preferedUnitId": 1
     }
     """
     Then the status code should be 204
@@ -158,7 +162,6 @@ Feature: Weather station
       | city              | Blois                 |
       | lat               | 4.5632                |
       | lng               | 4.1236                |
-      | apiToken          | XYXYXXYX              |
       | model             | HP 2551               |
       | elevation         | 250m                  |
 
@@ -179,7 +182,8 @@ Feature: Weather station
       "lng": 4.1236,
       "apiToken": "",
       "model": "HP 2551",
-      "elevation": ""
+      "elevation": "",
+      "preferedUnitId": 1
     }
     """
     Then the status code should be 400
