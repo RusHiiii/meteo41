@@ -9,11 +9,12 @@ App\Entity\WebApp\WeatherStation:
         city: 'Blois'
         lat: '4.5956'
         lng: '4.2356'
-        apiToken: 'XXXXXXXXX'
+        apiToken: 'd87f27f82df4f4719fd7b2bae738db0f3a616579ad01dbbe2ef55fbcdf50454e'
         model: 'HP 2551'
         elevation: '200m'
         createdAt: '<date_create("2020-12-11 00:12:12")>'
         updatedAt: '<date_create("2020-12-11 00:12:12")>'
+        preferedUnit: '@unit_1'
     weather_station_2:
         __construct: false
         name: 'Station de Blois'
@@ -29,6 +30,7 @@ App\Entity\WebApp\WeatherStation:
         elevation: '200m'
         createdAt: '<date_create("2020-12-11 00:12:12")>'
         updatedAt: '<date_create("2020-12-11 00:12:12")>'
+        preferedUnit: '@unit_1'
 
 App\Entity\WebApp\User:
     user_1:
@@ -65,3 +67,16 @@ App\Entity\WebApp\Observation:
         message: 'Mon observation'
         createdAt: '<date_create("2020-12-11 00:12:12")>'
         updatedAt: '<date_create("2020-12-11 00:12:12")>'
+
+App\Entity\WebApp\Unit:
+    unit_1:
+        __construct: false
+        temperatureUnit: '°C'
+        speedUnit: 'm/s'
+        rainUnit: 'mm'
+        solarRadiationUnit: "lux"
+        pmUnit: 'um/m'
+        humidityUnit: '%'
+        type: 'metric'
+        createdAt: '<date_create("2020-12-10 00:12:12")>'
+        updatedAt: '<date_create("2020-12-10 00:12:12")>'

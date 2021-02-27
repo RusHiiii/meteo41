@@ -54,6 +54,8 @@ class WeatherData
 
     private float $windChill;
 
+    private float $heatIndex;
+
     private int $cloudBase;
 
     private \DateTime $lastRain;
@@ -73,6 +75,7 @@ class WeatherData
     /**
      * WeatherData constructor.
      * @param float $temperature
+     * @param float $heatIndex
      * @param float $humidity
      * @param float $relativePressure
      * @param float $absolutePressure
@@ -102,9 +105,10 @@ class WeatherData
      * @param int $aqi
      * @param int $aqiAvg
      */
-    public function __construct(float $temperature, float $humidity, float $relativePressure, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, float $pm25, float $pm25Avg, int $humidex, float $dewPoint, float $windChill, int $cloudBase, \DateTime $lastRain, int $beaufortScale, int $aqi, int $aqiAvg)
+    public function __construct(float $heatIndex, float $temperature, float $humidity, float $relativePressure, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, float $pm25, float $pm25Avg, int $humidex, float $dewPoint, float $windChill, int $cloudBase, \DateTime $lastRain, int $beaufortScale, int $aqi, int $aqiAvg)
     {
         $this->temperature = $temperature;
+        $this->heatIndex = $heatIndex;
         $this->humidity = $humidity;
         $this->relativePressure = $relativePressure;
         $this->absolutePressure = $absolutePressure;
@@ -662,5 +666,21 @@ class WeatherData
     public function setWeatherStation(WeatherStation $weatherStation): void
     {
         $this->weatherStation = $weatherStation;
+    }
+
+    /**
+     * @return float
+     */
+    public function getHeatIndex(): float
+    {
+        return $this->heatIndex;
+    }
+
+    /**
+     * @param float $heatIndex
+     */
+    public function setHeatIndex(float $heatIndex): void
+    {
+        $this->heatIndex = $heatIndex;
     }
 }

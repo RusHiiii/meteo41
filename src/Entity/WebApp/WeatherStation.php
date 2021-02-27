@@ -36,6 +36,8 @@ class WeatherStation
 
     private $observations;
 
+    private Unit $preferedUnit;
+
     /**
      * WeatherStation constructor.
      * @param string $name
@@ -298,6 +300,22 @@ class WeatherStation
     public function setObservations($observations): void
     {
         $this->observations = $observations;
+    }
+
+    /**
+     * @return Unit
+     */
+    public function getPreferedUnit(): Unit
+    {
+        return $this->preferedUnit;
+    }
+
+    /**
+     * @param Unit $preferedUnit
+     */
+    public function setPreferedUnit(Unit $preferedUnit): void
+    {
+        $this->preferedUnit = $preferedUnit;
     }
 
     /**

@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    weather_data.register_handler:
+        class: App\Core\Tactician\Handler\WeatherData\RegisterWeatherDataHandler
+        tags:
+            - { name: tactician.handler, command: App\Core\Tactician\Command\WeatherData\RegisterWeatherDataCommand }

@@ -17,3 +17,17 @@ App\Entity\WebApp\User:
         roles: '[ROLE_EDITOR]'
         createdAt: '<date_create("2020-12-11 00:12:12")>'
         updatedAt: '<date_create("2020-12-11 00:12:12")>'
+
+
+App\Entity\WebApp\Unit:
+    unit_1:
+        __construct: false
+        temperatureUnit: '°C'
+        speedUnit: 'm/s'
+        rainUnit: 'mm'
+        solarRadiationUnit: "lux"
+        pmUnit: 'um/m'
+        humidityUnit: '%'
+        type: 'metric'
+        createdAt: '<date_create("2020-12-10 00:12:12")>'
+        updatedAt: '<date_create("2020-12-10 00:12:12")>'

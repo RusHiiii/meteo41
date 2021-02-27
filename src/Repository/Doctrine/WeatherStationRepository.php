@@ -38,6 +38,22 @@ class WeatherStationRepository extends AbstractRepository implements WeatherStat
     }
 
     /**
+     * @param string $passkey
+     * @return int|mixed|string
+     */
+    public function findByPasskey(string $passkey)
+    {
+        $qb = $this
+            ->createQueryBuilder('weatherStation')
+            ->andWhere('weatherStation.apiToken = :token')
+            ->setParameter('token', hash('sha256', $passkey));
+
+        return $qb
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
      * @param array $searchBy
      * @param string $order
      * @param int $page
