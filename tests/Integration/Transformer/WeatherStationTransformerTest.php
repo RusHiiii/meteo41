@@ -47,6 +47,7 @@ class WeatherStationTransformerTest extends TestCase
         $this->assertEquals(4.2356, $weatherStationView->getLng());
         $this->assertEquals('HP 2551', $weatherStationView->getModel());
         $this->assertEquals('200m', $weatherStationView->getElevation());
+        $this->assertEquals('AAA', $weatherStationView->getReference());
     }
 
     public function testTransformToSearchView()

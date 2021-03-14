@@ -19,7 +19,7 @@ class EditWeatherStationCommand extends RegisterWeatherStationCommand
      * @param string $apiToken
      * @param string $model
      * @param string $elevation
-     * @param int $preferedUnitId
+     * @param string $reference
      */
     public function __construct(
         string $name,
@@ -33,9 +33,9 @@ class EditWeatherStationCommand extends RegisterWeatherStationCommand
         string $apiToken,
         string $model,
         string $elevation,
-        int $preferedUnitId
+        string $reference
     ) {
-        parent::__construct($name, $description, $shortDescription, $country, $address, $city, $lat, $lng, $apiToken, $model, $elevation, $preferedUnitId);
+        parent::__construct($name, $description, $shortDescription, $country, $address, $city, $lat, $lng, $apiToken, $model, $elevation, $reference);
     }
 
     /**

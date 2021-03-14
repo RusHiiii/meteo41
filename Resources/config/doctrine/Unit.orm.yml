@@ -35,6 +35,14 @@ App\Entity\WebApp\Unit:
       type: string
       length: 5
       nullable: false
+    cloudBaseUnit:
+      type: string
+      length: 5
+      nullable: false
+    windDirUnit:
+      type: string
+      length: 5
+      nullable: false
     type:
       type: string
       length: 32

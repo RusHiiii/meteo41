@@ -48,7 +48,7 @@ class WeatherData
 
     private float $pm25Avg;
 
-    private int $humidex;
+    private float $humidex;
 
     private float $dewPoint;
 
@@ -57,8 +57,6 @@ class WeatherData
     private float $heatIndex;
 
     private int $cloudBase;
-
-    private \DateTime $lastRain;
 
     private int $beaufortScale;
 
@@ -96,16 +94,16 @@ class WeatherData
      * @param int $uv
      * @param float $pm25
      * @param float $pm25Avg
-     * @param int $humidex
+     * @param float $humidex
      * @param float $dewPoint
      * @param float $windChill
      * @param int $cloudBase
-     * @param \DateTime $lastRain
      * @param int $beaufortScale
      * @param int $aqi
      * @param int $aqiAvg
+     * @param \DateTime $createdAt
      */
-    public function __construct(float $heatIndex, float $temperature, float $humidity, float $relativePressure, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, float $pm25, float $pm25Avg, int $humidex, float $dewPoint, float $windChill, int $cloudBase, \DateTime $lastRain, int $beaufortScale, int $aqi, int $aqiAvg)
+    public function __construct(float $heatIndex, float $temperature, float $humidity, float $relativePressure, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, float $pm25, float $pm25Avg, float $humidex, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, int $aqi, int $aqiAvg, \DateTime $createdAt)
     {
         $this->temperature = $temperature;
         $this->heatIndex = $heatIndex;
@@ -133,11 +131,10 @@ class WeatherData
         $this->dewPoint = $dewPoint;
         $this->windChill = $windChill;
         $this->cloudBase = $cloudBase;
-        $this->lastRain = $lastRain;
         $this->beaufortScale = $beaufortScale;
         $this->aqi = $aqi;
         $this->aqiAvg = $aqiAvg;
-        $this->createdAt = new \DateTime();
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -493,17 +490,17 @@ class WeatherData
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getHumidex(): int
+    public function getHumidex(): float
     {
         return $this->humidex;
     }
 
     /**
-     * @param int $humidex
+     * @param float $humidex
      */
-    public function setHumidex(int $humidex): void
+    public function setHumidex(float $humidex): void
     {
         $this->humidex = $humidex;
     }
@@ -554,22 +551,6 @@ class WeatherData
     public function setCloudBase(int $cloudBase): void
     {
         $this->cloudBase = $cloudBase;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getLastRain(): \DateTime
-    {
-        return $this->lastRain;
-    }
-
-    /**
-     * @param \DateTime $lastRain
-     */
-    public function setLastRain(\DateTime $lastRain): void
-    {
-        $this->lastRain = $lastRain;
     }
 
     /**

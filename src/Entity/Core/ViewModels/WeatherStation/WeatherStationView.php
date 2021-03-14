@@ -26,6 +26,8 @@ class WeatherStationView
 
     private string $elevation;
 
+    private string $reference;
+
     private \DateTime $createdAt;
 
     private \DateTime $updatedAt;
@@ -43,8 +45,9 @@ class WeatherStationView
      * @param float $lng
      * @param string $model
      * @param string $elevation
+     * @param string $reference
      */
-    public function __construct(int $id, string $name, string $description, string $shortDescription, string $country, string $address, string $city, float $lat, float $lng, string $model, string $elevation, \DateTime $createdAt, \DateTime $updatedAt)
+    public function __construct(int $id, string $name, string $description, string $shortDescription, string $country, string $address, string $city, float $lat, float $lng, string $model, string $elevation, string $reference, \DateTime $createdAt, \DateTime $updatedAt)
     {
         $this->id = $id;
         $this->name = $name;
@@ -56,6 +59,7 @@ class WeatherStationView
         $this->lat = $lat;
         $this->lng = $lng;
         $this->model = $model;
+        $this->reference = $reference;
         $this->elevation = $elevation;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
@@ -163,5 +167,13 @@ class WeatherStationView
     public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReference(): string
+    {
+        return $this->reference;
     }
 }

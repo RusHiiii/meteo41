@@ -2,7 +2,9 @@
 
 namespace App\Core\Converter;
 
-class TemperatureConverter implements Converter
+use App\Core\Exception\NotImplementedException;
+
+class CloudBaseConverter implements Converter
 {
     /**
      * @param float $value
@@ -10,19 +12,17 @@ class TemperatureConverter implements Converter
      */
     public function convertImperialToMetric(float $value)
     {
-        $result = ($value - 32) / 1.8;
+        $result = $value / 3.281;
 
-        return round($result, 1);
+        return round($result);
     }
 
     /**
      * @param float $value
-     * @return float
+     * @throws NotImplementedException
      */
     public function convertMetricToImperial(float $value)
     {
-        $result = ($value * 1.8) + 32;
-
-        return round($result, 1);
+        throw new NotImplementedException();
     }
 }

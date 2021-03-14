@@ -18,13 +18,14 @@ App\Entity\WebApp\User:
         createdAt: '<date_create("2020-12-11 00:12:12")>'
         updatedAt: '<date_create("2020-12-11 00:12:12")>'
 
-
 App\Entity\WebApp\Unit:
     unit_1:
         __construct: false
         temperatureUnit: '°C'
         speedUnit: 'm/s'
         rainUnit: 'mm'
+        cloudBaseUnit: 'm'
+        windDirUnit: '°'
         solarRadiationUnit: "lux"
         pmUnit: 'um/m'
         humidityUnit: '%'

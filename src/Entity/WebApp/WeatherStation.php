@@ -28,6 +28,8 @@ class WeatherStation
 
     private string $model;
 
+    private string $reference;
+
     private string $elevation;
 
     private \DateTime $createdAt;
@@ -51,8 +53,9 @@ class WeatherStation
      * @param string $apiToken
      * @param string $model
      * @param string $elevation
+     * @param string $reference
      */
-    public function __construct(string $name, string $description, string $shortDescription, string $country, string $address, string $city, float $lat, float $lng, string $apiToken, string $model, string $elevation)
+    public function __construct(string $name, string $description, string $shortDescription, string $country, string $address, string $city, float $lat, float $lng, string $apiToken, string $model, string $elevation, string $reference)
     {
         $this->name = $name;
         $this->description = $description;
@@ -65,6 +68,7 @@ class WeatherStation
         $this->apiToken = $apiToken;
         $this->model = $model;
         $this->elevation = $elevation;
+        $this->reference = $reference;
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->observations = new ArrayCollection();
@@ -347,5 +351,21 @@ class WeatherStation
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReference(): string
+    {
+        return $this->reference;
+    }
+
+    /**
+     * @param string $reference
+     */
+    public function setReference(string $reference): void
+    {
+        $this->reference = $reference;
     }
 }

@@ -46,11 +46,6 @@ class EditWeatherStationHandler
             throw new WeatherStationNotFoundException();
         }
 
-        $unit = $this->unitRepository->find($command->getPreferedUnitId());
-        if ($unit === null) {
-            throw new UnitNotFoundException();
-        }
-
-        $weatherStation = $this->weatherStationFactory->editWeatherStationFromCommand($station, $command, $unit);
+        $weatherStation = $this->weatherStationFactory->editWeatherStationFromCommand($station, $command);
     }
 }

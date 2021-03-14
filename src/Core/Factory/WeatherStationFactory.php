@@ -26,7 +26,8 @@ class WeatherStationFactory
             $command->getLng(),
             $command->getApiToken(),
             $command->getModel(),
-            $command->getElevation()
+            $command->getElevation(),
+            $command->getReference()
         );
 
         $weatherStation->setPreferedUnit($preferedUnit);
@@ -39,7 +40,7 @@ class WeatherStationFactory
      * @param EditWeatherStationCommand $command
      * @return WeatherStation
      */
-    public function editWeatherStationFromCommand(WeatherStation $weatherStation, EditWeatherStationCommand $command, Unit $preferedUnit)
+    public function editWeatherStationFromCommand(WeatherStation $weatherStation, EditWeatherStationCommand $command)
     {
         $weatherStation->setName($command->getName());
         $weatherStation->setDescription($command->getDescription());
@@ -51,8 +52,8 @@ class WeatherStationFactory
         $weatherStation->setLng($command->getLng());
         $weatherStation->setApiToken(hash('sha256', $command->getApiToken()));
         $weatherStation->setModel($command->getModel());
+        $weatherStation->setReference($command->getReference());
         $weatherStation->setElevation($command->getElevation());
-        $weatherStation->setPreferedUnit($preferedUnit);
 
         return $weatherStation;
     }

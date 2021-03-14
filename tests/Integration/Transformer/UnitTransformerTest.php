@@ -44,6 +44,8 @@ class UnitTransformerTest extends TestCase
         $this->assertEquals('um/m', $unitView->getPmUnit());
         $this->assertEquals('%', $unitView->getHumidityUnit());
         $this->assertEquals('metric', $unitView->getType());
+        $this->assertEquals('m', $unitView->getCloudBaseUnit());
+        $this->assertEquals('°', $unitView->getWindDirUnit());
     }
 
     public function testTransformToSearchView()

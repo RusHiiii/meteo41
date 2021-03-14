@@ -44,6 +44,7 @@ class WeatherStationFactoryTest extends TestCase
             'XXXX',
             'HP2551',
             '250m',
+            '1',
             '1'
         );
         $weatherStation = $this->weatherStationFactory->createWeatherStationFromCommand($command, $entities['unit_1']);
@@ -59,6 +60,7 @@ class WeatherStationFactoryTest extends TestCase
         $this->assertEquals('XXXX', $weatherStation->getApiToken());
         $this->assertEquals('HP2551', $weatherStation->getModel());
         $this->assertEquals('250m', $weatherStation->getElevation());
+        $this->assertEquals('1', $weatherStation->getReference());
     }
 
     public function testEditWeatherStationFromCommand()
@@ -77,7 +79,7 @@ class WeatherStationFactoryTest extends TestCase
             'XXXX',
             'HP2551',
             '250m',
-            '1'
+            'cc'
         );
 
         $weatherStation = $this->weatherStationFactory->editWeatherStationFromCommand($entities['weather_station_1'], $command, $entities['unit_1']);
@@ -93,5 +95,6 @@ class WeatherStationFactoryTest extends TestCase
         $this->assertEquals('7b346904f63cc07f1d8cc2d88d7dae08a3f088a0e4159d5214c27a6571a51eb4', $weatherStation->getApiToken());
         $this->assertEquals('HP2551', $weatherStation->getModel());
         $this->assertEquals('250m', $weatherStation->getElevation());
+        $this->assertEquals('cc', $weatherStation->getReference());
     }
 }

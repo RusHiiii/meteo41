@@ -12,5 +12,9 @@ App\Core\Tactician\Command\Unit\RegisterUnitCommand:
             - NotBlank: ~
         humidityUnit:
             - NotBlank: ~
+        cloudBaseUnit:
+            - NotBlank: ~
+        windDirUnit:
+            - NotBlank: ~
         type:
             - NotBlank: ~

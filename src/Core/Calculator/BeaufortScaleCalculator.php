@@ -39,12 +39,12 @@ class BeaufortScaleCalculator
     }
 
     /**
-     * @param float $windspeed
+     * @param float $windspeedMph
      * @return int|string
      */
-    public function getBeaufortScale(float $windspeed)
+    public function getBeaufortScale(float $windspeedMph)
     {
-        $result = $this->windspeedConverter->convertImperialToMetric($windspeed);
+        $result = $this->windspeedConverter->convertImperialToMetric($windspeedMph);
 
         foreach ($this->scale as $index => $value) {
             if ($result >= $value['up'] && $result < $value['to']) {
