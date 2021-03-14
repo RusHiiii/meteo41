@@ -15,10 +15,12 @@ class EditUnitCommand extends RegisterUnitCommand
      * @param string $pmUnit
      * @param string $humidityUnit
      * @param string $type
+     * @param string $cloudBaseUnit
+     * @param string $windDirUnit
      */
-    public function __construct(string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type)
+    public function __construct(string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type, string $cloudBaseUnit, string $windDirUnit)
     {
-        parent::__construct($temperatureUnit, $speedUnit, $rainUnit, $solarRadiationUnit, $pmUnit, $humidityUnit, $type);
+        parent::__construct($temperatureUnit, $speedUnit, $rainUnit, $solarRadiationUnit, $pmUnit, $humidityUnit, $type, $cloudBaseUnit, $windDirUnit);
     }
 
     /**

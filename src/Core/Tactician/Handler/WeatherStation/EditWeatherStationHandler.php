@@ -2,11 +2,13 @@
 
 namespace App\Core\Tactician\Handler\WeatherStation;
 
+use App\Core\Exception\Unit\UnitNotFoundException;
 use App\Core\Exception\WeatherStation\DuplicateWeatherStationFoundException;
 use App\Core\Exception\WeatherStation\WeatherStationNotFoundException;
 use App\Core\Factory\WeatherStationFactory;
 use App\Core\Tactician\Command\WeatherStation\EditWeatherStationCommand;
 use App\Core\Tactician\Command\WeatherStation\RegisterWeatherStationCommand;
+use App\Repository\Doctrine\UnitRepository;
 use App\Repository\Doctrine\WeatherStationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -22,14 +24,20 @@ class EditWeatherStationHandler
      */
     private $weatherStationFactory;
 
+    /**
+     * @var UnitRepository
+     */
+    private $unitRepository;
+
     public function __construct(
         WeatherStationRepository $weatherStationRepository,
-        WeatherStationFactory $weatherStationFactory
+        WeatherStationFactory $weatherStationFactory,
+        UnitRepository $unitRepository
     ) {
         $this->weatherStationRepository = $weatherStationRepository;
         $this->weatherStationFactory = $weatherStationFactory;
+        $this->unitRepository = $unitRepository;
     }
-
 
     public function handle(EditWeatherStationCommand $command)
     {

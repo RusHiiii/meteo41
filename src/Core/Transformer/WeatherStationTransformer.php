@@ -45,6 +45,7 @@ class WeatherStationTransformer
             $weatherStation->getLng(),
             $weatherStation->getModel(),
             $weatherStation->getElevation(),
+            $weatherStation->getReference(),
             $weatherStation->getCreatedAt(),
             $weatherStation->getUpdatedAt()
         );

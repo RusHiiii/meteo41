@@ -11,6 +11,8 @@ Feature: Unit
       "speedUnit": "km/h",
       "rainUnit": "mm",
       "solarRadiationUnit": "w/m²",
+      "cloudBaseUnit": "m",
+      "windDirUnit": "°",
       "pmUnit": "µg/m3",
       "humidityUnit": "%",
       "type": "imperial"
@@ -25,6 +27,8 @@ Feature: Unit
       | solarRadiationUnit  | w/m²      |
       | pmUnit              | µg/m3     |
       | humidityUnit        | %         |
+      | windDirUnit         | °         |
+      | cloudBaseUnit       | m         |
       | type                | imperial  |
 
   @database
@@ -39,6 +43,8 @@ Feature: Unit
       "rainUnit": "mm",
       "solarRadiationUnit": "w/m²",
       "pmUnit": "µg/m3",
+      "cloudBaseUnit": "m",
+      "windDirUnit": "°",
       "humidityUnit": "%",
       "type": "metric"
     }
@@ -99,6 +105,8 @@ Feature: Unit
       "rainUnit": "a",
       "solarRadiationUnit": "wa/m²",
       "pmUnit": "wm3",
+      "cloudBaseUnit": "ma",
+      "windDirUnit": "po",
       "humidityUnit": "wa",
       "type": "metrics"
     }
@@ -111,6 +119,8 @@ Feature: Unit
       | rainUnit            | a         |
       | solarRadiationUnit  | wa/m²     |
       | pmUnit              | wm3       |
+      | cloudBaseUnit       | ma        |
+      | windDirUnit         | po        |
       | humidityUnit        | wa        |
       | type                | metrics   |
 
@@ -127,7 +137,9 @@ Feature: Unit
       "solarRadiationUnit": "wa/m²",
       "pmUnit": "wm3",
       "humidityUnit": "wa",
-      "type": "metrics"
+      "type": "metrics",
+      "cloudBaseUnit": "ma",
+      "windDirUnit": "po"
     }
     """
     Then the status code should be 400
@@ -173,6 +185,8 @@ Feature: Unit
        "rainUnit":"mm",
        "solarRadiationUnit":"lux",
        "pmUnit":"um\/m",
+       "cloudBaseUnit":"m",
+       "windDirUnit":"°",
        "humidityUnit":"%",
        "type":"metric",
        "createdAt":"2020-12-10T00:12:12+01:00",
@@ -206,6 +220,8 @@ Feature: Unit
              "pmUnit":"um/m",
              "humidityUnit":"%",
              "type":"metric",
+             "cloudBaseUnit":"m",
+             "windDirUnit":"°",
              "createdAt":"2020-12-10T00:12:12+01:00",
              "updatedAt":"2020-12-10T00:12:12+01:00"
           }

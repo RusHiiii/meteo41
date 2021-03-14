@@ -40,6 +40,8 @@ class UnitTransformer
             $unit->getPmUnit(),
             $unit->getHumidityUnit(),
             $unit->getType(),
+            $unit->getCloudBaseUnit(),
+            $unit->getWindDirUnit(),
             $unit->getCreatedAt(),
             $unit->getUpdatedAt()
         );

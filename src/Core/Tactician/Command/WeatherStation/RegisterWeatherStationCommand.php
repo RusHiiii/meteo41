@@ -24,7 +24,11 @@ class RegisterWeatherStationCommand
 
     private string $model;
 
+    private string $reference;
+
     private string $elevation;
+
+    private ?int $preferedUnitId;
 
     /**
      * RegisterWeatherStationCommand constructor.
@@ -39,6 +43,8 @@ class RegisterWeatherStationCommand
      * @param string $apiToken
      * @param string $model
      * @param string $elevation
+     * @param string $reference
+     * @param int|null $preferedUnitId
      */
     public function __construct(
         string $name,
@@ -51,7 +57,9 @@ class RegisterWeatherStationCommand
         float $lng,
         string $apiToken,
         string $model,
-        string $elevation
+        string $elevation,
+        string $reference,
+        int $preferedUnitId = null
     ) {
         $this->name = $name;
         $this->description = $description;
@@ -63,7 +71,9 @@ class RegisterWeatherStationCommand
         $this->lng = $lng;
         $this->apiToken = $apiToken;
         $this->model = $model;
+        $this->reference = $reference;
         $this->elevation = $elevation;
+        $this->preferedUnitId = $preferedUnitId;
     }
 
     /**
@@ -152,5 +162,21 @@ class RegisterWeatherStationCommand
     public function getElevation(): string
     {
         return $this->elevation;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPreferedUnitId(): ?int
+    {
+        return $this->preferedUnitId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReference(): string
+    {
+        return $this->reference;
     }
 }

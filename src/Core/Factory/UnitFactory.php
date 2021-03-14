@@ -23,6 +23,8 @@ class UnitFactory
             $command->getPmUnit(),
             $command->getHumidityUnit(),
             $command->getType(),
+            $command->getCloudBaseUnit(),
+            $command->getWindDirUnit()
         );
     }
 
@@ -39,6 +41,8 @@ class UnitFactory
         $unit->setSolarRadiationUnit($command->getSolarRadiationUnit());
         $unit->setSpeedUnit($command->getSpeedUnit());
         $unit->setTemperatureUnit($command->getTemperatureUnit());
+        $unit->setCloudBaseUnit($command->getCloudBaseUnit());
+        $unit->setWindDirUnit($command->getWindDirUnit());
         $unit->setType($command->getType());
         $unit->setUpdatedAt(new \DateTime());
 

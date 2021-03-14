@@ -25,3 +25,5 @@ App\Core\Tactician\Command\WeatherStation\RegisterWeatherStationCommand:
             - NotBlank: ~
         elevation:
             - NotBlank: ~
+        reference:
+            -   NotBlank: ~

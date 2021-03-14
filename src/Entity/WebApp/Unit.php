@@ -4,6 +4,9 @@ namespace App\Entity\WebApp;
 
 class Unit
 {
+    const UNIT_METRIC = 'metric';
+    const UNIT_IMPERIAL = 'imperial';
+
     private int $id;
 
     private string $temperatureUnit;
@@ -17,6 +20,10 @@ class Unit
     private string $pmUnit;
 
     private string $humidityUnit;
+
+    private string $cloudBaseUnit;
+
+    private string $windDirUnit;
 
     private string $type;
 
@@ -33,8 +40,10 @@ class Unit
      * @param string $pmUnit
      * @param string $humidityUnit
      * @param string $type
+     * @param string $cloudBaseUnit
+     * @param string $windDirUnit
      */
-    public function __construct(string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type)
+    public function __construct(string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type, string $cloudBaseUnit, string $windDirUnit)
     {
         $this->temperatureUnit = $temperatureUnit;
         $this->speedUnit = $speedUnit;
@@ -42,6 +51,8 @@ class Unit
         $this->solarRadiationUnit = $solarRadiationUnit;
         $this->pmUnit = $pmUnit;
         $this->humidityUnit = $humidityUnit;
+        $this->cloudBaseUnit = $cloudBaseUnit;
+        $this->windDirUnit = $windDirUnit;
         $this->type = $type;
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
@@ -197,5 +208,37 @@ class Unit
     public function setUpdatedAt(\DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCloudBaseUnit(): string
+    {
+        return $this->cloudBaseUnit;
+    }
+
+    /**
+     * @param string $cloudBaseUnit
+     */
+    public function setCloudBaseUnit(string $cloudBaseUnit): void
+    {
+        $this->cloudBaseUnit = $cloudBaseUnit;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWindDirUnit(): string
+    {
+        return $this->windDirUnit;
+    }
+
+    /**
+     * @param string $windDirUnit
+     */
+    public function setWindDirUnit(string $windDirUnit): void
+    {
+        $this->windDirUnit = $windDirUnit;
     }
 }

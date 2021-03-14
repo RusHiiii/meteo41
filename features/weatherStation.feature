@@ -41,9 +41,11 @@ Feature: Weather station
       "city": "Blois",
       "lat": 4.5632,
       "lng": 4.1236,
+      "reference": "AAAA",
       "apiToken": "XYXYXXYX",
       "model": "HP 2551",
-      "elevation": "250m"
+      "elevation": "250m",
+      "preferedUnitId": 1
     }
     """
     Then the status code should be 201
@@ -55,6 +57,7 @@ Feature: Weather station
       | country           | FR                    |
       | address           | rue du moulin         |
       | city              | Blois                 |
+      | reference         | AAAA                  |
       | lat               | 4.5632                |
       | lng               | 4.1236                |
       | apiToken          | XYXYXXYX              |
@@ -74,11 +77,13 @@ Feature: Weather station
       "country": "France",
       "address": "rue du moulin",
       "city": "Blois",
+      "reference": "AAA",
       "lat": 4.5632,
       "lng": 4.1236,
       "apiToken": "",
       "model": "HP 2551",
-      "elevation": "250m"
+      "elevation": "250m",
+      "preferedUnitId": 1
     }
     """
     Then the status code should be 400
@@ -111,11 +116,13 @@ Feature: Weather station
       "country": "FR",
       "address": "46 rue des moulins",
       "city": "Blois",
+      "reference": "AAA",
       "lat": 4.5632,
       "lng": 4.1236,
       "apiToken": "XXXXXXX",
       "model": "HP 2551",
-      "elevation": "250m"
+      "elevation": "250m",
+      "preferedUnitId": 1
     }
     """
     Then the status code should be 400
@@ -140,11 +147,13 @@ Feature: Weather station
       "country": "FR",
       "address": "rue du moulin",
       "city": "Blois",
+      "reference": "AAA",
       "lat": 4.5632,
       "lng": 4.1236,
       "apiToken": "XYXYXXYX",
       "model": "HP 2551",
-      "elevation": "250m"
+      "elevation": "250m",
+      "preferedUnitId": 1
     }
     """
     Then the status code should be 204
@@ -155,10 +164,10 @@ Feature: Weather station
       | shortDescription  | ma short description  |
       | country           | FR                    |
       | address           | rue du moulin         |
+      | reference         | AAA                   |
       | city              | Blois                 |
       | lat               | 4.5632                |
       | lng               | 4.1236                |
-      | apiToken          | XYXYXXYX              |
       | model             | HP 2551               |
       | elevation         | 250m                  |
 
@@ -176,10 +185,12 @@ Feature: Weather station
       "address": "rue du moulin",
       "city": "Blois",
       "lat": 4.5632,
+      "reference": "AAA",
       "lng": 4.1236,
       "apiToken": "",
       "model": "HP 2551",
-      "elevation": ""
+      "elevation": "",
+      "preferedUnitId": 1
     }
     """
     Then the status code should be 400
@@ -219,6 +230,7 @@ Feature: Weather station
        "country":"FR",
        "address":"46 rue des moulins",
        "city":"Blois",
+       "reference":"AAA",
        "lat":4.5956,
        "lng":4.2356,
        "model":"HP 2551",
@@ -244,6 +256,7 @@ Feature: Weather station
        "country":"FR",
        "address":"46 rue des moulins",
        "city":"Blois",
+       "reference":"AAA",
        "lat":4.5956,
        "lng":4.2356,
        "model":"HP 2551",
@@ -286,6 +299,7 @@ Feature: Weather station
              "address":"46 rue des moulins",
              "city":"Blois",
              "lat":4.5956,
+             "reference":"AAA",
              "lng":4.2356,
              "model":"HP 2551",
              "elevation":"200m",
@@ -302,6 +316,7 @@ Feature: Weather station
              "city":"Blois",
              "lat":4.5956,
              "lng":4.2356,
+             "reference":"AAA",
              "model":"HP 2551",
              "elevation":"200m",
              "createdAt":"2020-12-11T00:12:12+01:00",
@@ -341,6 +356,7 @@ Feature: Weather station
              "shortDescription":"courte descrition",
              "country":"FR",
              "address":"46 rue des moulins",
+             "reference":"AAA",
              "city":"Blois",
              "lat":4.5956,
              "lng":4.2356,

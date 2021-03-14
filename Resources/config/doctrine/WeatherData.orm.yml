@@ -13,6 +13,11 @@ App\Entity\WebApp\WeatherData:
       precision: 3
       scale: 1
       nullable: false
+    heatIndex:
+      type: decimal
+      precision: 3
+      scale: 1
+      nullable: false
     humidity:
       type: integer
       nullable: false
@@ -106,7 +111,9 @@ App\Entity\WebApp\WeatherData:
       scale: 1
       nullable: false
     humidex:
-      type: integer
+      type: decimal
+      precision: 3
+      scale: 1
       nullable: false
     dewPoint:
       type: decimal
@@ -120,9 +127,6 @@ App\Entity\WebApp\WeatherData:
       nullable: true
     cloudBase:
       type: integer
-      nullable: false
-    lastRain:
-      type: date
       nullable: false
     beaufortScale:
       type: integer

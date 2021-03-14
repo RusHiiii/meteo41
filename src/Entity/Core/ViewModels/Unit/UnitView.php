@@ -18,6 +18,10 @@ class UnitView
 
     private string $humidityUnit;
 
+    private string $cloudBaseUnit;
+
+    private string $windDirUnit;
+
     private string $type;
 
     private \DateTime $createdAt;
@@ -34,10 +38,12 @@ class UnitView
      * @param string $pmUnit
      * @param string $humidityUnit
      * @param string $type
+     * @param string $cloudBaseUnit
+     * @param string $windDirUnit
      * @param \DateTime $createdAt
      * @param \DateTime $updatedAt
      */
-    public function __construct(int $id, string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type, \DateTime $createdAt, \DateTime $updatedAt)
+    public function __construct(int $id, string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type, string $cloudBaseUnit, string $windDirUnit, \DateTime $createdAt, \DateTime $updatedAt)
     {
         $this->id = $id;
         $this->temperatureUnit = $temperatureUnit;
@@ -47,6 +53,8 @@ class UnitView
         $this->pmUnit = $pmUnit;
         $this->humidityUnit = $humidityUnit;
         $this->type = $type;
+        $this->cloudBaseUnit = $cloudBaseUnit;
+        $this->windDirUnit = $windDirUnit;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
     }
@@ -129,5 +137,21 @@ class UnitView
     public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCloudBaseUnit(): string
+    {
+        return $this->cloudBaseUnit;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWindDirUnit(): string
+    {
+        return $this->windDirUnit;
     }
 }

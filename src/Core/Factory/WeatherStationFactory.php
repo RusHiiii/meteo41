@@ -4,6 +4,7 @@ namespace App\Core\Factory;
 
 use App\Core\Tactician\Command\WeatherStation\EditWeatherStationCommand;
 use App\Core\Tactician\Command\WeatherStation\RegisterWeatherStationCommand;
+use App\Entity\WebApp\Unit;
 use App\Entity\WebApp\WeatherStation;
 
 class WeatherStationFactory
@@ -12,9 +13,9 @@ class WeatherStationFactory
      * @param RegisterWeatherStationCommand $command
      * @return WeatherStation
      */
-    public function createWeatherStationFromCommand(RegisterWeatherStationCommand $command)
+    public function createWeatherStationFromCommand(RegisterWeatherStationCommand $command, Unit $preferedUnit)
     {
-        return new WeatherStation(
+        $weatherStation = new WeatherStation(
             $command->getName(),
             $command->getDescription(),
             $command->getShortDescription(),
@@ -25,8 +26,13 @@ class WeatherStationFactory
             $command->getLng(),
             $command->getApiToken(),
             $command->getModel(),
-            $command->getElevation()
+            $command->getElevation(),
+            $command->getReference()
         );
+
+        $weatherStation->setPreferedUnit($preferedUnit);
+
+        return $weatherStation;
     }
 
     /**
@@ -44,8 +50,9 @@ class WeatherStationFactory
         $weatherStation->setCity($command->getCity());
         $weatherStation->setLat($command->getLat());
         $weatherStation->setLng($command->getLng());
-        $weatherStation->setApiToken($command->getApiToken());
+        $weatherStation->setApiToken(hash('sha256', $command->getApiToken()));
         $weatherStation->setModel($command->getModel());
+        $weatherStation->setReference($command->getReference());
         $weatherStation->setElevation($command->getElevation());
 
         return $weatherStation;

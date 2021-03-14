@@ -34,6 +34,10 @@ App\Entity\WebApp\WeatherStation:
       type: string
       length: 100
       nullable: false
+    reference:
+      type: string
+      length: 100
+      nullable: false
     lat:
       type: decimal
       precision: 6
@@ -68,3 +72,11 @@ App\Entity\WebApp\WeatherStation:
       mappedBy: weatherStation
       cascade: [ "persist", "merge" ]
       orphanRemoval: true
+  manyToOne:
+    preferedUnit:
+      targetEntity: App\Entity\WebApp\Unit
+      joinColumn:
+        name: prefered_unit_id
+        referencedColumnName: id
+        nullable: false
+        onDelete: "CASCADE"
