@@ -38,6 +38,7 @@ App\Entity\WebApp\WeatherStation:
       type: string
       length: 100
       nullable: false
+      unique: true
     lat:
       type: decimal
       precision: 6

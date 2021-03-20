@@ -30,4 +30,47 @@ class WeatherDataRepository extends ServiceEntityRepository implements WeatherDa
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    /**
+     * @param string $reference
+     * @return int|mixed|string|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findLastInsertedByWeatherStationReference(string $reference)
+    {
+
+        $qb = $this
+            ->createQueryBuilder('weatherData')
+            ->leftJoin('weatherData.weatherStation', 'weatherStation')
+            ->andWhere('weatherStation.reference = :reference')
+            ->orderBy('weatherData.createdAt', 'DESC')
+            ->setParameter('reference', $reference);
+
+        return $qb
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param string $reference
+     * @return int|mixed|string|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findLastHourByWeatherStationReference(string $reference)
+    {
+        $qb = $this
+            ->createQueryBuilder('weatherData')
+            ->leftJoin('weatherData.weatherStation', 'weatherStation')
+            ->andWhere('weatherStation.reference = :reference')
+            ->andWhere('weatherData.createdAt <= :date')
+            ->orderBy('weatherData.createdAt', 'DESC')
+            ->setParameter('reference', $reference)
+            ->setParameter('date', (new \DateTime())->modify('-1 hours')->format('Y-m-d H:i:s'));
+
+        return $qb
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getOneOrNullResult();
+    }
 }

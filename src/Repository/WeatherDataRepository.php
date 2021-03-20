@@ -5,4 +5,8 @@ namespace App\Repository;
 interface WeatherDataRepository
 {
     public function findDuplicated(\DateTime $dateTime);
+
+    public function findLastInsertedByWeatherStationReference(string $reference);
+
+    public function findLastHourByWeatherStationReference(string $reference);
 }
