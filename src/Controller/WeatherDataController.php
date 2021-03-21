@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\Constant\Contact\ApiSearch;
+use App\Core\Converter\Period\PeriodConverter;
 use App\Core\Exception\Contact\ContactLimitException;
 use App\Core\Exception\Contact\ContactNotFoundException;
 use App\Core\Exception\InvalidCommandException;
@@ -25,6 +26,7 @@ use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -68,6 +70,11 @@ class WeatherDataController extends AbstractController
     private $weatherDataTransformer;
 
     /**
+     * @var PeriodConverter
+     */
+    private $periodConverter;
+
+    /**
      * WeatherDataController constructor.
      * @param CommandBus $commandBus
      * @param CommandMapper $commandMapper
@@ -76,6 +83,7 @@ class WeatherDataController extends AbstractController
      * @param WeatherStationRepository $weatherStationRepository
      * @param WeatherDataRepository $weatherDataRepository
      * @param WeatherDataTransformer $weatherDataTransformer
+     * @param PeriodConverter $periodConverter
      */
     public function __construct(
         CommandBus $commandBus,
@@ -84,7 +92,8 @@ class WeatherDataController extends AbstractController
         SerializerInterface $serializer,
         WeatherStationRepository $weatherStationRepository,
         WeatherDataRepository $weatherDataRepository,
-        WeatherDataTransformer $weatherDataTransformer
+        WeatherDataTransformer $weatherDataTransformer,
+        PeriodConverter $periodConverter
     ) {
         $this->commandBus = $commandBus;
         $this->commandMapper = $commandMapper;
@@ -93,6 +102,7 @@ class WeatherDataController extends AbstractController
         $this->weatherStationRepository = $weatherStationRepository;
         $this->weatherDataRepository = $weatherDataRepository;
         $this->weatherDataTransformer = $weatherDataTransformer;
+        $this->periodConverter = $periodConverter;
     }
 
     /**
@@ -167,5 +177,22 @@ class WeatherDataController extends AbstractController
         $weatherData = $this->weatherDataTransformer->transformWeatherDataToDetail($weatherDataCurrent, $weatherDataLastHour);
 
         return new SerializedResponse($this->serializer->serialize($weatherData, 'json'), 200);
+    }
+
+    /**
+     * @Route("/api/weatherData/{reference}/history/{period}", name="show_history_data", requirements={"period"="daily|weekly|monthly|yearly"}, methods={"GET"})
+     */
+    public function showWeatherDataHistoryAction(Request $request, $reference, $period): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+
+        $searchBy = $request->query->get('searchBy', []);
+        if (!array_key_exists('from', $searchBy)) {
+            throw new BadRequestHttpException();
+        }
+
+        list($endDate, $startDate) = $this->periodConverter->convertPeriodToDate($period, $searchBy['from']);
+
+        $d = $this->weatherDataRepository->findWeatherDataHistory($startDate, $endDate, $period, $reference);
     }
 }

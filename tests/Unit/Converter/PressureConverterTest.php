@@ -3,7 +3,7 @@
 
 namespace App\Tests\Unit\Converter;
 
-use App\Core\Converter\RainfallConverter;
+use App\Core\Converter\Weather\RainfallConverter;
 use App\Tests\TestCase;
 
 class PressureConverterTest extends TestCase

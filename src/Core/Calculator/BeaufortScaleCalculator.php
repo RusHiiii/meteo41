@@ -2,7 +2,7 @@
 
 namespace App\Core\Calculator;
 
-use App\Core\Converter\WindSpeedConverter;
+use App\Core\Converter\Weather\WindSpeedConverter;
 use App\Core\Exception\OutOfRangeException;
 
 class BeaufortScaleCalculator

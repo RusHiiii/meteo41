@@ -239,3 +239,9 @@ Feature: Weather Data
        "receivedAt":"2020-12-11T00:12:12+01:00"
     }
     """
+
+  @database
+  Scenario: Show history weather data
+    Given I load the fixture "weatherData"
+    When I request the url "/api/weatherData/EEE/history/daily?searchBy[from]=1616341214" with http verb "GET"
+    Then the status code should be 200

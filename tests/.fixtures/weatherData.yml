@@ -171,6 +171,40 @@ App\Entity\WebApp\WeatherData:
         aqiAvg: 53
         createdAt: '<date_create("-2 hours")>'
         heatIndex: 7.3
+    weather_data_5:
+        __construct: false
+        unit: '@unit_1'
+        weatherStation: '@weather_station_2'
+        temperature: 8.6
+        humidity: 52
+        relativepressure: 1025.6
+        absolutepressure: 1013.6
+        windDirection: 18
+        windDirectionAvg: 18
+        windSpeed: 2
+        windSpeedAvg: 9.7
+        windGust: 21
+        windMaxDailyGust: 33
+        rainRate: 0
+        rainEvent: 0
+        rainHourly: 0
+        rainDaily: 1
+        rainWeekly: 6.1
+        rainMonthly: 11
+        rainYearly: 176
+        solarRadiation: 412
+        uv: 4
+        pm25: 5
+        pm25Avg: 12
+        humidex: 8.9
+        dewPoint: 0.3
+        windChill: 7.4
+        cloudBase: 1024
+        beaufortScale: 2
+        aqi: 53
+        aqiAvg: 53
+        createdAt: '<date_create("-3 hours")>'
+        heatIndex: 7.3
 
 App\Entity\WebApp\User:
     user_1:
