@@ -28,7 +28,7 @@ App\Entity\WebApp\WeatherStation:
         lng: '4.2356'
         apiToken: 'XXXXXXXXX'
         model: 'HP 2551'
-        reference: 'AAA'
+        reference: 'AAAA'
         elevation: '200m'
         createdAt: '<date_create("2020-12-11 00:12:12")>'
         updatedAt: '<date_create("2020-12-11 00:12:12")>'

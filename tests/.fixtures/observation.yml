@@ -67,7 +67,7 @@ App\Entity\WebApp\WeatherStation:
         country: 'FR'
         address: '46 rue des moulins'
         city: 'Blois'
-        reference: 'AAA'
+        reference: 'AAAA'
         lat: '4.5956'
         lng: '4.2356'
         apiToken: 'XXXXXXXXX'
