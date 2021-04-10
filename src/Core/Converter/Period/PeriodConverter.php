@@ -8,7 +8,6 @@ class PeriodConverter
 {
     /**
      * @param string $period
-     * @param string $timestamp
      * @return array
      */
     public function convertPeriodToDate(string $period)
