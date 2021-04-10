@@ -11,4 +11,6 @@ interface WeatherDataRepository
     public function findLastHourByWeatherStationReference(string $reference);
 
     public function findWeatherDataHistory(string $startDate, string $endDate, string $period, string $reference);
+
+    public function hasWeatherDataHistory(string $startDate, string $endDate, string $reference);
 }

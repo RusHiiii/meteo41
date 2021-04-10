@@ -125,7 +125,7 @@ Feature: Weather Data
     And the response should have the following content
     """
      {
-       "id":1,
+       "id":6,
        "weatherStation":{
           "id":1,
           "name":"Station de Blois",
@@ -156,11 +156,11 @@ Feature: Weather Data
           "cloudBaseUnit":"m",
           "windDirUnit":"\u00b0"
        },
-       "temperature":8.6,
-       "relativePressure":1025.6,
-       "windSpeedAvg":9.7,
-       "humidity":55,
-       "receivedAt":"2020-12-11T00:12:12+01:00"
+       "temperature":8.7,
+       "relativePressure":1026.6,
+       "windSpeedAvg":10.7,
+       "humidity":56,
+       "receivedAt":"2021-01-01T00:13:12+01:00"
     }
     """
 
@@ -172,7 +172,7 @@ Feature: Weather Data
     And the response should have the following content
     """
     {
-       "id":1,
+       "id":6,
        "weatherStation":{
           "id":1,
           "name":"Station de Blois",
@@ -203,45 +203,138 @@ Feature: Weather Data
           "cloudBaseUnit":"m",
           "windDirUnit":"\u00b0"
        },
-       "temperature":8.6,
+       "temperature":8.7,
        "temperatureVariation":null,
-       "humidity":55,
-       "relativePressure":1025.6,
+       "humidity":56,
+       "relativePressure":1026.6,
        "relativePressureVariation":null,
        "absolutePressure":1013.6,
-       "windDirection":18,
-       "windDirectionAvg":18,
-       "windSpeed":2,
-       "windSpeedAvg":9.7,
-       "windGust":21,
-       "windMaxDailyGust":33,
-       "rainRate":0,
-       "rainEvent":0,
-       "rainHourly":0,
+       "windDirection":19,
+       "windDirectionAvg":19,
+       "windSpeed":3,
+       "windSpeedAvg":10.7,
+       "windGust":22,
+       "windMaxDailyGust":35,
+       "rainRate":3,
+       "rainEvent":5,
+       "rainHourly":6,
        "rainDaily":1,
        "rainWeekly":6.1,
        "rainMonthly":11,
        "rainYearly":176,
        "solarRadiation":412,
        "solarRadiationVariation":null,
-       "uv":4,
-       "pm25":5,
-       "pm25Avg":12,
-       "humidex":8.9,
+       "uv":5,
+       "pm25":6,
+       "pm25Avg":13,
+       "humidex":9.9,
        "humidexVariation":null,
-       "dewPoint":0.3,
-       "windChill":7.4,
+       "dewPoint":1.3,
+       "windChill":8.4,
        "cloudBase":1024,
-       "beaufortScale":2,
-       "aqi":53,
-       "aqiAvg":53,
-       "heatIndex":7.3,
-       "receivedAt":"2020-12-11T00:12:12+01:00"
+       "beaufortScale":3,
+       "aqi":54,
+       "aqiAvg":54,
+       "heatIndex":8.3,
+       "receivedAt":"2021-01-01T00:13:12+01:00"
     }
     """
 
   @database
   Scenario: Show history weather data
     Given I load the fixture "weatherData"
-    When I request the url "/api/weatherData/EEE/history/daily?searchBy[from]=1616341214" with http verb "GET"
+    When I request the url "/api/weatherData/AAA/history/yearly" with http verb "GET"
     Then the status code should be 200
+    And the response should have the following content
+    """
+    {
+       "weatherStation":{
+          "id":1,
+          "name":"Station de Blois",
+          "description":"ma longue description",
+          "shortDescription":"courte descrition",
+          "country":"FR",
+          "address":"46 rue des moulins",
+          "city":"Blois",
+          "lat":4.5956,
+          "lng":4.2356,
+          "model":"HP 2551",
+          "elevation":"200m",
+          "createdAt":"2020-12-11T00:12:12+01:00",
+          "updatedAt":"2020-12-11T00:12:12+01:00",
+          "reference":"AAA"
+       },
+       "unit":{
+          "id":1,
+          "temperatureUnit":"\u00b0C",
+          "speedUnit":"m\/s",
+          "rainUnit":"mm",
+          "solarRadiationUnit":"lux",
+          "pmUnit":"um\/m",
+          "humidityUnit":"%",
+          "type":"metric",
+          "createdAt":"2020-12-10T00:12:12+01:00",
+          "updatedAt":"2020-12-10T00:12:12+01:00",
+          "cloudBaseUnit":"m",
+          "windDirUnit":"\u00b0"
+       },
+       "maxTemperature":8.7,
+       "maxTemperatureReceivedAt":"2021-01-01T00:13:12+01:00",
+       "minTemperature":8.6,
+       "minTemperatureReceivedAt":"2021-01-01T00:12:12+01:00",
+       "maxHumidex":9.9,
+       "maxHumidexReceivedAt":"2021-01-01T00:13:12+01:00",
+       "minHumidex":8.9,
+       "minHumidexReceivedAt":"2021-01-01T00:12:12+01:00",
+       "maxDewPoint":1.3,
+       "maxDewPointReceivedAt":"2021-01-01T00:13:12+01:00",
+       "minDewPoint":0.3,
+       "minDewPointReceivedAt":"2021-01-01T00:12:12+01:00",
+       "maxWindChill":8.4,
+       "maxWindChillReceivedAt":"2021-01-01T00:13:12+01:00",
+       "minWindChill":7.4,
+       "minWindChillReceivedAt":"2021-01-01T00:12:12+01:00",
+       "maxHumidity":56,
+       "maxHumidityReceivedAt":"2021-01-01T00:13:12+01:00",
+       "minHumidity":55,
+       "minHumidityReceivedAt":"2021-01-01T00:12:12+01:00",
+       "maxRelativePressure":1026.6,
+       "maxRelativePressureReceivedAt":"2021-01-01T00:13:12+01:00",
+       "minRelativePressure":1025.6,
+       "minRelativePressureReceivedAt":"2021-01-01T00:12:12+01:00",
+       "maxRainRate":3,
+       "maxRainRateReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxRainEvent":5,
+       "maxRainEventReceivedAt":"2021-01-01T00:13:12+01:00",
+       "rainPeriod":176,
+       "maxWindGust":35,
+       "maxWindGustReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxBeaufortScale":3,
+       "maxBeaufortScaleReceivedAt":"2021-01-01T00:13:12+01:00",
+       "avgWindSpeed":10.2,
+       "avgWindDirection":19,
+       "avgPm25":13,
+       "avgAqi":54,
+       "maxPm25":6,
+       "maxPm25ReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxAqi":54,
+       "maxAqiReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxSolarRadiation":412,
+       "maxSolarRadiationReceivedAt":"2021-01-01T00:12:12+01:00",
+       "maxUv":5,
+       "maxUvReceivedAt":"2021-01-01T00:13:12+01:00"
+    }
+    """
+
+  @database
+  Scenario: Show history weather data with bad period
+    Given I load the fixture "weatherData"
+    When I request the url "/api/weatherData/AAA/history/daily" with http verb "GET"
+    Then the status code should be 400
+    And the response should have the following content
+    """
+     {
+         "type":"NoWeatherDataReportFoundException",
+         "content":"NoWeatherDataReportFoundException"
+      }
+    """

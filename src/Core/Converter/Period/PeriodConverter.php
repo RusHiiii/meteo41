@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Core\Converter\Period;
-
 
 use App\Core\Constant\WeatherData\Period;
 
@@ -12,30 +10,27 @@ class PeriodConverter
      * @param string $period
      * @param string $timestamp
      * @return array
-     * @throws \Exception
      */
-    public function convertPeriodToDate(string $period, string $timestamp)
+    public function convertPeriodToDate(string $period)
     {
-        $startDate = $endDate = new \DateTime(strtotime($timestamp));
+        $startDate = $endDate = date('Y-m-d H:i:s', strtotime('now'));
 
         if ($period === Period::DAILY) {
-            $startDate = $startDate->format('Y-m-d 00:00:00');
+            $startDate = date('Y-m-d 00:00:00', strtotime('now'));
         }
 
         if ($period === Period::MONTHLY) {
-            $startDate = $startDate->format('Y-m-01 00:00:00');
+            $startDate = date('Y-m-01 00:00:00', strtotime('now'));
         }
 
         if ($period === Period::WEEKLY) {
-            $startDate = $startDate
-                ->modify('monday this week')
-                ->format('Y-m-d 00:00:00');
+            $startDate = date('Y-m-d 00:00:00', strtotime('this week'));
         }
 
         if ($period === Period::YEARLY) {
-            $startDate = $startDate->format('Y-01-01 00:00:00');
+            $startDate = date('Y-01-01 00:00:00', strtotime('now'));
         }
 
-        return [$endDate->format('Y-m-d H:i:s'), $startDate];
+        return [$endDate, $startDate];
     }
 }

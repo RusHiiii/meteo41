@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Entity\Core\ViewModels\WeatherData;
-
 
 use App\Entity\Core\ViewModels\Unit\UnitView;
 use App\Entity\Core\ViewModels\WeatherStation\WeatherStationView;

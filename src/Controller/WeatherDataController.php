@@ -8,6 +8,7 @@ use App\Core\Exception\Contact\ContactLimitException;
 use App\Core\Exception\Contact\ContactNotFoundException;
 use App\Core\Exception\InvalidCommandException;
 use App\Core\Exception\WeatherData\NoWeatherDataFoundException;
+use App\Core\Exception\WeatherData\NoWeatherDataReportFoundException;
 use App\Core\Exception\WeatherStation\WeatherStationNotFoundException;
 use App\Core\Factory\ErrorFactory;
 use App\Core\Response\SerializedErrorResponse;
@@ -186,13 +187,22 @@ class WeatherDataController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
 
-        $searchBy = $request->query->get('searchBy', []);
-        if (!array_key_exists('from', $searchBy)) {
-            throw new BadRequestHttpException();
+        $weatherStation = $this->weatherStationRepository->findByReference($reference);
+        if ($weatherStation === null) {
+            $error = $this->errorFactory->create(new WeatherStationNotFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);
         }
 
-        list($endDate, $startDate) = $this->periodConverter->convertPeriodToDate($period, $searchBy['from']);
+        list($endDate, $startDate) = $this->periodConverter->convertPeriodToDate($period);
 
-        $d = $this->weatherDataRepository->findWeatherDataHistory($startDate, $endDate, $period, $reference);
+        $weatherDataPeriod = $this->weatherDataRepository->findWeatherDataHistory($startDate, $endDate, $period, $reference);
+        if (!$weatherDataPeriod['has_data']) {
+            $error = $this->errorFactory->create(new NoWeatherDataReportFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
+        }
+
+        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataToPeriod($weatherDataPeriod, $weatherStation);
+
+        return new SerializedResponse($this->serializer->serialize($weatherDataView, 'json'), 200);
     }
 }

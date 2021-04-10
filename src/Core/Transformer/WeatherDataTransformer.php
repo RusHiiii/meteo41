@@ -3,8 +3,10 @@
 namespace App\Core\Transformer;
 
 use App\Entity\Core\ViewModels\WeatherData\WeatherDataDetailView;
+use App\Entity\Core\ViewModels\WeatherData\WeatherDataPeriodView;
 use App\Entity\Core\ViewModels\WeatherData\WeatherDataSummaryView;
 use App\Entity\WebApp\WeatherData;
+use App\Entity\WebApp\WeatherStation;
 
 class WeatherDataTransformer
 {
@@ -27,6 +29,67 @@ class WeatherDataTransformer
     {
         $this->unitTransformer = $unitTransformer;
         $this->weatherStationTransformer = $weatherStationTransformer;
+    }
+
+    /**
+     * @param array $weatherData
+     * @param WeatherStation $weatherStation
+     * @return WeatherDataPeriodView
+     */
+    public function transformWeatherDataToPeriod(array $weatherData, WeatherStation $weatherStation)
+    {
+        $unit = $this->unitTransformer->transformUnitToView($weatherStation->getPreferedUnit());
+        $weatherStation = $this->weatherStationTransformer->transformWeatherStationToView($weatherStation);
+
+        return new WeatherDataPeriodView(
+            $weatherStation,
+            $unit,
+            $weatherData['temperature_max']['value'],
+            $weatherData['temperature_max']['createdAt'],
+            $weatherData['temperature_min']['value'],
+            $weatherData['temperature_min']['createdAt'],
+            $weatherData['humidex_max']['value'],
+            $weatherData['humidex_max']['createdAt'],
+            $weatherData['humidex_min']['value'],
+            $weatherData['humidex_min']['createdAt'],
+            $weatherData['dewpoint_max']['value'],
+            $weatherData['dewpoint_max']['createdAt'],
+            $weatherData['dewpoint_min']['value'],
+            $weatherData['dewpoint_min']['createdAt'],
+            $weatherData['windchill_max']['value'],
+            $weatherData['windchill_max']['createdAt'],
+            $weatherData['windchill_min']['value'],
+            $weatherData['windchill_min']['createdAt'],
+            $weatherData['humidity_max']['value'],
+            $weatherData['humidity_max']['createdAt'],
+            $weatherData['humidity_min']['value'],
+            $weatherData['humidity_min']['createdAt'],
+            $weatherData['relative_pressure_max']['value'],
+            $weatherData['relative_pressure_max']['createdAt'],
+            $weatherData['relative_pressure_min']['value'],
+            $weatherData['relative_pressure_min']['createdAt'],
+            $weatherData['rain_rate_max']['value'],
+            $weatherData['rain_rate_max']['createdAt'],
+            $weatherData['rain_event_max']['value'],
+            $weatherData['rain_event_max']['createdAt'],
+            $weatherData['rain_period']['value'],
+            $weatherData['wind_gust_max']['value'],
+            $weatherData['wind_gust_max']['createdAt'],
+            $weatherData['beaufort_scale_max']['value'],
+            $weatherData['beaufort_scale_max']['createdAt'],
+            $weatherData['wind_speed_avg']['value'],
+            round($weatherData['wind_dir_avg']['value']),
+            round($weatherData['pm25_avg']['value']),
+            round($weatherData['aqi_avg']['value']),
+            $weatherData['pm25_max']['value'],
+            $weatherData['pm25_max']['createdAt'],
+            $weatherData['aqi_max']['value'],
+            $weatherData['aqi_max']['createdAt'],
+            $weatherData['solar_radiation_max']['value'],
+            $weatherData['solar_radiation_max']['createdAt'],
+            $weatherData['uv_max']['value'],
+            $weatherData['uv_max']['createdAt'],
+        );
     }
 
     /**
@@ -60,20 +123,20 @@ class WeatherDataTransformer
         $unit = $this->unitTransformer->transformUnitToView($currentWeatherData->getUnit());
         $weatherStation = $this->weatherStationTransformer->transformWeatherStationToView($currentWeatherData->getWeatherStation());
 
-        $temperatureVariation = $lastHourWeatherData ? $currentWeatherData->getTemperature() - $lastHourWeatherData->getTemperature() : null;
-        $relativePressureVariation = $lastHourWeatherData ? $currentWeatherData->getRelativePressure() - $lastHourWeatherData->getRelativePressure() : null;
-        $solarRadiationVariation = $lastHourWeatherData ? $currentWeatherData->getSolarRadiation() - $lastHourWeatherData->getSolarRadiation() : null;
-        $humidexVariation = $lastHourWeatherData ? $currentWeatherData->getHumidex() - $lastHourWeatherData->getHumidex() : null;
+        $temperatureVariation = $lastHourWeatherData ? round($currentWeatherData->getTemperature() - $lastHourWeatherData->getTemperature(), 1) : null;
+        $relativePressureVariation = $lastHourWeatherData ? round($currentWeatherData->getRelativePressure() - $lastHourWeatherData->getRelativePressure(), 1) : null;
+        $solarRadiationVariation = $lastHourWeatherData ? round($currentWeatherData->getSolarRadiation() - $lastHourWeatherData->getSolarRadiation(), 1) : null;
+        $humidexVariation = $lastHourWeatherData ? round($currentWeatherData->getHumidex() - $lastHourWeatherData->getHumidex(), 1) : null;
 
         return new WeatherDataDetailView(
             $currentWeatherData->getId(),
             $weatherStation,
             $unit,
             $currentWeatherData->getTemperature(),
-            round($temperatureVariation, 1),
+            $temperatureVariation,
             $currentWeatherData->getHumidity(),
             $currentWeatherData->getRelativePressure(),
-            round($relativePressureVariation, 1),
+            $relativePressureVariation,
             $currentWeatherData->getAbsolutePressure(),
             $currentWeatherData->getWindDirection(),
             $currentWeatherData->getWindDirectionAvg(),
@@ -89,12 +152,12 @@ class WeatherDataTransformer
             $currentWeatherData->getRainMonthly(),
             $currentWeatherData->getRainYearly(),
             $currentWeatherData->getSolarRadiation(),
-            round($solarRadiationVariation, 1),
+            $solarRadiationVariation,
             $currentWeatherData->getUv(),
             $currentWeatherData->getPm25(),
             $currentWeatherData->getPm25Avg(),
             $currentWeatherData->getHumidex(),
-            round($humidexVariation, 1),
+            $humidexVariation,
             $currentWeatherData->getDewPoint(),
             $currentWeatherData->getWindChill(),
             $currentWeatherData->getCloudBase(),

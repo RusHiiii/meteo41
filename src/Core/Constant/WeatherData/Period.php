@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Core\Constant\WeatherData;
 
 class Period
