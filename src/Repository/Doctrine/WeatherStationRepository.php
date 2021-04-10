@@ -54,6 +54,23 @@ class WeatherStationRepository extends AbstractRepository implements WeatherStat
     }
 
     /**
+     * @param string $ref
+     * @return int|mixed|string|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findByReference(string $ref)
+    {
+        $qb = $this
+            ->createQueryBuilder('weatherStation')
+            ->andWhere('weatherStation.reference = :ref')
+            ->setParameter('ref', $ref);
+
+        return $qb
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
      * @param array $searchBy
      * @param string $order
      * @param int $page

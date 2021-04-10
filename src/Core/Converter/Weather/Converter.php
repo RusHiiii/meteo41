@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Converter;
+namespace App\Core\Converter\Weather;
 
 interface Converter
 {

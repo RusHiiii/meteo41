@@ -34,4 +34,19 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
         return new Paginator($queryBuilder);
     }
+
+    /**
+     * @param string $field
+     * @param string $query
+     * @param string|null $alias
+     * @return string
+     */
+    public function alias(string $field, string $query, string $alias = null)
+    {
+        if ($alias === null) {
+            return sprintf('%s.%s', $query, $field);
+        }
+
+        return sprintf('%s.%s AS %s', $query, $field, $alias);
+    }
 }

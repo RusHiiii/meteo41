@@ -3,7 +3,7 @@
 
 namespace App\Tests\Unit\Converter;
 
-use App\Core\Converter\CloudBaseConverter;
+use App\Core\Converter\Weather\CloudBaseConverter;
 use App\Tests\TestCase;
 
 class CloudBaseConverterTest extends TestCase

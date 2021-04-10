@@ -3,7 +3,7 @@
 
 namespace App\Tests\Unit\Converter;
 
-use App\Core\Converter\TemperatureConverter;
+use App\Core\Converter\Weather\TemperatureConverter;
 use App\Tests\TestCase;
 
 class TemperatureConverterTest extends TestCase

@@ -2,7 +2,7 @@
 
 namespace App\Core\Calculator;
 
-use App\Core\Converter\TemperatureConverter;
+use App\Core\Converter\Weather\TemperatureConverter;
 
 class HumidexCalculator
 {

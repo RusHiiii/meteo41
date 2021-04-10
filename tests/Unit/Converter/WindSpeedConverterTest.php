@@ -3,7 +3,7 @@
 
 namespace App\Tests\Unit\Converter;
 
-use App\Core\Converter\WindSpeedConverter;
+use App\Core\Converter\Weather\WindSpeedConverter;
 use App\Tests\TestCase;
 
 class WindSpeedConverterTest extends TestCase

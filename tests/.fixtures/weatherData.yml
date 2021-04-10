@@ -1,0 +1,275 @@
+App\Entity\WebApp\WeatherStation:
+    weather_station_1:
+        __construct: false
+        name: 'Station de Blois'
+        description: 'ma longue description'
+        shortDescription: 'courte descrition'
+        country: 'FR'
+        address: '46 rue des moulins'
+        city: 'Blois'
+        lat: '4.5956'
+        lng: '4.2356'
+        apiToken: 'd87f27f82df4f4719fd7b2bae738db0f3a616579ad01dbbe2ef55fbcdf50454e'
+        model: 'HP 2551'
+        elevation: '200m'
+        reference: 'AAA'
+        createdAt: '<date_create("2020-12-11 00:12:12")>'
+        updatedAt: '<date_create("2020-12-11 00:12:12")>'
+        preferedUnit: '@unit_1'
+    weather_station_2:
+        __construct: false
+        name: 'Station de Blois'
+        description: 'ma longue description'
+        shortDescription: 'courte descrition'
+        country: 'FR'
+        address: '46 rue des moulins'
+        city: 'Blois'
+        lat: '4.5956'
+        lng: '4.2356'
+        apiToken: 'd87f27f82df4f4719fd7b2bae738db0f3a616579ad01dbbe2ef55fbcdf50454e'
+        model: 'HP 2551'
+        elevation: '200m'
+        reference: 'EEE'
+        createdAt: '<date_create("2020-12-11 00:12:12")>'
+        updatedAt: '<date_create("2020-12-11 00:12:12")>'
+        preferedUnit: '@unit_1'
+
+App\Entity\WebApp\WeatherData:
+    weather_data_1:
+        __construct: false
+        unit: '@unit_1'
+        weatherStation: '@weather_station_1'
+        temperature: 8.6
+        humidity: 55
+        relativepressure: 1025.6
+        absolutepressure: 1013.6
+        windDirection: 18
+        windDirectionAvg: 18
+        windSpeed: 2
+        windSpeedAvg: 9.7
+        windGust: 21
+        windMaxDailyGust: 33
+        rainRate: 0
+        rainEvent: 0
+        rainHourly: 0
+        rainDaily: 1
+        rainWeekly: 6.1
+        rainMonthly: 11
+        rainYearly: 176
+        solarRadiation: 412
+        uv: 4
+        pm25: 5
+        pm25Avg: 12
+        humidex: 8.9
+        dewPoint: 0.3
+        windChill: 7.4
+        cloudBase: 1024
+        beaufortScale: 2
+        aqi: 53
+        aqiAvg: 53
+        createdAt: '<date_create("2021-01-01 00:12:12")>'
+        heatIndex: 7.3
+    weather_data_2:
+        __construct: false
+        unit: '@unit_1'
+        weatherStation: '@weather_station_2'
+        temperature: 8.6
+        humidity: 55
+        relativepressure: 1025.6
+        absolutepressure: 1013.6
+        windDirection: 18
+        windDirectionAvg: 18
+        windSpeed: 2
+        windSpeedAvg: 9.7
+        windGust: 21
+        windMaxDailyGust: 33
+        rainRate: 0
+        rainEvent: 0
+        rainHourly: 0
+        rainDaily: 1
+        rainWeekly: 6.1
+        rainMonthly: 11
+        rainYearly: 176
+        solarRadiation: 412
+        uv: 4
+        pm25: 5
+        pm25Avg: 12
+        humidex: 8.9
+        dewPoint: 0.3
+        windChill: 7.4
+        cloudBase: 1024
+        beaufortScale: 2
+        aqi: 53
+        aqiAvg: 53
+        createdAt: '<date_create()>'
+        heatIndex: 7.3
+    weather_data_3:
+        __construct: false
+        unit: '@unit_1'
+        weatherStation: '@weather_station_2'
+        temperature: 7.1
+        humidity: 55
+        relativepressure: 1020.6
+        absolutepressure: 1013.6
+        windDirection: 18
+        windDirectionAvg: 18
+        windSpeed: 2
+        windSpeedAvg: 9.7
+        windGust: 21
+        windMaxDailyGust: 33
+        rainRate: 0
+        rainEvent: 0
+        rainHourly: 0
+        rainDaily: 1
+        rainWeekly: 6.1
+        rainMonthly: 11
+        rainYearly: 176
+        solarRadiation: 400
+        uv: 4
+        pm25: 5
+        pm25Avg: 12
+        humidex: 8.1
+        dewPoint: 0.3
+        windChill: 7.4
+        cloudBase: 1024
+        beaufortScale: 2
+        aqi: 53
+        aqiAvg: 53
+        createdAt: '<date_create("-1 hours")>'
+        heatIndex: 7.3
+    weather_data_4:
+        __construct: false
+        unit: '@unit_1'
+        weatherStation: '@weather_station_2'
+        temperature: 4.6
+        humidity: 55
+        relativepressure: 1025.6
+        absolutepressure: 1013.6
+        windDirection: 18
+        windDirectionAvg: 18
+        windSpeed: 2
+        windSpeedAvg: 9.7
+        windGust: 21
+        windMaxDailyGust: 33
+        rainRate: 0
+        rainEvent: 0
+        rainHourly: 0
+        rainDaily: 1
+        rainWeekly: 6.1
+        rainMonthly: 11
+        rainYearly: 176
+        solarRadiation: 412
+        uv: 4
+        pm25: 5
+        pm25Avg: 12
+        humidex: 8.9
+        dewPoint: 0.3
+        windChill: 7.4
+        cloudBase: 1024
+        beaufortScale: 2
+        aqi: 53
+        aqiAvg: 53
+        createdAt: '<date_create("-2 hours")>'
+        heatIndex: 7.3
+    weather_data_5:
+        __construct: false
+        unit: '@unit_1'
+        weatherStation: '@weather_station_2'
+        temperature: 8.6
+        humidity: 52
+        relativepressure: 1025.6
+        absolutepressure: 1013.6
+        windDirection: 18
+        windDirectionAvg: 18
+        windSpeed: 2
+        windSpeedAvg: 9.7
+        windGust: 21
+        windMaxDailyGust: 33
+        rainRate: 0
+        rainEvent: 0
+        rainHourly: 0
+        rainDaily: 1
+        rainWeekly: 6.1
+        rainMonthly: 11
+        rainYearly: 176
+        solarRadiation: 412
+        uv: 4
+        pm25: 5
+        pm25Avg: 12
+        humidex: 8.9
+        dewPoint: 0.3
+        windChill: 7.4
+        cloudBase: 1024
+        beaufortScale: 2
+        aqi: 53
+        aqiAvg: 53
+        createdAt: '<date_create("-3 hours")>'
+        heatIndex: 7.3
+    weather_data_6:
+        __construct: false
+        unit: '@unit_1'
+        weatherStation: '@weather_station_1'
+        temperature: 8.7
+        humidity: 56
+        relativepressure: 1026.6
+        absolutepressure: 1013.6
+        windDirection: 19
+        windDirectionAvg: 19
+        windSpeed: 3
+        windSpeedAvg: 10.7
+        windGust: 22
+        windMaxDailyGust: 35
+        rainRate: 3
+        rainEvent: 5
+        rainHourly: 6
+        rainDaily: 1
+        rainWeekly: 6.1
+        rainMonthly: 11
+        rainYearly: 176
+        solarRadiation: 412
+        uv: 5
+        pm25: 6
+        pm25Avg: 13
+        humidex: 9.9
+        dewPoint: 1.3
+        windChill: 8.4
+        cloudBase: 1024
+        beaufortScale: 3
+        aqi: 54
+        aqiAvg: 54
+        createdAt: '<date_create("2021-01-01 00:13:12")>'
+        heatIndex: 8.3
+App\Entity\WebApp\User:
+    user_1:
+        __construct: false
+        firstname: 'florent'
+        lastname: 'damiens'
+        email: 'admin@test.fr'
+        password: "<encodePassword('pass')>"
+        roles: '[ROLE_ADMIN]'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'
+    user_2:
+        __construct: false
+        firstname: 'florent'
+        lastname: 'damiens'
+        email: 'editor@test.fr'
+        password: "<encodePassword('pass')>"
+        roles: '[ROLE_EDITOR]'
+        createdAt: '<date_create()>'
+        updatedAt: '<date_create()>'
+
+App\Entity\WebApp\Unit:
+    unit_1:
+        __construct: false
+        temperatureUnit: '°C'
+        speedUnit: 'm/s'
+        rainUnit: 'mm'
+        solarRadiationUnit: "lux"
+        cloudBaseUnit: 'm'
+        windDirUnit: '°'
+        pmUnit: 'um/m'
+        humidityUnit: '%'
+        type: 'metric'
+        createdAt: '<date_create("2020-12-10 00:12:12")>'
+        updatedAt: '<date_create("2020-12-10 00:12:12")>'

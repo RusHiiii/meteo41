@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Core\Constant\Contact\ApiSearch;
+use App\Core\Converter\Period\PeriodConverter;
 use App\Core\Exception\Contact\ContactLimitException;
 use App\Core\Exception\Contact\ContactNotFoundException;
 use App\Core\Exception\InvalidCommandException;
+use App\Core\Exception\WeatherData\NoWeatherDataFoundException;
+use App\Core\Exception\WeatherData\NoWeatherDataReportFoundException;
 use App\Core\Exception\WeatherStation\WeatherStationNotFoundException;
 use App\Core\Factory\ErrorFactory;
 use App\Core\Response\SerializedErrorResponse;
@@ -16,12 +19,15 @@ use App\Core\Tactician\Command\Contact\RegisterContactCommand;
 use App\Core\Tactician\Command\WeatherData\RegisterWeatherDataCommand;
 use App\Core\Tactician\Mapper\CommandMapper;
 use App\Core\Transformer\ContactTransformer;
+use App\Core\Transformer\WeatherDataTransformer;
 use App\Repository\Doctrine\ContactRepository;
+use App\Repository\Doctrine\WeatherDataRepository;
 use App\Repository\Doctrine\WeatherStationRepository;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -55,25 +61,49 @@ class WeatherDataController extends AbstractController
     private $weatherStationRepository;
 
     /**
+     * @var WeatherDataRepository
+     */
+    private $weatherDataRepository;
+
+    /**
+     * @var WeatherDataTransformer
+     */
+    private $weatherDataTransformer;
+
+    /**
+     * @var PeriodConverter
+     */
+    private $periodConverter;
+
+    /**
      * WeatherDataController constructor.
      * @param CommandBus $commandBus
      * @param CommandMapper $commandMapper
      * @param ErrorFactory $errorFactory
      * @param SerializerInterface $serializer
      * @param WeatherStationRepository $weatherStationRepository
+     * @param WeatherDataRepository $weatherDataRepository
+     * @param WeatherDataTransformer $weatherDataTransformer
+     * @param PeriodConverter $periodConverter
      */
     public function __construct(
         CommandBus $commandBus,
         CommandMapper $commandMapper,
         ErrorFactory $errorFactory,
         SerializerInterface $serializer,
-        WeatherStationRepository $weatherStationRepository
+        WeatherStationRepository $weatherStationRepository,
+        WeatherDataRepository $weatherDataRepository,
+        WeatherDataTransformer $weatherDataTransformer,
+        PeriodConverter $periodConverter
     ) {
         $this->commandBus = $commandBus;
         $this->commandMapper = $commandMapper;
         $this->errorFactory = $errorFactory;
         $this->serializer = $serializer;
         $this->weatherStationRepository = $weatherStationRepository;
+        $this->weatherDataRepository = $weatherDataRepository;
+        $this->weatherDataTransformer = $weatherDataTransformer;
+        $this->periodConverter = $periodConverter;
     }
 
     /**
@@ -110,5 +140,69 @@ class WeatherDataController extends AbstractController
         }
 
         return new SerializedResponse(null, 201);
+    }
+
+    /**
+     * @Route("/api/weatherData/{reference}/currentData/summary", name="show_summary_data", methods={"GET"})
+     */
+    public function showWeatherDataSummaryAction(Request $request, $reference): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+
+        $weatherData = $this->weatherDataRepository->findLastInsertedByWeatherStationReference($reference);
+        if ($weatherData === null) {
+            $error = $this->errorFactory->create(new NoWeatherDataFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
+        }
+
+        $weatherData = $this->weatherDataTransformer->transformWeatherDataToSummary($weatherData);
+
+        return new SerializedResponse($this->serializer->serialize($weatherData, 'json'), 200);
+    }
+
+    /**
+     * @Route("/api/weatherData/{reference}/currentData/detail", name="show_detail_data", methods={"GET"})
+     */
+    public function showWeatherDataDetailAction(Request $request, $reference): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+
+        $weatherDataLastHour = $this->weatherDataRepository->findLastHourByWeatherStationReference($reference);
+
+        $weatherDataCurrent = $this->weatherDataRepository->findLastInsertedByWeatherStationReference($reference);
+        if ($weatherDataCurrent === null) {
+            $error = $this->errorFactory->create(new NoWeatherDataFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
+        }
+
+        $weatherData = $this->weatherDataTransformer->transformWeatherDataToDetail($weatherDataCurrent, $weatherDataLastHour);
+
+        return new SerializedResponse($this->serializer->serialize($weatherData, 'json'), 200);
+    }
+
+    /**
+     * @Route("/api/weatherData/{reference}/history/{period}", name="show_history_data", requirements={"period"="daily|weekly|monthly|yearly"}, methods={"GET"})
+     */
+    public function showWeatherDataHistoryAction(Request $request, $reference, $period): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+
+        $weatherStation = $this->weatherStationRepository->findByReference($reference);
+        if ($weatherStation === null) {
+            $error = $this->errorFactory->create(new WeatherStationNotFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);
+        }
+
+        list($endDate, $startDate) = $this->periodConverter->convertPeriodToDate($period);
+
+        $weatherDataPeriod = $this->weatherDataRepository->findWeatherDataHistory($startDate, $endDate, $period, $reference);
+        if (!$weatherDataPeriod['has_data']) {
+            $error = $this->errorFactory->create(new NoWeatherDataReportFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
+        }
+
+        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataToPeriod($weatherDataPeriod, $weatherStation);
+
+        return new SerializedResponse($this->serializer->serialize($weatherDataView, 'json'), 200);
     }
 }

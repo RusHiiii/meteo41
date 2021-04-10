@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Core\Converter;
+namespace App\Core\Converter\Weather;
 
+use App\Core\Converter\Weather;
 use App\Core\Exception\NotImplementedException;
 
-class CloudBaseConverter implements Converter
+class WindSpeedConverter implements Converter
 {
     /**
      * @param float $value
@@ -12,9 +13,9 @@ class CloudBaseConverter implements Converter
      */
     public function convertImperialToMetric(float $value)
     {
-        $result = $value / 3.281;
+        $result = $value * 1.609;
 
-        return round($result);
+        return round($result, 1);
     }
 
     /**
