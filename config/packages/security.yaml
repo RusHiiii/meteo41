@@ -2,8 +2,8 @@ security:
     providers:
         app_user_provider:
             entity:
-              class: App\Entity\WebApp\User
-              property: email
+                class: App\Entity\WebApp\User
+                property: email
     encoders:
         App\Entity\WebApp\User:
             algorithm: auto
@@ -11,13 +11,15 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        login:
+        main:
             pattern: ^/api/login
             stateless: true
             anonymous: true
             guard:
                 authenticators:
                     - App\Security\LoginAuthenticator
+            logout:
+                path: app_logout
         api:
             pattern: ^/api
             stateless: true

@@ -107,6 +107,11 @@ class WeatherStationRepository extends AbstractRepository implements WeatherStat
                         ->andWhere('weatherStation.name LIKE :name')
                         ->setParameter('name', sprintf('%%%s%%', $value));
                     break;
+                case ApiSearch::WEATHER_STATION_SEARCH_BY_REFERENCE:
+                    $qb
+                        ->andWhere('weatherStation.reference = :reference')
+                        ->setParameter('reference', $value);
+                    break;
                 default:
                     throw new \InvalidArgumentException('Invalid search value');
             }

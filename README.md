@@ -26,7 +26,7 @@ De multiples outils ont été utilisés dans le but d'améliorer la qualité du 
 * Maquette HTML/CSS 
 * Mise en place de tests (unitaire, intégration et fonctionnel)
 		
-## ToolKit
+## ToolKit Back
 Pour lancer PHPStan:
 `vendor/bin/phpstan analyse -l 4 src tests`
 
@@ -44,3 +44,10 @@ Pour lancer PHPCS:
 
 Pour lancer PHPCBF:
 `vendor/bin/phpcbf --standard=PSR12 src/`
+
+## ToolKit Front
+Pour lancer le build:
+`yarn encore dev --watch`
+
+Pour prettier les fichiers:
+`yarn prettier`
