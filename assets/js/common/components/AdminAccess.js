@@ -39,7 +39,7 @@ export default function AdminAccess(props) {
           <a href="">Gestion des observations</a>
         </li>
         <li>
-          <a href="" onClick={() => logout(history, dispatch)}>
+          <a className="pointer" onClick={() => logout(history, dispatch)}>
             Se déconnecter
           </a>
         </li>
