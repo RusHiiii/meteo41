@@ -15,6 +15,9 @@ class JWTCreatedListener
      */
     public function onJWTCreated(JWTCreatedEvent $event)
     {
+        /**
+         * @var User $user
+         */
         $user = $event->getUser();
         if (!$event->getUser() instanceof User) {
             return;
