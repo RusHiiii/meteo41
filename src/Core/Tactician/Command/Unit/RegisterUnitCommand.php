@@ -10,6 +10,8 @@ class RegisterUnitCommand
 
     private string $rainUnit;
 
+    private string $pressureUnit;
+
     private string $solarRadiationUnit;
 
     private string $cloudBaseUnit;
@@ -33,8 +35,9 @@ class RegisterUnitCommand
      * @param string $type
      * @param string $cloudBaseUnit
      * @param string $windDirUnit
+     * @param string $pressureUnit
      */
-    public function __construct(string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type, string $cloudBaseUnit, string $windDirUnit)
+    public function __construct(string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type, string $cloudBaseUnit, string $windDirUnit, string $pressureUnit)
     {
         $this->temperatureUnit = $temperatureUnit;
         $this->speedUnit = $speedUnit;
@@ -45,6 +48,7 @@ class RegisterUnitCommand
         $this->cloudBaseUnit = $cloudBaseUnit;
         $this->windDirUnit = $windDirUnit;
         $this->type = $type;
+        $this->pressureUnit = $pressureUnit;
     }
 
     /**
@@ -117,5 +121,13 @@ class RegisterUnitCommand
     public function getWindDirUnit(): string
     {
         return $this->windDirUnit;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPressureUnit(): string
+    {
+        return $this->pressureUnit;
     }
 }

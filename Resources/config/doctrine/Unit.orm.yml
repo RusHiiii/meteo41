@@ -19,6 +19,10 @@ App\Entity\WebApp\Unit:
       type: string
       length: 5
       nullable: false
+    pressureUnit:
+      type: string
+      length: 5
+      nullable: false
     rainUnit:
       type: string
       length: 5

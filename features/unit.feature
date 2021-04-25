@@ -15,6 +15,7 @@ Feature: Unit
       "windDirUnit": "°",
       "pmUnit": "µg/m3",
       "humidityUnit": "%",
+      "pressureUnit": "hPa",
       "type": "imperial"
     }
     """
@@ -25,6 +26,7 @@ Feature: Unit
       | speedUnit           | km/h      |
       | rainUnit            | mm        |
       | solarRadiationUnit  | w/m²      |
+      | pressureUnit        | hPa       |
       | pmUnit              | µg/m3     |
       | humidityUnit        | %         |
       | windDirUnit         | °         |
@@ -45,6 +47,7 @@ Feature: Unit
       "pmUnit": "µg/m3",
       "cloudBaseUnit": "m",
       "windDirUnit": "°",
+      "pressureUnit": "hPa",
       "humidityUnit": "%",
       "type": "metric"
     }
@@ -69,6 +72,7 @@ Feature: Unit
       "speedUnit": "km/h",
       "rainUnit": "mm",
       "solarRadiationUnit": "w/m²",
+      "pressureUnit": "hPa",
       "pmUnit": "µg/m3",
       "humidityUnit": "%",
       "type": "metric"
@@ -87,6 +91,7 @@ Feature: Unit
       "rainUnit": "mm",
       "solarRadiationUnit": "w/m²",
       "pmUnit": "µg/m3",
+      "pressureUnit": "hPa",
       "humidityUnit": "%",
       "type": "metric"
     }
@@ -107,6 +112,7 @@ Feature: Unit
       "pmUnit": "wm3",
       "cloudBaseUnit": "ma",
       "windDirUnit": "po",
+      "pressureUnit": "hPa",
       "humidityUnit": "wa",
       "type": "metrics"
     }
@@ -121,6 +127,7 @@ Feature: Unit
       | pmUnit              | wm3       |
       | cloudBaseUnit       | ma        |
       | windDirUnit         | po        |
+      | pressureUnit        | hPa       |
       | humidityUnit        | wa        |
       | type                | metrics   |
 
@@ -137,6 +144,7 @@ Feature: Unit
       "solarRadiationUnit": "wa/m²",
       "pmUnit": "wm3",
       "humidityUnit": "wa",
+      "pressureUnit": "hPa",
       "type": "metrics",
       "cloudBaseUnit": "ma",
       "windDirUnit": "po"
@@ -186,6 +194,7 @@ Feature: Unit
        "solarRadiationUnit":"lux",
        "pmUnit":"um\/m",
        "cloudBaseUnit":"m",
+       "pressureUnit": "hPa",
        "windDirUnit":"°",
        "humidityUnit":"%",
        "type":"metric",
@@ -219,6 +228,7 @@ Feature: Unit
              "solarRadiationUnit":"lux",
              "pmUnit":"um/m",
              "humidityUnit":"%",
+             "pressureUnit":"hPa",
              "type":"metric",
              "cloudBaseUnit":"m",
              "windDirUnit":"°",

@@ -143,13 +143,13 @@ class WeatherStationController extends AbstractController
     }
 
     /**
-     * @Route("/api/weatherStation/{id}", name="show_weather_station", methods={"GET"})
+     * @Route("/api/weatherStation/{reference}", name="show_weather_station_reference", methods={"GET"})
      */
-    public function showWeatherStationAction(Request $request, $id): Response
+    public function showWeatherStationReferenceAction(Request $request, $reference): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
 
-        $weatherStation = $this->weatherStationRepository->find($id);
+        $weatherStation = $this->weatherStationRepository->findByReference($reference);
         if ($weatherStation === null) {
             $error = $this->errorFactory->create(new WeatherStationNotFoundException());
             return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);

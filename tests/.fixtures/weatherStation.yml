@@ -76,6 +76,7 @@ App\Entity\WebApp\Unit:
         temperatureUnit: '°C'
         speedUnit: 'm/s'
         rainUnit: 'mm'
+        pressureUnit: 'hPa'
         solarRadiationUnit: "lux"
         cloudBaseUnit: 'm'
         windDirUnit: '°'

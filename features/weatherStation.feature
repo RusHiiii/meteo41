@@ -218,7 +218,7 @@ Feature: Weather station
   @database
   Scenario: Get weather station without user logged
     Given I load the fixture "weatherStation"
-    When I request the url "/api/weatherStation/1" with http verb "GET"
+    When I request the url "/api/weatherStation/AAA" with http verb "GET"
     Then the status code should be 200
     And the response should have the following content
     """
@@ -244,7 +244,7 @@ Feature: Weather station
   Scenario: Get weather station with user logged
     Given I load the fixture "weatherStation"
     And I am logged with the email "admin@test.fr"
-    When I request the url "/api/weatherStation/1" with http verb "GET"
+    When I request the url "/api/weatherStation/AAA" with http verb "GET"
     Then the status code should be 200
     And the response should have the following content
     """

@@ -44,3 +44,8 @@ services:
 
     password_encoder:
         class: Symfony\Component\Security\Core\Encoder\NativePasswordEncoder
+
+    jwt_listener:
+        class: App\Security\JWTCreatedListener
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }

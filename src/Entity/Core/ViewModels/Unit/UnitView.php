@@ -22,6 +22,8 @@ class UnitView
 
     private string $windDirUnit;
 
+    private string $pressureUnit;
+
     private string $type;
 
     private \DateTime $createdAt;
@@ -42,8 +44,9 @@ class UnitView
      * @param string $windDirUnit
      * @param \DateTime $createdAt
      * @param \DateTime $updatedAt
+     * @param string $pressureUnit
      */
-    public function __construct(int $id, string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type, string $cloudBaseUnit, string $windDirUnit, \DateTime $createdAt, \DateTime $updatedAt)
+    public function __construct(int $id, string $temperatureUnit, string $speedUnit, string $rainUnit, string $solarRadiationUnit, string $pmUnit, string $humidityUnit, string $type, string $cloudBaseUnit, string $windDirUnit, \DateTime $createdAt, \DateTime $updatedAt, string $pressureUnit)
     {
         $this->id = $id;
         $this->temperatureUnit = $temperatureUnit;
@@ -57,6 +60,7 @@ class UnitView
         $this->windDirUnit = $windDirUnit;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+        $this->pressureUnit = $pressureUnit;
     }
 
     /**
@@ -153,5 +157,13 @@ class UnitView
     public function getWindDirUnit(): string
     {
         return $this->windDirUnit;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPressureUnit(): string
+    {
+        return $this->pressureUnit;
     }
 }
