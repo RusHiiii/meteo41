@@ -16,6 +16,7 @@ import NotFoundAdmin from './back/error/page/NotFound';
 import NotFound from './front/error/page/NotFound';
 import CreateNews from './back/news/page/CreateNews';
 import EditNews from './back/news/page/EditNews';
+import ScrollToTop from "./common/ScrollToTop";
 
 export const store = createStore();
 
@@ -24,6 +25,7 @@ export const store = createStore();
 ReactDOM.render(
   <Provider store={store}>
     <Router>
+      <ScrollToTop />
       <Switch>
         <Route path="/admin/:path">
           <AdminPageLayout>
