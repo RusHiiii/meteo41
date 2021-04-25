@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Security;
 
 use App\Entity\WebApp\User;
