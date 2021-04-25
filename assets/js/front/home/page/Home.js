@@ -164,7 +164,7 @@ export default function Home(props) {
                 <div className="forecast-content city">
                   <div className="forecast-icon">
                     <img
-                      src="/staticimages/icons/icon-13.svg"
+                      src="/static/images/icons/icon-13.svg"
                       alt=""
                       width="48"
                     />
