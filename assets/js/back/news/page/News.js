@@ -1,12 +1,9 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import BreadCrumb from '../../../common/components/BreadCrumb';
 import Menu from '../../../common/components/Menu';
-import SummaryWeatherData from '../../../common/components/weather/SummaryWeatherData';
 import { apiClient } from '../../../common/utils/apiClient';
 import queryString from 'qs';
 import NewsSearchResult from '../components/NewsSearchResult';
-import NewsAccessMenu from '../components/NewsAccessMenu';
-import AdminAccess from '../../../common/components/AdminAccess';
 
 const NEWS_LOAD = 'NEWS_LOAD';
 const NEWS_CHANGE_PAGE = 'NEWS_CHANGE_PAGE';
@@ -18,6 +15,7 @@ const reducer = (state, action) => {
         ...state,
         news: action.news.posts,
         totalNews: action.news.numberOfResult,
+        currentPage: action.currentPage,
         loading: false,
         loaded: true,
       };
@@ -31,12 +29,13 @@ const reducer = (state, action) => {
   return state;
 };
 
-function loadNews(dispatch, currentPage) {
+function loadNews(dispatch, currentPage = 1) {
   apiClient()
     .request(
       new Request(
         `/api/post?${queryString.stringify({
           page: currentPage,
+          order: 'DESC',
           maxResult: 5,
         })}`
       )
@@ -46,7 +45,20 @@ function loadNews(dispatch, currentPage) {
       dispatch({
         type: NEWS_LOAD,
         news: data,
+        currentPage: currentPage,
       });
+    });
+}
+
+function deleteNews(id, dispatch) {
+  apiClient()
+    .request(
+      new Request(`/api/post/${id}`, {
+        method: 'DELETE',
+      })
+    )
+    .then((response) => {
+      loadNews(dispatch);
     });
 }
 
@@ -77,47 +89,34 @@ export default function News(props) {
 
       <BreadCrumb url="/admin/dashboard" page="Dashboard" text="News" />
 
-      <div className="fullwidth-block">
-        <div className="container">
-          <div className="row">
-            <div className="content col-md-8">
-              <div className="post single">
-                <h2 className="entry-title">Panel d'administration des news</h2>
-                <div className="featured-image">
-                  <img src={'/static/images/amboise.png'} alt="amboise" />
-                </div>
-                <div className="entry-content">
-                  <p>
-                    Panel d'administration des news du site météo41, accédez aux
-                    pages de listing, de création et de suppression de news.
-                    Accédez également à toutes les autres pages d'administration
-                    du site.
-                  </p>
-                </div>
-              </div>
-              <div className="col-md-12">
-                <NewsSearchResult
-                  news={state.news}
-                  totalNews={state.totalNews}
-                  currentPage={state.currentPage}
-                  onChangePage={(page) =>
-                    dispatch({
-                      type: NEWS_CHANGE_PAGE,
-                      page: page,
-                    })
-                  }
-                />
-              </div>
+      <div className="fullwidth-block padding-content">
+        <div className="content col-md-8">
+          <div className="post single">
+            <h2 className="entry-title">Panel d'administration des news</h2>
+            <div className="featured-image">
+              <img src={'/static/images/amboise.png'} alt="amboise" />
             </div>
-
-            <SummaryWeatherData />
-
-            <div className="sidebar col-md-3 col-md-offset-1">
-              <NewsAccessMenu />
-
-              <AdminAccess />
+            <div className="entry-content">
+              <p>
+                Panel d'administration des news du site météo41, accédez aux
+                pages de listing, de création et de suppression de news. Accédez
+                également à toutes les autres pages d'administration du site.
+              </p>
             </div>
           </div>
+
+          <NewsSearchResult
+            news={state.news}
+            totalNews={state.totalNews}
+            currentPage={state.currentPage}
+            onChangePage={(page) =>
+              dispatch({
+                type: NEWS_CHANGE_PAGE,
+                page: page,
+              })
+            }
+            onDelete={(id) => deleteNews(id, dispatch)}
+          />
         </div>
       </div>
     </Fragment>

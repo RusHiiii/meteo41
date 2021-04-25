@@ -1,14 +1,17 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { Date } from '../../../common/components/Date';
 import Paginator from '../../../common/components/Paginator';
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export default function NewsSearchResult(props) {
   const { totalNews, currentPage, news } = props;
 
   return (
-    <div className="col-md-12">
+    <Fragment>
       <Paginator
         totalItems={totalNews}
+        currentPage={currentPage}
         itemsPerPage={5}
         onChange={props.onChangePage}
       />
@@ -18,14 +21,20 @@ export default function NewsSearchResult(props) {
           <div className="photo-preview photo-detail edit-btn">
             <div className="btn-info">
               <div className="row btn-height">
-                <a href="#" className="button btn-edit">
+                <Link
+                  to={`/admin/news/edit/${post.id}`}
+                  className="button btn-edit"
+                >
                   Editer
-                </a>
+                </Link>
               </div>
               <div className="row btn-height">
-                <a href="#" className="button btn-delete">
+                <button
+                  className="button btn-delete"
+                  onClick={() => props.onDelete(post.id)}
+                >
                   Supprimer
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -47,6 +56,6 @@ export default function NewsSearchResult(props) {
           </div>
         </div>
       ))}
-    </div>
+    </Fragment>
   );
 }

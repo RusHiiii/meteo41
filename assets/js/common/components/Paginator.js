@@ -1,23 +1,23 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 
-const displayPage = (page) => (
+const displayPage = (page, currentPage) => (
   <option key={page} value={page}>
     {page}
   </option>
 );
 
-const displayPagesNumber = (pages) => {
+const displayPagesNumber = (pages, currentPage) => {
   let elements = [];
 
   for (let i = 0; i < pages; i++) {
-    elements.push(displayPage(i + 1));
+    elements.push(displayPage(i + 1, currentPage));
   }
 
   return elements;
 };
 
 export default function Paginator(props) {
-  const { totalItems, itemsPerPage } = props;
+  const { totalItems, itemsPerPage, currentPage } = props;
   let pages = 1;
 
   if (totalItems > 0) {
@@ -33,9 +33,10 @@ export default function Paginator(props) {
             <select
               name="page"
               id="page"
+              value={currentPage}
               onChange={(evt) => props.onChange(evt.target.value)}
             >
-              {displayPagesNumber(pages)}
+              {displayPagesNumber(pages, currentPage)}
             </select>
           </span>
         </div>

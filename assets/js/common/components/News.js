@@ -25,6 +25,7 @@ function loadNews(dispatch) {
       new Request(
         `/api/post?${queryString.stringify({
           maxResult: 3,
+          order: 'DESC',
         })}`
       )
     )

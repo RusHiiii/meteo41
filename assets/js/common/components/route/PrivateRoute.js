@@ -9,11 +9,7 @@ export default function PrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) => {
-        return isConnected ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/login" />
-        );
+        return isConnected ? <Component {...props} /> : <Redirect to="/" />;
       }}
     />
   );

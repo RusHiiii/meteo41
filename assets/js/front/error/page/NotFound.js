@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import Menu from '../../../common/components/Menu';
 import BreadCrumb from '../../../common/components/BreadCrumb';
-import SummaryWeatherData from '../../../common/components/weather/SummaryWeatherData';
 
 export default function NotFound(props) {
   return (
@@ -24,8 +23,6 @@ export default function NotFound(props) {
                 </div>
               </div>
             </div>
-
-            <SummaryWeatherData />
           </div>
         </div>
       </div>

@@ -55,13 +55,49 @@ html {
     border-radius: 13px;
     padding: 20px 30px;
     color: white;
-    background-color: #ff2135;
-    border-color: #ff2135;
+    background-color: #da535f;
+    border-color: #da535f;
+    margin-bottom: 25px;
+}
+
+.error-list {
+    color: red;
+    font-size: 13px;
+    font-style: italic;
+    margin-left: 30px;
+}
+
+.success-alert {
+    border-radius: 13px;
+    padding: 20px 30px;
+    color: white;
+    background-color: #4aad61;
+    border-color: #4aad61;
     margin-bottom: 25px;
 }
 
 .admin-paragraph {
 width: 80%;
+}
+
+.no-padding-top {
+padding-top: 0 !important;
+}
+
+.padding-content {
+padding: 55px 0 !important;
+}
+
+.margin-right {
+margin-right: 10px;
+}
+
+.margin-left {
+    margin-left: 10px;
+}
+
+.min-height-not-found {
+min-height: 500px;
 }
 
 html,
@@ -191,7 +227,7 @@ figure {
 .btn-info {
     text-align: right;
     padding-right: 50px;
-    padding-top: 15%;
+    padding-top: 10%;
 }
 
 .btn-delete {
@@ -250,6 +286,8 @@ html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button;
+  -webkit-appearance: button;
+    margin-top: 10px;
   cursor: pointer; }
 
 button[disabled],
@@ -1523,6 +1561,7 @@ form textarea {
 
 .news {
   padding-left: 100px;
+  padding-right: 100px;
   position: relative; }
   .news:after {
     content: " ";
@@ -1833,7 +1872,7 @@ form textarea {
 .contact-form input:not([type="submit"]), .contact-form textarea {
   width: 100%;
   padding: 15px;
-  margin-bottom: 10px;
+  margin-top: 10px;
   color: white;
   border: 2px solid #393c48;
   background: transparent; }
