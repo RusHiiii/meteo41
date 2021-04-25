@@ -8,7 +8,7 @@ export default function PublicRoute({ component: Component, ...rest }) {
   if (
     isConnected &&
     rest.path === '/login' &&
-    rest.location.pathname !== '/login'
+    rest.location.pathname === '/login'
   ) {
     return <Redirect to="/" />;
   }

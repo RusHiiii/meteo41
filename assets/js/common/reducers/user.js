@@ -1,10 +1,10 @@
 import jwtDecode from 'jwt-decode';
-import tokenRepository from '../utils/tokenRepository';
+import { cookieManager } from '../utils/cookieManager';
 
 export const USER_LOGGED = 'USER_LOGGED';
 export const USER_LOGOUT = 'USER_LOGOUT';
 
-const token = tokenRepository.getToken();
+const token = cookieManager().get('token');
 
 const initialState = token
   ? jwtDecode(token)

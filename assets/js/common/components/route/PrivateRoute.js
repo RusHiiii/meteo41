@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { Link, Redirect, Route } from 'react-router-dom';
-import { store } from '../../../app';
 import { useSelector } from 'react-redux';
 
 export default function PrivateRoute({ component: Component, ...rest }) {

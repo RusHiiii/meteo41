@@ -1,11 +1,13 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
-import PageLayout from '../../../common/components/layout/PageLayout';
 import BreadCrumb from '../../../common/components/BreadCrumb';
 import LoginForm from '../components/login/LoginForm';
+import Menu from '../../../common/components/Menu';
 
 export default function Login(props) {
   return (
-    <PageLayout>
+    <Fragment>
+      <Menu />
+
       <BreadCrumb text="Connexion" />
 
       <div className="fullwidth-block">
@@ -21,6 +23,6 @@ export default function Login(props) {
           </div>
         </div>
       </div>
-    </PageLayout>
+    </Fragment>
   );
 }

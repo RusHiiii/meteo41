@@ -60,6 +60,10 @@ html {
     margin-bottom: 25px;
 }
 
+.admin-paragraph {
+width: 80%;
+}
+
 html,
 button,
 input,

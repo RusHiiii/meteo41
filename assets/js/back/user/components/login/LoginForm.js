@@ -2,10 +2,10 @@ import React, { Fragment, useEffect, useReducer, useState } from 'react';
 import Input from '../../../../common/components/form/Input';
 import { useForm } from '../../../../common/utils/hooks/useForm';
 import { useDispatch } from 'react-redux';
-import apiClient from '../../../../common/utils/apiClient';
-import tokenRepository from '../../../../common/utils/tokenRepository';
 import { USER_LOGGED } from '../../../../common/reducers/user';
 import { useHistory } from 'react-router-dom';
+import { apiClient } from '../../../../common/utils/apiClient';
+import { cookieManager } from '../../../../common/utils/cookieManager';
 
 export default function LoginForm(props) {
   const [hasError, setHasError] = useState(false);
@@ -16,7 +16,7 @@ export default function LoginForm(props) {
   const submitLogin = (data) => {
     setDisabled(true);
 
-    return apiClient
+    return apiClient()
       .request(
         new Request('/api/login', {
           method: 'POST',
@@ -37,7 +37,7 @@ export default function LoginForm(props) {
       })
       .then((response) => response.json())
       .then((value) => {
-        tokenRepository.setToken(value.token);
+        cookieManager().set(value.token, 'token');
 
         dispatch({ type: USER_LOGGED, token: value.token });
 

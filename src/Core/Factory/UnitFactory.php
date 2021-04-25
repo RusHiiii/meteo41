@@ -24,7 +24,8 @@ class UnitFactory
             $command->getHumidityUnit(),
             $command->getType(),
             $command->getCloudBaseUnit(),
-            $command->getWindDirUnit()
+            $command->getWindDirUnit(),
+            $command->getPressureUnit()
         );
     }
 
@@ -43,6 +44,7 @@ class UnitFactory
         $unit->setTemperatureUnit($command->getTemperatureUnit());
         $unit->setCloudBaseUnit($command->getCloudBaseUnit());
         $unit->setWindDirUnit($command->getWindDirUnit());
+        $unit->setPressureUnit($command->getPressureUnit());
         $unit->setType($command->getType());
         $unit->setUpdatedAt(new \DateTime());
 

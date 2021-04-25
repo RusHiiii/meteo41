@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
-import apiClient from '../utils/apiClient';
 import queryString from 'qs';
 import { Date } from './Date';
+import { apiClient } from '../utils/apiClient';
 
 const NEWS_LOAD = 'NEWS_LOAD';
 
@@ -20,7 +20,7 @@ const reducer = (state, action) => {
 };
 
 function loadNews(dispatch) {
-  apiClient
+  apiClient()
     .request(
       new Request(
         `/api/post?${queryString.stringify({

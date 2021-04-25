@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
-import apiClient from '../utils/apiClient';
 import { DEFAULT_WEATHER_STATION_REFERENCE } from '../constant';
+import { apiClient } from '../utils/apiClient';
 
 const INFORMATION_LOAD = 'INFORMATION_LOAD';
 
@@ -19,7 +19,7 @@ const reducer = (state, action) => {
 };
 
 function loadInformation(dispatch) {
-  apiClient
+  apiClient()
     .request(
       new Request(`/api/weatherStation/${DEFAULT_WEATHER_STATION_REFERENCE}`)
     )
@@ -106,14 +106,23 @@ export default function Informations(props) {
           <div className="col-md-4">
             <h2 className="section-title my-network">Mes autres réseaux</h2>
             <div className="photo-grid">
-              <a href="#">
-                <img src="/static/images/weathercloud.png" alt="#" />
+              <a
+                target="_blank"
+                href="https://app.weathercloud.net/d0599727380#profile"
+              >
+                <img
+                  src={'/static/images/weathercloud.png'}
+                  alt="weathercloud"
+                />
               </a>
-              <a href="#">
-                <img src="/static/images/wu.png" alt="#" />
+              <a
+                target="_blank"
+                href="https://www.wunderground.com/dashboard/pws/ISAINT1035"
+              >
+                <img src={'/static/images/wu.png'} alt="wunderground" />
               </a>
-              <a href="#">
-                <img src="/static/images/ecowitt.png" alt="#" />
+              <a target="_blank" href="https://www.ecowitt.net/">
+                <img src={'/static/images/ecowitt.png'} alt="ecowitt" />
               </a>
             </div>
           </div>

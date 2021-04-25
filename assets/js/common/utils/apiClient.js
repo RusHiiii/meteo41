@@ -1,12 +1,9 @@
-import tokenRepository from './tokenRepository';
+import { cookieManager } from './cookieManager';
 
-class ApiClient {
-  constructor(tokenRepository) {
-    this.tokenRepository = tokenRepository;
-  }
+export const apiClient = () => {
+  const request = (request, options = {}) => {
+    const token = cookieManager().get('token');
 
-  request(request, options = {}) {
-    const token = this.tokenRepository.getToken();
     if (token) {
       request.headers.set('Authorization', 'Bearer ' + token);
     }
@@ -17,14 +14,17 @@ class ApiClient {
     );
 
     return fetch(request, options).then((response) => {
-      if (response.status == 401) {
-        this.tokenRepository.removeToken();
+      if (response.status === 401) {
+        cookieManager().remove('token');
+
         location.reload();
       }
 
       return response;
     });
-  }
-}
+  };
 
-export default new ApiClient(tokenRepository);
+  return {
+    request,
+  };
+};

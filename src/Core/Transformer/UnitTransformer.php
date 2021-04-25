@@ -43,7 +43,8 @@ class UnitTransformer
             $unit->getCloudBaseUnit(),
             $unit->getWindDirUnit(),
             $unit->getCreatedAt(),
-            $unit->getUpdatedAt()
+            $unit->getUpdatedAt(),
+            $unit->getPressureUnit()
         );
     }
 }

@@ -23,7 +23,7 @@ class UnitFactoryTest extends TestCase
 
     public function testCreateUnitFromCommand()
     {
-        $command = new RegisterUnitCommand('°C', 'km/h', 'mm', 'w/m2', 'unit', '%', 'metric', 'm', 'd');
+        $command = new RegisterUnitCommand('°C', 'km/h', 'mm', 'w/m2', 'unit', '%', 'metric', 'm', 'd', 'a');
         $unit = $this->unitFactory->createUnitFromCommand($command);
 
         $this->assertEquals('°C', $unit->getTemperatureUnit());
@@ -35,13 +35,14 @@ class UnitFactoryTest extends TestCase
         $this->assertEquals('metric', $unit->getType());
         $this->assertEquals('m', $unit->getCloudBaseUnit());
         $this->assertEquals('d', $unit->getWindDirUnit());
+        $this->assertEquals('a', $unit->getPressureUnit());
     }
 
     public function testEditUnitFromCommand()
     {
         $entities = $this->loadFile('tests/.fixtures/unit.yml');
 
-        $command = new EditUnitCommand('°C', 'km/h', 'mm', 'w/m2', 'unit', '%', 'metric', 'm', 'd');
+        $command = new EditUnitCommand('°C', 'km/h', 'mm', 'w/m2', 'unit', '%', 'metric', 'm', 'd', 'a');
         $unit = $this->unitFactory->editUnitFromCommand($entities['unit_1'], $command);
 
         $this->assertEquals('°C', $unit->getTemperatureUnit());
@@ -53,5 +54,6 @@ class UnitFactoryTest extends TestCase
         $this->assertEquals('metric', $unit->getType());
         $this->assertEquals('m', $unit->getCloudBaseUnit());
         $this->assertEquals('d', $unit->getWindDirUnit());
+        $this->assertEquals('a', $unit->getPressureUnit());
     }
 }
