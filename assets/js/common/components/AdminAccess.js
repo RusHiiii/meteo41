@@ -24,7 +24,7 @@ export default function AdminAccess(props) {
           <a href="">Gestion des utilisateurs</a>
         </li>
         <li>
-          <a href="">Gestion des contacts</a>
+          <Link to="/admin/contact">Gestion des messages</Link>
         </li>
         <li>
           <Link to="/admin/news">Gestion des news</Link>
@@ -33,7 +33,7 @@ export default function AdminAccess(props) {
           <a href="">Gestion des stations météo</a>
         </li>
         <li>
-          <a href="">Gestion des unités</a>
+          <Link to="/admin/unit">Gestion des unités</Link>
         </li>
         <li>
           <a href="">Gestion des observations</a>

@@ -8,8 +8,8 @@ export default function Footer(props) {
         <div className="row">
           <div className="col-md-8">
             <p className="colophon">
-              Copyright © 2020-{new Date().getFullYear()} - Tous droits
-              réservés. Florent Damiens
+              Copyright © {new Date().getFullYear()} - Tous droits réservés.
+              Florent Damiens
             </p>
           </div>
           <div className="col-md-3 col-md-offset-1">

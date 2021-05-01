@@ -5,8 +5,6 @@ import BreadCrumb from '../../../common/components/BreadCrumb';
 export default function NotFound(props) {
   return (
     <Fragment>
-      <Menu home />
-
       <BreadCrumb text="Erreur" />
 
       <div className="fullwidth-block">

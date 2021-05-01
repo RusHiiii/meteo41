@@ -12,7 +12,7 @@ export default function NewsForm(props) {
   );
 
   return (
-    <form className="contact-form min-height-not-found" onSubmit={handleSubmit}>
+    <form className="contact-form min-height-entry" onSubmit={handleSubmit}>
       <div className="row">
         <div className="col-sm-3 text-center">
           <label className="label-center">Titre</label>

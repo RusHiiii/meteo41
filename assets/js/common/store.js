@@ -5,11 +5,19 @@ import rootReducer from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 export default function configure(preloadedState) {
-  const middlewares = [logger, thunkMiddleware];
-  const middlewareEnhancer = applyMiddleware(...middlewares);
+  const isDev = process.env.NODE_ENV === 'development';
+  const middlewares = [thunkMiddleware];
+  if (isDev) {
+    middlewares.push(logger);
+  }
 
+  const middlewareEnhancer = applyMiddleware(...middlewares);
   const enhancers = [middlewareEnhancer];
-  const composedEnhancers = composeWithDevTools(...enhancers);
+
+  let composedEnhancers = compose(...enhancers);
+  if (isDev) {
+    composedEnhancers = composeWithDevTools(...enhancers);
+  }
 
   const store = createStore(rootReducer, preloadedState, composedEnhancers);
 

@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect, useReducer, useState } from 'react';
-import Input from '../../../../common/components/form/Input';
-import { useForm } from '../../../../common/utils/hooks/useForm';
+import Input from '../../../common/components/form/Input';
+import { useForm } from '../../../common/utils/hooks/useForm';
 import { useDispatch } from 'react-redux';
-import { USER_LOGGED } from '../../../../common/reducers/user';
+import { USER_LOGGED } from '../../../common/reducers/user';
 import { useHistory } from 'react-router-dom';
-import { apiClient } from '../../../../common/utils/apiClient';
-import { cookieManager } from '../../../../common/utils/cookieManager';
+import { apiClient } from '../../../common/utils/apiClient';
+import { cookieManager } from '../../../common/utils/cookieManager';
 
 export default function LoginForm(props) {
   const [hasError, setHasError] = useState(false);

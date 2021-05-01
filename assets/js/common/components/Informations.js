@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
-import { DEFAULT_WEATHER_STATION_REFERENCE } from '../constant';
 import { apiClient } from '../utils/apiClient';
+import { useSelector } from 'react-redux';
 
 const INFORMATION_LOAD = 'INFORMATION_LOAD';
 
@@ -18,11 +18,9 @@ const reducer = (state, action) => {
   return state;
 };
 
-function loadInformation(dispatch) {
+function loadInformation(weatherStation, dispatch) {
   apiClient()
-    .request(
-      new Request(`/api/weatherStation/${DEFAULT_WEATHER_STATION_REFERENCE}`)
-    )
+    .request(new Request(`/api/weatherStation/${weatherStation.reference}`))
     .then((response) => response.json())
     .then((data) => {
       dispatch({
@@ -32,7 +30,7 @@ function loadInformation(dispatch) {
     });
 }
 
-function useInformationQuery() {
+function useInformationQuery(weatherStation) {
   const initialState = {
     weatherStation: null,
     loading: false,
@@ -42,14 +40,15 @@ function useInformationQuery() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    loadInformation(dispatch);
-  }, []);
+    loadInformation(weatherStation, dispatch);
+  }, [weatherStation.reference]);
 
   return [state, dispatch];
 }
 
 export default function Informations(props) {
-  const [state, dispatch] = useInformationQuery();
+  const weatherStation = useSelector((state) => state.weatherStation);
+  const [state, dispatch] = useInformationQuery(weatherStation);
 
   return (
     <div className="fullwidth-block information">

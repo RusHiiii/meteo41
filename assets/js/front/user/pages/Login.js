@@ -1,13 +1,11 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import BreadCrumb from '../../../common/components/BreadCrumb';
-import LoginForm from '../components/login/LoginForm';
+import LoginForm from '../components/LoginForm';
 import Menu from '../../../common/components/Menu';
 
 export default function Login(props) {
   return (
     <Fragment>
-      <Menu />
-
       <BreadCrumb text="Connexion" />
 
       <div className="fullwidth-block">

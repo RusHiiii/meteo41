@@ -16,5 +16,7 @@ App\Core\Tactician\Command\Unit\RegisterUnitCommand:
             - NotBlank: ~
         windDirUnit:
             - NotBlank: ~
+        pressureUnit:
+            - NotBlank: ~
         type:
             - NotBlank: ~
