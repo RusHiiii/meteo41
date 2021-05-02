@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useReducer } from 'react';
 import { apiClient } from '../../utils/apiClient';
 import { DEFAULT_WEATHER_STATION_REFERENCE } from '../../constant';
 import { Date } from '../Date';
+import { useSelector } from 'react-redux';
 
 const WEATHER_DATA_LOAD = 'WEATHER_DATA_LOAD';
 
@@ -19,11 +20,11 @@ const reducer = (state, action) => {
   return state;
 };
 
-function loadWeatherData(dispatch) {
+function loadWeatherData(weatherStation, dispatch) {
   apiClient()
     .request(
       new Request(
-        `/api/weatherData/${DEFAULT_WEATHER_STATION_REFERENCE}/currentData/summary`
+        `/api/weatherData/${weatherStation.reference}/currentData/summary`
       )
     )
     .then((response) => response.json())
@@ -35,7 +36,7 @@ function loadWeatherData(dispatch) {
     });
 }
 
-function useSummaryWeatherData() {
+function useSummaryWeatherData(weatherStation) {
   const initialState = {
     weatherData: null,
     loading: false,
@@ -45,20 +46,21 @@ function useSummaryWeatherData() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    loadWeatherData(dispatch);
+    loadWeatherData(weatherStation, dispatch);
 
     const intervalId = setInterval(() => {
-      loadWeatherData(dispatch);
+      loadWeatherData(weatherStation, dispatch);
     }, 60000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [weatherStation.reference]);
 
   return [state, dispatch];
 }
 
 export default function SummaryWeatherData(props) {
-  const [state, dispatch] = useSummaryWeatherData();
+  const weatherStation = useSelector((state) => state.weatherStation);
+  const [state, dispatch] = useSummaryWeatherData(weatherStation);
 
   return (
     <div className="sidebar col-md-3 col-md-offset-1">
@@ -72,7 +74,7 @@ export default function SummaryWeatherData(props) {
                 <i className="wi wi-thermometer-exterior" />
               </span>
               <strong>{state.weatherData?.temperature}</strong>
-              {state.weatherData?.unit.temperatureUnit}
+              {state.weatherData?.unit?.temperatureUnit}
             </div>
           </li>
           <li>
@@ -82,7 +84,7 @@ export default function SummaryWeatherData(props) {
                 <i className="fa fa-tachometer" />
               </span>
               <strong>{state.weatherData?.relativePressure}</strong>
-              {state.weatherData?.unit.pressureUnit}
+              {state.weatherData?.unit?.pressureUnit}
             </div>
           </li>
           <li>
@@ -92,7 +94,7 @@ export default function SummaryWeatherData(props) {
                 <i className="wi wi-wind towards-121-deg" />
               </span>
               <strong>{state.weatherData?.windSpeedAvg}</strong>
-              {state.weatherData?.unit.speedUnit}
+              {state.weatherData?.unit?.speedUnit}
             </div>
           </li>
           <li>
@@ -102,7 +104,7 @@ export default function SummaryWeatherData(props) {
                 <i className="wi wi-barometer" />
               </span>
               <strong>{state.weatherData?.humidity}</strong>
-              {state.weatherData?.unit.humidityUnit}
+              {state.weatherData?.unit?.humidityUnit}
             </div>
           </li>
           <li className="text-align-right">

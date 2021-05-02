@@ -76,10 +76,6 @@ html {
     margin-bottom: 25px;
 }
 
-.admin-paragraph {
-width: 80%;
-}
-
 .no-padding-top {
 padding-top: 0 !important;
 }
@@ -96,7 +92,7 @@ margin-right: 10px;
     margin-left: 10px;
 }
 
-.min-height-not-found {
+.min-height-entry {
 min-height: 500px;
 }
 
@@ -178,6 +174,19 @@ q:after {
 small {
   font-size: 80%; }
 
+.about-title-content {
+    text-align: center;
+}
+
+.description-about {
+    white-space: pre-wrap;
+    text-align: justify;
+}
+
+.no-margin-top {
+margin-top: 0 !important;
+}
+
 sub,
 sup {
   font-size: 75%;
@@ -206,6 +215,20 @@ figure {
 
 .no-padding-left {
     padding-left: 0 !important;
+}
+
+.select-weatherstation {
+    color: white;
+    padding: 0;
+    width: 100%;
+    border: none;
+    background: #1e202b;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    height: 20px;
+    font-weight: bold;
+    font-size: 1.1428571429em;
 }
 
 .pointer {
@@ -1253,6 +1276,13 @@ form textarea {
       display: block;
       color: #bfc1c8; }
 
+.padding-right-dashboard {
+ margin-right: 30px;
+ margin-right: 0px;
+}
+.photo-access .button{
+    font-weight: 500;
+}
 .main-navigation {
   float: right; }
   .main-navigation .menu-toggle, .main-navigation .menu {
@@ -1562,11 +1592,20 @@ form textarea {
     margin-bottom: 5px;
     color: white;
     font-weight: 300; }
-
+.news-color{
+    background-color: rgb(38, 41, 54);
+}
+.map-marker{
+    height: 40px;
+    width: 25px;
+    background: no-repeat url("/static/images/icon-marker@2x.png");
+    z-index: 10;
+    position: absolute;
+    transform: translate(-25%, -75%);
+}
 .news {
-  padding-left: 100px;
-  padding-right: 100px;
-  position: relative; }
+    padding-left: 100px;
+    position: relative; }
   .news:after {
     content: " ";
     width: 12px;
@@ -1811,7 +1850,9 @@ form textarea {
     font-weight: 300; }
     .photo .photo-title a {
       color: white; }
-
+.photo-title {
+    text-transform: capitalize;
+}
 .star-rating {
   float: none;
   overflow: hidden;

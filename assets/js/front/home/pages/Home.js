@@ -30,14 +30,12 @@ export default function Home(props) {
 
   return (
     <Fragment>
-      <Menu home />
-
       <main className="main-content">
         <div className="hero" data-bg-image="/static/images/sologne-v1.png">
           <div className="container">
             <form action="#" className="find-location">
               <input type="text" placeholder="Rechercher..." />
-              <input type="submit" value="Valider" />
+              <input className="no-margin-top" type="submit" value="Valider" />
             </form>
           </div>
         </div>

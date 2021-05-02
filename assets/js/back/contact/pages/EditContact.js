@@ -1,46 +1,43 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import BreadCrumb from '../../../common/components/BreadCrumb';
-import Menu from '../../../common/components/Menu';
 import { apiClient } from '../../../common/utils/apiClient';
-import queryString from 'qs';
-import NewsSearchResult from '../components/NewsSearchResult';
-import Input from '../../../common/components/form/Input';
-import NewsForm from '../components/NewsForm';
-import LoginForm from '../../../front/user/components/login/LoginForm';
+import ContactForm from '../components/ContactForm';
 
-const EDIT_NEWS_SENDING = 'EDIT_NEWS_SENDING';
-const EDIT_NEWS_SENT = 'EDIT_NEWS_SENT';
-const EDIT_NEWS_ERRORS = 'EDIT_NEWS_ERRORS';
-const EDIT_NEWS_LOAD = 'EDIT_NEWS_LOAD';
+const EDIT_CONTACT_SENDING = 'EDIT_CONTACT_SENDING';
+const EDIT_CONTACT_SENT = 'EDIT_CONTACT_SENT';
+const EDIT_CONTACT_ERRORS = 'EDIT_CONTACT_ERRORS';
+const EDIT_CONTACT_LOAD = 'EDIT_CONTACT_LOAD';
 
-const getInitialValues = (news) => {
+const getInitialValues = (contact) => {
   return {
-    name: news.name,
-    description: news.description,
+    name: contact.name,
+    email: contact.email,
+    subject: contact.subject,
+    message: contact.message,
   };
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case EDIT_NEWS_SENDING:
+    case EDIT_CONTACT_SENDING:
       return {
         ...state,
         sending: true,
       };
-    case EDIT_NEWS_LOAD:
+    case EDIT_CONTACT_LOAD:
       return {
         ...state,
-        news: action.news,
+        contact: action.contact,
         loaded: true,
       };
-    case EDIT_NEWS_SENT:
+    case EDIT_CONTACT_SENT:
       return {
         ...state,
         sending: false,
         sent: true,
         errors: [],
       };
-    case EDIT_NEWS_ERRORS:
+    case EDIT_CONTACT_ERRORS:
       return {
         ...state,
         errors: action.errors,
@@ -51,25 +48,27 @@ const reducer = (state, action) => {
   return state;
 };
 
-function updateNews(data, id, dispatch) {
+function updateContact(data, id, dispatch) {
   dispatch({
-    type: EDIT_NEWS_SENDING,
+    type: EDIT_CONTACT_SENDING,
   });
 
   apiClient()
     .request(
-      new Request(`/api/post/${id}`, {
+      new Request(`/api/contact/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
-          description: data.description,
           name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message,
         }),
       })
     )
     .then((response) => {
       if (response.ok) {
         dispatch({
-          type: EDIT_NEWS_SENT,
+          type: EDIT_CONTACT_SENT,
         });
 
         return;
@@ -77,29 +76,29 @@ function updateNews(data, id, dispatch) {
 
       return response.json().then((errors) => {
         dispatch({
-          type: EDIT_NEWS_ERRORS,
+          type: EDIT_CONTACT_ERRORS,
           errors: errors,
         });
       });
     });
 }
 
-function loadNews(dispatch, id) {
+function loadContact(dispatch, id) {
   apiClient()
-    .request(new Request(`/api/post/${id}`))
+    .request(new Request(`/api/contact/${id}`))
     .then((response) => response.json())
     .then((data) => {
       dispatch({
-        type: EDIT_NEWS_LOAD,
-        news: data,
+        type: EDIT_CONTACT_LOAD,
+        contact: data,
       });
     });
 }
 
-function useEditNews(id) {
+function useEditContact(id) {
   const initialState = {
     errors: [],
-    news: null,
+    contact: null,
     sending: false,
     sent: false,
     loaded: false,
@@ -109,41 +108,41 @@ function useEditNews(id) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    loadNews(dispatch, id);
+    loadContact(dispatch, id);
   }, []);
 
   return [state, dispatch];
 }
 
-export default function EditNews(props) {
-  const [state, dispatch] = useEditNews(props.match.params.id);
+export default function EditContact(props) {
+  const [state, dispatch] = useEditContact(props.match.params.id);
 
   return (
     <Fragment>
-      <Menu dashboard />
-
-      <BreadCrumb url="/admin/dashboard" page="Dashboard" text="News" />
+      <BreadCrumb url="/admin/dashboard" page="Dashboard" text="Message" />
 
       <div className="fullwidth-block padding-content">
         <div className="content col-md-8">
           <div className="post single">
-            <h2 className="entry-title">Edition d'une news</h2>
+            <h2 className="entry-title">Edition d'un message</h2>
             <div className="featured-image">
               <img src={'/static/images/amboise.png'} alt="amboise" />
             </div>
           </div>
 
-          <div className="entry-content">
+          <div className="entry-content min-height-entry">
             {state.sent && (
-              <div className="success-alert">La news a été modifié !</div>
+              <div className="success-alert">Le message a été modifié !</div>
             )}
 
             {state.loaded && (
-              <NewsForm
+              <ContactForm
                 errors={state.errors}
                 sending={state.sending}
-                onSubmit={(data) => updateNews(data, state.news.id, dispatch)}
-                initialValues={getInitialValues(state.news)}
+                onSubmit={(data) =>
+                  updateContact(data, state.contact.id, dispatch)
+                }
+                initialValues={getInitialValues(state.contact)}
               />
             )}
           </div>

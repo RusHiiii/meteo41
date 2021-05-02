@@ -5,12 +5,16 @@
 	});
 
 	function initNavigation() {
-		// Cloning main navigation for mobile menu
-		$(".mobile-navigation").append($(".main-navigation .menu").clone());
-
 		// Mobile menu toggle
 		$(".menu-toggle").click(function(){
-			$(".mobile-navigation").slideToggle();
+      const hasClass = $("#custom-menu").hasClass("mobile-navigation");
+      if (hasClass) {
+        $("#custom-menu").attr('class', 'main-navigation main-navigation-menu');
+      } else {
+        $("#custom-menu").attr('class', 'mobile-navigation');
+      }
+
+      $("#custom-menu").slideToggle();
 		});
 	}
 })(jQuery, document, window);

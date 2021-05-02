@@ -1,13 +1,10 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import BreadCrumb from '../../../common/components/BreadCrumb';
-import Menu from '../../../common/components/Menu';
 import { Link } from 'react-router-dom';
 
 export default function DashBoard(props) {
   return (
     <Fragment>
-      <Menu dashboard />
-
       <BreadCrumb text="Dashboard" />
 
       <div className="fullwidth-block padding-content">
@@ -19,14 +16,14 @@ export default function DashBoard(props) {
             </div>
             <div className="entry-content">
               <p>
-                Page d'administration du site météo41, accédez aux pages de
-                gestions des utilisateurs, des messages, des news, des stations
-                météo, des observations et des unités. Il est possible
-                d'ajouter, supprimer, et lister chacun des éléments.
+                Page d'administration du site, accédez aux pages de gestions des
+                utilisateurs, des messages, des news, des stations météo, des
+                observations et des unités. Il est possible d'ajouter,
+                supprimer, et lister chacun des éléments.
               </p>
             </div>
           </div>
-          <div className="col-md-6 no-padding-left">
+          <div className="col-md-6">
             <div className="photo">
               <div className="photo-details">
                 <h3 className="photo-title">
@@ -68,16 +65,23 @@ export default function DashBoard(props) {
               </div>
             </div>
           </div>
-          <div className="col-md-6 no-padding-right">
+          <div className="col-md-6">
             <div className="photo">
               <div className="photo-details">
                 <h3 className="photo-title">
-                  <a>Contacts</a>
+                  <a>Messages</a>
                 </h3>
                 <p className="photo-text">Gestion des messages du site</p>
                 <div className="photo-access">
-                  <button className="button margin-right">Accéder</button>
-                  <button className="button margin-left">Ajouter</button>
+                  <Link to="/admin/contact" className="button margin-right">
+                    Accéder
+                  </Link>
+                  <Link
+                    to="/admin/contact/create"
+                    className="button margin-right"
+                  >
+                    Ajouter
+                  </Link>
                 </div>
               </div>
             </div>
@@ -100,8 +104,12 @@ export default function DashBoard(props) {
                 </h3>
                 <p className="photo-text">Gestion des unités du site</p>
                 <div className="photo-access">
-                  <button className="button margin-right">Accéder</button>
-                  <button className="button margin-left">Ajouter</button>
+                  <Link to="/admin/unit" className="button margin-right">
+                    Accéder
+                  </Link>
+                  <Link to="/admin/unit/create" className="button margin-right">
+                    Ajouter
+                  </Link>
                 </div>
               </div>
             </div>

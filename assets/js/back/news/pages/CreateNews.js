@@ -6,7 +6,7 @@ import queryString from 'qs';
 import NewsSearchResult from '../components/NewsSearchResult';
 import Input from '../../../common/components/form/Input';
 import NewsForm from '../components/NewsForm';
-import LoginForm from '../../../front/user/components/login/LoginForm';
+import LoginForm from '../../../front/user/components/LoginForm';
 
 const CREATE_NEWS_SENDING = 'CREATE_NEWS_SENDING';
 const CREATE_NEWS_SENT = 'CREATE_NEWS_SENT';
@@ -85,8 +85,6 @@ export default function CreateNews(props) {
 
   return (
     <Fragment>
-      <Menu dashboard />
-
       <BreadCrumb url="/admin/dashboard" page="Dashboard" text="News" />
 
       <div className="fullwidth-block padding-content">

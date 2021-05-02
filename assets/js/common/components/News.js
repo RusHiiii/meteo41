@@ -58,7 +58,7 @@ export default function News(props) {
   const [state, dispatch] = useNewsQuery();
 
   return (
-    <div className="fullwidth-block news" data-bg-color="#262936">
+    <div className="fullwidth-block news-color" data-bg-color="#262936">
       <div className="container">
         <div className="row">
           {state.news.map((post, index) => (
