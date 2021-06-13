@@ -8,17 +8,17 @@ class RegisterObservationCommand
 
     private int $userId;
 
-    private int $weatherStationId;
+    private string $weatherStation;
 
     /**
      * RegisterObservationCommand constructor.
      * @param string $message
-     * @param int $weatherStationId
+     * @param string $weatherStation
      */
-    public function __construct(string $message, int $weatherStationId)
+    public function __construct(string $message, string $weatherStation)
     {
         $this->message = $message;
-        $this->weatherStationId = $weatherStationId;
+        $this->weatherStation = $weatherStation;
     }
 
     /**
@@ -46,10 +46,10 @@ class RegisterObservationCommand
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getWeatherStationId(): int
+    public function getWeatherStation(): string
     {
-        return $this->weatherStationId;
+        return $this->weatherStation;
     }
 }

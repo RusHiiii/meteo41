@@ -59,7 +59,7 @@ class RegisterObservationHandler
             throw new UserNotFoundException();
         }
 
-        $weatherStation = $this->weatherStationRepository->find($command->getWeatherStationId());
+        $weatherStation = $this->weatherStationRepository->findByReference($command->getWeatherStation());
         if ($weatherStation === null) {
             throw new WeatherStationNotFoundException();
         }

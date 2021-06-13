@@ -17,6 +17,7 @@ import {
   ROUTE_ADMIN_UNIT_CREATE,
   ROUTE_ADMIN_UNIT_EDIT,
   ROUTE_CONTACT,
+  ROUTE_ADMIN_OBSERVATION, ROUTE_ADMIN_OBSERVATION_CREATE,
 } from '../constant';
 
 const routeNameToActiveItem = (routeName) => {
@@ -35,6 +36,8 @@ const routeNameToActiveItem = (routeName) => {
     case ROUTE_ADMIN_UNIT_CREATE:
     case ROUTE_ADMIN_UNIT_EDIT:
     case ROUTE_ADMIN_DASHBOARD:
+    case ROUTE_ADMIN_OBSERVATION:
+    case ROUTE_ADMIN_OBSERVATION_CREATE:
       return 'administration';
     case ROUTE_ABOUT:
       return 'about';
