@@ -1,9 +1,9 @@
 name: Full CI process for Symfony
 on:
-    pull_request:
     push:
+    pull_request:
         branches:
-        - master
+            - master
 jobs:
     symfony:
         name: Meteo41 - CI
