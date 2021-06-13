@@ -9,11 +9,11 @@ class EditObservationCommand extends RegisterObservationCommand
     /**
      * EditObservationCommand constructor.
      * @param string $message
-     * @param int $weatherStationId
+     * @param string $weatherStation
      */
-    public function __construct(string $message, int $weatherStationId)
+    public function __construct(string $message, string $weatherStation)
     {
-        parent::__construct($message, $weatherStationId);
+        parent::__construct($message, $weatherStation);
     }
 
     /**
