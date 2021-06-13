@@ -8,7 +8,7 @@ Feature: Observation
     """
     {
       "message": "je suis un mesage",
-      "weatherStationId": 1
+      "weatherStation": "AAA"
     }
     """
     Then the status code should be 201
@@ -26,7 +26,7 @@ Feature: Observation
     """
     {
       "message": "",
-      "weatherStationId": 1
+      "weatherStation": "AAA"
     }
     """
     Then the status code should be 400
@@ -54,7 +54,7 @@ Feature: Observation
     """
     {
       "message": "sasasa",
-      "weatherStationId": 10
+      "weatherStation": "AAAAA"
     }
     """
     Then the status code should be 400
@@ -74,7 +74,7 @@ Feature: Observation
     """
     {
       "message": "je suis un mesage de test",
-      "weatherStationId": 1
+      "weatherStation": "AAA"
     }
     """
     Then the status code should be 204
@@ -91,7 +91,7 @@ Feature: Observation
     """
     {
       "message": "je suis un mesage de test",
-      "weatherStationId": 1
+      "weatherStation": "QQQ"
     }
     """
     Then the status code should be 401
