@@ -5,7 +5,7 @@ import Input from '../../../common/components/form/Input';
 import Select from '../../../common/components/form/Select';
 import UnitSelect from '../../../common/components/form/select/UnitSelect';
 
-export default function UnitForm(props) {
+export default function WeatherStationForm(props) {
   const { sending, errors } = props;
 
   const { inputs, handleInputChange, handleSubmit } = useForm(
@@ -17,20 +17,20 @@ export default function UnitForm(props) {
     <form className="contact-form min-height-entry" onSubmit={handleSubmit}>
       <div className="row">
         <div className="col-sm-3 text-center">
-          <label className="label-center">Type</label>
+          <label className="label-center">Unité</label>
         </div>
         <div className="col-sm-9">
           <span className="select control">
             <UnitSelect
               onChange={handleInputChange}
-              value={inputs.type}
-              name="type"
+              value={inputs.preferedUnit}
+              name="preferedUnit"
             />
           </span>
 
           <ul className="error-list">
             {errors
-              .filter((error) => error.propertyPath === 'type')
+              .filter((error) => error.propertyPath === 'preferedUnit')
               .map((error, index) => (
                 <li key={index}>{error.message}</li>
               ))}
@@ -39,19 +39,19 @@ export default function UnitForm(props) {
       </div>
       <div className="row">
         <div className="col-sm-3 text-center">
-          <label className="label-center">Température</label>
+          <label className="label-center">Nom</label>
         </div>
         <div className="col-sm-9">
           <Input
             type="text"
-            name="temperatureUnit"
-            placeholder="Température"
+            name="name"
+            placeholder="Nom"
             onChange={handleInputChange}
-            value={inputs.temperatureUnit}
+            value={inputs.name}
           />
           <ul className="error-list">
             {errors
-              .filter((error) => error.propertyPath === 'temperatureUnit')
+              .filter((error) => error.propertyPath === 'name')
               .map((error, index) => (
                 <li key={index}>{error.message}</li>
               ))}
@@ -60,19 +60,18 @@ export default function UnitForm(props) {
       </div>
       <div className="row">
         <div className="col-sm-3 text-center">
-          <label className="label-center">Vitesse</label>
+          <label className="label-center">Description</label>
         </div>
         <div className="col-sm-9">
-          <Input
-            type="text"
-            name="speedUnit"
-            placeholder="Vitesse"
+          <TextArea
+            name="description"
+            placeholder="Description"
             onChange={handleInputChange}
-            value={inputs.speedUnit}
+            value={inputs.description}
           />
           <ul className="error-list">
             {errors
-              .filter((error) => error.propertyPath === 'speedUnit')
+              .filter((error) => error.propertyPath === 'description')
               .map((error, index) => (
                 <li key={index}>{error.message}</li>
               ))}
@@ -81,19 +80,18 @@ export default function UnitForm(props) {
       </div>
       <div className="row">
         <div className="col-sm-3 text-center">
-          <label className="label-center">Pluie</label>
+          <label className="label-center">Description courte</label>
         </div>
         <div className="col-sm-9">
-          <Input
-            type="text"
-            name="rainUnit"
-            placeholder="Pluie"
+          <TextArea
+            name="shortDescription"
+            placeholder="Description courte"
             onChange={handleInputChange}
-            value={inputs.rainUnit}
+            value={inputs.shortDescription}
           />
           <ul className="error-list">
             {errors
-              .filter((error) => error.propertyPath === 'rainUnit')
+              .filter((error) => error.propertyPath === 'shortDescription')
               .map((error, index) => (
                 <li key={index}>{error.message}</li>
               ))}
@@ -102,19 +100,19 @@ export default function UnitForm(props) {
       </div>
       <div className="row">
         <div className="col-sm-3 text-center">
-          <label className="label-center">Radiation solaire</label>
+          <label className="label-center">Pays</label>
         </div>
         <div className="col-sm-9">
           <Input
             type="text"
-            name="solarRadiationUnit"
-            placeholder="Radiation solaire"
+            name="country"
+            placeholder="Pays"
             onChange={handleInputChange}
-            value={inputs.solarRadiationUnit}
+            value={inputs.country}
           />
           <ul className="error-list">
             {errors
-              .filter((error) => error.propertyPath === 'solarRadiationUnit')
+              .filter((error) => error.propertyPath === 'country')
               .map((error, index) => (
                 <li key={index}>{error.message}</li>
               ))}
@@ -123,19 +121,19 @@ export default function UnitForm(props) {
       </div>
       <div className="row">
         <div className="col-sm-3 text-center">
-          <label className="label-center">Particule fine</label>
+          <label className="label-center">Adresse</label>
         </div>
         <div className="col-sm-9">
           <Input
             type="text"
-            name="pmUnit"
-            placeholder="Particule fine"
+            name="address"
+            placeholder="Adresse"
             onChange={handleInputChange}
-            value={inputs.pmUnit}
+            value={inputs.address}
           />
           <ul className="error-list">
             {errors
-              .filter((error) => error.propertyPath === 'pmUnit')
+              .filter((error) => error.propertyPath === 'address')
               .map((error, index) => (
                 <li key={index}>{error.message}</li>
               ))}
@@ -144,19 +142,19 @@ export default function UnitForm(props) {
       </div>
       <div className="row">
         <div className="col-sm-3 text-center">
-          <label className="label-center">Humidité</label>
+          <label className="label-center">Ville</label>
         </div>
         <div className="col-sm-9">
           <Input
             type="text"
-            name="humidityUnit"
-            placeholder="Humidité"
+            name="city"
+            placeholder="Ville"
             onChange={handleInputChange}
-            value={inputs.humidityUnit}
+            value={inputs.city}
           />
           <ul className="error-list">
             {errors
-              .filter((error) => error.propertyPath === 'humidityUnit')
+              .filter((error) => error.propertyPath === 'city')
               .map((error, index) => (
                 <li key={index}>{error.message}</li>
               ))}
@@ -165,19 +163,19 @@ export default function UnitForm(props) {
       </div>
       <div className="row">
         <div className="col-sm-3 text-center">
-          <label className="label-center">Base des nuages</label>
+          <label className="label-center">Latitude</label>
         </div>
         <div className="col-sm-9">
           <Input
             type="text"
-            name="cloudBaseUnit"
-            placeholder="Base des nuages"
+            name="lat"
+            placeholder="Latitude"
             onChange={handleInputChange}
-            value={inputs.cloudBaseUnit}
+            value={inputs.lat}
           />
           <ul className="error-list">
             {errors
-              .filter((error) => error.propertyPath === 'cloudBaseUnit')
+              .filter((error) => error.propertyPath === 'lat')
               .map((error, index) => (
                 <li key={index}>{error.message}</li>
               ))}
@@ -186,19 +184,19 @@ export default function UnitForm(props) {
       </div>
       <div className="row">
         <div className="col-sm-3 text-center">
-          <label className="label-center">Direction</label>
+          <label className="label-center">Longitude</label>
         </div>
         <div className="col-sm-9">
           <Input
             type="text"
-            name="windDirUnit"
-            placeholder="Direction"
+            name="lng"
+            placeholder="Longitude"
             onChange={handleInputChange}
-            value={inputs.windDirUnit}
+            value={inputs.lng}
           />
           <ul className="error-list">
             {errors
-              .filter((error) => error.propertyPath === 'windDirUnit')
+              .filter((error) => error.propertyPath === 'lng')
               .map((error, index) => (
                 <li key={index}>{error.message}</li>
               ))}
@@ -207,19 +205,82 @@ export default function UnitForm(props) {
       </div>
       <div className="row">
         <div className="col-sm-3 text-center">
-          <label className="label-center">Pression</label>
+          <label className="label-center">API Token</label>
         </div>
         <div className="col-sm-9">
           <Input
             type="text"
-            name="pressureUnit"
-            placeholder="Pression"
+            name="apiToken"
+            placeholder="API Token"
             onChange={handleInputChange}
-            value={inputs.pressureUnit}
+            value={inputs.apiToken}
           />
           <ul className="error-list">
             {errors
-              .filter((error) => error.propertyPath === 'pressureUnit')
+              .filter((error) => error.propertyPath === 'apiToken')
+              .map((error, index) => (
+                <li key={index}>{error.message}</li>
+              ))}
+          </ul>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-sm-3 text-center">
+          <label className="label-center">Modèle</label>
+        </div>
+        <div className="col-sm-9">
+          <Input
+            type="text"
+            name="model"
+            placeholder="Modèle"
+            onChange={handleInputChange}
+            value={inputs.model}
+          />
+          <ul className="error-list">
+            {errors
+              .filter((error) => error.propertyPath === 'model')
+              .map((error, index) => (
+                <li key={index}>{error.message}</li>
+              ))}
+          </ul>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-sm-3 text-center">
+          <label className="label-center">Altitude</label>
+        </div>
+        <div className="col-sm-9">
+          <Input
+            type="text"
+            name="elevation"
+            placeholder="Altitude"
+            onChange={handleInputChange}
+            value={inputs.elevation}
+          />
+          <ul className="error-list">
+            {errors
+              .filter((error) => error.propertyPath === 'elevation')
+              .map((error, index) => (
+                <li key={index}>{error.message}</li>
+              ))}
+          </ul>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-sm-3 text-center">
+          <label className="label-center">Référence</label>
+        </div>
+        <div className="col-sm-9">
+          <Input
+            type="text"
+            name="reference"
+            placeholder="Référence"
+            onChange={handleInputChange}
+            value={inputs.reference}
+          />
+          <ul className="error-list">
+            {errors
+              .filter((error) => error.propertyPath === 'reference')
               .map((error, index) => (
                 <li key={index}>{error.message}</li>
               ))}

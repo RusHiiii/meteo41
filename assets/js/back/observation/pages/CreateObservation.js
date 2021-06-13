@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import BreadCrumb from '../../../common/components/BreadCrumb';
 import { apiClient } from '../../../common/utils/apiClient';
-import ObservationForm from "../components/ObservationForm";
-import {DEFAULT_WEATHER_STATION_REFERENCE} from "../../../common/constant";
+import ObservationForm from '../components/ObservationForm';
+import { DEFAULT_WEATHER_STATION_REFERENCE } from '../../../common/constant';
 
 const CREATE_OBSERVATION_SENDING = 'CREATE_OBSERVATION_SENDING';
 const CREATE_OBSERVATION_SENT = 'CREATE_OBSERVATION_SENT';
@@ -44,7 +44,7 @@ function sendObservation(data, dispatch) {
         method: 'POST',
         body: JSON.stringify({
           message: data.message,
-          weatherStation: data.weatherStation
+          weatherStation: data.weatherStation,
         }),
       })
     )
@@ -103,7 +103,7 @@ export default function CreateObservation(props) {
               onSubmit={(data) => sendObservation(data, dispatch)}
               initialValues={{
                 message: '',
-                weatherStation: DEFAULT_WEATHER_STATION_REFERENCE
+                weatherStation: DEFAULT_WEATHER_STATION_REFERENCE,
               }}
             />
           </div>

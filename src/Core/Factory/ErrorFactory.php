@@ -10,9 +10,11 @@ class ErrorFactory
     {
         $classname = (new \ReflectionClass($e))->getShortName();
 
-        return new Error(
-            $classname,
-            empty($e->getMessage()) ? $classname : $e->getMessage()
-        );
+        return [
+            new Error(
+                $classname,
+                empty($e->getMessage()) ? $classname : $e->getMessage()
+            )
+        ];
     }
 }

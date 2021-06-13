@@ -19,8 +19,6 @@ App\Core\Tactician\Command\WeatherStation\RegisterWeatherStationCommand:
             - NotBlank: ~
         lng:
             - NotBlank: ~
-        apiToken:
-            - NotBlank: ~
         model:
             - NotBlank: ~
         elevation:

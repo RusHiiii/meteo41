@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useReducer } from 'react';
 import BreadCrumb from '../../../common/components/BreadCrumb';
 import { apiClient } from '../../../common/utils/apiClient';
 import UnitForm from '../../unit/components/UnitForm';
-import ObservationForm from "../components/ObservationForm";
+import ObservationForm from '../components/ObservationForm';
 
 const EDIT_OBSERVATION_SENDING = 'EDIT_OBSERVATION_SENDING';
 const EDIT_OBSERVATION_SENT = 'EDIT_OBSERVATION_SENT';
@@ -11,8 +11,8 @@ const EDIT_OBSERVATION_LOAD = 'EDIT_OBSERVATION_LOAD';
 
 const getInitialValues = (observation) => {
   return {
-    weatherStation: observation.weatherStation.reference,
-    message: observation.message
+    weatherStation: observation.weatherStation?.reference,
+    message: observation.message,
   };
 };
 
@@ -58,7 +58,7 @@ function updateObservation(data, id, dispatch) {
         method: 'PUT',
         body: JSON.stringify({
           weatherStation: data.weatherStation,
-          message: data.message
+          message: data.message,
         }),
       })
     )
@@ -136,7 +136,9 @@ export default function EditObservation(props) {
               <ObservationForm
                 errors={state.errors}
                 sending={state.sending}
-                onSubmit={(data) => updateObservation(data, state.observation.id, dispatch)}
+                onSubmit={(data) =>
+                  updateObservation(data, state.observation.id, dispatch)
+                }
                 initialValues={getInitialValues(state.observation)}
               />
             )}

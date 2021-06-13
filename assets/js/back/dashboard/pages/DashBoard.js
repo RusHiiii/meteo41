@@ -99,8 +99,18 @@ export default function DashBoard(props) {
                 </h3>
                 <p className="photo-text">Gestion des stations météo du site</p>
                 <div className="photo-access">
-                  <button className="button margin-right">Accéder</button>
-                  <button className="button margin-left">Ajouter</button>
+                  <Link
+                    to="/admin/weatherStation"
+                    className="button margin-right"
+                  >
+                    Accéder
+                  </Link>
+                  <Link
+                    to="/admin/weatherStation/create"
+                    className="button margin-right"
+                  >
+                    Ajouter
+                  </Link>
                 </div>
               </div>
             </div>

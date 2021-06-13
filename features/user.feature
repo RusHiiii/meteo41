@@ -43,10 +43,10 @@ Feature: User
     Then the status code should be 400
     And the response should have the following content
     """
-     {
+     [{
          "type":"BadPasswordConfirmationException",
-         "content":"BadPasswordConfirmationException"
-      }
+         "message":"BadPasswordConfirmationException"
+      }]
     """
 
   @database
@@ -99,10 +99,10 @@ Feature: User
     Then the status code should be 400
     And the response should have the following content
     """
-     {
+     [{
          "type":"UserAlreadyExistException",
-         "content":"UserAlreadyExistException"
-      }
+         "message":"UserAlreadyExistException"
+      }]
     """
 
   @database
@@ -185,10 +185,10 @@ Feature: User
     Then the status code should be 400
     And the response should have the following content
     """
-     {
+     [{
          "type":"CannotEditMailException",
-         "content":"CannotEditMailException"
-      }
+         "message":"CannotEditMailException"
+      }]
     """
 
   @database

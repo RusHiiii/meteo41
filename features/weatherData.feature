@@ -336,8 +336,8 @@ Feature: Weather Data
     Then the status code should be 400
     And the response should have the following content
     """
-     {
+     [{
          "type":"NoWeatherDataReportFoundException",
-         "content":"NoWeatherDataReportFoundException"
-      }
+         "message":"NoWeatherDataReportFoundException"
+      }]
     """

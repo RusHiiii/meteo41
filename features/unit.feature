@@ -55,10 +55,10 @@ Feature: Unit
     Then the status code should be 400
     And the response should have the following content
     """
-     {
+     [{
         "type": "UnitAlreadyExistException",
-        "content": "UnitAlreadyExistException"
-     }
+        "message": "Unité dupliquée !"
+     }]
     """
 
   @database

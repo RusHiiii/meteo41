@@ -30,13 +30,13 @@ export default function AdminAccess(props) {
           <Link to="/admin/news">Gestion des news</Link>
         </li>
         <li>
-          <a href="">Gestion des stations météo</a>
+          <Link to="/admin/weatherStation">Gestion des stations météo</Link>
         </li>
         <li>
           <Link to="/admin/unit">Gestion des unités</Link>
         </li>
         <li>
-          <a href="">Gestion des observations</a>
+          <Link to="/admin/observation">Gestion des observations</Link>
         </li>
         <li>
           <a className="pointer" onClick={() => logout(history, dispatch)}>

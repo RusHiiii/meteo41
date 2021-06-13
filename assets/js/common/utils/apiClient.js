@@ -1,4 +1,5 @@
 import { cookieManager } from './cookieManager';
+import { useHistory } from 'react-router-dom';
 
 export const apiClient = () => {
   const request = (request, options = {}) => {

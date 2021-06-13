@@ -104,12 +104,18 @@ export default function CreateUnit(props) {
               <div className="success-alert">L'unité a été ajouté !</div>
             )}
 
+            {state.errors
+              .filter((error) => !error.propertyPath)
+              .map((error, index) => (
+                <div className="error-alert">{error.message}</div>
+              ))}
+
             <UnitForm
               errors={state.errors}
               sending={state.sending}
               onSubmit={(data) => sendUnit(data, dispatch)}
               initialValues={{
-                type: 'metric',
+                type: 'Metric',
                 temperatureUnit: '',
                 speedUnit: '',
                 rainUnit: '',
