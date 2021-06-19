@@ -75,10 +75,10 @@ class WeatherStationFactoryTest extends TestCase
             'Blois',
             4.1562,
             4.5623,
-            'XXXX',
             'HP2551',
             '250m',
-            'cc'
+            'cc',
+            'XXXX'
         );
 
         $weatherStation = $this->weatherStationFactory->editWeatherStationFromCommand($entities['weather_station_1'], $command, $entities['unit_1']);
