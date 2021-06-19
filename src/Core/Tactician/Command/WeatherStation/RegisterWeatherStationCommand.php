@@ -20,7 +20,7 @@ class RegisterWeatherStationCommand
 
     private float $lng;
 
-    private string $apiToken;
+    private ?string $apiToken;
 
     private string $model;
 
@@ -28,7 +28,7 @@ class RegisterWeatherStationCommand
 
     private string $elevation;
 
-    private ?int $preferedUnitId;
+    private ?string $preferedUnit;
 
     /**
      * RegisterWeatherStationCommand constructor.
@@ -40,11 +40,11 @@ class RegisterWeatherStationCommand
      * @param string $city
      * @param float $lat
      * @param float $lng
-     * @param string $apiToken
+     * @param string|null $apiToken
      * @param string $model
      * @param string $elevation
      * @param string $reference
-     * @param int|null $preferedUnitId
+     * @param string|null $preferedUnit
      */
     public function __construct(
         string $name,
@@ -55,11 +55,11 @@ class RegisterWeatherStationCommand
         string $city,
         float $lat,
         float $lng,
-        string $apiToken,
+        ?string $apiToken,
         string $model,
         string $elevation,
         string $reference,
-        int $preferedUnitId = null
+        ?string $preferedUnit = null
     ) {
         $this->name = $name;
         $this->description = $description;
@@ -73,7 +73,7 @@ class RegisterWeatherStationCommand
         $this->model = $model;
         $this->reference = $reference;
         $this->elevation = $elevation;
-        $this->preferedUnitId = $preferedUnitId;
+        $this->preferedUnit = $preferedUnit;
     }
 
     /**
@@ -141,9 +141,9 @@ class RegisterWeatherStationCommand
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getApiToken(): string
+    public function getApiToken(): ?string
     {
         return $this->apiToken;
     }
@@ -165,11 +165,11 @@ class RegisterWeatherStationCommand
     }
 
     /**
-     * @return int
+     * @return string|null
      */
-    public function getPreferedUnitId(): ?int
+    public function getPreferedUnit(): ?string
     {
-        return $this->preferedUnitId;
+        return $this->preferedUnit;
     }
 
     /**

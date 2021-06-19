@@ -4,16 +4,15 @@ App\Core\Tactician\Command\User\RegisterUserCommand:
             - NotBlank: ~
         email:
             - Email: ~
+            - NotBlank: ~
         lastname:
             - NotBlank: ~
         password:
-            - NotBlank: ~
             - Regex: '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!#$*]{8,15}$/'
             - Length:
                 min: 2
                 max: 30
         passwordConfirmation:
-            - NotBlank: ~
             - Regex: '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!#$*]{8,15}$/'
             - Length:
                 min: 2

@@ -6,17 +6,17 @@ class Error
 {
     private string $type;
 
-    private string $content;
+    private string $message;
 
     /**
      * Error constructor.
      * @param string $type
-     * @param string $content
+     * @param string $message
      */
-    public function __construct(string $type, string $content)
+    public function __construct(string $type, string $message)
     {
         $this->type = $type;
-        $this->content = $content;
+        $this->message = $message;
     }
 
     /**
@@ -30,8 +30,8 @@ class Error
     /**
      * @return string
      */
-    public function getContent(): string
+    public function getMessage(): string
     {
-        return $this->content;
+        return $this->message;
     }
 }

@@ -349,7 +349,7 @@ Feature: Contact
     """
 
   @database
-  Scenario: Show list of contact with user logged with params order
+  Scenario: Show lisCheck unit register with existing typet of contact with user logged with params order
     Given I load the fixture "contact"
     And I am logged with the email "admin@test.fr"
     When I request the url "/api/contact?searchBy[email]=etst@orange.fr&order=DESC&maxResult=1&page=2" with http verb "GET"
@@ -380,8 +380,8 @@ Feature: Contact
     Then the status code should be 400
     And the response should have the following content
     """
-     {
+     [{
         "type": "InvalidArgumentException",
-        "content": "Order not valid"
-     }
+        "message": "Order not valid"
+     }]
     """

@@ -3,6 +3,7 @@
 namespace App\Core\Tactician\Handler\User;
 
 use App\Core\Exception\User\BadPasswordConfirmationException;
+use App\Core\Exception\User\BadPasswordSecurityException;
 use App\Core\Exception\User\CannotEditMailException;
 use App\Core\Exception\User\RoleNotFoundException;
 use App\Core\Exception\User\UserNotFoundException;
@@ -50,8 +51,14 @@ class EditUserHandler
             throw new CannotEditMailException();
         }
 
-        if ($editUserCommand->getPassword() !== $editUserCommand->getPasswordConfirmation()) {
-            throw new BadPasswordConfirmationException();
+        if (!empty($editUserCommand->getPassword())) {
+            if ($editUserCommand->getPassword() !== $editUserCommand->getPasswordConfirmation()) {
+                throw new BadPasswordConfirmationException();
+            }
+
+            if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$*%]{8,15}$/', $editUserCommand->getPassword())) {
+                throw new BadPasswordSecurityException();
+            }
         }
 
         if (count(array_intersect(User::EXISTING_ROLES, $editUserCommand->getRoles())) != count($editUserCommand->getRoles())) {

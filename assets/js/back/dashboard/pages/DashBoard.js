@@ -1,8 +1,11 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import BreadCrumb from '../../../common/components/BreadCrumb';
 import { Link } from 'react-router-dom';
+import { userIsAdmin } from '../../../common/utils/hooks/security/userIsAdmin';
 
 export default function DashBoard(props) {
+  const isAdmin = userIsAdmin();
+
   return (
     <Fragment>
       <BreadCrumb text="Dashboard" />
@@ -31,8 +34,17 @@ export default function DashBoard(props) {
                 </h3>
                 <p className="photo-text">Gestion des utilisateurs du site</p>
                 <div className="photo-access">
-                  <button className="button margin-right">Accéder</button>
-                  <button className="button margin-left">Ajouter</button>
+                  <Link to="/admin/user" className="button margin-right">
+                    Accéder
+                  </Link>
+                  {isAdmin && (
+                    <Link
+                      to="/admin/user/create"
+                      className="button margin-left"
+                    >
+                      Ajouter
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
@@ -99,8 +111,20 @@ export default function DashBoard(props) {
                 </h3>
                 <p className="photo-text">Gestion des stations météo du site</p>
                 <div className="photo-access">
-                  <button className="button margin-right">Accéder</button>
-                  <button className="button margin-left">Ajouter</button>
+                  <Link
+                    to="/admin/weatherStation"
+                    className="button margin-right"
+                  >
+                    Accéder
+                  </Link>
+                  {isAdmin && (
+                    <Link
+                      to="/admin/weatherStation/create"
+                      className="button margin-right"
+                    >
+                      Ajouter
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
@@ -114,9 +138,14 @@ export default function DashBoard(props) {
                   <Link to="/admin/unit" className="button margin-right">
                     Accéder
                   </Link>
-                  <Link to="/admin/unit/create" className="button margin-right">
-                    Ajouter
-                  </Link>
+                  {isAdmin && (
+                    <Link
+                      to="/admin/unit/create"
+                      className="button margin-right"
+                    >
+                      Ajouter
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

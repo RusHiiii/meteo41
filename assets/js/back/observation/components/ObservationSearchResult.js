@@ -44,7 +44,7 @@ export default function ObservationSearchResult(props) {
                 Editer
               </Link>
               <ConfirmButton
-                id={observation.id}
+                key={observation.id}
                 onClick={() => props.onDelete(observation.id)}
               />
             </div>

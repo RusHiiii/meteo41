@@ -1,59 +1,58 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, { Fragment, useEffect, useReducer, useState } from 'react';
 import { Date } from '../../../common/components/Date';
 import Paginator from '../../../common/components/Paginator';
 import { Link } from 'react-router-dom';
+import ConfirmButton from '../../../common/components/ConfirmButton';
 import { userIsAdmin } from '../../../common/utils/hooks/security/userIsAdmin';
 
-export default function ContactSearchResult(props) {
+export default function UserSearchResult(props) {
   const isAdmin = userIsAdmin();
-  const { totalContact, currentPage, contacts } = props;
+  const { totalUser, currentPage, users } = props;
 
   return (
     <Fragment>
       <Paginator
-        totalItems={totalContact}
+        totalItems={totalUser}
         currentPage={currentPage}
         itemsPerPage={5}
         onChange={props.onChangePage}
       />
 
-      {contacts.map((contact, index) => (
+      {users.map((user, index) => (
         <div key={index} className="photo list">
           <div className="photo-details">
-            <h3 className="photo-title">
-              <strong>{contact.subject}</strong>
+            <h3>
+              <strong>{user.email}</strong>
             </h3>
             <p>
-              <strong>Nom:</strong> {contact.name}
+              <strong>Prénom:</strong> {user.firstname}
             </p>
             <p>
-              <strong>Email:</strong> {contact.email}
+              <strong>Nom:</strong> {user.lastname}
             </p>
             <p>
-              <strong>Message:</strong> {contact.message}
+              <strong>Roles:</strong> {user.roles}
             </p>
             <p>
               <strong>Date de création:</strong>{' '}
-              <Date date={contact.createdAt} format="LLLL" />
+              <Date date={user.createdAt} format="LLLL" />
             </p>
             <p>
               <strong>Date d'édition:</strong>{' '}
-              <Date date={contact.updatedAt} format="LLLL" />
+              <Date date={user.updatedAt} format="LLLL" />
             </p>
             {isAdmin && (
               <div className="photo-access">
                 <Link
-                  to={`/admin/contact/edit/${contact.id}`}
+                  to={`/admin/user/edit/${user.id}`}
                   className="button btn-edit"
                 >
                   Editer
                 </Link>
-                <button
-                  className="button btn-delete margin-left"
-                  onClick={() => props.onDelete(contact.id)}
-                >
-                  Supprimer
-                </button>
+                <ConfirmButton
+                  key={user.id}
+                  onClick={() => props.onDelete(user.id)}
+                />
               </div>
             )}
           </div>

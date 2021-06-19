@@ -45,7 +45,7 @@ Feature: Weather station
       "apiToken": "XYXYXXYX",
       "model": "HP 2551",
       "elevation": "250m",
-      "preferedUnitId": 1
+      "preferedUnit": "metric"
     }
     """
     Then the status code should be 201
@@ -60,7 +60,6 @@ Feature: Weather station
       | reference         | AAAA                  |
       | lat               | 4.5632                |
       | lng               | 4.1236                |
-      | apiToken          | XYXYXXYX              |
       | model             | HP 2551               |
       | elevation         | 250m                  |
 
@@ -83,7 +82,7 @@ Feature: Weather station
       "apiToken": "",
       "model": "HP 2551",
       "elevation": "250m",
-      "preferedUnitId": 1
+      "preferedUnit": "metric"
     }
     """
     Then the status code should be 400
@@ -94,11 +93,6 @@ Feature: Weather station
           "message": "Ce pays n'est pas valide.",
           "messageTemplate": "This value is not a valid country.",
           "propertyPath": "country"
-       },
-       {
-          "message": "Cette valeur ne doit pas être vide.",
-          "messageTemplate": "This value should not be blank.",
-          "propertyPath": "apiToken"
        }
      ]
     """
@@ -122,16 +116,16 @@ Feature: Weather station
       "apiToken": "XXXXXXX",
       "model": "HP 2551",
       "elevation": "250m",
-      "preferedUnitId": 1
+      "preferedUnit": "metric"
     }
     """
     Then the status code should be 400
     And the response should have the following content
     """
-     {
+     [{
       "type": "DuplicateWeatherStationFoundException",
-      "content": "DuplicateWeatherStationFoundException"
-     }
+      "message": "Station météo dupliquée !"
+     }]
     """
 
   @database
@@ -153,7 +147,7 @@ Feature: Weather station
       "apiToken": "XYXYXXYX",
       "model": "HP 2551",
       "elevation": "250m",
-      "preferedUnitId": 1
+      "preferedUnit": "metric"
     }
     """
     Then the status code should be 204
@@ -190,7 +184,7 @@ Feature: Weather station
       "apiToken": "",
       "model": "HP 2551",
       "elevation": "",
-      "preferedUnitId": 1
+      "preferedUnit": "metric"
     }
     """
     Then the status code should be 400
@@ -201,11 +195,6 @@ Feature: Weather station
           "message": "Ce pays n'est pas valide.",
           "messageTemplate": "This value is not a valid country.",
           "propertyPath": "country"
-       },
-       {
-          "message": "Cette valeur ne doit pas être vide.",
-          "messageTemplate": "This value should not be blank.",
-          "propertyPath": "apiToken"
        },
        {
           "message": "Cette valeur ne doit pas être vide.",
@@ -274,10 +263,10 @@ Feature: Weather station
     Then the status code should be 400
     And the response should have the following content
     """
-     {
+     [{
         "type": "InvalidArgumentException",
-        "content": "Order not valid"
-     }
+        "message": "Order not valid"
+     }]
     """
 
   @database

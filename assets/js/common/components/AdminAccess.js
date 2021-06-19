@@ -21,7 +21,7 @@ export default function AdminAccess(props) {
       <h3 className="widget-title">Accès rapide</h3>
       <ul className="arrow-list">
         <li>
-          <a href="">Gestion des utilisateurs</a>
+          <Link to="/admin/user">Gestion des utilisateurs</Link>
         </li>
         <li>
           <Link to="/admin/contact">Gestion des messages</Link>
@@ -30,13 +30,13 @@ export default function AdminAccess(props) {
           <Link to="/admin/news">Gestion des news</Link>
         </li>
         <li>
-          <a href="">Gestion des stations météo</a>
+          <Link to="/admin/weatherStation">Gestion des stations météo</Link>
         </li>
         <li>
           <Link to="/admin/unit">Gestion des unités</Link>
         </li>
         <li>
-          <a href="">Gestion des observations</a>
+          <Link to="/admin/observation">Gestion des observations</Link>
         </li>
         <li>
           <a className="pointer" onClick={() => logout(history, dispatch)}>

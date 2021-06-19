@@ -24,7 +24,7 @@ class WeatherStationFactory
             $command->getCity(),
             $command->getLat(),
             $command->getLng(),
-            $command->getApiToken(),
+            hash('sha256', $command->getApiToken()),
             $command->getModel(),
             $command->getElevation(),
             $command->getReference()
@@ -50,10 +50,13 @@ class WeatherStationFactory
         $weatherStation->setCity($command->getCity());
         $weatherStation->setLat($command->getLat());
         $weatherStation->setLng($command->getLng());
-        $weatherStation->setApiToken(hash('sha256', $command->getApiToken()));
         $weatherStation->setModel($command->getModel());
         $weatherStation->setReference($command->getReference());
         $weatherStation->setElevation($command->getElevation());
+
+        if ($command->getApiToken()) {
+            $weatherStation->setApiToken(hash('sha256', $command->getApiToken()));
+        }
 
         return $weatherStation;
     }

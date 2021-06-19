@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useReducer, useState } from 'react';
 import TextArea from '../../../common/components/form/TextArea';
 import { useForm } from '../../../common/utils/hooks/useForm';
-import WeatherStationSelect from "../../../common/components/form/select/WeatherStationSelect";
+import WeatherStationSelect from '../../../common/components/form/select/WeatherStationSelect';
 
 export default function ObservationForm(props) {
   const { sending, errors } = props;

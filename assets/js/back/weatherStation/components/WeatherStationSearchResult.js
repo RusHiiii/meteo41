@@ -5,56 +5,58 @@ import { Link } from 'react-router-dom';
 import ConfirmButton from '../../../common/components/ConfirmButton';
 import { userIsAdmin } from '../../../common/utils/hooks/security/userIsAdmin';
 
-export default function UnitSearchResult(props) {
+export default function WeatherStationSearchResult(props) {
   const isAdmin = userIsAdmin();
-  const { totalUnit, currentPage, units } = props;
+  const { totalWeatherStation, currentPage, weatherStations } = props;
 
   return (
     <Fragment>
       <Paginator
-        totalItems={totalUnit}
+        totalItems={totalWeatherStation}
         currentPage={currentPage}
         itemsPerPage={5}
         onChange={props.onChangePage}
       />
 
-      {units.map((unit, index) => (
+      {weatherStations.map((weatherStation, index) => (
         <div key={index} className="photo list">
           <div className="photo-details">
             <h3 className="photo-title">
-              <strong>{unit.type}</strong>
+              <strong>{weatherStation.name}</strong>
             </h3>
             <p>
-              <strong>Température:</strong> {unit.temperatureUnit}
+              <strong>Description courte:</strong>{' '}
+              {weatherStation.shortDescription}
             </p>
             <p>
-              <strong>Vitesse:</strong> {unit.speedUnit}
+              <strong>Adresse:</strong> {weatherStation.address},{' '}
+              {weatherStation.city}, {weatherStation.country}
             </p>
             <p>
-              <strong>Pluie:</strong> {unit.rainUnit}
+              <strong>Modèle:</strong> {weatherStation.model}
             </p>
             <p>
-              <strong>Pression:</strong> {unit.pressureUnit}
+              <strong>Référence:</strong> {weatherStation.reference}
             </p>
             <p>
               <strong>Date de création:</strong>{' '}
-              <Date date={unit.createdAt} format="LLLL" />
+              <Date date={weatherStation.createdAt} format="LLLL" />
             </p>
             <p>
               <strong>Date d'édition:</strong>{' '}
-              <Date date={unit.updatedAt} format="LLLL" />
+              <Date date={weatherStation.updatedAt} format="LLLL" />
             </p>
             {isAdmin && (
               <div className="photo-access">
                 <Link
-                  to={`/admin/unit/edit/${unit.id}`}
+                  to={`/admin/weatherStation/edit/${weatherStation.reference}`}
                   className="button btn-edit"
                 >
                   Editer
                 </Link>
                 <ConfirmButton
-                  key={unit.id}
-                  onClick={() => props.onDelete(unit.id)}
+                  key={weatherStation.id}
+                  onClick={() => props.onDelete(weatherStation.id)}
                 />
               </div>
             )}

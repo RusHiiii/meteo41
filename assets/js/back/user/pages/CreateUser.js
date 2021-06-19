@@ -1,28 +1,28 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import BreadCrumb from '../../../common/components/BreadCrumb';
 import { apiClient } from '../../../common/utils/apiClient';
-import ObservationForm from '../components/ObservationForm';
-import { DEFAULT_WEATHER_STATION_REFERENCE } from '../../../common/constant';
+import UserForm from '../components/UserForm';
+import { ROLE_EDITOR } from '../../../common/constant';
 
-const CREATE_OBSERVATION_SENDING = 'CREATE_OBSERVATION_SENDING';
-const CREATE_OBSERVATION_SENT = 'CREATE_OBSERVATION_SENT';
-const CREATE_OBSERVATION_ERRORS = 'CREATE_UNIT_ERRORS';
+const CREATE_USER_SENDING = 'CREATE_USER_SENDING';
+const CREATE_USER_SENT = 'CREATE_USER_SENT';
+const CREATE_USER_ERRORS = 'CREATE_USER_ERRORS';
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case CREATE_OBSERVATION_SENDING:
+    case CREATE_USER_SENDING:
       return {
         ...state,
         sending: true,
       };
-    case CREATE_OBSERVATION_SENT:
+    case CREATE_USER_SENT:
       return {
         ...state,
         sending: false,
         sent: true,
         errors: [],
       };
-    case CREATE_OBSERVATION_ERRORS:
+    case CREATE_USER_ERRORS:
       return {
         ...state,
         errors: action.errors,
@@ -33,25 +33,29 @@ const reducer = (state, action) => {
   return state;
 };
 
-function sendObservation(data, dispatch) {
+function sendUser(data, dispatch) {
   dispatch({
-    type: CREATE_OBSERVATION_SENDING,
+    type: CREATE_USER_SENDING,
   });
 
   apiClient()
     .request(
-      new Request(`/api/observation`, {
+      new Request(`/api/user`, {
         method: 'POST',
         body: JSON.stringify({
-          message: data.message,
-          weatherStation: data.weatherStation,
+          firstname: data.firstname,
+          lastname: data.lastname,
+          email: data.email,
+          password: data.password,
+          passwordConfirmation: data.passwordConfirmation,
+          roles: [data.roles],
         }),
       })
     )
     .then((response) => {
       if (response.ok) {
         dispatch({
-          type: CREATE_OBSERVATION_SENT,
+          type: CREATE_USER_SENT,
         });
 
         return;
@@ -59,14 +63,14 @@ function sendObservation(data, dispatch) {
 
       return response.json().then((errors) => {
         dispatch({
-          type: CREATE_OBSERVATION_ERRORS,
+          type: CREATE_USER_ERRORS,
           errors: errors,
         });
       });
     });
 }
 
-function useCreateObservation() {
+function useCreateUser() {
   const initialState = {
     errors: [],
     sending: false,
@@ -76,17 +80,17 @@ function useCreateObservation() {
   return useReducer(reducer, initialState);
 }
 
-export default function CreateObservation(props) {
-  const [state, dispatch] = useCreateObservation();
+export default function CreateUser(props) {
+  const [state, dispatch] = useCreateUser();
 
   return (
     <Fragment>
-      <BreadCrumb url="/admin/dashboard" page="Dashboard" text="Observation" />
+      <BreadCrumb url="/admin/dashboard" page="Dashboard" text="Utilisateur" />
 
       <div className="fullwidth-block padding-content">
         <div className="content col-md-8">
           <div className="post single">
-            <h2 className="entry-title">Ajout d'une observation</h2>
+            <h2 className="entry-title">Ajout d'un utilisateur</h2>
             <div className="featured-image">
               <img src={'/static/images/amboise.png'} alt="amboise" />
             </div>
@@ -94,16 +98,28 @@ export default function CreateObservation(props) {
 
           <div className="entry-content">
             {state.sent && (
-              <div className="success-alert">L'observation a été ajouté !</div>
+              <div className="success-alert">L'utilisateur a été ajouté !</div>
             )}
 
-            <ObservationForm
+            {state.errors
+              .filter((error) => !error.propertyPath)
+              .map((error, index) => (
+                <div key={index} className="error-alert">
+                  {error.message}
+                </div>
+              ))}
+
+            <UserForm
               errors={state.errors}
               sending={state.sending}
-              onSubmit={(data) => sendObservation(data, dispatch)}
+              onSubmit={(data) => sendUser(data, dispatch)}
               initialValues={{
-                message: '',
-                weatherStation: DEFAULT_WEATHER_STATION_REFERENCE,
+                firstname: '',
+                lastname: '',
+                email: '',
+                password: '',
+                passwordConfirmation: '',
+                roles: ROLE_EDITOR,
               }}
             />
           </div>

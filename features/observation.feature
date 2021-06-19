@@ -60,10 +60,10 @@ Feature: Observation
     Then the status code should be 400
     And the response should have the following content
     """
-     {
+     [{
       "type": "WeatherStationNotFoundException",
-      "content": "WeatherStationNotFoundException"
-     }
+      "message": "Station météo non trouvée !"
+     }]
     """
 
   @database

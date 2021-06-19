@@ -51,7 +51,7 @@ class RegisterWeatherStationHandler
             throw new DuplicateWeatherStationFoundException();
         }
 
-        $unit = $this->unitRepository->find($command->getPreferedUnitId());
+        $unit = $this->unitRepository->findByType($command->getPreferedUnit());
         if ($unit === null) {
             throw new UnitNotFoundException();
         }

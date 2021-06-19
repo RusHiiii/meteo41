@@ -1,42 +1,45 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import BreadCrumb from '../../../common/components/BreadCrumb';
 import { apiClient } from '../../../common/utils/apiClient';
-import UnitForm from '../../unit/components/UnitForm';
-import ObservationForm from '../components/ObservationForm';
+import UserForm from '../components/UserForm';
 
-const EDIT_OBSERVATION_SENDING = 'EDIT_OBSERVATION_SENDING';
-const EDIT_OBSERVATION_SENT = 'EDIT_OBSERVATION_SENT';
-const EDIT_OBSERVATION_ERRORS = 'EDIT_OBSERVATION_ERRORS';
-const EDIT_OBSERVATION_LOAD = 'EDIT_OBSERVATION_LOAD';
+const EDIT_USER_SENDING = 'EDIT_USER_SENDING';
+const EDIT_USER_SENT = 'EDIT_USER_SENT';
+const EDIT_USER_ERRORS = 'EDIT_USER_ERRORS';
+const EDIT_USER_LOAD = 'EDIT_USER_LOAD';
 
-const getInitialValues = (observation) => {
+const getInitialValues = (user) => {
   return {
-    weatherStation: observation.weatherStation?.reference,
-    message: observation.message,
+    firstname: user.firstname,
+    lastname: user.lastname,
+    email: user.email,
+    password: '',
+    passwordConfirmation: '',
+    roles: user.roles[0],
   };
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case EDIT_OBSERVATION_SENDING:
+    case EDIT_USER_SENDING:
       return {
         ...state,
         sending: true,
       };
-    case EDIT_OBSERVATION_LOAD:
+    case EDIT_USER_LOAD:
       return {
         ...state,
-        observation: action.observation,
+        user: action.user,
         loaded: true,
       };
-    case EDIT_OBSERVATION_SENT:
+    case EDIT_USER_SENT:
       return {
         ...state,
         sending: false,
         sent: true,
         errors: [],
       };
-    case EDIT_OBSERVATION_ERRORS:
+    case EDIT_USER_ERRORS:
       return {
         ...state,
         errors: action.errors,
@@ -47,25 +50,29 @@ const reducer = (state, action) => {
   return state;
 };
 
-function updateObservation(data, id, dispatch) {
+function updateUser(data, id, dispatch) {
   dispatch({
-    type: EDIT_OBSERVATION_SENDING,
+    type: EDIT_USER_SENDING,
   });
 
   apiClient()
     .request(
-      new Request(`/api/observation/${id}`, {
+      new Request(`/api/user/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
-          weatherStation: data.weatherStation,
-          message: data.message,
+          firstname: data.firstname,
+          lastname: data.lastname,
+          email: data.email,
+          password: data.password,
+          passwordConfirmation: data.passwordConfirmation,
+          roles: [data.roles],
         }),
       })
     )
     .then((response) => {
       if (response.ok) {
         dispatch({
-          type: EDIT_OBSERVATION_SENT,
+          type: EDIT_USER_SENT,
         });
 
         return;
@@ -73,16 +80,16 @@ function updateObservation(data, id, dispatch) {
 
       return response.json().then((errors) => {
         dispatch({
-          type: EDIT_OBSERVATION_ERRORS,
+          type: EDIT_USER_ERRORS,
           errors: errors,
         });
       });
     });
 }
 
-function loadObservation(dispatch, id) {
+function loadUser(dispatch, id) {
   apiClient()
-    .request(new Request(`/api/observation/${id}`))
+    .request(new Request(`/api/user/${id}`))
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -94,22 +101,22 @@ function loadObservation(dispatch, id) {
     })
     .then((data) => {
       dispatch({
-        type: EDIT_OBSERVATION_LOAD,
-        observation: data,
+        type: EDIT_USER_LOAD,
+        user: data,
       });
     })
     .catch((errors) => {
       dispatch({
-        type: EDIT_OBSERVATION_ERRORS,
+        type: EDIT_USER_ERRORS,
         errors: errors,
       });
     });
 }
 
-function useEditObservation(id) {
+function useEditUser(id) {
   const initialState = {
     errors: [],
-    observation: null,
+    user: null,
     sending: false,
     sent: false,
     loaded: false,
@@ -119,23 +126,23 @@ function useEditObservation(id) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    loadObservation(dispatch, id);
+    loadUser(dispatch, id);
   }, []);
 
   return [state, dispatch];
 }
 
-export default function EditObservation(props) {
-  const [state, dispatch] = useEditObservation(props.match.params.id);
+export default function EditUser(props) {
+  const [state, dispatch] = useEditUser(props.match.params.id);
 
   return (
     <Fragment>
-      <BreadCrumb url="/admin/dashboard" page="Dashboard" text="Observation" />
+      <BreadCrumb url="/admin/dashboard" page="Dashboard" text="Utilisateur" />
 
       <div className="fullwidth-block padding-content">
         <div className="content col-md-8">
           <div className="post single">
-            <h2 className="entry-title">Edition d'une observation</h2>
+            <h2 className="entry-title">Edition d'un utilisateur</h2>
             <div className="featured-image">
               <img src={'/static/images/amboise.png'} alt="amboise" />
             </div>
@@ -143,7 +150,7 @@ export default function EditObservation(props) {
 
           <div className="entry-content min-height-entry">
             {state.sent && (
-              <div className="success-alert">L'observation a été modifié !</div>
+              <div className="success-alert">L'utilisateur a été modifié !</div>
             )}
 
             {state.errors
@@ -155,13 +162,11 @@ export default function EditObservation(props) {
               ))}
 
             {state.loaded && (
-              <ObservationForm
+              <UserForm
                 errors={state.errors}
                 sending={state.sending}
-                onSubmit={(data) =>
-                  updateObservation(data, state.observation.id, dispatch)
-                }
-                initialValues={getInitialValues(state.observation)}
+                onSubmit={(data) => updateUser(data, state.user.id, dispatch)}
+                initialValues={getInitialValues(state.user)}
               />
             )}
           </div>

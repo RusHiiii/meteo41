@@ -31,7 +31,16 @@ import {
   ROUTE_ADMIN_UNIT,
   ROUTE_ADMIN_UNIT_CREATE,
   ROUTE_ADMIN_UNIT_EDIT,
-  ROUTE_CONTACT, ROUTE_ADMIN_OBSERVATION, ROUTE_ADMIN_OBSERVATION_CREATE, ROUTE_ADMIN_OBSERVATION_EDIT,
+  ROUTE_CONTACT,
+  ROUTE_ADMIN_OBSERVATION,
+  ROUTE_ADMIN_OBSERVATION_CREATE,
+  ROUTE_ADMIN_OBSERVATION_EDIT,
+  ROUTE_ADMIN_WEATHER_STATION,
+  ROUTE_ADMIN_WEATHER_STATION_CREATE,
+  ROUTE_ADMIN_WEATHER_STATION_EDIT,
+  ROUTE_ADMIN_USER,
+  ROUTE_ADMIN_USER_CREATE,
+  ROUTE_ADMIN_USER_EDIT,
 } from './common/constant';
 import About from './front/information/pages/About';
 import ContactAdmin from './back/contact/pages/Contact';
@@ -41,10 +50,16 @@ import Unit from './back/unit/pages/Unit';
 import CreateUnit from './back/unit/pages/CreateUnit';
 import EditUnit from './back/unit/pages/EditUnit';
 import Contact from './front/information/pages/Contact';
-import Observation from "./back/observation/pages/Observation";
-import ObservationSearchResult from "./back/observation/components/ObservationSearchResult";
-import CreateObservation from "./back/observation/pages/CreateObservation";
-import EditObservation from "./back/observation/pages/EditObservation";
+import Observation from './back/observation/pages/Observation';
+import ObservationSearchResult from './back/observation/components/ObservationSearchResult';
+import CreateObservation from './back/observation/pages/CreateObservation';
+import EditObservation from './back/observation/pages/EditObservation';
+import WeatherStation from './back/weatherStation/pages/WeatherStation';
+import CreateWeatherStation from './back/weatherStation/pages/CreateWeatherStation';
+import EditWeatherStation from './back/weatherStation/pages/EditWeatherStation';
+import User from './back/user/pages/User';
+import CreateUser from './back/user/pages/CreateUser';
+import EditUser from './back/user/pages/EditUser';
 
 export const store = createStore();
 
@@ -66,6 +81,46 @@ ReactDOM.render(
                 />
                 <PrivateRoute
                   exact
+                  adminOnly
+                  name={ROUTE_ADMIN_USER_EDIT}
+                  path="/admin/user/edit/:id"
+                  component={EditUser}
+                />
+                <PrivateRoute
+                  exact
+                  adminOnly
+                  name={ROUTE_ADMIN_USER_CREATE}
+                  path="/admin/user/create"
+                  component={CreateUser}
+                />
+                <PrivateRoute
+                  exact
+                  name={ROUTE_ADMIN_USER}
+                  path="/admin/user"
+                  component={User}
+                />
+                <PrivateRoute
+                  exact
+                  adminOnly
+                  name={ROUTE_ADMIN_WEATHER_STATION_EDIT}
+                  path="/admin/weatherStation/edit/:reference"
+                  component={EditWeatherStation}
+                />
+                <PrivateRoute
+                  exact
+                  adminOnly
+                  name={ROUTE_ADMIN_WEATHER_STATION_CREATE}
+                  path="/admin/weatherStation/create"
+                  component={CreateWeatherStation}
+                />
+                <PrivateRoute
+                  exact
+                  name={ROUTE_ADMIN_WEATHER_STATION}
+                  path="/admin/weatherStation"
+                  component={WeatherStation}
+                />
+                <PrivateRoute
+                  exact
                   name={ROUTE_ADMIN_OBSERVATION_CREATE}
                   path="/admin/observation/create"
                   component={CreateObservation}
@@ -84,12 +139,14 @@ ReactDOM.render(
                 />
                 <PrivateRoute
                   exact
+                  adminOnly
                   name={ROUTE_ADMIN_UNIT_CREATE}
                   path="/admin/unit/create"
                   component={CreateUnit}
                 />
                 <PrivateRoute
                   exact
+                  adminOnly
                   name={ROUTE_ADMIN_UNIT_EDIT}
                   path="/admin/unit/edit/:id"
                   component={EditUnit}
