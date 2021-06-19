@@ -45,7 +45,7 @@ Feature: User
     """
      [{
          "type":"BadPasswordConfirmationException",
-         "message":"BadPasswordConfirmationException"
+         "message":"Confirmation de mot de passe incorrect !"
       }]
     """
 

@@ -93,11 +93,6 @@ Feature: Weather station
           "message": "Ce pays n'est pas valide.",
           "messageTemplate": "This value is not a valid country.",
           "propertyPath": "country"
-       },
-       {
-          "message": "Cette valeur ne doit pas être vide.",
-          "messageTemplate": "This value should not be blank.",
-          "propertyPath": "apiToken"
        }
      ]
     """
@@ -200,11 +195,6 @@ Feature: Weather station
           "message": "Ce pays n'est pas valide.",
           "messageTemplate": "This value is not a valid country.",
           "propertyPath": "country"
-       },
-       {
-          "message": "Cette valeur ne doit pas être vide.",
-          "messageTemplate": "This value should not be blank.",
-          "propertyPath": "apiToken"
        },
        {
           "message": "Cette valeur ne doit pas être vide.",

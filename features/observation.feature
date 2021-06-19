@@ -62,7 +62,7 @@ Feature: Observation
     """
      [{
       "type": "WeatherStationNotFoundException",
-      "message": "WeatherStationNotFoundException"
+      "message": "Station météo non trouvée !"
      }]
     """
 
