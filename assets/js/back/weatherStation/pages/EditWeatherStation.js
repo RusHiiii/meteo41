@@ -104,11 +104,25 @@ function updateWeatherStation(data, id, dispatch) {
 function loadWeatherStation(dispatch, reference) {
   apiClient()
     .request(new Request(`/api/weatherStation/${reference}`))
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      return response.json().then((errors) => {
+        throw errors;
+      });
+    })
     .then((data) => {
       dispatch({
         type: EDIT_WEATHER_STATION_LOAD,
         weatherStation: data,
+      });
+    })
+    .catch((errors) => {
+      dispatch({
+        type: EDIT_WEATHER_STATION_ERRORS,
+        errors: errors,
       });
     });
 }

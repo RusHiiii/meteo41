@@ -22,6 +22,9 @@ import {
   ROUTE_ADMIN_WEATHER_STATION,
   ROUTE_ADMIN_WEATHER_STATION_CREATE,
   ROUTE_ADMIN_WEATHER_STATION_EDIT,
+  ROUTE_ADMIN_USER,
+  ROUTE_ADMIN_USER_CREATE,
+  ROUTE_ADMIN_USER_EDIT,
 } from '../constant';
 
 const routeNameToActiveItem = (routeName) => {
@@ -45,6 +48,9 @@ const routeNameToActiveItem = (routeName) => {
     case ROUTE_ADMIN_WEATHER_STATION_CREATE:
     case ROUTE_ADMIN_WEATHER_STATION_EDIT:
     case ROUTE_ADMIN_WEATHER_STATION:
+    case ROUTE_ADMIN_USER_CREATE:
+    case ROUTE_ADMIN_USER_EDIT:
+    case ROUTE_ADMIN_USER:
       return 'administration';
     case ROUTE_ABOUT:
       return 'about';

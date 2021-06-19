@@ -3,8 +3,10 @@ import { Date } from '../../../common/components/Date';
 import Paginator from '../../../common/components/Paginator';
 import { Link } from 'react-router-dom';
 import ConfirmButton from '../../../common/components/ConfirmButton';
+import { userIsAdmin } from '../../../common/utils/hooks/security/userIsAdmin';
 
 export default function WeatherStationSearchResult(props) {
+  const isAdmin = userIsAdmin();
   const { totalWeatherStation, currentPage, weatherStations } = props;
 
   return (
@@ -44,18 +46,20 @@ export default function WeatherStationSearchResult(props) {
               <strong>Date d'édition:</strong>{' '}
               <Date date={weatherStation.updatedAt} format="LLLL" />
             </p>
-            <div className="photo-access">
-              <Link
-                to={`/admin/weatherStation/edit/${weatherStation.reference}`}
-                className="button btn-edit"
-              >
-                Editer
-              </Link>
-              <ConfirmButton
-                id={weatherStation.id}
-                onClick={() => props.onDelete(weatherStation.id)}
-              />
-            </div>
+            {isAdmin && (
+              <div className="photo-access">
+                <Link
+                  to={`/admin/weatherStation/edit/${weatherStation.reference}`}
+                  className="button btn-edit"
+                >
+                  Editer
+                </Link>
+                <ConfirmButton
+                  key={weatherStation.id}
+                  onClick={() => props.onDelete(weatherStation.id)}
+                />
+              </div>
+            )}
           </div>
         </div>
       ))}

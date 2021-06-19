@@ -87,11 +87,25 @@ function updateNews(data, id, dispatch) {
 function loadNews(dispatch, id) {
   apiClient()
     .request(new Request(`/api/post/${id}`))
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      return response.json().then((errors) => {
+        throw errors;
+      });
+    })
     .then((data) => {
       dispatch({
         type: EDIT_NEWS_LOAD,
         news: data,
+      });
+    })
+    .catch((errors) => {
+      dispatch({
+        type: EDIT_NEWS_ERRORS,
+        errors: errors,
       });
     });
 }
@@ -135,6 +149,14 @@ export default function EditNews(props) {
             {state.sent && (
               <div className="success-alert">La news a été modifié !</div>
             )}
+
+            {state.errors
+              .filter((error) => !error.propertyPath)
+              .map((error, index) => (
+                <div key={index} className="error-alert">
+                  {error.message}
+                </div>
+              ))}
 
             {state.loaded && (
               <NewsForm

@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useReducer } from 'react';
 import { Date } from '../../../common/components/Date';
 import Paginator from '../../../common/components/Paginator';
 import { Link } from 'react-router-dom';
+import ConfirmButton from '../../../common/components/ConfirmButton';
 
 export default function NewsSearchResult(props) {
   const { totalNews, currentPage, news } = props;
@@ -39,12 +40,10 @@ export default function NewsSearchResult(props) {
               >
                 Editer
               </Link>
-              <button
-                className="button btn-delete margin-left"
+              <ConfirmButton
+                key={post.id}
                 onClick={() => props.onDelete(post.id)}
-              >
-                Supprimer
-              </button>
+              />
             </div>
           </div>
         </div>

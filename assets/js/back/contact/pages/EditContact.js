@@ -86,11 +86,25 @@ function updateContact(data, id, dispatch) {
 function loadContact(dispatch, id) {
   apiClient()
     .request(new Request(`/api/contact/${id}`))
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      return response.json().then((errors) => {
+        throw errors;
+      });
+    })
     .then((data) => {
       dispatch({
         type: EDIT_CONTACT_LOAD,
         contact: data,
+      });
+    })
+    .catch((errors) => {
+      dispatch({
+        type: EDIT_CONTACT_ERRORS,
+        errors: errors,
       });
     });
 }
@@ -134,6 +148,14 @@ export default function EditContact(props) {
             {state.sent && (
               <div className="success-alert">Le message a été modifié !</div>
             )}
+
+            {state.errors
+              .filter((error) => !error.propertyPath)
+              .map((error, index) => (
+                <div key={index} className="error-alert">
+                  {error.message}
+                </div>
+              ))}
 
             {state.loaded && (
               <ContactForm

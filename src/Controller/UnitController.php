@@ -146,7 +146,7 @@ class UnitController extends AbstractController
      */
     public function showUnitAction(Request $request, $id): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
 
         $unit = $this->unitRepository->find($id);
         if ($unit === null) {
@@ -164,7 +164,7 @@ class UnitController extends AbstractController
      */
     public function listUnitAction(Request $request): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
 
         $units = $this->unitRepository->findAll();
 

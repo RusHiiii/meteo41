@@ -55,8 +55,10 @@ class UserFactory
         $user->setRoles($editUserCommand->getRoles());
         $user->setUpdatedAt(new \DateTime());
 
-        $encodedPassword = $this->passwordEncoder->encodePassword($user, $editUserCommand->getPassword());
-        $user->setPassword($encodedPassword);
+        if (!empty($editUserCommand->getPassword())) {
+            $encodedPassword = $this->passwordEncoder->encodePassword($user, $editUserCommand->getPassword());
+            $user->setPassword($encodedPassword);
+        }
 
         return $user;
     }

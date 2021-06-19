@@ -98,11 +98,25 @@ function updateUnit(data, id, dispatch) {
 function loadUnit(dispatch, id) {
   apiClient()
     .request(new Request(`/api/unit/${id}`))
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      return response.json().then((errors) => {
+        throw errors;
+      });
+    })
     .then((data) => {
       dispatch({
         type: EDIT_UNIT_LOAD,
         unit: data,
+      });
+    })
+    .catch((errors) => {
+      dispatch({
+        type: EDIT_UNIT_ERRORS,
+        errors: errors,
       });
     });
 }
@@ -146,6 +160,14 @@ export default function EditUnit(props) {
             {state.sent && (
               <div className="success-alert">L'unité a été modifié !</div>
             )}
+
+            {state.errors
+              .filter((error) => !error.propertyPath)
+              .map((error, index) => (
+                <div key={index} className="error-alert">
+                  {error.message}
+                </div>
+              ))}
 
             {state.loaded && (
               <UnitForm

@@ -21,7 +21,7 @@ export default function AdminAccess(props) {
       <h3 className="widget-title">Accès rapide</h3>
       <ul className="arrow-list">
         <li>
-          <a href="">Gestion des utilisateurs</a>
+          <Link to="/admin/user">Gestion des utilisateurs</Link>
         </li>
         <li>
           <Link to="/admin/contact">Gestion des messages</Link>

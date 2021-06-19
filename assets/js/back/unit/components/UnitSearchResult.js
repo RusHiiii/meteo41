@@ -3,8 +3,10 @@ import { Date } from '../../../common/components/Date';
 import Paginator from '../../../common/components/Paginator';
 import { Link } from 'react-router-dom';
 import ConfirmButton from '../../../common/components/ConfirmButton';
+import { userIsAdmin } from '../../../common/utils/hooks/security/userIsAdmin';
 
 export default function UnitSearchResult(props) {
+  const isAdmin = userIsAdmin();
   const { totalUnit, currentPage, units } = props;
 
   return (
@@ -42,18 +44,20 @@ export default function UnitSearchResult(props) {
               <strong>Date d'édition:</strong>{' '}
               <Date date={unit.updatedAt} format="LLLL" />
             </p>
-            <div className="photo-access">
-              <Link
-                to={`/admin/unit/edit/${unit.id}`}
-                className="button btn-edit"
-              >
-                Editer
-              </Link>
-              <ConfirmButton
-                id={unit.id}
-                onClick={() => props.onDelete(unit.id)}
-              />
-            </div>
+            {isAdmin && (
+              <div className="photo-access">
+                <Link
+                  to={`/admin/unit/edit/${unit.id}`}
+                  className="button btn-edit"
+                >
+                  Editer
+                </Link>
+                <ConfirmButton
+                  key={unit.id}
+                  onClick={() => props.onDelete(unit.id)}
+                />
+              </div>
+            )}
           </div>
         </div>
       ))}
