@@ -30,6 +30,10 @@ class PeriodConverter
             $startDate = date('Y-01-01 00:00:00', strtotime('now'));
         }
 
+        if ($period === Period::RECORD) {
+            $startDate = date('1970-01-01 00:00:00', strtotime('now'));
+        }
+
         return [$endDate, $startDate];
     }
 }

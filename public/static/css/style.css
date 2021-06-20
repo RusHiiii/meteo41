@@ -60,6 +60,15 @@ html {
     margin-bottom: 25px;
 }
 
+.primary-alert {
+    border-radius: 13px;
+    padding: 20px 30px;
+    color: white;
+    background-color: #009ad8;
+    border-color: #009ad8;
+    margin-bottom: 25px;
+}
+
 .error-list {
     color: red;
     font-size: 13px;

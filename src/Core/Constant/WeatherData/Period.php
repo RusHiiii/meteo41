@@ -8,4 +8,5 @@ class Period
     const WEEKLY = 'weekly';
     const MONTHLY = 'monthly';
     const YEARLY = 'yearly';
+    const RECORD = 'record';
 }

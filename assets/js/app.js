@@ -41,6 +41,8 @@ import {
   ROUTE_ADMIN_USER,
   ROUTE_ADMIN_USER_CREATE,
   ROUTE_ADMIN_USER_EDIT,
+  ROUTE_CURRENT_WEATHER_DATA,
+  ROUTE_PERIOD_WEATHER_DATA,
 } from './common/constant';
 import About from './front/information/pages/About';
 import ContactAdmin from './back/contact/pages/Contact';
@@ -60,6 +62,8 @@ import EditWeatherStation from './back/weatherStation/pages/EditWeatherStation';
 import User from './back/user/pages/User';
 import CreateUser from './back/user/pages/CreateUser';
 import EditUser from './back/user/pages/EditUser';
+import CurrentWeatherData from './front/weatherData/pages/CurrentWeatherData';
+import PeriodWeatherData from './front/weatherData/pages/PeriodWeatherData';
 
 export const store = createStore();
 
@@ -203,6 +207,18 @@ ReactDOM.render(
 
           <Route>
             <Switch>
+              <PublicRoute
+                exact
+                name={ROUTE_PERIOD_WEATHER_DATA}
+                path="/weather/history/:period(daily|weekly|monthly|yearly|record)"
+                component={PeriodWeatherData}
+              />
+              <PublicRoute
+                exact
+                name={ROUTE_CURRENT_WEATHER_DATA}
+                path="/weather/current"
+                component={CurrentWeatherData}
+              />
               <PublicRoute
                 exact
                 name={ROUTE_ABOUT}

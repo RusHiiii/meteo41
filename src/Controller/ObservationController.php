@@ -167,16 +167,16 @@ class ObservationController extends AbstractController
     }
 
     /**
-     * @Route("/api/observation/{id}", name="show_observation", methods={"GET"})
+     * @Route("/api/weatherStation/observation/last/{reference}", name="show_observation", methods={"GET"})
      */
-    public function showObservationAction(Request $request, $id): Response
+    public function showLastObservationAction(Request $request, $reference): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
 
-        $observation = $this->observationRepository->find($id);
+        $observation = $this->observationRepository->findLastObservationByWeatherStationReference($reference);
         if ($observation === null) {
             $error = $this->errorFactory->create(new ObservationNotFoundException());
-            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
         }
 
         $observation = $this->observationTransformer->transformObservationToView($observation);
@@ -206,5 +206,23 @@ class ObservationController extends AbstractController
         $observations = $this->observationTransformer->transformObservationToSearchView($observations);
 
         return new SerializedResponse($this->serializer->serialize($observations, 'json'), 200);
+    }
+
+    /**
+     * @Route("/api/observation/{id}", name="show_observation", methods={"GET"})
+     */
+    public function showObservationAction(Request $request, $id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+
+        $observation = $this->observationRepository->find($id);
+        if ($observation === null) {
+            $error = $this->errorFactory->create(new ObservationNotFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);
+        }
+
+        $observation = $this->observationTransformer->transformObservationToView($observation);
+
+        return new SerializedResponse($this->serializer->serialize($observation, 'json'), 200);
     }
 }
