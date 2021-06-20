@@ -338,6 +338,6 @@ Feature: Weather Data
     """
      [{
          "type":"NoWeatherDataReportFoundException",
-         "message":"Aucune données météo !"
+         "message":"Aucune données météo disponible actuellement :("
       }]
     """

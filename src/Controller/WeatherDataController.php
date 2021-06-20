@@ -181,7 +181,7 @@ class WeatherDataController extends AbstractController
     }
 
     /**
-     * @Route("/api/weatherData/{reference}/history/{period}", name="show_history_data", requirements={"period"="daily|weekly|monthly|yearly"}, methods={"GET"})
+     * @Route("/api/weatherData/{reference}/history/{period}", name="show_history_data", requirements={"period"="daily|weekly|monthly|yearly|record"}, methods={"GET"})
      */
     public function showWeatherDataHistoryAction(Request $request, $reference, $period): Response
     {

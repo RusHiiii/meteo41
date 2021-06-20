@@ -19,8 +19,7 @@ App\Entity\WebApp\WeatherStation:
       type: text
       nullable: false
     shortDescription:
-      type: string
-      length: 255
+      type: text
       nullable: false
     country:
       type: string

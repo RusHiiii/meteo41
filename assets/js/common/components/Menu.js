@@ -25,12 +25,17 @@ import {
   ROUTE_ADMIN_USER,
   ROUTE_ADMIN_USER_CREATE,
   ROUTE_ADMIN_USER_EDIT,
+  ROUTE_CURRENT_WEATHER_DATA,
+  ROUTE_PERIOD_WEATHER_DATA,
 } from '../constant';
 
 const routeNameToActiveItem = (routeName) => {
   switch (routeName) {
     case ROUTE_HOME:
       return 'home';
+    case ROUTE_CURRENT_WEATHER_DATA:
+    case ROUTE_PERIOD_WEATHER_DATA:
+      return 'weatherData';
     case ROUTE_CONTACT:
       return 'contact';
     case ROUTE_ADMIN_NEWS:
@@ -104,8 +109,12 @@ export default function Menu(props) {
             >
               <Link to="/">Accueil</Link>
             </li>
-            <li className="menu-item">
-              <Link to="/">Données</Link>
+            <li
+              className={`menu-item ${
+                activeItemName === 'weatherData' ? 'current-menu-item' : ''
+              }`}
+            >
+              <Link to="/weather/current">Données</Link>
             </li>
             <li className="menu-item">
               <a href="">Graphiques</a>

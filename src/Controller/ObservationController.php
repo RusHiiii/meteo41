@@ -185,6 +185,24 @@ class ObservationController extends AbstractController
     }
 
     /**
+     * @Route("/api/observation/last/{reference}", name="show_observation", methods={"GET"})
+     */
+    public function showLastObservationAction(Request $request, $reference): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+
+        $observation = $this->observationRepository->findLastObservationByWeatherStationReference($reference);
+        if ($observation === null) {
+            $error = $this->errorFactory->create(new ObservationNotFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
+        }
+
+        $observation = $this->observationTransformer->transformObservationToView($observation);
+
+        return new SerializedResponse($this->serializer->serialize($observation, 'json'), 200);
+    }
+
+    /**
      * @Route("/api/observation", name="list_observation", methods={"GET"})
      */
     public function listObservationAction(Request $request): Response

@@ -4,6 +4,8 @@ export const ROUTE_HOME = 'home';
 export const ROUTE_NOT_FOUND = 'notFound';
 export const ROUTE_LOGIN = 'login';
 export const ROUTE_ABOUT = 'about';
+export const ROUTE_CURRENT_WEATHER_DATA = 'currentWeatherData';
+export const ROUTE_PERIOD_WEATHER_DATA = 'periodWeatherData';
 export const ROUTE_CONTACT = 'contact';
 
 export const ROUTE_ADMIN_DASHBOARD = 'adminDashboard';
@@ -28,3 +30,9 @@ export const ROUTE_ADMIN_OBSERVATION = 'adminObservation';
 
 export const ROLE_ADMIN = 'ROLE_ADMIN';
 export const ROLE_EDITOR = 'ROLE_EDITOR';
+
+export const PERIOD_DAILY = 'daily';
+export const PERIOD_MONTHLY = 'monthly';
+export const PERIOD_WEEKLY = 'weekly';
+export const PERIOD_YEALY = 'yearly';
+export const PERIOD_RECORD = 'record';

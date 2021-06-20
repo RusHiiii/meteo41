@@ -9,6 +9,9 @@ App\Core\Tactician\Command\WeatherStation\RegisterWeatherStationCommand:
             - NotBlank: ~
         shortDescription:
             - NotBlank: ~
+            - Length:
+                min: 10
+                max: 255
         country:
             - Country: ~
         address:

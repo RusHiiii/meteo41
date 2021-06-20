@@ -34,6 +34,30 @@ class ObservationRepository extends AbstractRepository implements ObservationRep
     }
 
     /**
+     * @param string $reference
+     * @return int|mixed|string|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findLastObservationByWeatherStationReference(string $reference)
+    {
+        $qb = $this
+            ->createQueryBuilder('observation')
+            ->leftJoin('observation.weatherStation', 'weatherStation')
+            ->andWhere('weatherStation.reference = :reference')
+            ->andWhere('observation.updatedAt >= :dateStart')
+            ->andWhere('observation.updatedAt <= :dateEnd')
+            ->orderBy('observation.updatedAt', 'DESC')
+            ->setParameter('reference', $reference)
+            ->setParameter('dateStart', (new \DateTime())->modify('-12 hours')->format('Y-m-d H:i:s'))
+            ->setParameter('dateEnd', (new \DateTime())->modify('+1 hours')->format('Y-m-d H:i:s'));
+
+        return $qb
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getOneOrNullResult();
+    }
+
+    /**
      * @param QueryBuilder $qb
      * @param array $searchBy
      * @return $this

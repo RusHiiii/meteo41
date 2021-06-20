@@ -2,6 +2,7 @@
 
 namespace App\Repository\Doctrine;
 
+use App\Core\Constant\WeatherData\Period;
 use App\Entity\WebApp\WeatherData;
 use App\Repository\WeatherDataRepository as WeatherDataRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -105,7 +106,11 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         // Rain history
         $history['rain_rate_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'rainRate');
         $history['rain_event_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'rainEvent');
-        $history['rain_period'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, sprintf('%s%s', 'rain', ucfirst($period)));
+
+        $history['rain_period'] = [ 'value' => null, 'createdAt' => null ];
+        if ($period !== Period::RECORD) {
+            $history['rain_period'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, sprintf('%s%s', 'rain', ucfirst($period)));
+        }
 
         // Wind speed
         $history['wind_gust_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'windMaxDailyGust');
