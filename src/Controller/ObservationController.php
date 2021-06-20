@@ -185,7 +185,7 @@ class ObservationController extends AbstractController
     }
 
     /**
-     * @Route("/api/observation/last/{reference}", name="show_observation", methods={"GET"})
+     * @Route("/api/weatherStation/observation/last/{reference}", name="show_observation", methods={"GET"})
      */
     public function showLastObservationAction(Request $request, $reference): Response
     {

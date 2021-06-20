@@ -69,7 +69,7 @@ function loadWeatherData(weatherStation, dispatch) {
 
 function loadObservation(weatherStation, dispatch) {
   apiClient()
-    .request(new Request(`/api/observation/last/${weatherStation.reference}`))
+    .request(new Request(`/api/weatherStation/observation/last/${weatherStation.reference}`))
     .then((response) => {
       if (response.ok) {
         return response.json();
