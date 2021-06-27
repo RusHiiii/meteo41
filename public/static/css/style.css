@@ -1668,6 +1668,7 @@ form textarea {
   width: 200px; }
 
 .home-map {
+padding-left: 0;
   padding-right: 0;
   float: right;
   margin-top: -260px; }
@@ -1905,7 +1906,14 @@ form textarea {
 @media (max-width: 992px) {
     .table-obs-home {
         margin: auto;
-    } }
+    }
+    .forecast-home{
+        padding-right: 0;
+    }
+.home-map{
+    margin-top: 0;
+}
+}
 
 p.loading {
     color: white;
