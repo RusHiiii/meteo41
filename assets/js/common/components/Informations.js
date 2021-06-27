@@ -72,7 +72,7 @@ export default function Informations(props) {
               </li>
               <li>
                 <h3>Développeur Web</h3>
-                <p>Florent Damiens, Clermont-Ferrand, 63000</p>
+                <p>Florent Damiens, Royat, 63130</p>
               </li>
             </ul>
           </div>

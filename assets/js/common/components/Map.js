@@ -29,6 +29,11 @@ export default function Map(props) {
         lat: props.lat,
         lng: props.lng,
       }}
+      options={{
+        gestureHandling: 'none',
+        disableDefaultUI: true,
+        zoomControl: false,
+      }}
     >
       <Marker key="author" lat={props.lat} lng={props.lng} />
     </GoogleMapReact>

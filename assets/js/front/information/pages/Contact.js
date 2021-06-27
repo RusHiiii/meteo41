@@ -134,7 +134,7 @@ export default function Contact(props) {
                   <p>
                     Damiens Florent
                     <br />
-                    Clermont-Ferrand, 63000, France
+                    Royat, 63130, France
                   </p>
                 </address>
 

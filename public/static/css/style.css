@@ -417,7 +417,7 @@ form textarea {
   border-radius: 30px;
   color: white; }
 
-.map {
+.map, .home-map {
   height: 254px; }
 
 .container {
@@ -1893,9 +1893,58 @@ form textarea {
     position: absolute;
     left: 0; }
 
+  .td-value-obs {
+      width: 55px;
+  }
+
+  .table-obs-home > tbody > tr {
+      height: 31px;
+  }
+
+
+@media (max-width: 992px) {
+    .table-obs-home {
+        margin: auto;
+    } }
+
+p.loading {
+    color: white;
+    font: 300 4em/150% Impact;
+    text-align: center;}
+
+
+/* loading dots */
+
+.loading:after {
+    content: ' .';
+    animation: dots 1s steps(5, end) infinite;}
+
+@keyframes dots {
+    0%, 20% {
+        color: rgba(0,0,0,0);
+        text-shadow:
+                .25em 0 0 rgba(0,0,0,0),
+                .5em 0 0 rgba(0,0,0,0);}
+    40% {
+        color: white;
+        text-shadow:
+                .25em 0 0 rgba(0,0,0,0),
+                .5em 0 0 rgba(0,0,0,0);}
+    60% {
+        text-shadow:
+                .25em 0 0 white,
+                .5em 0 0 rgba(0,0,0,0);}
+    80%, 100% {
+        text-shadow:
+                .25em 0 0 white,
+                .5em 0 0 white;}}
+
+
+
 .contact-details {
   background: #262936;
   border-radius: 10px;
+  height: 254px;
   overflow: hidden; }
   .contact-details .map {
     border-top-left-radius: 10px;

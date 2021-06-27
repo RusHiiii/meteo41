@@ -25,7 +25,7 @@
  * @authors: Mykhailo Stadnyk <mikhus@gmail.com>
  *           Chris Poile <poile@edwards.usask.ca>
  */
-var RadialGauge = function( container, config) {
+export var  RadialGauge = function( container, config) {
 
 	/**
 	 *	Div container
@@ -173,7 +173,7 @@ var RadialGauge = function( container, config) {
 	var
 		canvas = this.container.tagName ? this.container : document.getElementById( this.container),
 		ctx = canvas.getContext( '2d'),
-		cache, CW, CH, CX, CY, max
+		cache, CW, CH, CX, CY, max, cctx
 	;
 
 	function baseInit() {
@@ -315,7 +315,6 @@ var RadialGauge = function( container, config) {
 
 			cache.i8d = true;
 			ctx = tmp;
-			delete tmp;
 		}
 
 		// clear the canvas
@@ -794,13 +793,3 @@ RadialGauge.initialized = false;
 $(document).ready(function(){
 		RadialGauge.initialized = true;
 });
-DRadialGauge = function (container, value, options) 
-{
-	var gauge = new RadialGauge(container, options); 
-	gauge.draw();
-	gauge.onready = function() {
-		//setInterval( function() { 
-			gauge.setValue(value);
-		//}, 1000);
-	};
-}
