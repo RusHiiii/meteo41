@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import GoogleMapReact from 'google-map-react';
-
-const API_PUBLIC_KEY = 'AIzaSyBXTerqaOjZ_27sfAA2qOIaCrn3OLWJPBI';
+import { API_PUBLIC_MAP_KEY } from '../constant';
 
 const Marker = () => {
   const markerStyle = {
@@ -23,7 +22,7 @@ const Marker = () => {
 export default function Map(props) {
   return (
     <GoogleMapReact
-      bootstrapURLKeys={{ key: API_PUBLIC_KEY }}
+      bootstrapURLKeys={{ key: API_PUBLIC_MAP_KEY }}
       zoom={12}
       center={{
         lat: props.lat,

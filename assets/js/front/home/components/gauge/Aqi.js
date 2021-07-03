@@ -8,9 +8,10 @@ import React, {
 import { RainGauge } from '../../../../../../public/static/js/raingauge';
 import { RadialGauge } from '../../../../../../public/static/js/radialgauge';
 
+let giqa = null;
+
 function initGauge(canvas, value, unit) {
-  var giqa = new RadialGauge(canvas, {
-    units: '',
+  giqa = new RadialGauge(canvas, {
     valueFormat: { dec: 0 },
     minValue: 0,
     maxValue: 300,
@@ -28,7 +29,6 @@ function initGauge(canvas, value, unit) {
   });
 
   giqa.draw();
-  giqa.setValue(value);
 }
 
 export default function Aqi(props) {
@@ -37,6 +37,14 @@ export default function Aqi(props) {
   useEffect(() => {
     const canvas = canvasRef.current;
     initGauge(canvas, props.value, props.unit);
+  }, []);
+
+  useEffect(() => {
+    if (!props.value) {
+      return;
+    }
+
+    giqa.setValue(props.value);
   }, [props.value]);
 
   return <canvas id="aqi" ref={canvasRef} />;

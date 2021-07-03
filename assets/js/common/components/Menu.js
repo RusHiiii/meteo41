@@ -117,7 +117,7 @@ export default function Menu(props) {
               <Link to="/weather/current">Données</Link>
             </li>
             <li className="menu-item">
-              <a href="">Graphiques</a>
+              <Link to="/weather/current">Graphiques</Link>
             </li>
             <li
               className={`menu-item ${

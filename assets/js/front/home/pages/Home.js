@@ -8,13 +8,21 @@ import { apiClient } from '../../../common/utils/apiClient';
 import Rain from '../components/gauge/Rain';
 import RainRate from '../components/gauge/RainRate';
 import WindSpeed from '../components/gauge/WindSpeed';
+import queryString from 'qs';
 import WindDirection from '../components/gauge/WindDirection';
 import Uv from '../components/gauge/Uv';
 import SolarRadiation from '../components/gauge/SolarRadiation';
 import Aqi from '../components/gauge/Aqi';
+import {
+  DEFAULT_CITY_LAT,
+  DEFAULT_CITY_LNG,
+  DEFAULT_CITY_TEXT,
+} from '../../../common/constant';
 
 const WEATHER_DATA_LOAD = 'WEATHER_DATA_LOAD';
 const WEATHER_DATA_ERRORS = 'WEATHER_DATA_ERRORS';
+const GEOCODING_LOAD = 'GEOCODING_LOAD';
+const GEOCODING_ERRORS = 'GEOCODING_ERRORS';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -32,6 +40,30 @@ const reducer = (state, action) => {
         errors: action.errors,
         loading: false,
         loaded: false,
+      };
+    case GEOCODING_LOAD:
+      return {
+        ...state,
+        forecast: {
+          ...state.forecast,
+          geocoding: {
+            lat: action.geocoding.results[0]?.geometry.location.lat || null,
+            lng: action.geocoding.results[0]?.geometry.location.lng || null,
+            status: action.geocoding.status,
+          },
+          errors: [],
+          city:
+            action.geocoding.results[0]?.formatted_address ||
+            state.forecast.city,
+        },
+      };
+    case GEOCODING_ERRORS:
+      return {
+        ...state,
+        forecast: {
+          ...state.forecast,
+          errors: action.errors,
+        },
       };
   }
 
@@ -68,12 +100,50 @@ function loadWeatherData(weatherStation, dispatch) {
     });
 }
 
+function loadForecastAddress(text, dispatch) {
+  apiClient()
+    .request(
+      new Request(
+        `/api/geocoding?${queryString.stringify({
+          address: text,
+        })}`
+      )
+    )
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      return response.json().then((errors) => {
+        throw errors;
+      });
+    })
+    .then((data) => {
+      dispatch({
+        type: GEOCODING_LOAD,
+        geocoding: data,
+      });
+    })
+    .catch((errors) => {
+      dispatch({
+        type: GEOCODING_ERRORS,
+        errors: errors,
+      });
+    });
+}
+
 function useHome(weatherStation) {
   const initialState = {
     weatherData: null,
     errors: [],
     forecast: {
-      city: 'Blois',
+      city: DEFAULT_CITY_TEXT,
+      geocoding: {
+        lat: DEFAULT_CITY_LAT,
+        lng: DEFAULT_CITY_LNG,
+        status: 'OK',
+      },
+      errors: [],
       weather: null,
     },
     loading: false,
@@ -105,21 +175,29 @@ export default function Home(props) {
         <div className="hero" data-bg-image="/static/images/sologne-v1.png">
           <div className="container">
             <ForecastSearchForm
-              initialValues={{ text: '' }}
-              onSubmit={(text) => console.log(text)}
+              initialValues={{ text: DEFAULT_CITY_TEXT }}
+              onSubmit={(data) => loadForecastAddress(data.text, dispatch)}
             />
+            {state.forecast.errors.map((error, index) => (
+              <div key={index} className="error-alert margin-top-10">
+                {error.message}
+              </div>
+            ))}
+            {state.forecast.geocoding.status !== 'OK' && (
+              <p className="primary-alert margin-top-10">Aucun résultat :(</p>
+            )}
           </div>
         </div>
         <div className="forecast-table">
           <div className="container">
-            <Forecast />
+            <Forecast forecast={state.forecast} />
           </div>
         </div>
         <main className="main-content current-obs">
           <div className="fullwidth-block">
             <div className="container">
               <Observation weatherData={state.weatherData} />
-              <div className="home-map col-md-5">
+              <div className="home-map col-md-5 col-xs-12">
                 <div className="contact-details">
                   <Map
                     lat={state.weatherData?.weatherStation?.lat}

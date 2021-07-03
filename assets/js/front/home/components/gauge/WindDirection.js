@@ -8,8 +8,10 @@ import React, {
 import { RainGauge } from '../../../../../../public/static/js/raingauge';
 import { RadialGauge } from '../../../../../../public/static/js/radialgauge';
 
+let gwdir = null;
+
 function initGauge(canvas, value, unit) {
-  var gwdir = new RadialGauge(canvas, {
+  gwdir = new RadialGauge(canvas, {
     majorTicks: ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'],
     dirGauge: true,
     minValue: 0,
@@ -26,7 +28,6 @@ function initGauge(canvas, value, unit) {
   });
 
   gwdir.draw();
-  gwdir.setValue(value);
 }
 
 export default function WindDirection(props) {
@@ -35,6 +36,14 @@ export default function WindDirection(props) {
   useEffect(() => {
     const canvas = canvasRef.current;
     initGauge(canvas, props.value, props.unit);
+  }, []);
+
+  useEffect(() => {
+    if (!props.value) {
+      return;
+    }
+
+    gwdir.setValue(props.value);
   }, [props.value]);
 
   return <canvas id="windDirection" ref={canvasRef} />;

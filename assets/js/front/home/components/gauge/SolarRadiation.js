@@ -8,8 +8,10 @@ import React, {
 import { RainGauge } from '../../../../../../public/static/js/raingauge';
 import { RadialGauge } from '../../../../../../public/static/js/radialgauge';
 
+let gsol = null;
+
 function initGauge(canvas, value, unit) {
-  let gsol = new RadialGauge(canvas, {
+  gsol = new RadialGauge(canvas, {
     units: ` ${unit}`,
     minValue: 0,
     maxValue: 1500,
@@ -26,7 +28,6 @@ function initGauge(canvas, value, unit) {
   });
 
   gsol.draw();
-  gsol.setValue(value);
 }
 
 export default function SolarRadiation(props) {
@@ -35,6 +36,15 @@ export default function SolarRadiation(props) {
   useEffect(() => {
     const canvas = canvasRef.current;
     initGauge(canvas, props.value, props.unit);
+  }, []);
+
+  useEffect(() => {
+    if (!props.value) {
+      return;
+    }
+
+    gsol.config.units = props.unit;
+    gsol.setValue(props.value);
   }, [props.value]);
 
   return <canvas id="solarRadiation" ref={canvasRef} />;

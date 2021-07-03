@@ -60,6 +60,14 @@ html {
     margin-bottom: 25px;
 }
 
+.forecast-table {
+margin-top: 20px;
+}
+
+.margin-top-10 {
+margin-top: 10px;
+}
+
 .primary-alert {
     border-radius: 13px;
     padding: 20px 30px;
@@ -1388,8 +1396,7 @@ form textarea {
 .wi-wind {
   font-size: 18px !important; }
 .find-location {
-  position: relative;
-  margin-bottom: 70px; }
+  position: relative; }
   .find-location input[type="text"] {
     width: 100%;
     padding: 20px 50px 20px 20px;
@@ -1434,7 +1441,10 @@ form textarea {
           height: 0; }
         .forecast-container .forecast.today .forecast-header .day {
           float: left; }
+.cap {
+    text-transform: capitalize; }
         .forecast-container .forecast.today .forecast-header .date {
+            text-transform: capitalize;
           float: right; }
       .forecast-container .forecast.today .forecast-content {
         text-align: left;
@@ -1671,7 +1681,7 @@ form textarea {
 padding-left: 0;
   padding-right: 0;
   float: right;
-  margin-top: -260px; }
+  margin-top: -240px; }
 
 .current-obs {
   margin-top: 200px; }

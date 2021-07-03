@@ -8,8 +8,10 @@ import React, {
 import { RainGauge } from '../../../../../../public/static/js/raingauge';
 import { RadialGauge } from '../../../../../../public/static/js/radialgauge';
 
+let gwspd = null;
+
 function initGauge(canvas, value, unit) {
-  let gwspd = new RadialGauge(canvas, {
+  gwspd = new RadialGauge(canvas, {
     units: ` ${unit}`,
     minValue: 0,
     maxValue: 50,
@@ -26,7 +28,6 @@ function initGauge(canvas, value, unit) {
   });
 
   gwspd.draw();
-  gwspd.setValue(value);
 }
 
 export default function WindSpeed(props) {
@@ -35,6 +36,15 @@ export default function WindSpeed(props) {
   useEffect(() => {
     const canvas = canvasRef.current;
     initGauge(canvas, props.value, props.unit);
+  }, []);
+
+  useEffect(() => {
+    if (!props.value) {
+      return;
+    }
+
+    gwspd.config.units = props.unit;
+    gwspd.setValue(props.value);
   }, [props.value]);
 
   return <canvas id="windSpeed" ref={canvasRef} />;

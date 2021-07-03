@@ -35,6 +35,16 @@ services:
             - "@password_encoder"
         tags: ['nelmio_alice.faker.provider']
 
+    App\Core\ExternalApi\Geocoding:
+        arguments:
+            - "@http_client"
+            - '%env(resolve:GEOCODING_KEY)%'
+
+    App\Core\ExternalApi\OpenWeather:
+        arguments:
+            - "@http_client"
+            - '%env(resolve:OPEN_WEATHER_KEY)%'
+
     App\Security\LoginAuthenticator:
         arguments:
             - '@App\Repository\UserRepository'

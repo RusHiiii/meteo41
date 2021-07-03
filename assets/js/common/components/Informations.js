@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { apiClient } from '../utils/apiClient';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const INFORMATION_LOAD = 'INFORMATION_LOAD';
 
@@ -80,25 +81,23 @@ export default function Informations(props) {
             <h2 className="section-title weather-data">Les données météo</h2>
             <ul className="arrow-list">
               <li>
-                <a href="#">Les données de la journée</a>
+                <Link to="/weather/current">Les données de la journée</Link>
               </li>
               <li>
-                <a href="#">Les données du mois</a>
+                <Link to="/weather/history/weekly">
+                  Les données de la semaine
+                </Link>
               </li>
               <li>
-                <a href="#">Les données de l'année</a>
+                <Link to="/weather/history/monthly">Les données du mois</Link>
               </li>
               <li>
-                <a href="#">Les graphiques de la journée</a>
+                <Link to="/weather/history/yearly">Les données de l'année</Link>
               </li>
               <li>
-                <a href="#">Les graphiques du mois</a>
-              </li>
-              <li>
-                <a href="#">Les graphiques de l'année</a>
-              </li>
-              <li>
-                <a href="#">Les records de la station</a>
+                <Link to="/weather/history/record">
+                  Les records de la station
+                </Link>
               </li>
             </ul>
           </div>

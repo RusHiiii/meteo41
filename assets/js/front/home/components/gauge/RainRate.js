@@ -7,9 +7,10 @@ import React, {
 } from 'react';
 import { RadialGauge } from '../../../../../../public/static/js/radialgauge';
 
+let grainrate = null;
+
 function initGauge(canvas, value, unit) {
-  let grainrate = new RadialGauge(canvas, {
-    units: ` ${unit}`,
+  grainrate = new RadialGauge(canvas, {
     minValue: 0,
     maxValue: 50,
     colors: { majorTicks: '#FFFFFF' },
@@ -25,7 +26,6 @@ function initGauge(canvas, value, unit) {
   });
 
   grainrate.draw();
-  grainrate.setValue(value);
 }
 
 export default function RainRate(props) {
@@ -34,6 +34,15 @@ export default function RainRate(props) {
   useEffect(() => {
     const canvas = canvasRef.current;
     initGauge(canvas, props.value, props.unit);
+  }, []);
+
+  useEffect(() => {
+    if (!props.value) {
+      return;
+    }
+
+    grainrate.config.units = props.unit;
+    grainrate.setValue(props.value);
   }, [props.value]);
 
   return <canvas id="rainRate" ref={canvasRef} />;

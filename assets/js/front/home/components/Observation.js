@@ -8,7 +8,7 @@ export default function Observation(props) {
   const { weatherData } = props;
 
   return (
-    <div className="forecast-home col-md-7">
+    <div className="forecast-home col-md-7 col-xs-12">
       <div className="forecast-table">
         <div className="forecast-container">
           <div className="today forecast">

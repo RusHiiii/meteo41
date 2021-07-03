@@ -7,9 +7,10 @@ import React, {
 } from 'react';
 import { RainGauge } from '../../../../../../public/static/js/raingauge';
 
+let grain = null;
+
 function initGauge(canvas, value, unit) {
-  let grain = new RainGauge(canvas, {
-    units: ` ${unit}`,
+  grain = new RainGauge(canvas, {
     minValue: 0,
     maxValue: 50,
     majorTicks: ['0', '10', '20', '30', '40', '50'],
@@ -23,7 +24,6 @@ function initGauge(canvas, value, unit) {
   });
 
   grain.draw();
-  grain.setValue(value);
 }
 
 export default function Rain(props) {
@@ -32,6 +32,15 @@ export default function Rain(props) {
   useEffect(() => {
     const canvas = canvasRef.current;
     initGauge(canvas, props.value, props.unit);
+  }, []);
+
+  useEffect(() => {
+    if (!props.value) {
+      return;
+    }
+
+    grain.config.units = props.unit;
+    grain.setValue(props.value);
   }, [props.value]);
 
   return <canvas id="rain" ref={canvasRef} />;

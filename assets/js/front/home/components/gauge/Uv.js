@@ -8,8 +8,10 @@ import React, {
 import { RainGauge } from '../../../../../../public/static/js/raingauge';
 import { RadialGauge } from '../../../../../../public/static/js/radialgauge';
 
+let guvi = null;
+
 function initGauge(canvas, value, unit) {
-  let guvi = new RadialGauge(canvas, {
+  guvi = new RadialGauge(canvas, {
     units: ' ',
     minValue: 0,
     maxValue: 12,
@@ -33,7 +35,6 @@ function initGauge(canvas, value, unit) {
   });
 
   guvi.draw();
-  guvi.setValue(value);
 }
 
 export default function Uv(props) {
@@ -42,6 +43,14 @@ export default function Uv(props) {
   useEffect(() => {
     const canvas = canvasRef.current;
     initGauge(canvas, props.value, props.unit);
+  }, []);
+
+  useEffect(() => {
+    if (!props.value) {
+      return;
+    }
+
+    guvi.setValue(props.value);
   }, [props.value]);
 
   return <canvas id="uv" ref={canvasRef} />;

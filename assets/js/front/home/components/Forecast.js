@@ -1,120 +1,148 @@
 import React, { Fragment, useEffect, useReducer, useState } from 'react';
-import TextArea from '../../../common/components/form/TextArea';
-import { useForm } from '../../../common/utils/hooks/useForm';
-import Input from '../../../common/components/form/Input';
+import { apiClient } from '../../../common/utils/apiClient';
+import queryString from 'qs';
+import { Date as DateMoment } from '../../../common/components/Date';
+import { degToCompass } from '../../weatherData/utils/degreesToCompass';
+import { iconIdToSvg } from '../utils/iconIdToSvg';
+import { showFixedValue } from '../utils/showFixedValue';
+import { showSpeedValue } from '../utils/showSpeedValue';
+import { showRoundValue } from '../utils/showRoundValue';
+import moment from 'moment';
+
+const FORECAST_LOAD = 'FORECAST_LOAD';
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case FORECAST_LOAD:
+      return {
+        ...state,
+        forecast: action.forecast,
+        loading: false,
+        loaded: true,
+      };
+  }
+
+  return state;
+};
+
+function loadForecast(lat, lng, dispatch) {
+  apiClient()
+    .request(
+      new Request(
+        `/api/openWeather?${queryString.stringify({
+          lat: lat,
+          lng: lng,
+        })}`
+      )
+    )
+    .then((response) => response.json())
+    .then((data) => {
+      dispatch({
+        type: FORECAST_LOAD,
+        forecast: data,
+      });
+    });
+}
+
+function useForecast(lat, lng) {
+  const initialState = {
+    forecast: null,
+    loading: false,
+    loaded: false,
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    if (!lat || !lng) {
+      return;
+    }
+
+    loadForecast(lat, lng, dispatch);
+  }, [lat, lng]);
+
+  return [state, dispatch];
+}
 
 export default function Forecast(props) {
+  const { forecast } = props;
+  const [state, dispatch] = useForecast(
+    forecast.geocoding.lat,
+    forecast.geocoding.lng
+  );
+
   return (
     <div className="forecast-container">
       <div className="today forecast">
         <div className="forecast-header">
-          <div className="day">Lundi</div>
-          <div className="date">6 Oct</div>
+          <div className="day cap">
+            <DateMoment format="dddd" date={new Date()} />
+          </div>
+          <div className="date">
+            <DateMoment format="D MMM" date={new Date()} />
+          </div>
         </div>
         <div className="forecast-content">
-          <div className="location">Blois</div>
+          <div className="location">{forecast.city}</div>
           <div className="degree">
             <div className="num">
-              23<sup>o</sup>C
+              {showFixedValue(state.forecast?.current.temp)}
+              <sup>o</sup>C
             </div>
             <div className="forecast-icon">
-              <img src="/static/images/icons/icon-1.svg" alt="" width="48" />
+              <img
+                src={`/static/images/icons/${iconIdToSvg(
+                  state.forecast?.current.weather[0].icon
+                )}`}
+                title={state.forecast?.current.weather[0].description}
+                alt="forecast"
+                width="48"
+              />
             </div>
           </div>
           <span>
-            <img src="/static/images/icon-umberella.png" alt="" />
-            20%
+            <img src="/static/images/icon-umberella.png" alt="humidity" />
+            {showFixedValue(state.forecast?.current.humidity)}%
           </span>
           <span>
-            <img src="/static/images/icon-wind.png" alt="" />
-            18km/h
+            <img src="/static/images/icon-wind.png" alt="speed" />
+            {showSpeedValue(state.forecast?.current.wind_speed)}km/h
           </span>
           <span>
-            <img src="/static/images/icon-compass.png" alt="" />
-            Est
+            <img src="/static/images/icon-compass.png" alt="wind" />
+            {degToCompass(state.forecast?.current.wind_deg)}
           </span>
         </div>
       </div>
-      <div className="forecast">
-        <div className="forecast-header">
-          <div className="day day-name">Mardi</div>
-        </div>
-        <div className="forecast-content city">
-          <div className="forecast-icon">
-            <img src="/static/images/icons/icon-3.svg" alt="" width="48" />
+      {[...Array(7).keys()].slice(1, 6).map((value) => (
+        <div key={value} className="forecast">
+          <div className="forecast-header">
+            <div className="day day-name cap">
+              <DateMoment format="dddd" date={moment().add(value, 'days')} />
+            </div>
           </div>
-          <div className="degree">
-            23<sup>o</sup>C
+          <div className="forecast-content city">
+            <div className="forecast-icon">
+              <img
+                src={`/static/images/icons/${iconIdToSvg(
+                  state.forecast?.daily[value].weather[0].icon
+                )}`}
+                title={state.forecast?.daily[value].weather[0].description}
+                alt="forecast"
+                width="48"
+              />
+            </div>
+            <div className="degree">
+              {showRoundValue(state.forecast?.daily[value].temp.max)}
+              <sup>o</sup>C
+            </div>
+            <small>
+              {showRoundValue(state.forecast?.daily[value].temp.min)}
+              <sup>o</sup>C
+            </small>
           </div>
-          <small>
-            18<sup>o</sup>
-          </small>
         </div>
-      </div>
-      <div className="forecast">
-        <div className="forecast-header">
-          <div className="day day-name">Mercredi</div>
-        </div>
-        <div className="forecast-content city">
-          <div className="forecast-icon">
-            <img src="/static/images/icons/icon-5.svg" alt="" width="48" />
-          </div>
-          <div className="degree">
-            23<sup>o</sup>C
-          </div>
-          <small>
-            18<sup>o</sup>
-          </small>
-        </div>
-      </div>
-      <div className="forecast">
-        <div className="forecast-header">
-          <div className="day day-name">Jeudi</div>
-        </div>
-        <div className="forecast-content city">
-          <div className="forecast-icon">
-            <img src="/static/images/icons/icon-7.svg" alt="" width="48" />
-          </div>
-          <div className="degree">
-            23<sup>o</sup>C
-          </div>
-          <small>
-            18<sup>o</sup>
-          </small>
-        </div>
-      </div>
-      <div className="forecast">
-        <div className="forecast-header">
-          <div className="day day-name">Vendredi</div>
-        </div>
-        <div className="forecast-content city">
-          <div className="forecast-icon">
-            <img src="/static/images/icons/icon-12.svg" alt="" width="48" />
-          </div>
-          <div className="degree">
-            23<sup>o</sup>C
-          </div>
-          <small>
-            18<sup>o</sup>
-          </small>
-        </div>
-      </div>
-      <div className="forecast">
-        <div className="forecast-header">
-          <div className="day day-name">Samedi</div>
-        </div>
-        <div className="forecast-content city">
-          <div className="forecast-icon">
-            <img src="/static/images/icons/icon-13.svg" alt="" width="48" />
-          </div>
-          <div className="degree">
-            23<sup>o</sup>C
-          </div>
-          <small>
-            18<sup>o</sup>
-          </small>
-        </div>
-      </div>
+      ))}
     </div>
   );
 }
