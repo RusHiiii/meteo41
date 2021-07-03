@@ -1,5 +1,7 @@
 export const DEFAULT_WEATHER_STATION_REFERENCE = 'SSDP41000';
 
+export const API_PUBLIC_MAP_KEY = 'AIzaSyBXTerqaOjZ_27sfAA2qOIaCrn3OLWJPBI';
+
 export const ROUTE_HOME = 'home';
 export const ROUTE_NOT_FOUND = 'notFound';
 export const ROUTE_LOGIN = 'login';
@@ -36,3 +38,7 @@ export const PERIOD_MONTHLY = 'monthly';
 export const PERIOD_WEEKLY = 'weekly';
 export const PERIOD_YEALY = 'yearly';
 export const PERIOD_RECORD = 'record';
+
+export const DEFAULT_CITY_LAT = 47.5861;
+export const DEFAULT_CITY_LNG = 1.3359;
+export const DEFAULT_CITY_TEXT = '41000 Blois, France';
