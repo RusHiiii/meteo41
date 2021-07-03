@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Core\ExternalApi;
-
 
 use App\Core\Exception\ExternalApi\GeocodingException;
 use App\Core\Exception\ExternalApi\OpenWeatherException;
@@ -24,8 +22,7 @@ class OpenWeather
     public function __construct(
         HttpClientInterface $client,
         string $openWeatherKey
-    )
-    {
+    ) {
         $this->client = $client;
         $this->openWeatherKey = $openWeatherKey;
     }

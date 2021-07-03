@@ -59,7 +59,8 @@ class GeocodingController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
 
-        $address = $request->query->get('address');;
+        $address = $request->query->get('address');
+        ;
 
         try {
             $content = $this->geocoding->fetchGeocoding($address);

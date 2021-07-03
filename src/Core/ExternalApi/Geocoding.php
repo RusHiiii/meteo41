@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Core\ExternalApi;
-
 
 use App\Core\Exception\ExternalApi\GeocodingException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -23,8 +21,7 @@ class Geocoding
     public function __construct(
         HttpClientInterface $client,
         string $geocodingKey
-    )
-    {
+    ) {
         $this->client = $client;
         $this->geocodingKey = $geocodingKey;
     }
