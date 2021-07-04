@@ -26,7 +26,13 @@ jobs:
                 echo ${{ steps.connect_vpn.outputs.STATUS }}
                 ping ${{ secrets.REMOTE_SSH_IP }} -c 10
 
+            - name: Get Time
+              id: time
+              uses: nanzm/get-time-action@v1.1
+
             - name: SSH to server
+              env:
+                 TIME: "${{ steps.time.outputs.time }}"
               uses: appleboy/ssh-action@master
               with:
                  host: ${{ secrets.REMOTE_SSH_IP }}
@@ -35,6 +41,7 @@ jobs:
                  port: ${{ secrets.PORT }}
                  script: |
                       pwd
+                      echo $TIME
 
             - name: Kill Open VPN
               if: always()
