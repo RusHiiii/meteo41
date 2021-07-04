@@ -1,0 +1,30 @@
+name: Full CI deploy process for Symfony
+on:
+    push:
+        branches:
+            - production
+jobs:
+    deploy:
+        name: Meteo41 - Deploy
+        runs-on: ubuntu-latest
+            steps:
+                  - uses: actions/checkout@v1
+                      -   name: Install Open VPN
+                          run: sudo apt-get install openvpn
+                      -   name: Connect VPN
+                          uses: golfzaptw/action-connect-ovpn@master
+                          id: connect_vpn
+                          with:
+                              PING_URL: '192.168.9.32'
+                              FILE_OVPN: '.github/vpn/config.ovpn'
+                              SECRET: ${{ secrets.SECRET_USERNAME_PASSWORD }}
+                          env:
+                              CA_CRT: ${{ secrets.CA_CRT}}
+                              USER_CRT: ${{ secrets.USER_CRT }}
+                              USER_KEY: ${{ secrets.USER_KEY }}
+                              TLS_AUTH: ${{ secrets.TLS_AUTH }}
+                      -   name: Check Connect VPN
+                          run: echo ${{ steps.connect_vpn.outputs.STATUS }}
+                      -   name: kill vpn
+                          if: always()
+                          run: sudo killall openvpn
