@@ -22,8 +22,20 @@ jobs:
                   sudo openvpn --config /tmp/config.ovpn --auth-user-pass /tmp/login --daemon
 
             - name: Check Connect VPN
-              run: echo ${{ steps.connect_vpn.outputs.STATUS }}
+              run: |
+                echo ${{ steps.connect_vpn.outputs.STATUS }}
+                ping -c ${{ secrets.REMOTE_SSH_IP }}
 
-            - name: kill vpn
+            - name: SSH to server
+                uses: appleboy/ssh-action@master
+                with:
+                    host: ${{ secrets.REMOTE_SSH_IP }}
+                    username: ${{ secrets.USER }}
+                    password: ${{ secrets.PASSWORD }}
+                    port: ${{ secrets.PORT }}
+                    script: |
+                        pwd
+
+            - name: Kill Open VPN
               if: always()
               run: sudo killall openvpn
