@@ -19,7 +19,7 @@ jobs:
             - name: Connect VPN
               id: connect_vpn
               run: |
-                  sudo openvpn --config /tmp/config.ovpn --auth-user-pass /tmp/login
+                  sudo openvpn --config /tmp/config.ovpn --auth-user-pass /tmp/login --daemon
 
             - name: Check Connect VPN
               run: echo ${{ steps.connect_vpn.outputs.STATUS }}
