@@ -24,7 +24,7 @@ jobs:
             - name: Check Connect VPN
               run: |
                 echo ${{ steps.connect_vpn.outputs.STATUS }}
-                ping -c ${{ secrets.REMOTE_SSH_IP }}
+                ping ${{ secrets.REMOTE_SSH_IP }} -c 10
 
             - name: SSH to server
               uses: appleboy/ssh-action@master
