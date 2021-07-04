@@ -11,20 +11,24 @@ jobs:
               - name: Checkout
                 uses: actions/checkout@v2
               - name: Install Open VPN
-                run: sudo apt-get install openvpn
+                run: |
+                      sudo apt-get install openvpn
+                      echo "${{ secrets.VPN_FILE }}" > .github/vpn/config.ovpn
+
               - name: Connect VPN
                 uses: golfzaptw/action-connect-ovpn@master
                 id: connect_vpn
                 with:
-                    PING_URL: '192.168.9.32'
+                    PING_URL: ${{ secrets.REMOTE_HOST }}
                     FILE_OVPN: '.github/vpn/config.ovpn'
-                    SECRET: ${{ secrets.SECRET_USERNAME_PASSWORD }}
                 env:
                     CA_CRT: ${{ secrets.CA_CRT}}
                     USER_CRT: ${{ secrets.USER_CRT }}
                     USER_KEY: ${{ secrets.USER_KEY }}
+
               - name: Check Connect VPN
                 run: echo ${{ steps.connect_vpn.outputs.STATUS }}
+
               - name: kill vpn
                 if: always()
                 run: sudo killall openvpn
