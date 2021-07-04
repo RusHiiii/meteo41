@@ -13,13 +13,13 @@ jobs:
             - name: Install Open VPN
               run: |
                   sudo apt-get install openvpn
-                  echo "${{ secrets.VPN_FILE }}" > .github/vpn/config.ovpn
-                  echo "${{ secrets.LOGIN_FILE }}" > .github/vpn/login
+                  touch /tmp/config.ovpn && echo "${{ secrets.VPN_FILE }}" > /tmp/config.ovpn
+                  touch /tmp/login && echo "${{ secrets.LOGIN_FILE }}" > /tmp/login
 
             - name: Connect VPN
               id: connect_vpn
               run: |
-                  sudo openvpn --config .github/vpn/config.ovpn --auth-user-pass .github/vpn/login
+                  sudo openvpn --config /tmp/config.ovpn --auth-user-pass /tmp/login
 
             - name: Check Connect VPN
               run: echo ${{ steps.connect_vpn.outputs.STATUS }}
