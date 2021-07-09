@@ -3,9 +3,11 @@ import { Date as DateComponent } from '../../../common/components/Date';
 import { degToCompass } from '../../weatherData/utils/degreesToCompass';
 import { getSunrise, getSunset } from 'sunrise-sunset-js';
 import { getMoonTimes } from 'suncalc';
+import ReactTooltip from 'react-tooltip';
+import Tooltip from './Tooltip';
 
 export default function Observation(props) {
-  const { weatherData } = props;
+  const { weatherData, weatherDataDaily } = props;
 
   return (
     <div className="forecast-home col-md-7 col-xs-12">
@@ -25,33 +27,93 @@ export default function Observation(props) {
                 <div className="text-center home-temp">
                   <div className="temp">
                     <div className="current-temp">
-                      <h3>
+                      <h3 data-tip data-for="temperature">
                         {weatherData?.temperature}
                         <small className="celsius">
                           {weatherData?.unit.temperatureUnit}
                         </small>
                       </h3>
+                      {weatherDataDaily && (
+                        <Tooltip
+                          id="temperature"
+                          min={weatherDataDaily.minTemperature}
+                          max={weatherDataDaily.maxTemperature}
+                          minReceivedAt={
+                            weatherDataDaily.minTemperatureReceivedAt
+                          }
+                          maxReceivedAt={
+                            weatherDataDaily.maxTemperatureReceivedAt
+                          }
+                          unit={weatherDataDaily.unit.temperatureUnit}
+                        />
+                      )}
                       <div className="windchill">
                         Windchill
-                        <strong className="windchill-value">
+                        <strong
+                          className="windchill-value"
+                          data-tip
+                          data-for="windChill"
+                        >
                           {weatherData?.windChill}
                           {weatherData?.unit.temperatureUnit}
                         </strong>
                       </div>
+                      {weatherDataDaily && (
+                        <Tooltip
+                          id="windChill"
+                          min={weatherDataDaily.minWindChill}
+                          max={weatherDataDaily.maxWindChill}
+                          minReceivedAt={
+                            weatherDataDaily.minWindChillReceivedAt
+                          }
+                          maxReceivedAt={
+                            weatherDataDaily.maxWindChillReceivedAt
+                          }
+                          unit={weatherDataDaily.unit.temperatureUnit}
+                        />
+                      )}
                       <div>
                         Point de rosée
-                        <strong className="dewpoint-value">
+                        <strong
+                          className="dewpoint-value"
+                          data-tip
+                          data-for="dewpoint"
+                        >
                           {weatherData?.dewPoint}
                           {weatherData?.unit.temperatureUnit}
                         </strong>
                       </div>
+                      {weatherDataDaily && (
+                        <Tooltip
+                          id="dewpoint"
+                          min={weatherDataDaily.minDewPoint}
+                          max={weatherDataDaily.maxDewPoint}
+                          minReceivedAt={weatherDataDaily.minDewPointReceivedAt}
+                          maxReceivedAt={weatherDataDaily.maxDewPointReceivedAt}
+                          unit={weatherDataDaily.unit.temperatureUnit}
+                        />
+                      )}
                       <div>
                         Humidex
-                        <strong className="humidex-value">
+                        <strong
+                          className="humidex-value"
+                          data-tip
+                          data-for="humidex"
+                        >
                           {weatherData?.humidex}
                           {weatherData?.unit.temperatureUnit}
                         </strong>
                       </div>
+                      {weatherDataDaily && (
+                        <Tooltip
+                          id="humidex"
+                          min={weatherDataDaily.minHumidex}
+                          max={weatherDataDaily.maxHumidex}
+                          minReceivedAt={weatherDataDaily.minHumidexReceivedAt}
+                          maxReceivedAt={weatherDataDaily.maxHumidexReceivedAt}
+                          unit={weatherDataDaily.unit.temperatureUnit}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -62,7 +124,7 @@ export default function Observation(props) {
                         <tbody>
                           <tr className="tr-home">
                             <td>
-                              <span>
+                              <span className="wind-span">
                                 <i
                                   className={`wi wi-wind towards-${weatherData?.windDirection}-deg`}
                                   title={degToCompass(
@@ -91,8 +153,26 @@ export default function Observation(props) {
                                 ></i>
                               </span>
                             </td>
-                            <td className="td-value-obs">
+                            <td
+                              className="td-value-obs"
+                              data-tip
+                              data-for="pressure"
+                            >
                               <strong>{weatherData?.relativePressure}</strong>
+                              {weatherDataDaily && (
+                                <Tooltip
+                                  id="pressure"
+                                  min={weatherDataDaily.minRelativePressure}
+                                  max={weatherDataDaily.maxRelativePressure}
+                                  minReceivedAt={
+                                    weatherDataDaily.minRelativePressureReceivedAt
+                                  }
+                                  maxReceivedAt={
+                                    weatherDataDaily.maxRelativePressureReceivedAt
+                                  }
+                                  unit={weatherDataDaily.unit.pressureUnit}
+                                />
+                              )}
                             </td>
                             <td>
                               <small>{weatherData?.unit.pressureUnit}</small>
@@ -102,13 +182,31 @@ export default function Observation(props) {
                             <td>
                               <span>
                                 <i
-                                  className="wi wi-barometer"
+                                  className="wi wi-humidity"
                                   title="Humidité"
                                 ></i>
                               </span>
                             </td>
-                            <td className="td-value-obs">
+                            <td
+                              className="td-value-obs"
+                              data-tip
+                              data-for="humidity"
+                            >
                               <strong>{weatherData?.humidity}</strong>
+                              {weatherDataDaily && (
+                                <Tooltip
+                                  id="humidity"
+                                  min={weatherDataDaily.minHumidity}
+                                  max={weatherDataDaily.maxHumidity}
+                                  minReceivedAt={
+                                    weatherDataDaily.minHumidityReceivedAt
+                                  }
+                                  maxReceivedAt={
+                                    weatherDataDaily.maxHumidityReceivedAt
+                                  }
+                                  unit={weatherDataDaily.unit.humidityUnit}
+                                />
+                              )}
                             </td>
                             <td>
                               <small>{weatherData?.unit.humidityUnit}</small>

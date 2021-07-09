@@ -1409,6 +1409,10 @@ form textarea {
     bottom: 5px;
     padding: 0 40px; }
 
+  .menu-toggle{
+      margin-top: 0;
+  }
+
 .forecast-container {
   width: 100%;
   background: #323544;
@@ -1614,6 +1618,21 @@ form textarea {
 .news-color{
     background-color: rgb(38, 41, 54);
 }
+.wind-span{
+    top: 29px;
+    position: sticky;
+}
+.wi{
+    font-size: 16px;
+}
+.blue-min{
+    color: #09a8e6;
+    margin-bottom: 0;
+}
+.orange-max{
+    color: #ed7839;
+    margin-bottom: 0;
+}
 .map-marker{
     height: 40px;
     width: 25px;
@@ -1729,7 +1748,7 @@ padding-left: 0;
   margin-left: 39px; }
 
 .wi-day-sunny {
-  font-size: 25px; }
+  font-size: 31px; }
 
 .wind-value {
   padding-right: 5px; }
@@ -1757,7 +1776,7 @@ padding-left: 0;
   width: 70px; }
 
 .wi-moon-alt-waxing-crescent-5 {
-  font-size: 35px; }
+  font-size: 40px; }
 
 .other-value {
   float:left;
