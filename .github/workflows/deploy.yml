@@ -7,24 +7,48 @@ jobs:
     deploy:
         name: Meteo41 - Deploy
         runs-on: ubuntu-latest
-            steps:
-                  - uses: actions/checkout@v1
-                      -   name: Install Open VPN
-                          run: sudo apt-get install openvpn
-                      -   name: Connect VPN
-                          uses: golfzaptw/action-connect-ovpn@master
-                          id: connect_vpn
-                          with:
-                              PING_URL: '192.168.9.32'
-                              FILE_OVPN: '.github/vpn/config.ovpn'
-                              SECRET: ${{ secrets.SECRET_USERNAME_PASSWORD }}
-                          env:
-                              CA_CRT: ${{ secrets.CA_CRT}}
-                              USER_CRT: ${{ secrets.USER_CRT }}
-                              USER_KEY: ${{ secrets.USER_KEY }}
-                              TLS_AUTH: ${{ secrets.TLS_AUTH }}
-                      -   name: Check Connect VPN
-                          run: echo ${{ steps.connect_vpn.outputs.STATUS }}
-                      -   name: kill vpn
-                          if: always()
-                          run: sudo killall openvpn
+        steps:
+            # —— Setup
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            # —— Install Open VPN
+            - name: Install Open VPN
+              run: |
+                  sudo apt-get install openvpn
+
+            # —— Connect to VPN
+            - name: Connect VPN
+              uses: golfzaptw/action-connect-ovpn@master
+              id: connect_vpn
+              with:
+                  PING_URL: '192.168.9.32'
+                  FILE_OVPN: '.github/vpn/config.ovpn'
+                  SECRET: ${{ secrets.SECRET_USERNAME_PASSWORD }}
+                  TLS_KEY: ${{ secrets.TLS_KEY }}
+              env:
+                  CA_CRT: ${{ secrets.CA_CRT }}
+                  USER_CRT: ${{ secrets.USER_CRT }}
+                  USER_KEY: ${{ secrets.USER_KEY }}
+
+            # —— Verify web server ping
+            - name: Check Connect VPN
+              run: |
+                  ping ${{ secrets.REMOTE_SSH_IP }} -c 10
+
+            # —— Run SSH command for deploy
+            - name: SSH to server
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.REMOTE_SSH_IP }}
+                  username: ${{ secrets.USER }}
+                  password: ${{ secrets.PASSWORD }}
+                  port: ${{ secrets.PORT }}
+                  script: |
+                      RELEASE=`date +%s`
+                      echo $RELEASEcd Do
+
+            # —— Kill VPN
+            - name: Kill Open VPN
+              if: always()
+              run: sudo killall openvpn

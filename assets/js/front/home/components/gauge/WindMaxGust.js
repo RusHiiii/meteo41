@@ -14,23 +14,24 @@ function initGauge(canvas, value, unit) {
   gwspd = new RadialGauge(canvas, {
     units: ` ${unit}`,
     minValue: 0,
-    maxValue: 25,
-    majorTicks: ['0', '5', '10', '15', '20', '25'],
+    maxValue: 60,
+    majorTicks: ['0', '10', '20', '30', '40', '50', '60'],
     colors: { majorTicks: '#FFFFFF' },
     strokeTicks: false,
     highlights: [
-      { from: 0, to: 5, color: '#D6ECF4' },
-      { from: 5, to: 10, color: '#ADD9E9' },
-      { from: 10, to: 15, color: '#85C6DF' },
-      { from: 15, to: 20, color: '#5CB3D4' },
-      { from: 20, to: 25, color: '#33A0C9' },
+      { from: 0, to: 10, color: '#D6ECF4' },
+      { from: 10, to: 20, color: '#ADD9E9' },
+      { from: 20, to: 30, color: '#85c6df' },
+      { from: 30, to: 40, color: '#5cb3d4' },
+      { from: 40, to: 50, color: '#33a0c9' },
+      { from: 50, to: 60, color: '#0d7499' },
     ],
   });
 
   gwspd.draw();
 }
 
-export default function WindSpeed(props) {
+export default function WindMaxGust(props) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -47,5 +48,5 @@ export default function WindSpeed(props) {
     gwspd.setValue(props.value);
   }, [props.value]);
 
-  return <canvas id="windSpeed" ref={canvasRef} />;
+  return <canvas id="windMaxGust" ref={canvasRef} />;
 }

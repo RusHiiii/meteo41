@@ -5,7 +5,7 @@ import ForecastSearchForm from '../components/ForecastSearchForm';
 import Observation from '../components/Observation';
 import { useSelector } from 'react-redux';
 import { apiClient } from '../../../common/utils/apiClient';
-import Rain from '../components/gauge/Rain';
+import ReactTooltip from 'react-tooltip';
 import RainRate from '../components/gauge/RainRate';
 import WindSpeed from '../components/gauge/WindSpeed';
 import queryString from 'qs';
@@ -18,8 +18,15 @@ import {
   DEFAULT_CITY_LNG,
   DEFAULT_CITY_TEXT,
 } from '../../../common/constant';
+import RainDaily from '../components/gauge/RainDaily';
+import RainMonthly from '../components/gauge/RainMonthly';
+import WindGust from '../components/gauge/WindGust';
+import WindMaxGust from '../components/gauge/WindMaxGust';
+import RainYearly from '../components/gauge/RainYearly';
 
 const WEATHER_DATA_LOAD = 'WEATHER_DATA_LOAD';
+const WEATHER_DATA_PERIOD_LOAD = 'WEATHER_DATA_PERIOD_LOAD';
+const WEATHER_DATA_PERIOD_ERRORS = 'WEATHER_DATA_PERIOD_ERRORS';
 const WEATHER_DATA_ERRORS = 'WEATHER_DATA_ERRORS';
 const GEOCODING_LOAD = 'GEOCODING_LOAD';
 const GEOCODING_ERRORS = 'GEOCODING_ERRORS';
@@ -34,10 +41,25 @@ const reducer = (state, action) => {
         loading: false,
         loaded: true,
       };
+    case WEATHER_DATA_PERIOD_LOAD:
+      return {
+        ...state,
+        weatherDataDaily: action.weatherData,
+        errorsDaily: [],
+        loading: false,
+        loaded: true,
+      };
     case WEATHER_DATA_ERRORS:
       return {
         ...state,
         errors: action.errors,
+        loading: false,
+        loaded: false,
+      };
+    case WEATHER_DATA_PERIOD_ERRORS:
+      return {
+        ...state,
+        errorsDaily: action.errors,
         loading: false,
         loaded: false,
       };
@@ -100,6 +122,34 @@ function loadWeatherData(weatherStation, dispatch) {
     });
 }
 
+function loadWeatherDataDaily(weatherStation, dispatch) {
+  apiClient()
+    .request(
+      new Request(`/api/weatherData/${weatherStation.reference}/history/daily`)
+    )
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      return response.json().then((errors) => {
+        throw errors;
+      });
+    })
+    .then((data) => {
+      dispatch({
+        type: WEATHER_DATA_PERIOD_LOAD,
+        weatherData: data,
+      });
+    })
+    .catch((errors) => {
+      dispatch({
+        type: WEATHER_DATA_PERIOD_ERRORS,
+        errors: errors,
+      });
+    });
+}
+
 function loadForecastAddress(text, dispatch) {
   apiClient()
     .request(
@@ -135,7 +185,9 @@ function loadForecastAddress(text, dispatch) {
 function useHome(weatherStation) {
   const initialState = {
     weatherData: null,
+    weatherDataDaily: null,
     errors: [],
+    errorsDaily: [],
     forecast: {
       city: DEFAULT_CITY_TEXT,
       geocoding: {
@@ -154,9 +206,11 @@ function useHome(weatherStation) {
 
   useEffect(() => {
     loadWeatherData(weatherStation, dispatch);
+    loadWeatherDataDaily(weatherStation, dispatch);
 
     const intervalId = setInterval(() => {
       loadWeatherData(weatherStation, dispatch);
+      loadWeatherDataDaily(weatherStation, dispatch);
     }, 60000);
 
     return () => clearInterval(intervalId);
@@ -196,7 +250,10 @@ export default function Home(props) {
         <main className="main-content current-obs">
           <div className="fullwidth-block">
             <div className="container">
-              <Observation weatherData={state.weatherData} />
+              <Observation
+                weatherData={state.weatherData}
+                weatherDataDaily={state.weatherDataDaily}
+              />
               <div className="home-map col-md-5 col-xs-12">
                 <div className="contact-details">
                   <Map
@@ -210,14 +267,7 @@ export default function Home(props) {
 
           <div className="fullwidth-block">
             <div className="container">
-              <h2 className="section-title">Capteurs secondaires</h2>
-              <div className="gauge col-md-3 col-sm-6">
-                <Rain
-                  value={state.weatherData?.rainWeekly}
-                  unit={state.weatherData?.unit.rainUnit}
-                />
-                <h3>Précipitation</h3>
-              </div>
+              <h2 className="section-title">Précipitation</h2>
               <div className="gauge col-md-3 col-sm-6">
                 <RainRate
                   value={state.weatherData?.rainRate}
@@ -225,6 +275,33 @@ export default function Home(props) {
                 />
                 <h3>Averse</h3>
               </div>
+              <div className="gauge col-md-3 col-sm-6">
+                <RainDaily
+                  value={state.weatherData?.rainDaily}
+                  unit={state.weatherData?.unit.rainUnit}
+                />
+                <h3>Précipitation (jour)</h3>
+              </div>
+              <div className="gauge col-md-3 col-sm-6">
+                <RainMonthly
+                  value={state.weatherData?.rainMonthly}
+                  unit={state.weatherData?.unit.rainUnit}
+                />
+                <h3>Précipitation (mois)</h3>
+              </div>
+              <div className="gauge col-md-3 col-sm-6">
+                <RainYearly
+                  value={state.weatherData?.rainYearly}
+                  unit={state.weatherData?.unit.rainUnit}
+                />
+                <h3>Précipitation (année)</h3>
+              </div>
+            </div>
+          </div>
+
+          <div className="fullwidth-block">
+            <div className="container">
+              <h2 className="section-title">Vent</h2>
               <div className="gauge col-md-3 col-sm-6">
                 <WindSpeed
                   value={state.weatherData?.windSpeedAvg}
@@ -235,6 +312,20 @@ export default function Home(props) {
               <div className="gauge col-md-3 col-sm-6">
                 <WindDirection value={state.weatherData?.windDirectionAvg} />
                 <h3>Direction (moy/10 min)</h3>
+              </div>
+              <div className="gauge col-md-3 col-sm-6">
+                <WindGust
+                  value={state.weatherData?.windGust}
+                  unit={state.weatherData?.unit.speedUnit}
+                />
+                <h3>Vent (rafale)</h3>
+              </div>
+              <div className="gauge col-md-3 col-sm-6">
+                <WindMaxGust
+                  value={state.weatherData?.windMaxDailyGust}
+                  unit={state.weatherData?.unit.speedUnit}
+                />
+                <h3>Vent (rafale max)</h3>
               </div>
             </div>
           </div>
