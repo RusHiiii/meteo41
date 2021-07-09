@@ -8,41 +8,47 @@ jobs:
         name: Meteo41 - Deploy
         runs-on: ubuntu-latest
         steps:
+            # —— Setup
             - name: Checkout
               uses: actions/checkout@v2
+
+            # —— Install Open VPN
             - name: Install Open VPN
               run: |
                   sudo apt-get install openvpn
-                  touch /tmp/config.ovpn && echo "${{ secrets.VPN_FILE }}" > /tmp/config.ovpn
-                  touch /tmp/login && echo "${{ secrets.LOGIN_FILE }}" > /tmp/login
 
+            # —— Connect to VPN
             - name: Connect VPN
+              uses: golfzaptw/action-connect-ovpn@master
               id: connect_vpn
-              run: |
-                  sudo openvpn --config /tmp/config.ovpn --auth-user-pass /tmp/login --daemon
+              with:
+                  PING_URL: '192.168.9.32'
+                  FILE_OVPN: '.github/vpn/config.ovpn'
+                  SECRET: ${{ secrets.SECRET_USERNAME_PASSWORD }}
+                  TLS_KEY: ${{ secrets.TLS_KEY }}
+              env:
+                  CA_CRT: ${{ secrets.CA_CRT }}
+                  USER_CRT: ${{ secrets.USER_CRT }}
+                  USER_KEY: ${{ secrets.USER_KEY }}
 
+            # —— Verify web server ping
             - name: Check Connect VPN
               run: |
-                echo ${{ steps.connect_vpn.outputs.STATUS }}
-                ping ${{ secrets.REMOTE_SSH_IP }} -c 10
+                  ping ${{ secrets.REMOTE_SSH_IP }} -c 10
 
-            - name: Get Time
-              id: time
-              uses: nanzm/get-time-action@v1.1
-
+            # —— Run SSH command for deploy
             - name: SSH to server
-              env:
-                 TIME: "${{ steps.time.outputs.time }}"
               uses: appleboy/ssh-action@master
               with:
-                 host: ${{ secrets.REMOTE_SSH_IP }}
-                 username: ${{ secrets.USER }}
-                 password: ${{ secrets.PASSWORD }}
-                 port: ${{ secrets.PORT }}
-                 script: |
-                      pwd
-                      echo $TIME
+                  host: ${{ secrets.REMOTE_SSH_IP }}
+                  username: ${{ secrets.USER }}
+                  password: ${{ secrets.PASSWORD }}
+                  port: ${{ secrets.PORT }}
+                  script: |
+                      RELEASE=`date +%s`
+                      echo $RELEASEcd Do
 
+            # —— Kill VPN
             - name: Kill Open VPN
               if: always()
               run: sudo killall openvpn
