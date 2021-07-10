@@ -57,6 +57,7 @@ jobs:
                       composer dump-env prod
                       bin/console cache:clear --env=prod --no-debug
                       yarn production
+                      chown -R www-data:www-data ${{ secrets.TARGET_PATH }}/$RELEASE
                       ln -sfn ${{ secrets.TARGET_PATH }}/$RELEASE ${{ secrets.TARGET_PATH }}/current
 
             # —— Kill VPN
