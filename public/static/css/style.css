@@ -1977,11 +1977,13 @@ p.loading {
                 .5em 0 0 white;}}
 
 
-
+.about-map{
+    height: 360px;
+}
 .contact-details {
   background: #262936;
   border-radius: 10px;
-  height: 360px;
+  height: 254px;
   overflow: hidden; }
   .contact-details .map {
     border-top-left-radius: 10px;
