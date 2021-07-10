@@ -89,6 +89,14 @@ class WeatherDataTransformer
             $weatherData['solar_radiation_max']['createdAt'],
             $weatherData['uv_max']['value'],
             $weatherData['uv_max']['createdAt'],
+            $weatherData['pm25_min']['value'],
+            $weatherData['pm25_min']['createdAt'],
+            $weatherData['aqi_min']['value'],
+            $weatherData['aqi_min']['createdAt'],
+            $weatherData['cloud_base_min']['value'],
+            $weatherData['cloud_base_min']['createdAt'],
+            $weatherData['cloud_base_max']['value'],
+            $weatherData['cloud_base_max']['createdAt']
         );
     }
 
