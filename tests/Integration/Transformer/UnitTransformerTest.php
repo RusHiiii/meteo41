@@ -43,7 +43,7 @@ class UnitTransformerTest extends TestCase
         $this->assertEquals('lux', $unitView->getSolarRadiationUnit());
         $this->assertEquals('um/m', $unitView->getPmUnit());
         $this->assertEquals('%', $unitView->getHumidityUnit());
-        $this->assertEquals('metric', $unitView->getType());
+        $this->assertEquals('Metric', $unitView->getType());
         $this->assertEquals('m', $unitView->getCloudBaseUnit());
         $this->assertEquals('°', $unitView->getWindDirUnit());
     }
