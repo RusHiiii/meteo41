@@ -20,6 +20,7 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
+        "production": "encore production",
         "prettier": "prettier --trailing-comma es5 --single-quote --write assets/js/**"
     },
     "dependencies": {
