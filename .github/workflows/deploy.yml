@@ -53,7 +53,7 @@ jobs:
                       cp ${{ secrets.TARGET_PATH }}/current/config/jwt/public.pem config/jwt/public.pem
                       cp ${{ secrets.TARGET_PATH }}/current/.env.local .env.local
                       composer install --no-dev --optimize-autoloader --quiet
-                      npm install --quiet
+                      npm install --quiet --loglevel=error
                       composer dump-env prod
                       bin/console cache:clear --env=prod --no-debug
                       yarn production
