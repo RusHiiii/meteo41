@@ -1978,7 +1978,7 @@ p.loading {
 
 
 .about-map{
-    height: 360px;
+    height: 360px !important;
 }
 .contact-details {
   background: #262936;
