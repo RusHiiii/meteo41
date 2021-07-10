@@ -111,7 +111,8 @@ class WeatherDataController extends AbstractController
      */
     public function registerWeatherDataAction(Request $request): Response
     {
-        $weatherData = $request->query->all();
+        parse_str($request->getContent(), $weatherData);
+
         if (!array_key_exists('PASSKEY', $weatherData)) {
             throw new AccessDeniedException();
         }
