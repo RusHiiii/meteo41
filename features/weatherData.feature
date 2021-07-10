@@ -283,12 +283,12 @@ Feature: Weather Data
           "solarRadiationUnit":"lux",
           "pmUnit":"um\/m",
           "humidityUnit":"%",
-          "pressureUnit":"hPa",
           "type":"Metric",
           "createdAt":"2020-12-10T00:12:12+01:00",
           "updatedAt":"2020-12-10T00:12:12+01:00",
           "cloudBaseUnit":"m",
-          "windDirUnit":"\u00b0"
+          "windDirUnit":"\u00b0",
+          "pressureUnit":"hPa"
        },
        "maxTemperature":8.7,
        "maxTemperatureReceivedAt":"2021-01-01T00:13:12+01:00",
@@ -334,7 +334,15 @@ Feature: Weather Data
        "maxSolarRadiation":412,
        "maxSolarRadiationReceivedAt":"2021-01-01T00:12:12+01:00",
        "maxUv":5,
-       "maxUvReceivedAt":"2021-01-01T00:13:12+01:00"
+       "maxUvReceivedAt":"2021-01-01T00:13:12+01:00",
+       "minPm25":5,
+       "minPm25ReceivedAt":"2021-01-01T00:12:12+01:00",
+       "minAqi":53,
+       "minAqiReceivedAt":"2021-01-01T00:12:12+01:00",
+       "minCloudBase":1024,
+       "minCloudBaseReceivedAt":"2021-01-01T00:12:12+01:00",
+       "maxCloudBase":1024,
+       "maxCloudBaseReceivedAt":"2021-01-01T00:12:12+01:00"
     }
     """
 
