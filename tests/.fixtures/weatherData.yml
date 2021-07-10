@@ -271,6 +271,6 @@ App\Entity\WebApp\Unit:
         windDirUnit: '°'
         pmUnit: 'um/m'
         humidityUnit: '%'
-        type: 'metric'
+        type: 'Metric'
         createdAt: '<date_create("2020-12-10 00:12:12")>'
         updatedAt: '<date_create("2020-12-10 00:12:12")>'

@@ -16,7 +16,7 @@ Feature: Unit
       "pmUnit": "µg/m3",
       "humidityUnit": "%",
       "pressureUnit": "hPa",
-      "type": "imperial"
+      "type": "Imperial"
     }
     """
     Then the status code should be 201
@@ -31,7 +31,7 @@ Feature: Unit
       | humidityUnit        | %         |
       | windDirUnit         | °         |
       | cloudBaseUnit       | m         |
-      | type                | imperial  |
+      | type                | Imperial  |
 
   @database
   Scenario: Check unit register with existing type
@@ -197,7 +197,7 @@ Feature: Unit
        "pressureUnit": "hPa",
        "windDirUnit":"°",
        "humidityUnit":"%",
-       "type":"metric",
+       "type":"Metric",
        "createdAt":"2020-12-10T00:12:12+01:00",
        "updatedAt":"2020-12-10T00:12:12+01:00"
     }
@@ -229,7 +229,7 @@ Feature: Unit
              "pmUnit":"um/m",
              "humidityUnit":"%",
              "pressureUnit":"hPa",
-             "type":"metric",
+             "type":"Metric",
              "cloudBaseUnit":"m",
              "windDirUnit":"°",
              "createdAt":"2020-12-10T00:12:12+01:00",
