@@ -5,6 +5,7 @@ import { getSunrise, getSunset } from 'sunrise-sunset-js';
 import { getMoonTimes } from 'suncalc';
 import ReactTooltip from 'react-tooltip';
 import Tooltip from './Tooltip';
+import { showFixedValue } from '../utils/showFixedValue';
 
 export default function Observation(props) {
   const { weatherData, weatherDataDaily } = props;
@@ -28,7 +29,7 @@ export default function Observation(props) {
                   <div className="temp">
                     <div className="current-temp">
                       <h3 data-tip data-for="temperature">
-                        {weatherData?.temperature}
+                        {showFixedValue(weatherData?.temperature)}
                         <small className="celsius">
                           {weatherData?.unit.temperatureUnit}
                         </small>
@@ -36,8 +37,8 @@ export default function Observation(props) {
                       {weatherDataDaily && (
                         <Tooltip
                           id="temperature"
-                          min={weatherDataDaily.minTemperature}
-                          max={weatherDataDaily.maxTemperature}
+                          min={showFixedValue(weatherDataDaily.minTemperature)}
+                          max={showFixedValue(weatherDataDaily.maxTemperature)}
                           minReceivedAt={
                             weatherDataDaily.minTemperatureReceivedAt
                           }
@@ -54,15 +55,15 @@ export default function Observation(props) {
                           data-tip
                           data-for="windChill"
                         >
-                          {weatherData?.windChill}
+                          {showFixedValue(weatherData?.windChill)}
                           {weatherData?.unit.temperatureUnit}
                         </strong>
                       </div>
                       {weatherDataDaily && (
                         <Tooltip
                           id="windChill"
-                          min={weatherDataDaily.minWindChill}
-                          max={weatherDataDaily.maxWindChill}
+                          min={showFixedValue(weatherDataDaily.minWindChill)}
+                          max={showFixedValue(weatherDataDaily.maxWindChill)}
                           minReceivedAt={
                             weatherDataDaily.minWindChillReceivedAt
                           }
@@ -79,15 +80,15 @@ export default function Observation(props) {
                           data-tip
                           data-for="dewpoint"
                         >
-                          {weatherData?.dewPoint}
+                          {showFixedValue(weatherData?.dewPoint)}
                           {weatherData?.unit.temperatureUnit}
                         </strong>
                       </div>
                       {weatherDataDaily && (
                         <Tooltip
                           id="dewpoint"
-                          min={weatherDataDaily.minDewPoint}
-                          max={weatherDataDaily.maxDewPoint}
+                          min={showFixedValue(weatherDataDaily.minDewPoint)}
+                          max={showFixedValue(weatherDataDaily.maxDewPoint)}
                           minReceivedAt={weatherDataDaily.minDewPointReceivedAt}
                           maxReceivedAt={weatherDataDaily.maxDewPointReceivedAt}
                           unit={weatherDataDaily.unit.temperatureUnit}
@@ -100,15 +101,15 @@ export default function Observation(props) {
                           data-tip
                           data-for="humidex"
                         >
-                          {weatherData?.humidex}
+                          {showFixedValue(weatherData?.humidex)}
                           {weatherData?.unit.temperatureUnit}
                         </strong>
                       </div>
                       {weatherDataDaily && (
                         <Tooltip
                           id="humidex"
-                          min={weatherDataDaily.minHumidex}
-                          max={weatherDataDaily.maxHumidex}
+                          min={showFixedValue(weatherDataDaily.minHumidex)}
+                          max={showFixedValue(weatherDataDaily.maxHumidex)}
                           minReceivedAt={weatherDataDaily.minHumidexReceivedAt}
                           maxReceivedAt={weatherDataDaily.maxHumidexReceivedAt}
                           unit={weatherDataDaily.unit.temperatureUnit}
@@ -158,12 +159,18 @@ export default function Observation(props) {
                               data-tip
                               data-for="pressure"
                             >
-                              <strong>{weatherData?.relativePressure}</strong>
+                              <strong>
+                                {showFixedValue(weatherData?.relativePressure)}
+                              </strong>
                               {weatherDataDaily && (
                                 <Tooltip
                                   id="pressure"
-                                  min={weatherDataDaily.minRelativePressure}
-                                  max={weatherDataDaily.maxRelativePressure}
+                                  min={showFixedValue(
+                                    weatherDataDaily.minRelativePressure
+                                  )}
+                                  max={showFixedValue(
+                                    weatherDataDaily.maxRelativePressure
+                                  )}
                                   minReceivedAt={
                                     weatherDataDaily.minRelativePressureReceivedAt
                                   }
@@ -221,8 +228,26 @@ export default function Observation(props) {
                                 ></i>
                               </span>
                             </td>
-                            <td className="td-value-obs">
+                            <td
+                              className="td-value-obs"
+                              data-tip
+                              data-for="pm25"
+                            >
                               <strong>{weatherData?.pm25}</strong>
+                              {weatherDataDaily && (
+                                <Tooltip
+                                  id="pm25"
+                                  min={weatherDataDaily.minPm25}
+                                  max={weatherDataDaily.maxPm25}
+                                  minReceivedAt={
+                                    weatherDataDaily.maxPm25ReceivedAt
+                                  }
+                                  maxReceivedAt={
+                                    weatherDataDaily.minPm25ReceivedAt
+                                  }
+                                  unit={weatherDataDaily.unit.pmUnit}
+                                />
+                              )}
                             </td>
                             <td>
                               <small>{weatherData?.unit.pmUnit}</small>
@@ -237,8 +262,26 @@ export default function Observation(props) {
                                 ></i>
                               </span>
                             </td>
-                            <td className="td-value-obs">
+                            <td
+                              className="td-value-obs"
+                              data-tip
+                              data-for="cloud"
+                            >
                               <strong>{weatherData?.cloudBase}</strong>
+                              {weatherDataDaily && (
+                                <Tooltip
+                                  id="cloud"
+                                  min={weatherDataDaily.minCloudBase}
+                                  max={weatherDataDaily.maxCloudBase}
+                                  minReceivedAt={
+                                    weatherDataDaily.minCloudBaseReceivedAt
+                                  }
+                                  maxReceivedAt={
+                                    weatherDataDaily.maxCloudBaseReceivedAt
+                                  }
+                                  unit={weatherDataDaily.unit.cloudBaseUnit}
+                                />
+                              )}
                             </td>
                             <td>
                               <small>{weatherData?.unit.cloudBaseUnit}</small>
