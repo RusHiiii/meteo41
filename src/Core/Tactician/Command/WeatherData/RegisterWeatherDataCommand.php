@@ -203,9 +203,10 @@ class RegisterWeatherDataCommand
 
     public function getDate()
     {
-        $date = \DateTime::createFromFormat('Y-m-d H:i:s', $this->dateutc);
+        $date = \DateTime::createFromFormat('Y-m-d H:i:s', $this->dateutc, new \DateTimeZone('UTC'));
+        $date->setTimezone(new \DateTimeZone('Europe/Paris'));
 
-        return $date->setTimezone(new \DateTimeZone('Europe/Paris'));
+        return $date;
     }
 
     public function getIndoorTemperatureF()
