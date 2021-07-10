@@ -4,8 +4,8 @@ namespace App\Entity\WebApp;
 
 class Unit
 {
-    const UNIT_METRIC = 'metric';
-    const UNIT_IMPERIAL = 'imperial';
+    const UNIT_METRIC = 'Metric';
+    const UNIT_IMPERIAL = 'Imperial';
 
     private int $id;
 
