@@ -33,7 +33,7 @@ security:
         - { path: ^/api/weatherStation, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET] }
         - { path: ^/api/geocoding, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET] }
         - { path: ^/api/openWeather, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET] }
-        - { path: ^/api/weatherData, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET] }
+        - { path: ^/api/weatherData, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET, POST] }
         - { path: ^/api/observation, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET] }
         - { path: ^/api/post, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET] }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

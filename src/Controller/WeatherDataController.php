@@ -107,7 +107,7 @@ class WeatherDataController extends AbstractController
     }
 
     /**
-     * @Route("/api/weatherData", name="register_data", methods={"GET"})
+     * @Route("/api/weatherData", name="register_data", methods={"POST"})
      */
     public function registerWeatherDataAction(Request $request): Response
     {

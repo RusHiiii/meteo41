@@ -46,7 +46,7 @@ jobs:
                   port: ${{ secrets.PORT }}
                   script: |
                       RELEASE=`date +%s`
-                      echo $RELEASEcd Do
+                      echo $RELEASE
 
             # —— Kill VPN
             - name: Kill Open VPN
