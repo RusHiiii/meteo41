@@ -121,7 +121,7 @@ export default function Contact(props) {
       <div className="fullwidth-block">
         <div className="container">
           <div className="col-md-5">
-            <div className="contact-details">
+            <div className="contact-details about-map">
               <div className="map">
                 <Map
                   lat={state.weatherStation?.lat}
