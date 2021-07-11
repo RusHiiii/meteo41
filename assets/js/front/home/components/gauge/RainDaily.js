@@ -35,7 +35,7 @@ export default function RainDaily(props) {
   }, []);
 
   useEffect(() => {
-    if (!props.value) {
+    if (props.value === undefined) {
       return;
     }
 
