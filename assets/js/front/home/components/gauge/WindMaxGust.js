@@ -40,7 +40,7 @@ export default function WindMaxGust(props) {
   }, []);
 
   useEffect(() => {
-    if (!props.value) {
+    if (props.value === undefined) {
       return;
     }
 

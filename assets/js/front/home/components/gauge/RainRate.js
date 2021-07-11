@@ -38,7 +38,7 @@ export default function RainRate(props) {
   }, []);
 
   useEffect(() => {
-    if (!props.value) {
+    if (props.value === undefined) {
       return;
     }
 
