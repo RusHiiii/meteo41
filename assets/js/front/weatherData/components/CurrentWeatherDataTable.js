@@ -255,7 +255,7 @@ export default function CurrentWeatherDataTable(props) {
         </tr>
         <tr className="table-obs-last-data">
           <td>Altitude</td>
-          <td colSpan="0">{weatherData.weatherStation.elevation} m</td>
+          <td colSpan="0">{weatherData.weatherStation.elevation}</td>
           <td>Lieu</td>
           <td>{weatherData.weatherStation.city}</td>
         </tr>

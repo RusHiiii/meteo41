@@ -19,12 +19,14 @@ class WeatherDataSummaryView
 
     private float $windSpeedAvg;
 
+    private int $windDirectionAvg;
+
     private int $humidity;
 
     private \DateTime $receivedAt;
 
     /**
-     * DataSummary constructor.
+     * WeatherDataSummaryView constructor.
      * @param int $id
      * @param WeatherStationView $weatherStation
      * @param UnitView $unit
@@ -32,9 +34,10 @@ class WeatherDataSummaryView
      * @param float $relativePressure
      * @param float $windSpeedAvg
      * @param int $humidity
+     * @param int $windDirectionAvg
      * @param \DateTime $receivedAt
      */
-    public function __construct(int $id, WeatherStationView $weatherStation, UnitView $unit, float $temperature, float $relativePressure, float $windSpeedAvg, int $humidity, \DateTime $receivedAt)
+    public function __construct(int $id, WeatherStationView $weatherStation, UnitView $unit, float $temperature, float $relativePressure, float $windSpeedAvg, int $humidity, int $windDirectionAvg, \DateTime $receivedAt)
     {
         $this->id = $id;
         $this->weatherStation = $weatherStation;
@@ -43,6 +46,7 @@ class WeatherDataSummaryView
         $this->relativePressure = $relativePressure;
         $this->windSpeedAvg = $windSpeedAvg;
         $this->humidity = $humidity;
+        $this->windDirectionAvg = $windDirectionAvg;
         $this->receivedAt = $receivedAt;
     }
 
@@ -108,5 +112,13 @@ class WeatherDataSummaryView
     public function getReceivedAt(): \DateTime
     {
         return $this->receivedAt;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWindDirectionAvg(): int
+    {
+        return $this->windDirectionAvg;
     }
 }
