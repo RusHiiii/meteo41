@@ -17,7 +17,7 @@
 Don't forget to setup MYSQL connection (password, username) with .env file
 Don't forget to setup JWT private and public key [here](https://symfonycasts.com/screencast/symfony-rest4/lexikjwt-authentication-bundle#generating-the-public-and-private-key).
 
-NB: A setup file has been created, you can import it [here](/documentation/data.sql)
+NB: A setup file has been created, you can import it [here](/documentation/data.sql) (username: test@test.fr // password: pass123*)
 
 ## Toolkit
 
