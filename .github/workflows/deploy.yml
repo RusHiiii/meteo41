@@ -31,11 +31,6 @@ jobs:
                   USER_CRT: ${{ secrets.USER_CRT }}
                   USER_KEY: ${{ secrets.USER_KEY }}
 
-            # —— Verify web server ping
-            - name: Check Connect VPN
-              run: |
-                  ping ${{ secrets.REMOTE_SSH_IP }} -c 10
-
             # —— Run SSH command for deploy
             - name: SSH to server
               uses: appleboy/ssh-action@master

@@ -169,6 +169,7 @@ Feature: Weather Data
        "temperature":8.7,
        "relativePressure":1026.6,
        "windSpeedAvg":10.7,
+       "windDirectionAvg":19,
        "humidity":56,
        "receivedAt":"2021-01-01T00:13:12+01:00"
     }
