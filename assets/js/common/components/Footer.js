@@ -14,13 +14,13 @@ export default function Footer(props) {
           </div>
           <div className="col-md-3 col-md-offset-1">
             <div className="social-links">
-              <a href="https://twitter.com/RusHiiiiiiii">
+              <a target="_blank" href="https://twitter.com/RusHiiiiiiii">
                 <i className="fa fa-twitter" />
               </a>
-              <a href="https://github.com/RusHiiii">
+              <a target="_blank" href="https://github.com/RusHiiii">
                 <i className="fa fa-github" />
               </a>
-              <a href="https://www.linkedin.com/in/florent-damiens-939a49164/">
+              <a target="_blank" href="https://www.linkedin.com/in/florent-damiens-939a49164/">
                 <i className="fa fa-linkedin" />
               </a>
             </div>

@@ -117,6 +117,7 @@ class WeatherDataTransformer
             $currentWeatherData->getRelativePressure(),
             $currentWeatherData->getWindSpeedAvg(),
             $currentWeatherData->getHumidity(),
+            $currentWeatherData->getWindDirectionAvg(),
             $currentWeatherData->getCreatedAt()
         );
     }

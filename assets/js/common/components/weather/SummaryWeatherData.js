@@ -3,6 +3,8 @@ import { apiClient } from '../../utils/apiClient';
 import { DEFAULT_WEATHER_STATION_REFERENCE } from '../../constant';
 import { Date } from '../Date';
 import { useSelector } from 'react-redux';
+import { showFixedValue } from '../../../front/home/utils/showFixedValue';
+import { degToCompass } from '../../../front/weatherData/utils/degreesToCompass';
 
 const WEATHER_DATA_LOAD = 'WEATHER_DATA_LOAD';
 
@@ -73,7 +75,7 @@ export default function SummaryWeatherData(props) {
               <span>
                 <i className="wi wi-thermometer-exterior" />
               </span>
-              <strong>{state.weatherData?.temperature}</strong>
+              <strong>{showFixedValue(state.weatherData?.temperature)}</strong>
               {state.weatherData?.unit?.temperatureUnit}
             </div>
           </li>
@@ -83,7 +85,9 @@ export default function SummaryWeatherData(props) {
               <span>
                 <i className="fa fa-tachometer" />
               </span>
-              <strong>{state.weatherData?.relativePressure}</strong>
+              <strong>
+                {showFixedValue(state.weatherData?.relativePressure)}
+              </strong>
               {state.weatherData?.unit?.pressureUnit}
             </div>
           </li>
@@ -91,7 +95,10 @@ export default function SummaryWeatherData(props) {
             <h3 className="entry-title">Vent moyen</h3>
             <div className="current">
               <span>
-                <i className="wi wi-wind towards-121-deg" />
+                <i
+                  className={`wi wi-wind towards-${state.weatherData?.windDirectionAvg}-deg`}
+                  title={degToCompass(state.weatherData?.windDirectionAvg)}
+                />
               </span>
               <strong>{state.weatherData?.windSpeedAvg}</strong>
               {state.weatherData?.unit?.speedUnit}
@@ -101,7 +108,7 @@ export default function SummaryWeatherData(props) {
             <h3 className="entry-title">Humidité</h3>
             <div className="current">
               <span>
-                <i className="wi wi-barometer" />
+                <i className="wi wi-humidity" />
               </span>
               <strong>{state.weatherData?.humidity}</strong>
               {state.weatherData?.unit?.humidityUnit}

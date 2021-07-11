@@ -211,7 +211,7 @@ function useHome(weatherStation) {
     const intervalId = setInterval(() => {
       loadWeatherData(weatherStation, dispatch);
       loadWeatherDataDaily(weatherStation, dispatch);
-    }, 60000);
+    }, 30000);
 
     return () => clearInterval(intervalId);
   }, [weatherStation.reference]);
