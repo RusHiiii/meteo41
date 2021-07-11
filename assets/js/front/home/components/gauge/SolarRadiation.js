@@ -39,7 +39,7 @@ export default function SolarRadiation(props) {
   }, []);
 
   useEffect(() => {
-    if (!props.value) {
+    if (props.value === undefined) {
       return;
     }
 

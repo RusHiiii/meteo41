@@ -35,7 +35,7 @@ export default function RainYearly(props) {
   }, []);
 
   useEffect(() => {
-    if (!props.value) {
+    if (props.value === undefined) {
       return;
     }
 
