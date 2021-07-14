@@ -42,7 +42,7 @@ import {
   ROUTE_ADMIN_USER_CREATE,
   ROUTE_ADMIN_USER_EDIT,
   ROUTE_CURRENT_WEATHER_DATA,
-  ROUTE_PERIOD_WEATHER_DATA,
+  ROUTE_PERIOD_WEATHER_DATA, ROUTE_PERIOD_GRAPHIC,
 } from './common/constant';
 import About from './front/information/pages/About';
 import ContactAdmin from './back/contact/pages/Contact';
@@ -65,6 +65,7 @@ import EditUser from './back/user/pages/EditUser';
 import CurrentWeatherData from './front/weatherData/pages/CurrentWeatherData';
 import PeriodWeatherData from './front/weatherData/pages/PeriodWeatherData';
 import ScrollToTop from "./common/components/ScrollToTop";
+import PeriodGraphic from "./front/graphic/pages/PeriodGraphic";
 
 export const store = createStore();
 
@@ -214,6 +215,12 @@ ReactDOM.render(
                 name={ROUTE_PERIOD_WEATHER_DATA}
                 path="/weather/history/:period(daily|weekly|monthly|yearly|record)"
                 component={PeriodWeatherData}
+              />
+              <PublicRoute
+                exact
+                name={ROUTE_PERIOD_GRAPHIC}
+                path="/graphic/history/:period(daily|weekly|monthly|yearly)"
+                component={PeriodGraphic}
               />
               <PublicRoute
                 exact
