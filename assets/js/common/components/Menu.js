@@ -26,7 +26,7 @@ import {
   ROUTE_ADMIN_USER_CREATE,
   ROUTE_ADMIN_USER_EDIT,
   ROUTE_CURRENT_WEATHER_DATA,
-  ROUTE_PERIOD_WEATHER_DATA,
+  ROUTE_PERIOD_WEATHER_DATA, ROUTE_PERIOD_GRAPHIC,
 } from '../constant';
 
 const routeNameToActiveItem = (routeName) => {
@@ -36,6 +36,8 @@ const routeNameToActiveItem = (routeName) => {
     case ROUTE_CURRENT_WEATHER_DATA:
     case ROUTE_PERIOD_WEATHER_DATA:
       return 'weatherData';
+    case ROUTE_PERIOD_GRAPHIC:
+      return 'graphic';
     case ROUTE_CONTACT:
       return 'contact';
     case ROUTE_ADMIN_NEWS:
@@ -116,8 +118,12 @@ export default function Menu(props) {
             >
               <Link to="/weather/current">Données</Link>
             </li>
-            <li className="menu-item">
-              <Link to="/weather/current">Graphiques</Link>
+            <li
+              className={`menu-item ${
+                activeItemName === 'graphic' ? 'current-menu-item' : ''
+              }`}
+            >
+              <Link to="/graphic/history/daily">Graphiques</Link>
             </li>
             <li
               className={`menu-item ${

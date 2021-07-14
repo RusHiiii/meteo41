@@ -1949,7 +1949,18 @@ p.loading {
     font: 300 4em/150% Impact;
     text-align: center;}
 
+.apexcharts-tooltip {
+    background: #1e202b !important;
+    color: white;
+}
 
+.apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title{
+    background: #1e202b !important;
+}
+.apexcharts-xaxistooltip{
+    background: #1e202b !important;
+    color: white !important;
+}
 /* loading dots */
 
 .loading:after {

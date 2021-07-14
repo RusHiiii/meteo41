@@ -8,6 +8,7 @@ export const ROUTE_LOGIN = 'login';
 export const ROUTE_ABOUT = 'about';
 export const ROUTE_CURRENT_WEATHER_DATA = 'currentWeatherData';
 export const ROUTE_PERIOD_WEATHER_DATA = 'periodWeatherData';
+export const ROUTE_PERIOD_GRAPHIC = 'periodGraphic';
 export const ROUTE_CONTACT = 'contact';
 
 export const ROUTE_ADMIN_DASHBOARD = 'adminDashboard';
