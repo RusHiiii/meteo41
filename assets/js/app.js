@@ -64,6 +64,7 @@ import CreateUser from './back/user/pages/CreateUser';
 import EditUser from './back/user/pages/EditUser';
 import CurrentWeatherData from './front/weatherData/pages/CurrentWeatherData';
 import PeriodWeatherData from './front/weatherData/pages/PeriodWeatherData';
+import ScrollToTop from "./common/components/ScrollToTop";
 
 export const store = createStore();
 
@@ -72,6 +73,7 @@ export const store = createStore();
 ReactDOM.render(
   <Provider store={store}>
     <Router>
+      <ScrollToTop />
       <PageLayout>
         <Switch>
           <Route path="/admin/:path">
