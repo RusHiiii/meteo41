@@ -16,8 +16,8 @@ class HeatIndexCalculator
         }
 
         $hi = 0.5 * ($tempF + 61.0 + ($tempF - 68.0) * 1.2 + $humidity * 0.094);
-        if ($hi >= 80) {
-            $hi = -42.379 + (2.04901523 * $tempF) + (10.14333127 * $humidity) + (-0.22475541 * $tempF * $humidity) + (-6.83783 * exp(-3) * $tempF ** 2) + (-5.481717 * exp(-2) * $humidity ** 2) + (1.22874 * exp(-3) * $tempF ** 2 * $humidity) + (8.5282 * exp(-4) * $tempF * $humidity ** 2) + (-1.99 * exp(-6) * $tempF ** 2 * $humidity ** 2);
+        if ($hi > 79) {
+            $hi = -42.379 + (2.04901523 * $tempF) + (10.14333127 * $humidity) + (-0.22475541 * $tempF * $humidity) + (-6.83783 * pow(10,-3) * $tempF ** 2) + (-5.481717 * pow(10,-2) * pow($humidity, 2)) + (1.22874 * pow(10,-3) * pow($tempF,  2) * $humidity) + (8.5282 * pow(10,-4) * $tempF * pow($humidity, 2)) + (-1.99 * pow(10,-6) * pow($tempF, 2) * pow($humidity, 2));
 
             if ($humidity <= 13 && $tempF >= 80 && $tempF <= 112) {
                 $adj1 = (13 - $humidity) / 4;
