@@ -311,7 +311,7 @@ export default function Observation(props) {
                                   new Date(),
                                   weatherData?.weatherStation.lat,
                                   weatherData?.weatherStation.lng,
-                                  true
+                                  false
                                 ).rise
                               }
                               format={'LT'}
@@ -330,7 +330,7 @@ export default function Observation(props) {
                                   new Date(),
                                   weatherData?.weatherStation.lat,
                                   weatherData?.weatherStation.lng,
-                                  true
+                                  false
                                 ).set
                               }
                               format={'LT'}
