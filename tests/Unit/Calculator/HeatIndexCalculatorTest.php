@@ -46,6 +46,16 @@ class HeatIndexCalculatorTest extends TestCase
                 63.0,
                 58,
                 61.7
+            ],
+            [
+                80.0,
+                38,
+                79.5
+            ],
+            [
+                79.5,
+                42,
+                79.1
             ]
         ];
     }
