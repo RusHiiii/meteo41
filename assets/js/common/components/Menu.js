@@ -26,7 +26,8 @@ import {
   ROUTE_ADMIN_USER_CREATE,
   ROUTE_ADMIN_USER_EDIT,
   ROUTE_CURRENT_WEATHER_DATA,
-  ROUTE_PERIOD_WEATHER_DATA, ROUTE_PERIOD_GRAPHIC,
+  ROUTE_PERIOD_WEATHER_DATA,
+  ROUTE_PERIOD_GRAPHIC,
 } from '../constant';
 
 const routeNameToActiveItem = (routeName) => {
@@ -123,7 +124,7 @@ export default function Menu(props) {
                 activeItemName === 'graphic' ? 'current-menu-item' : ''
               }`}
             >
-              <Link to="/graphic/history/daily">Graphiques</Link>
+              <Link to="#">Graphiques</Link>
             </li>
             <li
               className={`menu-item ${

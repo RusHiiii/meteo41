@@ -343,7 +343,11 @@ Feature: Weather Data
        "minCloudBase":1024,
        "minCloudBaseReceivedAt":"2021-01-01T00:12:12+01:00",
        "maxCloudBase":1024,
-       "maxCloudBaseReceivedAt":"2021-01-01T00:12:12+01:00"
+       "maxCloudBaseReceivedAt":"2021-01-01T00:12:12+01:00",
+       "maxHeatIndex":8.3,
+       "maxHeatIndexReceivedAt":"2021-01-01T00:13:12+01:00",
+       "minHeatIndex":7.3,
+       "minHeatIndexReceivedAt":"2021-01-01T00:12:12+01:00"
     }
     """
 

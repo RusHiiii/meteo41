@@ -71,27 +71,29 @@ export default function CurrentWeatherDataTable(props) {
           <td>
             {weatherData.dewPoint} {weatherData.unit.temperatureUnit}
           </td>
+          <td>Heat Index</td>
+          <td>
+            {weatherData.heatIndex} {weatherData.unit.temperatureUnit}
+          </td>
+        </tr>
+        <tr>
           <td>Facteur éolien</td>
           <td>
             {weatherData.windChill} {weatherData.unit.temperatureUnit}
           </td>
-        </tr>
-        <tr>
           <td>Humidité</td>
           <td>
             {weatherData.humidity}
             {weatherData.unit.humidityUnit}
           </td>
+        </tr>
+        <tr className="table-obs-last-data">
           <td>Couvert. nuageuse</td>
           <td>
             {weatherData.cloudBase} {weatherData.unit.cloudBaseUnit}
           </td>
-        </tr>
-        <tr className="table-obs-last-data">
           <td>Observation</td>
           <td>{showObservation(observation)}</td>
-          <td></td>
-          <td></td>
         </tr>
         <tr>
           <td colSpan="4" className="table-obs-header">

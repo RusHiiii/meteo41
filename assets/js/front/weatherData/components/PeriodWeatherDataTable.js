@@ -113,6 +113,26 @@ export default function PeriodWeatherDataTable(props) {
           </td>
         </tr>
         <tr className="min-max">
+          <td>Heat Index minimal</td>
+          <td>
+            {weatherData.minHeatIndex} {weatherData.unit.temperatureUnit}
+          </td>
+          <td>
+            à <Date date={weatherData.minHeatIndexReceivedAt} format={'LT'} />,
+            le <Date date={weatherData.minHeatIndexReceivedAt} format={'LL'} />
+          </td>
+        </tr>
+        <tr className="min-max">
+          <td>Heat Index maximal</td>
+          <td>
+            {weatherData.maxHeatIndex} {weatherData.unit.temperatureUnit}
+          </td>
+          <td>
+            à <Date date={weatherData.maxHeatIndexReceivedAt} format={'LT'} />,
+            le <Date date={weatherData.maxHeatIndexReceivedAt} format={'LL'} />
+          </td>
+        </tr>
+        <tr className="min-max">
           <td>Facteur éolien maximum</td>
           <td>
             {weatherData.maxWindChill} {weatherData.unit.temperatureUnit}

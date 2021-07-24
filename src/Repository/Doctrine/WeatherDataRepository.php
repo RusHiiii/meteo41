@@ -98,6 +98,8 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         $history['windchill_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'windChill');
         $history['humidity_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'humidity');
         $history['humidity_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'humidity');
+        $history['heat_index_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'heatIndex');
+        $history['heat_index_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'heatIndex');
 
         // Pressure history
         $history['relative_pressure_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'relativePressure');
