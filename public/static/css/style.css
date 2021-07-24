@@ -1744,6 +1744,10 @@ padding-left: 0;
 .dewpoint-value {
   margin-left: 7px; }
 
+
+.heatindex-value {
+    margin-left: 29px; }
+
 .humidex-value {
   margin-left: 39px; }
 
@@ -1928,7 +1932,7 @@ padding-left: 0;
   }
 
   .table-obs-home > tbody > tr {
-      height: 31px;
+      height: 35px;
   }
 
 
@@ -1990,6 +1994,9 @@ p.loading {
 
 .about-map{
     height: 360px !important;
+}
+.map-home{
+    height: 272px !important;
 }
 .contact-details {
   background: #262936;

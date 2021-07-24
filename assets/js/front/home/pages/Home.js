@@ -255,7 +255,7 @@ export default function Home(props) {
                 weatherDataDaily={state.weatherDataDaily}
               />
               <div className="home-map col-md-5 col-xs-12">
-                <div className="contact-details">
+                <div className="contact-details map-home">
                   <Map
                     lat={state.weatherData?.weatherStation?.lat}
                     lng={state.weatherData?.weatherStation?.lng}

@@ -115,6 +115,31 @@ export default function Observation(props) {
                           unit={weatherDataDaily.unit.temperatureUnit}
                         />
                       )}
+                      <div>
+                        Heat Index
+                        <strong
+                          className="heatindex-value"
+                          data-tip
+                          data-for="heatindex"
+                        >
+                          {showFixedValue(weatherData?.heatIndex)}
+                          {weatherData?.unit.temperatureUnit}
+                        </strong>
+                      </div>
+                      {weatherDataDaily && (
+                        <Tooltip
+                          id="heatindex"
+                          min={showFixedValue(weatherDataDaily.minHeatIndex)}
+                          max={showFixedValue(weatherDataDaily.maxHeatIndex)}
+                          minReceivedAt={
+                            weatherDataDaily.minHeatIndexReceivedAt
+                          }
+                          maxReceivedAt={
+                            weatherDataDaily.maxHeatIndexReceivedAt
+                          }
+                          unit={weatherDataDaily.unit.temperatureUnit}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
