@@ -3,23 +3,27 @@ import fr from 'apexcharts/dist/locales/fr.json';
 import Charts from 'react-apexcharts';
 
 function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  let nb = Math.random() * (min - max) + max;
+
+  return parseFloat(parseFloat(nb).toFixed(1));
 }
 
 const generateData = () => {
   let timestampbegin = 1626220800000;
   let timestampEnd = 1626307200000;
-  let dataBegin = 71;
+  let dataBegin = 0;
   let d = [[timestampbegin, dataBegin]];
 
-  let min = 71;
-  let max = 71;
+  let min = 0;
+  let max = 0;
 
   while (timestampbegin <= timestampEnd) {
     timestampbegin = timestampbegin + 120000;
-    dataBegin = getRandomInt(dataBegin - 3, dataBegin + 3);
+    dataBegin = getRandomInt(dataBegin - 1, dataBegin + 1);
+
+    if (dataBegin <= 0) {
+      dataBegin += 3;
+    }
 
     let a = [timestampbegin, dataBegin];
     d.push(a);
@@ -36,7 +40,7 @@ const generateData = () => {
   return [d, min, max];
 };
 
-export default function HumidityGraphic(props) {
+export default function WindSpeedGraphic(props) {
   var begin = new Date('15 Jul 2021');
   begin.setUTCHours(0);
 
@@ -44,21 +48,27 @@ export default function HumidityGraphic(props) {
   end.setUTCHours(0);
 
   const [a, b, c] = generateData();
+  const [aa, ba, ca] = generateData();
 
   const data = {
     series: [
       {
-        name: 'Humidité',
+        name: 'Vitesse du vent',
         data: a,
+        type: 'line',
+      },
+      {
+        name: 'Rafale',
+        data: aa,
+        type: 'area',
       },
     ],
     options: {
-      colors: ['#e7bf22'],
+      colors: ['#e7bf22', '#0c94c9e3'],
       chart: {
         locales: [fr],
         defaultLocale: 'fr',
         type: 'line',
-        foreColor: '#fff',
         toolbar: {
           show: true,
           tools: {
@@ -71,6 +81,7 @@ export default function HumidityGraphic(props) {
           type: 'xy',
           autoScaleYaxis: true,
         },
+        foreColor: '#fff',
       },
       dataLabels: {
         enabled: false,
@@ -80,16 +91,24 @@ export default function HumidityGraphic(props) {
         width: 2,
       },
       title: {
-        text: 'Humidité',
+        text: 'Vent',
         align: 'left',
       },
       grid: {
+        row: {
+          opacity: 0.5,
+        },
         borderColor: '#f1f1f1',
       },
       xaxis: {
         type: 'datetime',
         min: begin.getTime(),
         max: end.getTime(),
+      },
+      yaxis: {
+        forceNiceScale: true,
+        min: 0,
+        max: c + 2,
       },
       tooltip: {
         x: {
@@ -101,7 +120,20 @@ export default function HumidityGraphic(props) {
               val,
               { series, seriesIndex, dataPointIndex, w }
             ) {
-              return w.globals.series[seriesIndex][dataPointIndex] + ' %';
+              return w.globals.series[seriesIndex][dataPointIndex] + ' km/h';
+            },
+            title: {
+              formatter: function (val, opts) {
+                return val + ' -';
+              },
+            },
+          },
+          {
+            formatter: function (
+              val,
+              { series, seriesIndex, dataPointIndex, w }
+            ) {
+              return w.globals.series[seriesIndex][dataPointIndex] + ' km/h';
             },
             title: {
               formatter: function (val, opts) {
@@ -112,20 +144,16 @@ export default function HumidityGraphic(props) {
         ],
       },
       legend: {
+        position: 'bottom',
         showForSingleSeries: true,
         tooltipHoverFormatter: function (val, opts) {
           return (
             val +
             ' - ' +
             opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] +
-            ' %'
+            ' km/h'
           );
         },
-      },
-      yaxis: {
-        forceNiceScale: true,
-        min: b - 2,
-        max: c + 2,
       },
       annotations: {
         xaxis: [

@@ -5,21 +5,21 @@ import Charts from 'react-apexcharts';
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return (Math.floor(Math.random() * (max - min + 1)) + min) % 360;
 }
 
 const generateData = () => {
   let timestampbegin = 1626220800000;
   let timestampEnd = 1626307200000;
-  let dataBegin = 71;
+  let dataBegin = 180;
   let d = [[timestampbegin, dataBegin]];
 
   let min = 71;
   let max = 71;
 
   while (timestampbegin <= timestampEnd) {
-    timestampbegin = timestampbegin + 120000;
-    dataBegin = getRandomInt(dataBegin - 3, dataBegin + 3);
+    timestampbegin = timestampbegin + 300000;
+    dataBegin = getRandomInt(dataBegin - 1, dataBegin + 1);
 
     let a = [timestampbegin, dataBegin];
     d.push(a);
@@ -36,7 +36,7 @@ const generateData = () => {
   return [d, min, max];
 };
 
-export default function HumidityGraphic(props) {
+export default function WindDirectionGraphic(props) {
   var begin = new Date('15 Jul 2021');
   begin.setUTCHours(0);
 
@@ -48,7 +48,7 @@ export default function HumidityGraphic(props) {
   const data = {
     series: [
       {
-        name: 'Humidité',
+        name: 'Direction du vent',
         data: a,
       },
     ],
@@ -57,7 +57,7 @@ export default function HumidityGraphic(props) {
       chart: {
         locales: [fr],
         defaultLocale: 'fr',
-        type: 'line',
+        type: 'scatter',
         foreColor: '#fff',
         toolbar: {
           show: true,
@@ -75,12 +75,11 @@ export default function HumidityGraphic(props) {
       dataLabels: {
         enabled: false,
       },
-      stroke: {
-        curve: 'straight',
-        width: 2,
+      markers: {
+        size: 2,
       },
       title: {
-        text: 'Humidité',
+        text: 'Direction du vent',
         align: 'left',
       },
       grid: {
@@ -101,7 +100,7 @@ export default function HumidityGraphic(props) {
               val,
               { series, seriesIndex, dataPointIndex, w }
             ) {
-              return w.globals.series[seriesIndex][dataPointIndex] + ' %';
+              return w.globals.series[seriesIndex][dataPointIndex] + ' °';
             },
             title: {
               formatter: function (val, opts) {
@@ -113,19 +112,11 @@ export default function HumidityGraphic(props) {
       },
       legend: {
         showForSingleSeries: true,
-        tooltipHoverFormatter: function (val, opts) {
-          return (
-            val +
-            ' - ' +
-            opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] +
-            ' %'
-          );
-        },
       },
       yaxis: {
-        forceNiceScale: true,
-        min: b - 2,
-        max: c + 2,
+        min: 0,
+        max: 360,
+        tickAmount: 4,
       },
       annotations: {
         xaxis: [
@@ -161,7 +152,7 @@ export default function HumidityGraphic(props) {
       <Charts
         options={data.options}
         series={data.series}
-        type="line"
+        type="scatter"
         height={350}
       />
     </div>

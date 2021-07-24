@@ -124,7 +124,7 @@ export default function Menu(props) {
                 activeItemName === 'graphic' ? 'current-menu-item' : ''
               }`}
             >
-              <Link to="/weather/graph/daily">Graphiques</Link>
+              <Link to="#">Graphiques</Link>
             </li>
             <li
               className={`menu-item ${

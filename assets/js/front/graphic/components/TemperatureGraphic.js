@@ -1,58 +1,132 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, {Fragment, useEffect, useReducer, useState} from 'react';
 import fr from 'apexcharts/dist/locales/fr.json';
 import Charts from 'react-apexcharts';
 
+function getRandomInt(min, max) {
+  let nb = Math.random() * (min - max) + max;
+
+  return parseFloat(parseFloat(nb).toFixed(1));
+}
+
+const generateData = () => {
+  let timestampbegin = 1626220800000;
+  let timestampEnd = 1626307200000;
+  let dataBegin = 19;
+  let d = [[timestampbegin, dataBegin]];
+
+  let min = 19;
+  let max = 19;
+  let minTime = timestampbegin;
+  let maxTime = timestampbegin;
+
+  while (timestampbegin <= timestampEnd) {
+    timestampbegin = timestampbegin + 120000;
+    dataBegin = getRandomInt(dataBegin - 0.1, dataBegin + 0.1);
+
+    let a = [timestampbegin, dataBegin];
+    d.push(a);
+
+    if (dataBegin <= min) {
+      min = dataBegin;
+      minTime = timestampbegin;
+    }
+
+    if (dataBegin >= max) {
+      max = dataBegin;
+      maxTime = timestampbegin;
+    }
+  }
+
+  return [d, min, max, minTime, maxTime];
+};
+
 export default function TemperatureGraphic(props) {
-  var d = new Date('14 Jul 2021');
-  d.setHours(0, 0, 0, 0);
+  var begin = new Date('15 Jul 2021');
+  begin.setUTCHours(0);
+
+  var end = new Date('16 Jul 2021');
+  end.setUTCHours(0);
+
+  let [a, b, c, minTime, maxTime] = generateData();
+  let [aa, ba, ca] = generateData();
+  let [aaa, baa, caa] = generateData();
+
+  const reload = () => {
+    let [a, b, c, minTime, maxTime] = generateData();
+    let [aa, ba, ca] = generateData();
+    let [aaa, baa, caa] = generateData();
+
+    setDataa({
+      ...dataa,
+      series: [
+        {
+          name: 'Température',
+          data: a,
+        },
+        {
+          name: 'Température ressentie',
+          data: aa,
+        },
+        {
+          name: 'Point de rosée',
+          data: aaa,
+        },
+      ],
+      options: {
+        ...dataa.options,
+        yaxis: {
+          forceNiceScale: true,
+          min: b - 2,
+          max: c + 2,
+        },
+        annotations: {
+          ...dataa.options.annotations,
+          xaxis: [
+            {
+              x: minTime,
+              borderColor: '#999',
+              label: {
+                text: 'Min',
+                style: {
+                  color: '#fff',
+                  background: '#09a8e6',
+                },
+              },
+            },
+            {
+              x: maxTime,
+              borderColor: '#999',
+              label: {
+                text: 'Max',
+                style: {
+                  color: '#fff',
+                  background: '#ed7839',
+                },
+              },
+            },
+          ],
+        },
+      }
+    })
+  }
 
   const data = {
     series: [
       {
         name: 'Température',
-        data: [
-          [1626224358000, 27.5],
-          [1626225958000, 28.5],
-          [1626226958000, 28.2],
-          [1626227958000, 27.6],
-          [1626228958000, 12.3],
-          [1626229958000, 16.5],
-          [1626230958000, 17.3],
-          [1626231958000, 15.6],
-          [1626232958000, 25.6],
-        ],
+        data: a,
       },
       {
         name: 'Température ressentie',
-        data: [
-          [1626224358000, 21.5],
-          [1626225958000, 22.5],
-          [1626226958000, 23.2],
-          [1626227958000, 20.6],
-          [1626228958000, 16.3],
-          [1626229958000, 18.5],
-          [1626230958000, 14.3],
-          [1626231958000, 16.6],
-          [1626232958000, 20.6],
-        ],
+        data: aa,
       },
       {
         name: 'Point de rosée',
-        data: [
-          [1626224358000, 12.5],
-          [1626225958000, 13.5],
-          [1626226958000, 15.2],
-          [1626227958000, 16.6],
-          [1626228958000, 12.3],
-          [1626229958000, 15.5],
-          [1626230958000, 12.3],
-          [1626231958000, 19.6],
-          [1626232958000, 20.6],
-        ],
+        data: aaa,
       },
     ],
     options: {
-      colors: ['#dec137', '#7ab11b', '#3682d3'],
+      colors: ['#dec137', '#7ab11b', '#09a8e6'],
       chart: {
         locales: [fr],
         defaultLocale: 'fr',
@@ -61,13 +135,15 @@ export default function TemperatureGraphic(props) {
           show: true,
           tools: {
             download: false,
-            pan: false
-          }
+            pan: false,
+          },
         },
         zoom: {
-          type: 'x',
+          enabled: true,
+          type: 'xy',
+          autoScaleYaxis: true,
         },
-        foreColor: '#fff'
+        foreColor: '#fff',
       },
       dataLabels: {
         enabled: false,
@@ -88,16 +164,13 @@ export default function TemperatureGraphic(props) {
       },
       xaxis: {
         type: 'datetime',
-        min: d.getTime(),
-        max: new Date('15 Jul 2021').getTime(),
-        labels: {
-          datetimeUTC: false,
-        },
+        min: begin.getTime(),
+        max: end.getTime(),
       },
       yaxis: {
         forceNiceScale: true,
-        min: 10,
-        max: 32,
+        min: b - 2,
+        max: c + 2,
       },
       tooltip: {
         x: {
@@ -160,7 +233,7 @@ export default function TemperatureGraphic(props) {
       annotations: {
         xaxis: [
           {
-            x: 1626228958000,
+            x: minTime,
             borderColor: '#999',
             label: {
               text: 'Min',
@@ -171,7 +244,7 @@ export default function TemperatureGraphic(props) {
             },
           },
           {
-            x: 1626231958000,
+            x: maxTime,
             borderColor: '#999',
             label: {
               text: 'Max',
@@ -186,14 +259,19 @@ export default function TemperatureGraphic(props) {
     },
   };
 
+  const [dataa, setDataa] = useState(data);
+
   return (
-    <div id="chart">
-      <Charts
-        options={data.options}
-        series={data.series}
-        type="line"
-        height={350}
-      />
-    </div>
+    <>
+      <button onClick={() => reload()}>reload</button>
+      <div id="chart">
+        <Charts
+          options={dataa.options}
+          series={dataa.series}
+          type="line"
+          height={350}
+        />
+      </div>
+      </>
   );
 }
