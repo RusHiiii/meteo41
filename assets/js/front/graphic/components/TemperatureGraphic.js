@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useReducer, useState} from 'react';
+import React, { Fragment, useEffect, useReducer, useState } from 'react';
 import fr from 'apexcharts/dist/locales/fr.json';
 import Charts from 'react-apexcharts';
 
@@ -106,9 +106,9 @@ export default function TemperatureGraphic(props) {
             },
           ],
         },
-      }
-    })
-  }
+      },
+    });
+  };
 
   const data = {
     series: [
@@ -272,6 +272,6 @@ export default function TemperatureGraphic(props) {
           height={350}
         />
       </div>
-      </>
+    </>
   );
 }
