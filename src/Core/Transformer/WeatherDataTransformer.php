@@ -96,7 +96,11 @@ class WeatherDataTransformer
             $weatherData['cloud_base_min']['value'],
             $weatherData['cloud_base_min']['createdAt'],
             $weatherData['cloud_base_max']['value'],
-            $weatherData['cloud_base_max']['createdAt']
+            $weatherData['cloud_base_max']['createdAt'],
+            $weatherData['heat_index_min']['value'],
+            $weatherData['heat_index_min']['createdAt'],
+            $weatherData['heat_index_max']['value'],
+            $weatherData['heat_index_max']['createdAt']
         );
     }
 

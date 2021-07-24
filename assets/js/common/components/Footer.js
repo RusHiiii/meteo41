@@ -20,7 +20,10 @@ export default function Footer(props) {
               <a target="_blank" href="https://github.com/RusHiiii">
                 <i className="fa fa-github" />
               </a>
-              <a target="_blank" href="https://www.linkedin.com/in/florent-damiens-939a49164/">
+              <a
+                target="_blank"
+                href="https://www.linkedin.com/in/florent-damiens-939a49164/"
+              >
                 <i className="fa fa-linkedin" />
               </a>
             </div>
