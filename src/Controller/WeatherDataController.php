@@ -206,4 +206,30 @@ class WeatherDataController extends AbstractController
 
         return new SerializedResponse($this->serializer->serialize($weatherDataView, 'json'), 200);
     }
+
+    /**
+     * @Route("/api/weatherData/{reference}/graph/{period}", name="show_graph_data", requirements={"period"="daily|weekly|monthly|yearly"}, methods={"GET"})
+     */
+    public function showWeatherDataGraphAction(Request $request, $reference, $period): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+
+        $weatherStation = $this->weatherStationRepository->findByReference($reference);
+        if ($weatherStation === null) {
+            $error = $this->errorFactory->create(new WeatherStationNotFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);
+        }
+
+        list($endDate, $startDate) = $this->periodConverter->convertPeriodToDate($period);
+
+        $weatherDataGraph = $this->weatherDataRepository->findWeatherDataGraph($startDate, $endDate, $period, $reference);
+        if (!$weatherDataGraph) {
+            $error = $this->errorFactory->create(new NoWeatherDataReportFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
+        }
+
+        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataGraphSearchView($weatherStation, $weatherDataGraph, new \DateTime($startDate), new \DateTime($endDate));
+
+        return new SerializedResponse($this->serializer->serialize($weatherDataView, 'json'), 200);
+    }
 }

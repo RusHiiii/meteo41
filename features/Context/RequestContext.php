@@ -76,6 +76,14 @@ final class RequestContext implements Context
     }
 
     /**
+     * @Then the response should contains :arg number of result
+     */
+    public function theContentContainNumberofData($arg)
+    {
+        Assert::eq($arg, json_decode($this->response->getContent(), true)['numberOfResult']);
+    }
+
+    /**
      * @When I request the url :uri with http verb :method and with the payload
      */
     public function iRequestTheUrlWithHttpVerbAndWithThePayload($uri, $method, PyStringNode $payload = null)

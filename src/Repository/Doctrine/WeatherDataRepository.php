@@ -143,6 +143,51 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
     }
 
     /**
+     * @param string $startDate
+     * @param string $endDate
+     * @param string $period
+     * @param string $reference
+     * @return int|mixed|string
+     */
+    public function findWeatherDataGraph(string $startDate, string $endDate, string $period, string $reference)
+    {
+        if ($period === Period::DAILY) {
+            $mod = 2;
+        }
+
+        if ($period === Period::WEEKLY) {
+            $mod = 10;
+        }
+
+        if ($period === Period::MONTHLY) {
+            $mod = 30;
+        }
+
+        if ($period === Period::YEARLY) {
+            $mod = 120;
+        }
+
+        $qb = $this
+            ->createQueryBuilder('weatherData')
+            ->leftJoin('weatherData.weatherStation', 'weatherStation');
+
+        $qb
+            ->andWhere(
+                $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
+            )
+            ->andWhere('MOD(weatherData.id, 2) = 0')
+            ->andWhere('weatherStation.reference = :reference')
+            ->orderBy('weatherData.createdAt', 'ASC')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->setParameter('reference', $reference);
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @param string $field
      * @return \Doctrine\ORM\QueryBuilder
      */
