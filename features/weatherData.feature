@@ -363,3 +363,10 @@ Feature: Weather Data
          "message":"Aucune données météo disponible actuellement :("
       }]
     """
+
+  @database
+  Scenario: Show graph weather data
+    Given I load the fixture "weatherData"
+    When I request the url "/api/weatherData/CCC/graph/daily" with http verb "GET"
+    Then the status code should be 200
+    Then the response should contains "2" number of result
