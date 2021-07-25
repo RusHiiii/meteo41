@@ -109,9 +109,11 @@ class WeatherDataTransformer
     /**
      * @param WeatherStation $weatherStation
      * @param array $weatherDatas
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
      * @return WeatherDataGraphSearchView
      */
-    public function transformWeatherDataGraphSearchView(WeatherStation $weatherStation, array $weatherDatas)
+    public function transformWeatherDataGraphSearchView(WeatherStation $weatherStation, array $weatherDatas, \DateTime $startDate, \DateTime $endDate)
     {
         $unit = $this->unitTransformer->transformUnitToView($weatherStation->getPreferedUnit());
         $weatherStation = $this->weatherStationTransformer->transformWeatherStationToView($weatherStation);
@@ -126,6 +128,8 @@ class WeatherDataTransformer
             $weatherStation,
             $unit,
             count($datas),
+            $startDate,
+            $endDate,
             $datas
         );
     }

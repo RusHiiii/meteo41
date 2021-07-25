@@ -224,7 +224,7 @@ class WeatherDataController extends AbstractController
 
         $weatherDataGraph = $this->weatherDataRepository->findWeatherDataGraph($startDate, $endDate, $period, $reference);
 
-        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataGraphSearchView($weatherStation, $weatherDataGraph);
+        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataGraphSearchView($weatherStation, $weatherDataGraph, new \DateTime($startDate), new \DateTime($endDate));
 
         return new SerializedResponse($this->serializer->serialize($weatherDataView, 'json'), 200);
     }

@@ -13,6 +13,10 @@ class WeatherDataGraphSearchView
 
     private UnitView $unit;
 
+    private \DateTime $dateBegin;
+
+    private \DateTime $dateEnd;
+
     private array $datas;
 
     /**
@@ -20,14 +24,18 @@ class WeatherDataGraphSearchView
      * @param WeatherStationView $weatherStation
      * @param UnitView $unit
      * @param int $numberOfResult
+     * @param \DateTime $dateBegin
+     * @param \DateTime $dateEnd
      * @param array $datas
      */
-    public function __construct(WeatherStationView $weatherStation, UnitView $unit, int $numberOfResult, array $datas)
+    public function __construct(WeatherStationView $weatherStation, UnitView $unit, int $numberOfResult, \DateTime $dateBegin, \DateTime $dateEnd, array $datas)
     {
         $this->weatherStation = $weatherStation;
         $this->unit = $unit;
         $this->datas = $datas;
         $this->numberOfResult = $numberOfResult;
+        $this->dateBegin = $dateBegin;
+        $this->dateEnd = $dateEnd;
     }
 
     /**
@@ -60,5 +68,21 @@ class WeatherDataGraphSearchView
     public function getDatas(): array
     {
         return $this->datas;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateBegin(): \DateTime
+    {
+        return $this->dateBegin;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateEnd(): \DateTime
+    {
+        return $this->dateEnd;
     }
 }
