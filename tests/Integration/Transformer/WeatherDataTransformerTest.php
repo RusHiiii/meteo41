@@ -8,6 +8,7 @@ use App\Core\Converter\Period\PeriodConverter;
 use App\Core\Transformer\WeatherDataTransformer;
 use App\Entity\Core\ViewModels\Unit\UnitView;
 use App\Entity\Core\ViewModels\WeatherData\WeatherDataDetailView;
+use App\Entity\Core\ViewModels\WeatherData\WeatherDataGraphSearchView;
 use App\Entity\Core\ViewModels\WeatherData\WeatherDataPeriodView;
 use App\Entity\Core\ViewModels\WeatherData\WeatherDataSummaryView;
 use App\Entity\Core\ViewModels\WeatherStation\WeatherStationView;
@@ -92,5 +93,24 @@ class WeatherDataTransformerTest extends TestCase
         $this->assertEquals(56, $weatherDataView->getMaxHumidity());
         $this->assertEquals(1025.6, $weatherDataView->getMinRelativePressure());
         $this->assertEquals(35.0, $weatherDataView->getMaxWindGust());
+    }
+
+    public function testTransformToGraphView()
+    {
+        $entities = $this->loadFile('tests/.fixtures/weatherData.yml');
+
+        $endDate = date('Y-m-d H:i:s', strtotime('now'));
+        $startDate = date('Y-01-01 00:00:00', strtotime('now'));
+
+        $data = $this->weatherDataRepository->findWeatherDataGraph($startDate, $endDate, Period::YEARLY, 'AAA');
+        $weatherStation = $this->weatherStationRepository->find(1);
+
+        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataGraphSearchView($weatherStation, $data, new \DateTime($startDate), new \DateTime($endDate));
+
+        $this->assertInstanceOf(WeatherDataGraphSearchView::class, $weatherDataView);
+
+        $this->assertInstanceOf(WeatherStationView::class, $weatherDataView->getWeatherStation());
+        $this->assertInstanceOf(UnitView::class, $weatherDataView->getUnit());
+        $this->assertEquals(1, $weatherDataView->getNumberOfResult());
     }
 }
