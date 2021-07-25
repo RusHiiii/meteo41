@@ -64,14 +64,13 @@ class WeatherDataGraphView
      * @param float $solarRadiation
      * @param int $uv
      * @param int $pm25
-     * @param int $pm25Avg
      * @param float $dewPoint
      * @param float $windChill
      * @param int $aqi
      * @param int $aqiAvg
      * @param \DateTime $receivedAt
      */
-    public function __construct(int $id, float $temperature, int $humidity, float $relativePressure, int $windDirection, float $windSpeed, float $windGust, float $rainRate, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, int $pm25, int $pm25Avg, float $dewPoint, float $windChill, int $aqi, int $aqiAvg, \DateTime $receivedAt)
+    public function __construct(int $id, float $temperature, int $humidity, float $relativePressure, int $windDirection, float $windSpeed, float $windGust, float $rainRate, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, int $pm25, float $dewPoint, float $windChill, int $aqi, int $aqiAvg, \DateTime $receivedAt)
     {
         $this->id = $id;
         $this->temperature = $temperature;
@@ -88,7 +87,6 @@ class WeatherDataGraphView
         $this->solarRadiation = $solarRadiation;
         $this->uv = $uv;
         $this->pm25 = $pm25;
-        $this->pm25Avg = $pm25Avg;
         $this->dewPoint = $dewPoint;
         $this->windChill = $windChill;
         $this->aqi = $aqi;
@@ -214,14 +212,6 @@ class WeatherDataGraphView
     public function getPm25(): int
     {
         return $this->pm25;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPm25Avg(): int
-    {
-        return $this->pm25Avg;
     }
 
     /**

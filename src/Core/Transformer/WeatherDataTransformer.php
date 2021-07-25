@@ -174,7 +174,6 @@ class WeatherDataTransformer
             $weatherData->getSolarRadiation(),
             $weatherData->getUv(),
             $weatherData->getPm25(),
-            $weatherData->getPm25Avg(),
             $weatherData->getDewPoint(),
             $weatherData->getWindChill(),
             $weatherData->getAqi(),
