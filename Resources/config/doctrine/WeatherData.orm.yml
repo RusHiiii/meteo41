@@ -140,6 +140,9 @@ App\Entity\WebApp\WeatherData:
     createdAt:
       type: datetime
       nullable: false
+  indexes:
+    createdAt:
+      columns: [ created_at ]
   manyToOne:
     unit:
       targetEntity: App\Entity\WebApp\Unit
