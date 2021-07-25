@@ -3,6 +3,8 @@
 namespace App\Core\Transformer;
 
 use App\Entity\Core\ViewModels\WeatherData\WeatherDataDetailView;
+use App\Entity\Core\ViewModels\WeatherData\WeatherDataGraphSearchView;
+use App\Entity\Core\ViewModels\WeatherData\WeatherDataGraphView;
 use App\Entity\Core\ViewModels\WeatherData\WeatherDataPeriodView;
 use App\Entity\Core\ViewModels\WeatherData\WeatherDataSummaryView;
 use App\Entity\WebApp\WeatherData;
@@ -105,6 +107,30 @@ class WeatherDataTransformer
     }
 
     /**
+     * @param WeatherStation $weatherStation
+     * @param array $weatherDatas
+     * @return WeatherDataGraphSearchView
+     */
+    public function transformWeatherDataGraphSearchView(WeatherStation $weatherStation, array $weatherDatas)
+    {
+        $unit = $this->unitTransformer->transformUnitToView($weatherStation->getPreferedUnit());
+        $weatherStation = $this->weatherStationTransformer->transformWeatherStationToView($weatherStation);
+
+        $datas = [];
+
+        foreach ($weatherDatas as $weatherData) {
+            $datas[] = $this->transformWeatherDataGraphView($weatherData);
+        }
+
+        return new WeatherDataGraphSearchView(
+            $weatherStation,
+            $unit,
+            count($datas),
+            $datas
+        );
+    }
+
+    /**
      * @param WeatherData $currentWeatherData
      * @return WeatherDataSummaryView
      */
@@ -123,6 +149,37 @@ class WeatherDataTransformer
             $currentWeatherData->getHumidity(),
             $currentWeatherData->getWindDirectionAvg(),
             $currentWeatherData->getCreatedAt()
+        );
+    }
+
+    /**
+     * @param WeatherData $weatherData
+     * @return WeatherDataGraphView
+     */
+    public function transformWeatherDataGraphView(WeatherData $weatherData)
+    {
+        return new WeatherDataGraphView(
+            $weatherData->getId(),
+            $weatherData->getTemperature(),
+            $weatherData->getHumidity(),
+            $weatherData->getRelativePressure(),
+            $weatherData->getWindDirection(),
+            $weatherData->getWindSpeed(),
+            $weatherData->getWindGust(),
+            $weatherData->getRainRate(),
+            $weatherData->getRainDaily(),
+            $weatherData->getRainWeekly(),
+            $weatherData->getRainMonthly(),
+            $weatherData->getRainYearly(),
+            $weatherData->getSolarRadiation(),
+            $weatherData->getUv(),
+            $weatherData->getPm25(),
+            $weatherData->getPm25Avg(),
+            $weatherData->getDewPoint(),
+            $weatherData->getWindChill(),
+            $weatherData->getAqi(),
+            $weatherData->getAqiAvg(),
+            $weatherData->getCreatedAt()
         );
     }
 
