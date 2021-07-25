@@ -220,7 +220,7 @@ ReactDOM.render(
               <PublicRoute
                 exact
                 name={ROUTE_PERIOD_GRAPHIC}
-                path="/weather/graph/:period(daily|weekly|monthly|yearly|record)"
+                path="/weather/graph"
                 component={PeriodGraphic}
               />
               <PublicRoute

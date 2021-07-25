@@ -95,7 +95,7 @@ class WeatherDataTransformerTest extends TestCase
         $this->assertEquals(35.0, $weatherDataView->getMaxWindGust());
     }
 
-    public function testTransformToGraphView()
+    public function testTransformToGraphViewYearly()
     {
         $entities = $this->loadFile('tests/.fixtures/weatherData.yml');
 
@@ -112,5 +112,26 @@ class WeatherDataTransformerTest extends TestCase
         $this->assertInstanceOf(WeatherStationView::class, $weatherDataView->getWeatherStation());
         $this->assertInstanceOf(UnitView::class, $weatherDataView->getUnit());
         $this->assertEquals(1, $weatherDataView->getNumberOfResult());
+        $this->assertIsArray($weatherDataView->getDatas());
+    }
+
+    public function testTransformToGraphViewDaily()
+    {
+        $entities = $this->loadFile('tests/.fixtures/weatherData.yml');
+
+        $endDate = date('Y-m-d H:i:s', strtotime('now'));
+        $startDate = date('Y-01-01 00:00:00', strtotime('now'));
+
+        $data = $this->weatherDataRepository->findWeatherDataGraph($startDate, $endDate, Period::DAILY, 'AAA');
+        $weatherStation = $this->weatherStationRepository->find(1);
+
+        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataGraphSearchView($weatherStation, $data, new \DateTime($startDate), new \DateTime($endDate));
+
+        $this->assertInstanceOf(WeatherDataGraphSearchView::class, $weatherDataView);
+
+        $this->assertInstanceOf(WeatherStationView::class, $weatherDataView->getWeatherStation());
+        $this->assertInstanceOf(UnitView::class, $weatherDataView->getUnit());
+        $this->assertEquals(1, $weatherDataView->getNumberOfResult());
+        $this->assertIsArray($weatherDataView->getDatas());
     }
 }

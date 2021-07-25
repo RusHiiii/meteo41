@@ -223,6 +223,10 @@ class WeatherDataController extends AbstractController
         list($endDate, $startDate) = $this->periodConverter->convertPeriodToDate($period);
 
         $weatherDataGraph = $this->weatherDataRepository->findWeatherDataGraph($startDate, $endDate, $period, $reference);
+        if (!$weatherDataGraph) {
+            $error = $this->errorFactory->create(new NoWeatherDataReportFoundException());
+            return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
+        }
 
         $weatherDataView = $this->weatherDataTransformer->transformWeatherDataGraphSearchView($weatherStation, $weatherDataGraph, new \DateTime($startDate), new \DateTime($endDate));
 

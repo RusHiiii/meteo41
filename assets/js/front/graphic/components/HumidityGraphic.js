@@ -49,7 +49,7 @@ export default function HumidityGraphic(props) {
     series: [
       {
         name: 'Humidité',
-        data: a,
+        data: [],
       },
     ],
     options: {
@@ -71,6 +71,9 @@ export default function HumidityGraphic(props) {
           type: 'xy',
           autoScaleYaxis: true,
         },
+      },
+      noData: {
+        text: 'Aucune données :('
       },
       dataLabels: {
         enabled: false,
@@ -124,35 +127,9 @@ export default function HumidityGraphic(props) {
       },
       yaxis: {
         forceNiceScale: true,
-        min: b - 2,
-        max: c + 2,
-      },
-      annotations: {
-        xaxis: [
-          {
-            x: 1626228958000,
-            borderColor: '#999',
-            label: {
-              text: 'Min',
-              style: {
-                color: '#fff',
-                background: '#09a8e6',
-              },
-            },
-          },
-          {
-            x: 1626231958000,
-            borderColor: '#999',
-            label: {
-              text: 'Max',
-              style: {
-                color: '#fff',
-                background: '#ed7839',
-              },
-            },
-          },
-        ],
-      },
+        min: 0,
+        max: 100,
+      }
     },
   };
 
