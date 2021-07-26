@@ -55,8 +55,8 @@ final class RequestContext implements Context
      */
     public function theStatusCodeShouldBe(string $code)
     {
-        dd($this->response->getContent());
         Assert::eq($this->response->getStatusCode(), $code);
+        dump($this->response->getContent());
     }
 
     /**
