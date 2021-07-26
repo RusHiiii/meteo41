@@ -6,6 +6,7 @@ use App\Core\Constant\WeatherData\Period;
 use App\Entity\WebApp\WeatherData;
 use App\Repository\WeatherDataRepository as WeatherDataRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 class WeatherDataRepository extends AbstractRepository implements WeatherDataRepositoryInterface
 {
@@ -227,23 +228,28 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
     public function hasWeatherDataHistory(string $startDate, string $endDate, string $reference)
     {
 
-        $qb = $this
+        $qbSub = $this
             ->createQueryBuilder('weatherData')
             ->leftJoin('weatherData.weatherStation', 'weatherStation');
 
-        $qb
+        $qbSub
+            ->select('weatherData.id')
             ->where(
-                $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
+                $qbSub->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
-            ->orderBy('weatherData.createdAt', 'ASC')
-            ->setParameter('startDate', $startDate)
-            ->setParameter('endDate', $endDate)
-            ->setParameter('reference', $reference);
+            ->orderBy('weatherData.createdAt', 'ASC');
+
+        $qb = $this
+            ->createQueryBuilder('existQB');
 
         return $qb
+            ->select($qb->expr()->count('existQB.id'))
+            ->where($qb->expr()->exists($qbSub->getDQL()))
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->setParameter('reference', $reference)
             ->getQuery()
-            ->setMaxResults(1)
             ->getOneOrNullResult() !== null;
     }
 
