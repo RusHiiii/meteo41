@@ -63,7 +63,7 @@ jobs:
             # —— Test
             - name: Execute functionnal tests
               run: |
-                vendor/bin/behat --format=progress --name="Show history weather data with bad period"
+                vendor/bin/behat --format=progress
 
             - name: Execute integration tests
               run: bin/phpunit --testdox

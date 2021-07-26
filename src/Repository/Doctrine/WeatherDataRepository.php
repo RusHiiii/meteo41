@@ -6,7 +6,6 @@ use App\Core\Constant\WeatherData\Period;
 use App\Entity\WebApp\WeatherData;
 use App\Repository\WeatherDataRepository as WeatherDataRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use function Doctrine\ORM\QueryBuilder;
 
 class WeatherDataRepository extends AbstractRepository implements WeatherDataRepositoryInterface
 {
