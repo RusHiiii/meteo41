@@ -355,7 +355,7 @@ Feature: Weather Data
   Scenario: Show history weather data with bad period
     Given I load the fixture "weatherData"
     When I request the url "/api/weatherData/AAA/history/daily" with http verb "GET"
-    Then the status code should be 500
+    Then the status code should be 400
     And the response should have the following content
     """
      [{
