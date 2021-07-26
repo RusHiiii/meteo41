@@ -244,13 +244,13 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
             ->createQueryBuilder('existQB');
 
         return $qb
-            ->select($qb->expr()->count('existQB.id'))
+            ->select($qb->expr()->count('existQB.id') . ' AS exist')
             ->where($qb->expr()->exists($qbSub->getDQL()))
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
             ->setParameter('reference', $reference)
             ->getQuery()
-            ->getOneOrNullResult() !== null;
+            ->getOneOrNullResult();
     }
 
     /**

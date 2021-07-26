@@ -197,7 +197,7 @@ class WeatherDataController extends AbstractController
         list($endDate, $startDate) = $this->periodConverter->convertPeriodToDate($period);
 
         $weatherDataPeriod = $this->weatherDataRepository->findWeatherDataHistory($startDate, $endDate, $period, $reference);
-        if (!$weatherDataPeriod['has_data']) {
+        if (!$weatherDataPeriod['has_data']['exist']) {
             $error = $this->errorFactory->create(new NoWeatherDataReportFoundException());
             return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 400);
         }
