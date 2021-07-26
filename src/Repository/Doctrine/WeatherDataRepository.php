@@ -151,9 +151,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
      */
     public function findWeatherDataGraph(string $startDate, string $endDate, string $period, string $reference)
     {
-        if ($period === Period::DAILY) {
-            $mod = 2;
-        }
+        $mod = 2;
 
         if ($period === Period::WEEKLY) {
             $mod = 10;
@@ -175,9 +173,10 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
             ->andWhere(
                 $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
             )
-            ->andWhere('MOD(weatherData.id, 2) = 0')
+            ->andWhere('MOD(weatherData.id, :mod) = 0')
             ->andWhere('weatherStation.reference = :reference')
             ->orderBy('weatherData.createdAt', 'ASC')
+            ->setParameter('mod', $mod)
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
             ->setParameter('reference', $reference);
@@ -185,26 +184,6 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         return $qb
             ->getQuery()
             ->getResult();
-    }
-
-    /**
-     * @param string $field
-     * @return \Doctrine\ORM\QueryBuilder
-     */
-    private function queryMaxWeatherDataHistory(string $field)
-    {
-        $subQb = $this
-            ->createQueryBuilder('maxSubQuery')
-            ->leftJoin('maxSubQuery.weatherStation', 'weatherStationSub');
-
-        $subQb
-            ->select($subQb->expr()->max($this->alias($field, 'maxSubQuery')))
-            ->where(
-                $subQb->expr()->between('maxSubQuery.createdAt', ':startDate', ':endDate')
-            )
-            ->andWhere('weatherStationSub.reference = :reference');
-
-        return $subQb;
     }
 
     /**
@@ -222,15 +201,12 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
             ->leftJoin('weatherData.weatherStation', 'weatherStation');
 
         $qb
-            ->select($this->alias($field, 'weatherData', 'value') .  ', weatherData.createdAt')
-            ->where(
-                $qb->expr()->in($this->alias($field, 'weatherData'), $this->queryMaxWeatherDataHistory($field)->getDQL())
-            )
+            ->select('weatherData.createdAt, ' . $this->alias($field, 'weatherData', 'value'))
             ->andWhere(
                 $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
-            ->orderBy('weatherData.createdAt', 'ASC')
+            ->orderBy('value', 'DESC')
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
             ->setParameter('reference', $reference);
@@ -251,24 +227,29 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
     public function hasWeatherDataHistory(string $startDate, string $endDate, string $reference)
     {
 
-        $qb = $this
+        $qbSub = $this
             ->createQueryBuilder('weatherData')
             ->leftJoin('weatherData.weatherStation', 'weatherStation');
 
-        $qb
+        $qbSub
+            ->select('weatherData.id')
             ->where(
-                $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
+                $qbSub->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
-            ->orderBy('weatherData.createdAt', 'ASC')
-            ->setParameter('startDate', $startDate)
-            ->setParameter('endDate', $endDate)
-            ->setParameter('reference', $reference);
+            ->orderBy('weatherData.createdAt', 'ASC');
+
+        $qb = $this
+            ->createQueryBuilder('existQB');
 
         return $qb
+            ->select($qb->expr()->count('existQB.id') . ' AS exist')
+            ->where($qb->expr()->exists($qbSub->getDQL()))
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->setParameter('reference', $reference)
             ->getQuery()
-            ->setMaxResults(1)
-            ->getOneOrNullResult() !== null;
+            ->getOneOrNullResult();
     }
 
     /**
@@ -303,26 +284,6 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
     }
 
     /**
-     * @param string $field
-     * @return \Doctrine\ORM\QueryBuilder
-     */
-    private function queryMinWeatherDataHistory(string $field)
-    {
-        $subQb = $this
-            ->createQueryBuilder('minSubQuery')
-            ->leftJoin('minSubQuery.weatherStation', 'weatherStationSub');
-
-        $subQb
-            ->select($subQb->expr()->min($this->alias($field, 'minSubQuery')))
-            ->where(
-                $subQb->expr()->between('minSubQuery.createdAt', ':startDate', ':endDate')
-            )
-            ->andWhere('weatherStationSub.reference = :reference');
-
-        return $subQb;
-    }
-
-    /**
      * @param string $startDate
      * @param string $endDate
      * @param string $reference
@@ -337,15 +298,12 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
             ->leftJoin('weatherData.weatherStation', 'weatherStation');
 
         $qb
-            ->select($this->alias($field, 'weatherData', 'value') .  ', weatherData.createdAt')
-            ->where(
-                $qb->expr()->in($this->alias($field, 'weatherData'), $this->queryMinWeatherDataHistory($field)->getDQL())
-            )
+            ->select('weatherData.createdAt, ' . $this->alias($field, 'weatherData', 'value'))
             ->andWhere(
                 $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
-            ->orderBy('weatherData.createdAt', 'ASC')
+            ->orderBy('value', 'ASC')
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
             ->setParameter('reference', $reference);
