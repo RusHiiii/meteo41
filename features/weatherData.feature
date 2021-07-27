@@ -325,7 +325,6 @@ Feature: Weather Data
        "maxBeaufortScale":3,
        "maxBeaufortScaleReceivedAt":"2021-01-01T00:13:12+01:00",
        "avgWindSpeed":10.2,
-       "avgWindDirection":19,
        "avgPm25":13,
        "avgAqi":54,
        "maxPm25":6,
