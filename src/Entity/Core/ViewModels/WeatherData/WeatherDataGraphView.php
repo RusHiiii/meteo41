@@ -25,12 +25,6 @@ class WeatherDataGraphView
 
     private float $rainDaily;
 
-    private float $rainWeekly;
-
-    private float $rainMonthly;
-
-    private float $rainYearly;
-
     private float $solarRadiation;
 
     private int $uv;
@@ -58,9 +52,6 @@ class WeatherDataGraphView
      * @param float $windGust
      * @param float $rainRate
      * @param float $rainDaily
-     * @param float $rainWeekly
-     * @param float $rainMonthly
-     * @param float $rainYearly
      * @param float $solarRadiation
      * @param int $uv
      * @param int $pm25
@@ -70,7 +61,7 @@ class WeatherDataGraphView
      * @param int $aqiAvg
      * @param \DateTime $receivedAt
      */
-    public function __construct(int $id, float $temperature, int $humidity, float $relativePressure, int $windDirection, float $windSpeed, float $windGust, float $rainRate, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, int $pm25, float $dewPoint, float $windChill, int $aqi, int $aqiAvg, \DateTime $receivedAt)
+    public function __construct(int $id, float $temperature, int $humidity, float $relativePressure, int $windDirection, float $windSpeed, float $windGust, float $rainRate, float $rainDaily, float $solarRadiation, int $uv, int $pm25, float $dewPoint, float $windChill, int $aqi, int $aqiAvg, \DateTime $receivedAt)
     {
         $this->id = $id;
         $this->temperature = $temperature;
@@ -81,9 +72,6 @@ class WeatherDataGraphView
         $this->windGust = $windGust;
         $this->rainRate = $rainRate;
         $this->rainDaily = $rainDaily;
-        $this->rainWeekly = $rainWeekly;
-        $this->rainMonthly = $rainMonthly;
-        $this->rainYearly = $rainYearly;
         $this->solarRadiation = $solarRadiation;
         $this->uv = $uv;
         $this->pm25 = $pm25;
@@ -164,30 +152,6 @@ class WeatherDataGraphView
     public function getRainDaily(): float
     {
         return $this->rainDaily;
-    }
-
-    /**
-     * @return float
-     */
-    public function getRainWeekly(): float
-    {
-        return $this->rainWeekly;
-    }
-
-    /**
-     * @return float
-     */
-    public function getRainMonthly(): float
-    {
-        return $this->rainMonthly;
-    }
-
-    /**
-     * @return float
-     */
-    public function getRainYearly(): float
-    {
-        return $this->rainYearly;
     }
 
     /**
