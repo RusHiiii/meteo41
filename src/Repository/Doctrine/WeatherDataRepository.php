@@ -118,7 +118,6 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         $history['wind_gust_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'windMaxDailyGust');
         $history['beaufort_scale_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'beaufortScale');
         $history['wind_speed_avg'] = $this->findAvgWeatherDataHistory($startDate, $endDate, $reference, 'windSpeedAvg');
-        $history['wind_dir_avg'] = $this->findAvgWeatherDataHistory($startDate, $endDate, $reference, 'windDirectionAvg');
 
         // Air quality
         $history['pm25_avg'] = $this->findAvgWeatherDataHistory($startDate, $endDate, $reference, 'pm25Avg');

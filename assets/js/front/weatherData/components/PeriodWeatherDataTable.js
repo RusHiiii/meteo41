@@ -267,16 +267,6 @@ export default function PeriodWeatherDataTable(props) {
           </td>
           <td></td>
         </tr>
-        <tr className="min-max">
-          <td>Direction en degré moyenne</td>
-          <td>{weatherData.avgWindDirection}°</td>
-          <td></td>
-        </tr>
-        <tr className="min-max">
-          <td>Direction moyenne</td>
-          <td>{degToCompass(weatherData.avgWindDirection)}</td>
-          <td></td>
-        </tr>
         <tr className="table-obs-last-data min-max">
           <td>Échelle de Beaufort maximal</td>
           <td>{beaufortScaleToText(weatherData.maxBeaufortScale)}</td>
