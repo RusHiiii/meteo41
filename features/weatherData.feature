@@ -320,7 +320,7 @@ Feature: Weather Data
        "maxRainEvent":5,
        "maxRainEventReceivedAt":"2021-01-01T00:13:12+01:00",
        "rainPeriod":176,
-       "maxWindGust":35,
+       "maxWindGust":22,
        "maxWindGustReceivedAt":"2021-01-01T00:13:12+01:00",
        "maxBeaufortScale":3,
        "maxBeaufortScaleReceivedAt":"2021-01-01T00:13:12+01:00",

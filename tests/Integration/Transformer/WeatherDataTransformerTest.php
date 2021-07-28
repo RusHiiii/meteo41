@@ -92,7 +92,7 @@ class WeatherDataTransformerTest extends TestCase
         $this->assertEquals(8.7, $weatherDataView->getMaxTemperature());
         $this->assertEquals(56, $weatherDataView->getMaxHumidity());
         $this->assertEquals(1025.6, $weatherDataView->getMinRelativePressure());
-        $this->assertEquals(35.0, $weatherDataView->getMaxWindGust());
+        $this->assertEquals(22.0, $weatherDataView->getMaxWindGust());
     }
 
     public function testTransformToGraphViewYearly()
