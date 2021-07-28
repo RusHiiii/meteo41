@@ -99,6 +99,11 @@ export default function Informations(props) {
                   Les records de la station
                 </Link>
               </li>
+              <li>
+                <Link to="/weather/graph">
+                  Les graphiques de la station
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="col-md-4">
