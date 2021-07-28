@@ -368,4 +368,4 @@ Feature: Weather Data
     Given I load the fixture "weatherData"
     When I request the url "/api/weatherData/CCC/graph/daily" with http verb "GET"
     Then the status code should be 200
-    Then the response should contains "2" number of result
+    Then the response should contains "1" number of result
