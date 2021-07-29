@@ -8,6 +8,7 @@ import {
   PERIOD_YEALY,
 } from '../../../common/constant';
 import { periodToDateBegin, periodToDateEnd } from '../utils/periodToData';
+import {useInView} from "react-intersection-observer";
 
 const GRAPHIC_DATA_SERIES_LOAD = 'GRAPHIC_DATA_SERIES_LOAD';
 const GRAPHIC_DATA_HISTORY_LOAD = 'GRAPHIC_DATA_HISTORY_LOAD';
@@ -126,7 +127,7 @@ function useRainPeriodGraphic({
   history,
   period,
   unit,
-}) {
+}, inView) {
   const initialState = {
     series: [],
     options: {
@@ -184,7 +185,7 @@ function useRainPeriodGraphic({
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    if (!dataRainDaily) {
+    if (!dataRainDaily || !inView) {
       return;
     }
 
@@ -194,10 +195,10 @@ function useRainPeriodGraphic({
       dataRainRate: dataRainRate,
       unit: unit,
     });
-  }, [dataRainDaily]);
+  }, [dataRainDaily, inView]);
 
   useEffect(() => {
-    if (!history) {
+    if (!history || !inView) {
       return;
     }
 
@@ -206,10 +207,10 @@ function useRainPeriodGraphic({
       maxTime: new Date(history.maxRainRateReceivedAt).getTime(),
       maxValue: history.maxRainRate,
     });
-  }, [history]);
+  }, [history, inView]);
 
   useEffect(() => {
-    if (!period) {
+    if (!period || !inView) {
       return;
     }
 
@@ -218,16 +219,17 @@ function useRainPeriodGraphic({
       min: periodToDateBegin(period).unix() * 1000,
       max: periodToDateEnd(period).unix() * 1000,
     });
-  }, [period]);
+  }, [period, inView]);
 
   return [state, dispatch];
 }
 
 function RainPeriodGraphic(props) {
-  const [state, dispatch] = useRainPeriodGraphic(props);
+  const { ref, inView, entry } = useInView({ threshold: 0 });
+  const [state, dispatch] = useRainPeriodGraphic(props, inView);
 
   return (
-    <div id="chart">
+    <div id="chart" ref={ref}>
       <Charts
         options={state.options}
         series={state.series}

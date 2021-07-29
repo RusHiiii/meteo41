@@ -8,6 +8,7 @@ import {
   PERIOD_YEALY,
 } from '../../../common/constant';
 import { periodToDateBegin, periodToDateEnd } from '../utils/periodToData';
+import {useInView} from "react-intersection-observer";
 
 const GRAPHIC_DATA_SERIES_LOAD = 'GRAPHIC_DATA_SERIES_LOAD';
 const GRAPHIC_DATA_HISTORY_LOAD = 'GRAPHIC_DATA_HISTORY_LOAD';
@@ -127,7 +128,7 @@ function useWindPeriodGraphic({
   history,
   period,
   unit,
-}) {
+}, inView) {
   const initialState = {
     series: [],
     options: {
@@ -185,7 +186,7 @@ function useWindPeriodGraphic({
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    if (!dataWindSpeed) {
+    if (!dataWindSpeed || !inView) {
       return;
     }
 
@@ -195,10 +196,10 @@ function useWindPeriodGraphic({
       dataWindGust: dataWindGust,
       unit: unit,
     });
-  }, [dataWindSpeed]);
+  }, [dataWindSpeed, inView]);
 
   useEffect(() => {
-    if (!history) {
+    if (!history || !inView) {
       return;
     }
 
@@ -207,10 +208,10 @@ function useWindPeriodGraphic({
       maxTime: new Date(history.maxWindGustReceivedAt).getTime(),
       maxValue: history.maxWindGust,
     });
-  }, [history]);
+  }, [history, inView]);
 
   useEffect(() => {
-    if (!period) {
+    if (!period || !inView) {
       return;
     }
 
@@ -219,16 +220,17 @@ function useWindPeriodGraphic({
       min: periodToDateBegin(period).unix() * 1000,
       max: periodToDateEnd(period).unix() * 1000,
     });
-  }, [period]);
+  }, [period, inView]);
 
   return [state, dispatch];
 }
 
 function WindPeriodGraphic(props) {
-  const [state, dispatch] = useWindPeriodGraphic(props);
+  const { ref, inView, entry } = useInView({ threshold: 0 });
+  const [state, dispatch] = useWindPeriodGraphic(props, inView);
 
   return (
-    <div id="chart">
+    <div id="chart" ref={ref}>
       <Charts
         options={state.options}
         series={state.series}
