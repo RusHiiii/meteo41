@@ -8,6 +8,7 @@ import {
   PERIOD_YEALY,
 } from '../../../common/constant';
 import { periodToDateBegin, periodToDateEnd } from '../utils/periodToData';
+import {useInView} from "react-intersection-observer";
 
 const GRAPHIC_DATA_SERIES_LOAD = 'GRAPHIC_DATA_SERIES_LOAD';
 const GRAPHIC_DATA_HISTORY_LOAD = 'GRAPHIC_DATA_HISTORY_LOAD';
@@ -109,7 +110,7 @@ const reducer = (state, action) => {
   return state;
 };
 
-function usePressurePeriodGraphic({ data, history, period, unit }) {
+function usePressurePeriodGraphic({ data, history, period, unit }, inView) {
   const initialState = {
     series: [],
     options: {
@@ -170,7 +171,7 @@ function usePressurePeriodGraphic({ data, history, period, unit }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    if (!data) {
+    if (!data || !inView) {
       return;
     }
 
@@ -179,10 +180,10 @@ function usePressurePeriodGraphic({ data, history, period, unit }) {
       data: data,
       unit: unit,
     });
-  }, [data]);
+  }, [data, inView]);
 
   useEffect(() => {
-    if (!history) {
+    if (!history || !inView) {
       return;
     }
 
@@ -193,10 +194,10 @@ function usePressurePeriodGraphic({ data, history, period, unit }) {
       minValue: history.minRelativePressure,
       maxValue: history.maxRelativePressure,
     });
-  }, [history]);
+  }, [history, inView]);
 
   useEffect(() => {
-    if (!period) {
+    if (!period || !inView) {
       return;
     }
 
@@ -205,16 +206,17 @@ function usePressurePeriodGraphic({ data, history, period, unit }) {
       min: periodToDateBegin(period).unix() * 1000,
       max: periodToDateEnd(period).unix() * 1000,
     });
-  }, [period]);
+  }, [period, inView]);
 
   return [state, dispatch];
 }
 
 function PressurePeriodGraphic(props) {
-  const [state, dispatch] = usePressurePeriodGraphic(props);
+  const { ref, inView, entry } = useInView({ threshold: 0 });
+  const [state, dispatch] = usePressurePeriodGraphic(props, inView);
 
   return (
-    <div id="chart">
+    <div id="chart" ref={ref}>
       <Charts
         options={state.options}
         series={state.series}

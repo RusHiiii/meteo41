@@ -8,6 +8,7 @@ import {
   PERIOD_YEALY,
 } from '../../../common/constant';
 import { periodToDateBegin, periodToDateEnd } from '../utils/periodToData';
+import {useInView} from "react-intersection-observer";
 
 const GRAPHIC_DATA_SERIES_LOAD = 'GRAPHIC_DATA_SERIES_LOAD';
 const GRAPHIC_DATA_PERIOD_CHANGE = 'GRAPHIC_DATA_PERIOD_CHANGE';
@@ -71,7 +72,7 @@ const reducer = (state, action) => {
   return state;
 };
 
-function useWindDirectionPeriodGraphic({ data, period, unit }) {
+function useWindDirectionPeriodGraphic({ data, period, unit }, inView) {
   const initialState = {
     series: [],
     options: {
@@ -132,7 +133,7 @@ function useWindDirectionPeriodGraphic({ data, period, unit }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    if (!data) {
+    if (!data || !inView) {
       return;
     }
 
@@ -141,10 +142,10 @@ function useWindDirectionPeriodGraphic({ data, period, unit }) {
       data: data,
       unit: unit,
     });
-  }, [data]);
+  }, [data, inView]);
 
   useEffect(() => {
-    if (!period) {
+    if (!period || !inView) {
       return;
     }
 
@@ -153,16 +154,17 @@ function useWindDirectionPeriodGraphic({ data, period, unit }) {
       min: periodToDateBegin(period).unix() * 1000,
       max: periodToDateEnd(period).unix() * 1000,
     });
-  }, [period]);
+  }, [period, inView]);
 
   return [state, dispatch];
 }
 
 function WindDirectionPeriodGraphic(props) {
-  const [state, dispatch] = useWindDirectionPeriodGraphic(props);
+  const { ref, inView, entry } = useInView({ threshold: 0 });
+  const [state, dispatch] = useWindDirectionPeriodGraphic(props, inView);
 
   return (
-    <div id="chart">
+    <div id="chart" ref={ref}>
       <Charts
         options={state.options}
         series={state.series}
