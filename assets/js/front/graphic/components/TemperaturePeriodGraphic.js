@@ -8,6 +8,7 @@ import {
   PERIOD_YEALY,
 } from '../../../common/constant';
 import { periodToDateBegin, periodToDateEnd } from '../utils/periodToData';
+import {useInView} from "react-intersection-observer";
 
 const GRAPHIC_DATA_SERIES_LOAD = 'GRAPHIC_DATA_SERIES_LOAD';
 const GRAPHIC_DATA_HISTORY_LOAD = 'GRAPHIC_DATA_HISTORY_LOAD';
@@ -158,7 +159,7 @@ function useTemperaturePeriodGraphic({
   history,
   period,
   unit,
-}) {
+}, inView) {
   const initialState = {
     series: [],
     options: {
@@ -216,7 +217,7 @@ function useTemperaturePeriodGraphic({
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    if (!dataTemp) {
+    if (!dataTemp || !inView) {
       return;
     }
 
@@ -227,10 +228,10 @@ function useTemperaturePeriodGraphic({
       dataWindchill: dataWindchill,
       unit: unit,
     });
-  }, [dataTemp]);
+  }, [dataTemp, inView]);
 
   useEffect(() => {
-    if (!history) {
+    if (!history || !inView) {
       return;
     }
 
@@ -241,10 +242,10 @@ function useTemperaturePeriodGraphic({
       maxTime: new Date(history.maxTemperatureReceivedAt).getTime(),
       maxValue: history.maxTemperature
     });
-  }, [history]);
+  }, [history, inView]);
 
   useEffect(() => {
-    if (!period) {
+    if (!period || !inView) {
       return;
     }
 
@@ -253,16 +254,17 @@ function useTemperaturePeriodGraphic({
       min: periodToDateBegin(period).unix() * 1000,
       max: periodToDateEnd(period).unix() * 1000,
     });
-  }, [period]);
+  }, [period, inView]);
 
   return [state, dispatch];
 }
 
 function TemperaturePeriodGraphic(props) {
-  const [state, dispatch] = useTemperaturePeriodGraphic(props);
+  const { ref, inView, entry } = useInView({ threshold: 0 });
+  const [state, dispatch] = useTemperaturePeriodGraphic(props, inView);
 
   return (
-    <div id="chart">
+    <div id="chart" ref={ref}>
       <Charts
         options={state.options}
         series={state.series}

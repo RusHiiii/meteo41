@@ -8,6 +8,7 @@ import {
   PERIOD_YEALY,
 } from '../../../common/constant';
 import { periodToDateBegin, periodToDateEnd } from '../utils/periodToData';
+import {useInView} from "react-intersection-observer";
 
 const GRAPHIC_DATA_SERIES_LOAD = 'GRAPHIC_DATA_SERIES_LOAD';
 const GRAPHIC_DATA_HISTORY_LOAD = 'GRAPHIC_DATA_HISTORY_LOAD';
@@ -150,7 +151,7 @@ function usePMPeriodGraphic({
   history,
   period,
   unit,
-}) {
+}, inView) {
   const initialState = {
     series: [],
     options: {
@@ -208,7 +209,7 @@ function usePMPeriodGraphic({
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    if (!dataAqi) {
+    if (!dataAqi || !inView) {
       return;
     }
 
@@ -219,10 +220,10 @@ function usePMPeriodGraphic({
       dataAqiAvg: dataAqiAvg,
       unit: unit,
     });
-  }, [dataAqi]);
+  }, [dataAqi, inView]);
 
   useEffect(() => {
-    if (!history) {
+    if (!history || !inView) {
       return;
     }
 
@@ -233,10 +234,10 @@ function usePMPeriodGraphic({
       minValue: history.minPm25,
       maxValue: history.maxPm25,
     });
-  }, [history]);
+  }, [history, inView]);
 
   useEffect(() => {
-    if (!period) {
+    if (!period || !inView) {
       return;
     }
 
@@ -245,16 +246,17 @@ function usePMPeriodGraphic({
       min: periodToDateBegin(period).unix() * 1000,
       max: periodToDateEnd(period).unix() * 1000,
     });
-  }, [period]);
+  }, [period, inView]);
 
   return [state, dispatch];
 }
 
 function PMPeriodGraphic(props) {
-  const [state, dispatch] = usePMPeriodGraphic(props);
+  const { ref, inView, entry } = useInView({ threshold: 0 });
+  const [state, dispatch] = usePMPeriodGraphic(props, inView);
 
   return (
-    <div id="chart">
+    <div id="chart" ref={ref}>
       <Charts
         options={state.options}
         series={state.series}
