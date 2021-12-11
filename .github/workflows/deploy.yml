@@ -12,10 +12,17 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
 
+            # —— Install Open VPN Repo
+            - name: Install Open VPN Repo
+              uses: myci-actions/add-deb-repo@10
+              with:
+                repo: deb http://build.openvpn.net/debian/openvpn/release/2.5 focal main
+                repo-name: openvpn
+                keys-asc: https://swupdate.openvpn.net/repos/repo-public.gpg
+
             # —— Install Open VPN
             - name: Install Open VPN
               run: |
-                  sudo echo "deb http://build.openvpn.net/debian/openvpn/release/2.5 focal main" > /etc/apt/sources.list.d/openvpn-aptrepo.list
                   sudo apt-get update
                   sudo apt-get install openvpn
 
