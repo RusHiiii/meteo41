@@ -13,16 +13,17 @@ function initGauge(canvas, value, unit) {
   grainrate = new RadialGauge(canvas, {
     units: ` ${unit}`,
     minValue: 0,
-    maxValue: 50,
+    maxValue: 60,
     colors: { majorTicks: '#FFFFFF' },
     strokeTicks: false,
-    majorTicks: ['0', '10', '20', '30', '40', '50'],
+    majorTicks: ['0', '10', '20', '30', '40', '50', '60'],
     highlights: [
-      { from: 0, to: 10, color: '#DBEFF5' },
-      { from: 10, to: 20, color: '#B6DFEB' },
-      { from: 20, to: 30, color: '#92CFE1' },
-      { from: 30, to: 40, color: '#6DBFD7' },
-      { from: 40, to: 50, color: '#49AFCD' },
+      { from: 0, to: 10, color: '#D6ECF4' },
+      { from: 10, to: 20, color: '#ADD9E9' },
+      { from: 20, to: 30, color: '#85c6df' },
+      { from: 30, to: 40, color: '#5cb3d4' },
+      { from: 40, to: 50, color: '#33a0c9' },
+      { from: 50, to: 60, color: '#0d7499' },
     ],
   });
 
