@@ -150,7 +150,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
      */
     public function findWeatherDataGraph(string $startDate, string $endDate, string $period, string $reference)
     {
-        $mod = 3;
+        $mod = 1;
 
         if ($period === Period::WEEKLY) {
             $mod = 15;
