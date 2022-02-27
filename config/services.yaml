@@ -35,6 +35,9 @@ services:
             - "@password_encoder"
         tags: ['nelmio_alice.faker.provider']
 
+    App\Fixtures\Provider\DateProvider:
+        tags: [ 'nelmio_alice.faker.provider' ]
+
     App\Core\ExternalApi\Geocoding:
         arguments:
             - "@http_client"
