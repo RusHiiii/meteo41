@@ -171,7 +171,7 @@ Feature: Weather Data
        "windSpeedAvg":10.7,
        "windDirectionAvg":19,
        "humidity":56,
-       "receivedAt":"2021-01-01T00:13:12+01:00"
+       "receivedAt":"2022-01-01T00:13:12+01:00"
     }
     """
 
@@ -248,7 +248,7 @@ Feature: Weather Data
        "aqi":54,
        "aqiAvg":54,
        "heatIndex":8.3,
-       "receivedAt":"2021-01-01T00:13:12+01:00"
+       "receivedAt":"2022-01-01T00:13:12+01:00"
     }
     """
 
@@ -292,61 +292,61 @@ Feature: Weather Data
           "pressureUnit":"hPa"
        },
        "maxTemperature":8.7,
-       "maxTemperatureReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxTemperatureReceivedAt":"2022-01-01T00:13:12+01:00",
        "minTemperature":8.6,
-       "minTemperatureReceivedAt":"2021-01-01T00:12:12+01:00",
+       "minTemperatureReceivedAt":"2022-01-01T00:12:12+01:00",
        "maxHumidex":9.9,
-       "maxHumidexReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxHumidexReceivedAt":"2022-01-01T00:13:12+01:00",
        "minHumidex":8.9,
-       "minHumidexReceivedAt":"2021-01-01T00:12:12+01:00",
+       "minHumidexReceivedAt":"2022-01-01T00:12:12+01:00",
        "maxDewPoint":1.3,
-       "maxDewPointReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxDewPointReceivedAt":"2022-01-01T00:13:12+01:00",
        "minDewPoint":0.3,
-       "minDewPointReceivedAt":"2021-01-01T00:12:12+01:00",
+       "minDewPointReceivedAt":"2022-01-01T00:12:12+01:00",
        "maxWindChill":8.4,
-       "maxWindChillReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxWindChillReceivedAt":"2022-01-01T00:13:12+01:00",
        "minWindChill":7.4,
-       "minWindChillReceivedAt":"2021-01-01T00:12:12+01:00",
+       "minWindChillReceivedAt":"2022-01-01T00:12:12+01:00",
        "maxHumidity":56,
-       "maxHumidityReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxHumidityReceivedAt":"2022-01-01T00:13:12+01:00",
        "minHumidity":55,
-       "minHumidityReceivedAt":"2021-01-01T00:12:12+01:00",
+       "minHumidityReceivedAt":"2022-01-01T00:12:12+01:00",
        "maxRelativePressure":1026.6,
-       "maxRelativePressureReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxRelativePressureReceivedAt":"2022-01-01T00:13:12+01:00",
        "minRelativePressure":1025.6,
-       "minRelativePressureReceivedAt":"2021-01-01T00:12:12+01:00",
+       "minRelativePressureReceivedAt":"2022-01-01T00:12:12+01:00",
        "maxRainRate":3,
-       "maxRainRateReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxRainRateReceivedAt":"2022-01-01T00:13:12+01:00",
        "maxRainEvent":5,
-       "maxRainEventReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxRainEventReceivedAt":"2022-01-01T00:13:12+01:00",
        "rainPeriod":176,
        "maxWindGust":22,
-       "maxWindGustReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxWindGustReceivedAt":"2022-01-01T00:13:12+01:00",
        "maxBeaufortScale":3,
-       "maxBeaufortScaleReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxBeaufortScaleReceivedAt":"2022-01-01T00:13:12+01:00",
        "avgWindSpeed":10.2,
        "avgPm25":13,
        "avgAqi":54,
        "maxPm25":6,
-       "maxPm25ReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxPm25ReceivedAt":"2022-01-01T00:13:12+01:00",
        "maxAqi":54,
-       "maxAqiReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxAqiReceivedAt":"2022-01-01T00:13:12+01:00",
        "maxSolarRadiation":412,
-       "maxSolarRadiationReceivedAt":"2021-01-01T00:12:12+01:00",
+       "maxSolarRadiationReceivedAt":"2022-01-01T00:12:12+01:00",
        "maxUv":5,
-       "maxUvReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxUvReceivedAt":"2022-01-01T00:13:12+01:00",
        "minPm25":5,
-       "minPm25ReceivedAt":"2021-01-01T00:12:12+01:00",
+       "minPm25ReceivedAt":"2022-01-01T00:12:12+01:00",
        "minAqi":53,
-       "minAqiReceivedAt":"2021-01-01T00:12:12+01:00",
+       "minAqiReceivedAt":"2022-01-01T00:12:12+01:00",
        "minCloudBase":1024,
-       "minCloudBaseReceivedAt":"2021-01-01T00:12:12+01:00",
+       "minCloudBaseReceivedAt":"2022-01-01T00:12:12+01:00",
        "maxCloudBase":1024,
-       "maxCloudBaseReceivedAt":"2021-01-01T00:12:12+01:00",
+       "maxCloudBaseReceivedAt":"2022-01-01T00:12:12+01:00",
        "maxHeatIndex":8.3,
-       "maxHeatIndexReceivedAt":"2021-01-01T00:13:12+01:00",
+       "maxHeatIndexReceivedAt":"2022-01-01T00:13:12+01:00",
        "minHeatIndex":7.3,
-       "minHeatIndexReceivedAt":"2021-01-01T00:12:12+01:00"
+       "minHeatIndexReceivedAt":"2022-01-01T00:12:12+01:00"
     }
     """
 
@@ -368,4 +368,4 @@ Feature: Weather Data
     Given I load the fixture "weatherData"
     When I request the url "/api/weatherData/CCC/graph/daily" with http verb "GET"
     Then the status code should be 200
-    Then the response should contains "1" number of result
+    Then the response should contains "4" number of result

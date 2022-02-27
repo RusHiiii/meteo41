@@ -84,9 +84,9 @@ App\Entity\WebApp\WeatherData:
         beaufortScale: 2
         aqi: 53
         aqiAvg: 53
-        createdAt: '<date_create("2021-01-01 00:12:12")>'
+        createdAt: '<date_create("2022-01-01 00:12:12")>'
         heatIndex: 7.3
-        year: 2021
+        year: 2022
         month: 1
         day: 1
     weather_data_2:
@@ -269,8 +269,8 @@ App\Entity\WebApp\WeatherData:
         beaufortScale: 3
         aqi: 54
         aqiAvg: 54
-        createdAt: '<date_create("2021-01-01 00:13:12")>'
-        year: 2021
+        createdAt: '<date_create("2022-01-01 00:13:12")>'
+        year: 2022
         month: 1
         day: 1
         heatIndex: 8.3
