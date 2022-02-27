@@ -140,65 +140,18 @@ App\Entity\WebApp\WeatherData:
     createdAt:
       type: datetime
       nullable: false
+    year:
+      type: integer
+      nullable: false
+    month:
+      type: integer
+      nullable: false
+    day:
+      type: integer
+      nullable: false
   indexes:
     createdAt:
-      columns: [ created_at ]
-    temperature:
-        columns: [ temperature ]
-    heatIndex:
-        columns: [ heat_index ]
-    humidity:
-        columns: [ humidity ]
-    relativePressure:
-        columns: [ relative_pressure ]
-    windDirection:
-        columns: [ wind_direction ]
-    windDirectionAvg:
-        columns: [ wind_direction_avg ]
-    windSpeed:
-        columns: [ wind_speed ]
-    windSpeedAvg:
-        columns: [ wind_speed_avg ]
-    windGust:
-        columns: [ wind_gust ]
-    windMaxDailyGust:
-        columns: [ wind_max_daily_gust ]
-    rainRate:
-        columns: [ rain_rate ]
-    rainEvent:
-        columns: [ rain_event ]
-    rainHourly:
-        columns: [ rain_hourly ]
-    rainDaily:
-        columns: [ rain_daily ]
-    rainWeekly:
-        columns: [ rain_weekly ]
-    rainMonthly:
-        columns: [ rain_monthly ]
-    rainYearly:
-        columns: [ rain_yearly ]
-    solarRadiation:
-        columns: [ solar_radiation ]
-    uv:
-        columns: [ uv ]
-    pm25:
-        columns: [ pm25 ]
-    pm25Avg:
-        columns: [ pm25_avg ]
-    humidex:
-        columns: [ humidex ]
-    dewPoint:
-        columns: [ dew_point ]
-    windChill:
-        columns: [ wind_chill ]
-    cloudBase:
-        columns: [ cloud_base ]
-    beaufortScale:
-        columns: [ beaufort_scale ]
-    aqi:
-        columns: [ aqi ]
-    aqiAvg:
-        columns: [ aqi_avg ]
+      columns: [ year, month, day ]
   manyToOne:
     unit:
       targetEntity: App\Entity\WebApp\Unit
