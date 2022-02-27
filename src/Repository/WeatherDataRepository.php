@@ -15,4 +15,8 @@ interface WeatherDataRepository
     public function hasWeatherDataHistory(string $startDate, string $endDate, string $reference);
 
     public function findWeatherDataGraph(string $startDate, string $endDate, string $period, string $reference);
+
+    public function findWeatherDatas();
+
+    public function findCountWeatherDatas();
 }
