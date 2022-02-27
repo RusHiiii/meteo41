@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Console;
 
 use App\Repository\Doctrine\WeatherDataRepository;
