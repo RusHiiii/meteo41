@@ -66,6 +66,8 @@ class WeatherData
 
     private \DateTime $createdAt;
 
+    private \DateTime $date;
+
     private Unit $unit;
 
     private WeatherStation $weatherStation;
@@ -143,6 +145,14 @@ class WeatherData
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @param \DateTime $date
+     */
+    public function setDate(\DateTime $date): void
+    {
+        $this->date = $date;
     }
 
     /**

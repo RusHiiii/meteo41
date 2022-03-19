@@ -79,7 +79,6 @@ class WeatherDataTransformer
             $weatherData['wind_gust_max']['createdAt'],
             $weatherData['beaufort_scale_max']['value'],
             $weatherData['beaufort_scale_max']['createdAt'],
-            $weatherData['wind_speed_avg']['value'],
             round($weatherData['pm25_avg']['value']),
             round($weatherData['aqi_avg']['value']),
             $weatherData['pm25_max']['value'],

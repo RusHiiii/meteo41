@@ -41,10 +41,17 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
 
         $qb = $this
             ->createQueryBuilder('weatherData')
-            ->leftJoin('weatherData.weatherStation', 'weatherStation')
+            ->leftJoin('weatherData.weatherStation', 'weatherStation');
+
+        $qb
             ->andWhere('weatherStation.reference = :reference')
+            ->andWhere(
+                $qb->expr()->between('weatherData.date', ':startDate', ':endDate')
+            )
             ->orderBy('weatherData.createdAt', 'DESC')
-            ->setParameter('reference', $reference);
+            ->setParameter('reference', $reference)
+            ->setParameter('startDate', (new \DateTime())->modify('-7 day')->format('Y-m-d'))
+            ->setParameter('endDate', (new \DateTime())->format('Y-m-d'));
 
         return $qb
             ->getQuery()
@@ -61,14 +68,21 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
     {
         $qb = $this
             ->createQueryBuilder('weatherData')
-            ->leftJoin('weatherData.weatherStation', 'weatherStation')
+            ->leftJoin('weatherData.weatherStation', 'weatherStation');
+
+        $qb
             ->andWhere('weatherStation.reference = :reference')
             ->andWhere('weatherData.createdAt <= :dateStart')
             ->andWhere('weatherData.createdAt >= :dateEnd')
+            ->andWhere(
+                $qb->expr()->between('weatherData.date', ':startDate', ':endDate')
+            )
             ->orderBy('weatherData.createdAt', 'DESC')
             ->setParameter('reference', $reference)
             ->setParameter('dateStart', (new \DateTime())->modify('-1 hours')->format('Y-m-d H:i:s'))
-            ->setParameter('dateEnd', (new \DateTime())->modify('-2 hours')->format('Y-m-d H:i:s'));
+            ->setParameter('dateEnd', (new \DateTime())->modify('-2 hours')->format('Y-m-d H:i:s'))
+            ->setParameter('startDate', (new \DateTime())->modify('-1 day')->format('Y-m-d'))
+            ->setParameter('endDate', (new \DateTime())->format('Y-m-d'));
 
         return $qb
             ->getQuery()
@@ -117,7 +131,6 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         // Wind speed
         $history['wind_gust_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'windGust');
         $history['beaufort_scale_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'beaufortScale');
-        $history['wind_speed_avg'] = $this->findAvgWeatherDataHistory($startDate, $endDate, $reference, 'windSpeedAvg');
 
         // Air quality
         $history['pm25_avg'] = $this->findAvgWeatherDataHistory($startDate, $endDate, $reference, 'pm25Avg');
@@ -150,7 +163,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
      */
     public function findWeatherDataGraph(string $startDate, string $endDate, string $period, string $reference)
     {
-        $mod = 1;
+        $mod = 2;
 
         if ($period === Period::WEEKLY) {
             $mod = 15;
@@ -170,7 +183,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
 
         $qb
             ->andWhere(
-                $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
+                $qb->expr()->between('weatherData.date', ':startDate', ':endDate')
             )
             ->andWhere('MOD(weatherData.id, :mod) = 0')
             ->andWhere('weatherStation.reference = :reference')
@@ -202,7 +215,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         $qb
             ->select('weatherData.createdAt, ' . $this->alias($field, 'weatherData', 'value'))
             ->andWhere(
-                $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
+                $qb->expr()->between('weatherData.date', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
             ->orderBy('value', 'DESC')
@@ -233,7 +246,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         $qbSub
             ->select('weatherData.id')
             ->where(
-                $qbSub->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
+                $qbSub->expr()->between('weatherData.date', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
             ->orderBy('weatherData.createdAt', 'ASC');
@@ -292,11 +305,9 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         $qb
             ->select($qb->expr()->avg($this->alias($field, 'weatherData')) . ' AS value')
             ->andWhere(
-                $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
+                $qb->expr()->between('weatherData.date', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
-            ->groupBy('weatherData.createdAt')
-            ->orderBy('weatherData.createdAt', 'ASC')
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
             ->setParameter('reference', $reference);
@@ -324,7 +335,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         $qb
             ->select('weatherData.createdAt, ' . $this->alias($field, 'weatherData', 'value'))
             ->andWhere(
-                $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
+                $qb->expr()->between('weatherData.date', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
             ->orderBy('value', 'ASC')

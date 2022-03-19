@@ -55,9 +55,7 @@ class MigrateWeatherDataCommand extends Command
 
             $progressBar->advance();
 
-            $weatherData->setYear($createdAt->format('Y'));
-            $weatherData->setMonth($createdAt->format('m'));
-            $weatherData->setDay($createdAt->format('d'));
+            $weatherData->setDate($createdAt);
 
 
             if (($key % 1000) === 0) {

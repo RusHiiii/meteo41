@@ -260,13 +260,6 @@ export default function PeriodWeatherDataTable(props) {
             le <Date date={weatherData.maxWindGustReceivedAt} format={'LL'} />
           </td>
         </tr>
-        <tr className="min-max">
-          <td>Vitesse moyenne</td>
-          <td>
-            {weatherData.avgWindSpeed.toFixed(1)} {weatherData.unit.speedUnit}
-          </td>
-          <td></td>
-        </tr>
         <tr className="table-obs-last-data min-max">
           <td>Échelle de Beaufort maximal</td>
           <td>{beaufortScaleToText(weatherData.maxBeaufortScale)}</td>

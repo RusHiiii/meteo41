@@ -2,6 +2,9 @@ App\Entity\WebApp\WeatherData:
   type: entity
   table: weather_data
   repositoryClass: App\Repository\Doctrine\WeatherDataRepository
+  indexes:
+      weather_data_date:
+          columns: [ date ]
   id:
     id:
       type: integer
@@ -140,6 +143,9 @@ App\Entity\WebApp\WeatherData:
     createdAt:
       type: datetime
       nullable: false
+    date:
+        type: date
+        nullable: true
   manyToOne:
     unit:
       targetEntity: App\Entity\WebApp\Unit
