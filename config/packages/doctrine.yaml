@@ -3,14 +3,14 @@ doctrine:
       default_connection: default
       connections:
         default:
-          driver: pdo_mysql
+          driver: pdo_pgsql
           host: '%env(BDD_DEFAULT_HOST)%'
           port: '%env(BDD_DEFAULT_PORT)%'
           dbname: '%env(BDD_DEFAULT_DBNAME)%'
           user: '%env(BDD_DEFAULT_USERNAME)%'
           password: '%env(BDD_DEFAULT_PASS)%'
           charset: UTF8
-          server_version: '5.7'
+          server_version: '13'
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware

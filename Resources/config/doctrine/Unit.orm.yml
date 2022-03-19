@@ -3,7 +3,7 @@ App\Entity\WebApp\Unit:
   table: unit
   repositoryClass: App\Repository\Doctrine\UnitRepository
   indexes:
-    type:
+    unit_type:
       columns: [ type ]
   id:
     id:

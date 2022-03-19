@@ -66,12 +66,6 @@ class WeatherData
 
     private \DateTime $createdAt;
 
-    private int $year;
-
-    private int $month;
-
-    private int $day;
-
     private Unit $unit;
 
     private WeatherStation $weatherStation;
@@ -141,9 +135,6 @@ class WeatherData
         $this->aqi = $aqi;
         $this->aqiAvg = $aqiAvg;
         $this->createdAt = $createdAt;
-        $this->year = (int) $createdAt->format('Y');
-        $this->month = (int) $createdAt->format('m');
-        $this->day = (int) $createdAt->format('d');
     }
 
     /**
@@ -672,29 +663,5 @@ class WeatherData
     public function setHeatIndex(float $heatIndex): void
     {
         $this->heatIndex = $heatIndex;
-    }
-
-    /**
-     * @param int $year
-     */
-    public function setYear(int $year): void
-    {
-        $this->year = $year;
-    }
-
-    /**
-     * @param int $month
-     */
-    public function setMonth(int $month): void
-    {
-        $this->month = $month;
-    }
-
-    /**
-     * @param int $day
-     */
-    public function setDay(int $day): void
-    {
-        $this->day = $day;
     }
 }

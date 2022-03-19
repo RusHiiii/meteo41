@@ -2,9 +2,6 @@ App\Entity\WebApp\Post:
   type: entity
   table: post
   repositoryClass: App\Repository\Doctrine\PostRepository
-  indexes:
-    name:
-      columns: [ name ]
   id:
     id:
       type: integer

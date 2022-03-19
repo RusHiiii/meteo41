@@ -140,18 +140,6 @@ App\Entity\WebApp\WeatherData:
     createdAt:
       type: datetime
       nullable: false
-    year:
-      type: integer
-      nullable: false
-    month:
-      type: integer
-      nullable: false
-    day:
-      type: integer
-      nullable: false
-  indexes:
-    createdAt:
-      columns: [ year, month, day ]
   manyToOne:
     unit:
       targetEntity: App\Entity\WebApp\Unit

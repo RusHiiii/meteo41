@@ -60,27 +60,13 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
     public function findLastHourByWeatherStationReference(string $reference)
     {
         $qb = $this
-            ->createQueryBuilder('weatherData');
-
-        $qb
+            ->createQueryBuilder('weatherData')
             ->leftJoin('weatherData.weatherStation', 'weatherStation')
             ->andWhere('weatherStation.reference = :reference')
             ->andWhere('weatherData.createdAt <= :dateStart')
             ->andWhere('weatherData.createdAt >= :dateEnd')
-            ->andWhere(
-                $qb->expr()->eq('weatherData.year', ':year')
-            )
-            ->andWhere(
-                $qb->expr()->eq('weatherData.month', ':month')
-            )
-            ->andWhere(
-                $qb->expr()->eq('weatherData.day', ':day')
-            )
             ->orderBy('weatherData.createdAt', 'DESC')
             ->setParameter('reference', $reference)
-            ->setParameter('year', date("Y", strtotime('now')))
-            ->setParameter('month', date("m", strtotime('now')))
-            ->setParameter('day', date("d", strtotime('now')))
             ->setParameter('dateStart', (new \DateTime())->modify('-1 hours')->format('Y-m-d H:i:s'))
             ->setParameter('dateEnd', (new \DateTime())->modify('-2 hours')->format('Y-m-d H:i:s'));
 
@@ -184,24 +170,14 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
 
         $qb
             ->andWhere(
-                $qb->expr()->between('weatherData.year', ':startYear', ':endYear')
-            )
-            ->andWhere(
-                $qb->expr()->between('weatherData.month', ':startMonth', ':endMonth')
-            )
-            ->andWhere(
-                $qb->expr()->between('weatherData.day', ':startDay', ':endDay')
+                $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
             )
             ->andWhere('MOD(weatherData.id, :mod) = 0')
             ->andWhere('weatherStation.reference = :reference')
             ->orderBy('weatherData.createdAt', 'ASC')
             ->setParameter('mod', $mod)
-            ->setParameter('startYear', date("Y", strtotime($startDate)))
-            ->setParameter('endYear', date("Y", strtotime($endDate)))
-            ->setParameter('startMonth', date("m", strtotime($startDate)))
-            ->setParameter('endMonth', date("m", strtotime($endDate)))
-            ->setParameter('startDay', date("d", strtotime($startDate)))
-            ->setParameter('endDay', date("d", strtotime($endDate)))
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
             ->setParameter('reference', $reference);
 
         return $qb
@@ -226,22 +202,12 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         $qb
             ->select('weatherData.createdAt, ' . $this->alias($field, 'weatherData', 'value'))
             ->andWhere(
-                $qb->expr()->between('weatherData.year', ':startYear', ':endYear')
-            )
-            ->andWhere(
-                $qb->expr()->between('weatherData.month', ':startMonth', ':endMonth')
-            )
-            ->andWhere(
-                $qb->expr()->between('weatherData.day', ':startDay', ':endDay')
+                $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
             ->orderBy('value', 'DESC')
-            ->setParameter('startYear', date("Y", strtotime($startDate)))
-            ->setParameter('endYear', date("Y", strtotime($endDate)))
-            ->setParameter('startMonth', date("m", strtotime($startDate)))
-            ->setParameter('endMonth', date("m", strtotime($endDate)))
-            ->setParameter('startDay', date("d", strtotime($startDate)))
-            ->setParameter('endDay', date("d", strtotime($endDate)))
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
             ->setParameter('reference', $reference);
 
         return $qb
@@ -266,14 +232,8 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
 
         $qbSub
             ->select('weatherData.id')
-            ->andWhere(
-                $qbSub->expr()->between('weatherData.year', ':startYear', ':endYear')
-            )
-            ->andWhere(
-                $qbSub->expr()->between('weatherData.month', ':startMonth', ':endMonth')
-            )
-            ->andWhere(
-                $qbSub->expr()->between('weatherData.day', ':startDay', ':endDay')
+            ->where(
+                $qbSub->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
             ->orderBy('weatherData.createdAt', 'ASC');
@@ -284,12 +244,8 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         return $qb
             ->select($qb->expr()->count('existQB.id') . ' AS exist')
             ->where($qb->expr()->exists($qbSub->getDQL()))
-            ->setParameter('startYear', date("Y", strtotime($startDate)))
-            ->setParameter('endYear', date("Y", strtotime($endDate)))
-            ->setParameter('startMonth', date("m", strtotime($startDate)))
-            ->setParameter('endMonth', date("m", strtotime($endDate)))
-            ->setParameter('startDay', date("d", strtotime($startDate)))
-            ->setParameter('endDay', date("d", strtotime($endDate)))
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
             ->setParameter('reference', $reference)
             ->getQuery()
             ->getOneOrNullResult();
@@ -336,22 +292,13 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         $qb
             ->select($qb->expr()->avg($this->alias($field, 'weatherData')) . ' AS value')
             ->andWhere(
-                $qb->expr()->between('weatherData.year', ':startYear', ':endYear')
-            )
-            ->andWhere(
-                $qb->expr()->between('weatherData.month', ':startMonth', ':endMonth')
-            )
-            ->andWhere(
-                $qb->expr()->between('weatherData.day', ':startDay', ':endDay')
+                $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
+            ->groupBy('weatherData.createdAt')
             ->orderBy('weatherData.createdAt', 'ASC')
-            ->setParameter('startYear', date("Y", strtotime($startDate)))
-            ->setParameter('endYear', date("Y", strtotime($endDate)))
-            ->setParameter('startMonth', date("m", strtotime($startDate)))
-            ->setParameter('endMonth', date("m", strtotime($endDate)))
-            ->setParameter('startDay', date("d", strtotime($startDate)))
-            ->setParameter('endDay', date("d", strtotime($endDate)))
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
             ->setParameter('reference', $reference);
 
         return $qb
@@ -377,22 +324,12 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         $qb
             ->select('weatherData.createdAt, ' . $this->alias($field, 'weatherData', 'value'))
             ->andWhere(
-                $qb->expr()->between('weatherData.year', ':startYear', ':endYear')
-            )
-            ->andWhere(
-                $qb->expr()->between('weatherData.month', ':startMonth', ':endMonth')
-            )
-            ->andWhere(
-                $qb->expr()->between('weatherData.day', ':startDay', ':endDay')
+                $qb->expr()->between('weatherData.createdAt', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
             ->orderBy('value', 'ASC')
-            ->setParameter('startYear', date("Y", strtotime($startDate)))
-            ->setParameter('endYear', date("Y", strtotime($endDate)))
-            ->setParameter('startMonth', date("m", strtotime($startDate)))
-            ->setParameter('endMonth', date("m", strtotime($endDate)))
-            ->setParameter('startDay', date("d", strtotime($startDate)))
-            ->setParameter('endDay', date("d", strtotime($endDate)))
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
             ->setParameter('reference', $reference);
 
         return $qb

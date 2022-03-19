@@ -2,9 +2,6 @@ App\Entity\WebApp\Observation:
   type: entity
   table: observation
   repositoryClass: App\Repository\Doctrine\ObservationRepository
-  indexes:
-    message:
-      columns: [ message ]
   id:
     id:
       type: integer
