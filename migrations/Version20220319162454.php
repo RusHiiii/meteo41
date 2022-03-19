@@ -14,7 +14,7 @@ final class Version20220319162454 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Add index for weather data';
     }
 
     public function up(Schema $schema) : void
