@@ -7,14 +7,12 @@ on:
 jobs:
     symfony:
         name: Meteo41 - CI
-        runs-on: ubuntu-18.04
+        runs-on: ubuntu-latest
         services:
             postgres:
                 image: postgres
                 env:
-                    POSTGRES_USER: postgres
-                    POSTGRES_PASSWORD: ~
-                    POSTGRES_DB: postgres
+                    POSTGRES_PASSWORD: postgres
                     TZ: "Europe/Paris"
                 ports:
                     - 5432/tcp
