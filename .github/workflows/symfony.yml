@@ -13,7 +13,7 @@ jobs:
                 image: postgres
                 env:
                     POSTGRES_USER: postgres
-                    POSTGRES_PASSWORD: ~
+                    POSTGRES_PASSWORD: postgres
                     POSTGRES_DB: postgres
                     TZ: "Europe/Paris"
                 ports:
@@ -71,13 +71,13 @@ jobs:
                 vendor/bin/behat --format=progress
               env:
                 APP_ENV: test
-                DATABASE_URL: pgsql://postgres:@127.0.0.1:${{ job.services.postgres.ports[5432] }}/meteo41_test?charset=UTF-8
+                DATABASE_URL: pgsql://postgres:postgres@127.0.0.1:${{ job.services.postgres.ports[5432] }}/meteo41_test?charset=UTF-8
 
             - name: Execute integration tests
               run: bin/phpunit --testdox
               env:
                 APP_ENV: test
-                DATABASE_URL: pgsql://postgres:@127.0.0.1:${{ job.services.postgres.ports[5432] }}/meteo41_test?charset=UTF-8
+                DATABASE_URL: pgsql://postgres:postgres@127.0.0.1:${{ job.services.postgres.ports[5432] }}/meteo41_test?charset=UTF-8
 
             # —— Coding standards
             - name: Coding standards checks with PHPStan
