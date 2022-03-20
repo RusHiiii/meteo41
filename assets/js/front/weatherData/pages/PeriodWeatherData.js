@@ -138,10 +138,16 @@ export default function PeriodWeatherData(props) {
                       </div>
                     ))}
 
+                    {!state.loaded && (
+                      <p className="loading">
+                        Veuillez patienter
+                      </p>
+                    )}
+
                     {state.loaded && (
                       <Fragment>
                         <p>
-                          {state.weatherData.weatherStation.shortDescription}
+                          {state.weatherData?.weatherStation?.shortDescription}
                         </p>
 
                         <PeriodWeatherDataTable

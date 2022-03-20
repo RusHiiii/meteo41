@@ -144,10 +144,6 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         $history['solar_radiation_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'solarRadiation');
         $history['uv_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'uv');
 
-        // Cloud
-        $history['cloud_base_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'cloudBase');
-        $history['cloud_base_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'cloudBase');
-
         // Check data
         $history['has_data'] = $this->hasWeatherDataHistory($startDate, $endDate, $reference);
 

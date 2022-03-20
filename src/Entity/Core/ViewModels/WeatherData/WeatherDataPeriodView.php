@@ -105,14 +105,6 @@ class WeatherDataPeriodView
 
     private \DateTime $minAqiReceivedAt;
 
-    private int $minCloudBase;
-
-    private \DateTime $minCloudBaseReceivedAt;
-
-    private int $maxCloudBase;
-
-    private \DateTime $maxCloudBaseReceivedAt;
-
     private float $maxHeatIndex;
 
     private \DateTime $maxHeatIndexReceivedAt;
@@ -172,16 +164,12 @@ class WeatherDataPeriodView
      * @param \DateTime $minPm25ReceivedAt
      * @param int $minAqi
      * @param \DateTime $minAqiReceivedAt
-     * @param int $minCloudBase
-     * @param \DateTime $minCloudBaseReceivedAt
-     * @param int $maxCloudBase
-     * @param \DateTime $maxCloudBaseReceivedAt
      * @param float $minHeatIndex
      * @param \DateTime $minHeatIndexReceivedAt
      * @param float $maxHeatIndex
      * @param \DateTime $maxHeatIndexReceivedAt
      */
-    public function __construct(WeatherStationView $weatherStation, UnitView $unit, float $maxTemperature, \DateTime $maxTemperatureReceivedAt, float $minTemperature, \DateTime $minTemperatureReceivedAt, float $maxHumidex, \DateTime $maxHumidexReceivedAt, float $minHumidex, \DateTime $minHumidexReceivedAt, float $maxDewPoint, \DateTime $maxDewPointReceivedAt, float $minDewPoint, \DateTime $minDewPointReceivedAt, float $maxWindChill, \DateTime $maxWindChillReceivedAt, float $minWindChill, \DateTime $minWindChillReceivedAt, int $maxHumidity, \DateTime $maxHumidityReceivedAt, int $minHumidity, \DateTime $minHumidityReceivedAt, float $maxRelativePressure, \DateTime $maxRelativePressureReceivedAt, float $minRelativePressure, \DateTime $minRelativePressureReceivedAt, float $maxRainRate, \DateTime $maxRainRateReceivedAt, float $maxRainEvent, \DateTime $maxRainEventReceivedAt, ?float $rainPeriod, float $maxWindGust, \DateTime $maxWindGustReceivedAt, int $maxBeaufortScale, \DateTime $maxBeaufortScaleReceivedAt, float $avgPm25, float $avgAqi, float $maxPm25, \DateTime $maxPm25ReceivedAt, int $maxAqi, \DateTime $maxAqiReceivedAt, float $maxSolarRadiation, \DateTime $maxSolarRadiationReceivedAt, int $maxUv, \DateTime $maxUvReceivedAt, float $minPm25, \DateTime $minPm25ReceivedAt, int $minAqi, \DateTime $minAqiReceivedAt, int $minCloudBase, \DateTime $minCloudBaseReceivedAt, int $maxCloudBase, \DateTime $maxCloudBaseReceivedAt, float $minHeatIndex, \DateTime $minHeatIndexReceivedAt, float $maxHeatIndex, \DateTime $maxHeatIndexReceivedAt)
+    public function __construct(WeatherStationView $weatherStation, UnitView $unit, float $maxTemperature, \DateTime $maxTemperatureReceivedAt, float $minTemperature, \DateTime $minTemperatureReceivedAt, float $maxHumidex, \DateTime $maxHumidexReceivedAt, float $minHumidex, \DateTime $minHumidexReceivedAt, float $maxDewPoint, \DateTime $maxDewPointReceivedAt, float $minDewPoint, \DateTime $minDewPointReceivedAt, float $maxWindChill, \DateTime $maxWindChillReceivedAt, float $minWindChill, \DateTime $minWindChillReceivedAt, int $maxHumidity, \DateTime $maxHumidityReceivedAt, int $minHumidity, \DateTime $minHumidityReceivedAt, float $maxRelativePressure, \DateTime $maxRelativePressureReceivedAt, float $minRelativePressure, \DateTime $minRelativePressureReceivedAt, float $maxRainRate, \DateTime $maxRainRateReceivedAt, float $maxRainEvent, \DateTime $maxRainEventReceivedAt, ?float $rainPeriod, float $maxWindGust, \DateTime $maxWindGustReceivedAt, int $maxBeaufortScale, \DateTime $maxBeaufortScaleReceivedAt, float $avgPm25, float $avgAqi, float $maxPm25, \DateTime $maxPm25ReceivedAt, int $maxAqi, \DateTime $maxAqiReceivedAt, float $maxSolarRadiation, \DateTime $maxSolarRadiationReceivedAt, int $maxUv, \DateTime $maxUvReceivedAt, float $minPm25, \DateTime $minPm25ReceivedAt, int $minAqi, \DateTime $minAqiReceivedAt, float $minHeatIndex, \DateTime $minHeatIndexReceivedAt, float $maxHeatIndex, \DateTime $maxHeatIndexReceivedAt)
     {
         $this->weatherStation = $weatherStation;
         $this->unit = $unit;
@@ -232,10 +220,6 @@ class WeatherDataPeriodView
         $this->minPm25ReceivedAt = $minPm25ReceivedAt;
         $this->minAqi = $minAqi;
         $this->minAqiReceivedAt = $minAqiReceivedAt;
-        $this->minCloudBase = $minCloudBase;
-        $this->minCloudBaseReceivedAt = $minCloudBaseReceivedAt;
-        $this->maxCloudBase = $maxCloudBase;
-        $this->maxCloudBaseReceivedAt = $maxCloudBaseReceivedAt;
         $this->minHeatIndex = $minHeatIndex;
         $this->minHeatIndexReceivedAt = $minHeatIndexReceivedAt;
         $this->maxHeatIndex = $maxHeatIndex;
@@ -632,38 +616,6 @@ class WeatherDataPeriodView
     public function getMinAqiReceivedAt(): \DateTime
     {
         return $this->minAqiReceivedAt;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMinCloudBase(): int
-    {
-        return $this->minCloudBase;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getMinCloudBaseReceivedAt(): \DateTime
-    {
-        return $this->minCloudBaseReceivedAt;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMaxCloudBase(): int
-    {
-        return $this->maxCloudBase;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getMaxCloudBaseReceivedAt(): \DateTime
-    {
-        return $this->maxCloudBaseReceivedAt;
     }
 
     /**
