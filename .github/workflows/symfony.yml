@@ -10,7 +10,7 @@ jobs:
         runs-on: ubuntu-18.04
         services:
             postgres:
-                image: postgres:13
+                image: postgres
                 env:
                     POSTGRES_USER: postgres
                     POSTGRES_PASSWORD: ~
