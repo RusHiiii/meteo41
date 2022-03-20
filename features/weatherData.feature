@@ -130,126 +130,30 @@ Feature: Weather Data
   Scenario: Show summary weather data
     Given I load the fixture "weatherData"
     When I request the url "/api/weatherData/AAA/currentData/summary" with http verb "GET"
-    Then the status code should be 200
+    Then the status code should be 400
     And the response should have the following content
     """
-     {
-       "id":6,
-       "weatherStation":{
-          "id":1,
-          "name":"Station de Blois",
-          "description":"ma longue description",
-          "shortDescription":"courte descrition",
-          "country":"FR",
-          "address":"46 rue des moulins",
-          "city":"Blois",
-          "lat":4.5956,
-          "lng":4.2356,
-          "model":"HP 2551",
-          "elevation":"200m",
-          "createdAt":"2020-12-11T00:12:12+01:00",
-          "updatedAt":"2020-12-11T00:12:12+01:00",
-          "reference":"AAA"
-       },
-       "unit":{
-          "id":1,
-          "temperatureUnit":"\u00b0C",
-          "speedUnit":"m\/s",
-          "rainUnit":"mm",
-          "solarRadiationUnit":"lux",
-          "pmUnit":"um\/m",
-          "pressureUnit":"hPa",
-          "humidityUnit":"%",
-          "type":"Metric",
-          "createdAt":"2020-12-10T00:12:12+01:00",
-          "updatedAt":"2020-12-10T00:12:12+01:00",
-          "cloudBaseUnit":"m",
-          "windDirUnit":"\u00b0"
-       },
-       "temperature":8.7,
-       "relativePressure":1026.6,
-       "windSpeedAvg":10.7,
-       "windDirectionAvg":19,
-       "humidity":56,
-       "receivedAt":"2022-01-01T00:13:12+01:00"
-    }
+     [
+        {
+            "type":"NoWeatherDataFoundException",
+            "message":"Aucune données météo disponible actuellement :("
+        }
+    ]
     """
 
   @database
   Scenario: Show detail weather data
     Given I load the fixture "weatherData"
     When I request the url "/api/weatherData/AAA/currentData/detail" with http verb "GET"
-    Then the status code should be 200
+    Then the status code should be 400
     And the response should have the following content
     """
-    {
-       "id":6,
-       "weatherStation":{
-          "id":1,
-          "name":"Station de Blois",
-          "description":"ma longue description",
-          "shortDescription":"courte descrition",
-          "country":"FR",
-          "address":"46 rue des moulins",
-          "city":"Blois",
-          "lat":4.5956,
-          "lng":4.2356,
-          "model":"HP 2551",
-          "elevation":"200m",
-          "createdAt":"2020-12-11T00:12:12+01:00",
-          "updatedAt":"2020-12-11T00:12:12+01:00",
-          "reference":"AAA"
-       },
-       "unit":{
-          "id":1,
-          "temperatureUnit":"\u00b0C",
-          "speedUnit":"m\/s",
-          "rainUnit":"mm",
-          "solarRadiationUnit":"lux",
-          "pmUnit":"um\/m",
-          "humidityUnit":"%",
-          "pressureUnit":"hPa",
-          "type":"Metric",
-          "createdAt":"2020-12-10T00:12:12+01:00",
-          "updatedAt":"2020-12-10T00:12:12+01:00",
-          "cloudBaseUnit":"m",
-          "windDirUnit":"\u00b0"
-       },
-       "temperature":8.7,
-       "temperatureVariation":null,
-       "humidity":56,
-       "relativePressure":1026.6,
-       "relativePressureVariation":null,
-       "absolutePressure":1013.6,
-       "windDirection":19,
-       "windDirectionAvg":19,
-       "windSpeed":3,
-       "windSpeedAvg":10.7,
-       "windGust":22,
-       "windMaxDailyGust":35,
-       "rainRate":3,
-       "rainEvent":5,
-       "rainHourly":6,
-       "rainDaily":1,
-       "rainWeekly":6.1,
-       "rainMonthly":11,
-       "rainYearly":176,
-       "solarRadiation":412,
-       "solarRadiationVariation":null,
-       "uv":5,
-       "pm25":6,
-       "pm25Avg":13,
-       "humidex":9.9,
-       "humidexVariation":null,
-       "dewPoint":1.3,
-       "windChill":8.4,
-       "cloudBase":1024,
-       "beaufortScale":3,
-       "aqi":54,
-       "aqiAvg":54,
-       "heatIndex":8.3,
-       "receivedAt":"2022-01-01T00:13:12+01:00"
-    }
+    [
+        {
+            "type":"NoWeatherDataFoundException",
+            "message":"Aucune données météo disponible actuellement :("
+        }
+    ]
     """
 
   @database
@@ -260,7 +164,7 @@ Feature: Weather Data
     And the response should have the following content
     """
     {
-       "weatherStation":{
+      "weatherStation":{
           "id":1,
           "name":"Station de Blois",
           "description":"ma longue description",
@@ -275,8 +179,8 @@ Feature: Weather Data
           "createdAt":"2020-12-11T00:12:12+01:00",
           "updatedAt":"2020-12-11T00:12:12+01:00",
           "reference":"AAA"
-       },
-       "unit":{
+      },
+      "unit":{
           "id":1,
           "temperatureUnit":"\u00b0C",
           "speedUnit":"m\/s",
@@ -290,64 +194,63 @@ Feature: Weather Data
           "cloudBaseUnit":"m",
           "windDirUnit":"\u00b0",
           "pressureUnit":"hPa"
-       },
-       "maxTemperature":8.7,
-       "maxTemperatureReceivedAt":"2022-01-01T00:13:12+01:00",
-       "minTemperature":8.6,
-       "minTemperatureReceivedAt":"2022-01-01T00:12:12+01:00",
-       "maxHumidex":9.9,
-       "maxHumidexReceivedAt":"2022-01-01T00:13:12+01:00",
-       "minHumidex":8.9,
-       "minHumidexReceivedAt":"2022-01-01T00:12:12+01:00",
-       "maxDewPoint":1.3,
-       "maxDewPointReceivedAt":"2022-01-01T00:13:12+01:00",
-       "minDewPoint":0.3,
-       "minDewPointReceivedAt":"2022-01-01T00:12:12+01:00",
-       "maxWindChill":8.4,
-       "maxWindChillReceivedAt":"2022-01-01T00:13:12+01:00",
-       "minWindChill":7.4,
-       "minWindChillReceivedAt":"2022-01-01T00:12:12+01:00",
-       "maxHumidity":56,
-       "maxHumidityReceivedAt":"2022-01-01T00:13:12+01:00",
-       "minHumidity":55,
-       "minHumidityReceivedAt":"2022-01-01T00:12:12+01:00",
-       "maxRelativePressure":1026.6,
-       "maxRelativePressureReceivedAt":"2022-01-01T00:13:12+01:00",
-       "minRelativePressure":1025.6,
-       "minRelativePressureReceivedAt":"2022-01-01T00:12:12+01:00",
-       "maxRainRate":3,
-       "maxRainRateReceivedAt":"2022-01-01T00:13:12+01:00",
-       "maxRainEvent":5,
-       "maxRainEventReceivedAt":"2022-01-01T00:13:12+01:00",
-       "rainPeriod":176,
-       "maxWindGust":22,
-       "maxWindGustReceivedAt":"2022-01-01T00:13:12+01:00",
-       "maxBeaufortScale":3,
-       "maxBeaufortScaleReceivedAt":"2022-01-01T00:13:12+01:00",
-       "avgWindSpeed":10.2,
-       "avgPm25":13,
-       "avgAqi":54,
-       "maxPm25":6,
-       "maxPm25ReceivedAt":"2022-01-01T00:13:12+01:00",
-       "maxAqi":54,
-       "maxAqiReceivedAt":"2022-01-01T00:13:12+01:00",
-       "maxSolarRadiation":412,
-       "maxSolarRadiationReceivedAt":"2022-01-01T00:12:12+01:00",
-       "maxUv":5,
-       "maxUvReceivedAt":"2022-01-01T00:13:12+01:00",
-       "minPm25":5,
-       "minPm25ReceivedAt":"2022-01-01T00:12:12+01:00",
-       "minAqi":53,
-       "minAqiReceivedAt":"2022-01-01T00:12:12+01:00",
-       "minCloudBase":1024,
-       "minCloudBaseReceivedAt":"2022-01-01T00:12:12+01:00",
-       "maxCloudBase":1024,
-       "maxCloudBaseReceivedAt":"2022-01-01T00:12:12+01:00",
-       "maxHeatIndex":8.3,
-       "maxHeatIndexReceivedAt":"2022-01-01T00:13:12+01:00",
-       "minHeatIndex":7.3,
-       "minHeatIndexReceivedAt":"2022-01-01T00:12:12+01:00"
-    }
+      },
+      "maxTemperature":8.7,
+      "maxTemperatureReceivedAt":"2022-01-01T00:13:12+01:00",
+      "minTemperature":8.6,
+      "minTemperatureReceivedAt":"2022-01-01T00:12:12+01:00",
+      "maxHumidex":9.9,
+      "maxHumidexReceivedAt":"2022-01-01T00:13:12+01:00",
+      "minHumidex":8.9,
+      "minHumidexReceivedAt":"2022-01-01T00:12:12+01:00",
+      "maxDewPoint":1.3,
+      "maxDewPointReceivedAt":"2022-01-01T00:13:12+01:00",
+      "minDewPoint":0.3,
+      "minDewPointReceivedAt":"2022-01-01T00:12:12+01:00",
+      "maxWindChill":8.4,
+      "maxWindChillReceivedAt":"2022-01-01T00:13:12+01:00",
+      "minWindChill":7.4,
+      "minWindChillReceivedAt":"2022-01-01T00:12:12+01:00",
+      "maxHumidity":56,
+      "maxHumidityReceivedAt":"2022-01-01T00:13:12+01:00",
+      "minHumidity":55,
+      "minHumidityReceivedAt":"2022-01-01T00:12:12+01:00",
+      "maxRelativePressure":1026.6,
+      "maxRelativePressureReceivedAt":"2022-01-01T00:13:12+01:00",
+      "minRelativePressure":1025.6,
+      "minRelativePressureReceivedAt":"2022-01-01T00:12:12+01:00",
+      "maxRainRate":3,
+      "maxRainRateReceivedAt":"2022-01-01T00:13:12+01:00",
+      "maxRainEvent":5,
+      "maxRainEventReceivedAt":"2022-01-01T00:13:12+01:00",
+      "rainPeriod":176,
+      "maxWindGust":22,
+      "maxWindGustReceivedAt":"2022-01-01T00:13:12+01:00",
+      "maxBeaufortScale":3,
+      "maxBeaufortScaleReceivedAt":"2022-01-01T00:13:12+01:00",
+      "avgPm25":13,
+      "avgAqi":54,
+      "maxPm25":6,
+      "maxPm25ReceivedAt":"2022-01-01T00:13:12+01:00",
+      "maxAqi":54,
+      "maxAqiReceivedAt":"2022-01-01T00:13:12+01:00",
+      "maxSolarRadiation":412,
+      "maxSolarRadiationReceivedAt":"2022-01-01T00:13:12+01:00",
+      "maxUv":5,
+      "maxUvReceivedAt":"2022-01-01T00:13:12+01:00",
+      "minPm25":5,
+      "minPm25ReceivedAt":"2022-01-01T00:12:12+01:00",
+      "minAqi":53,
+      "minAqiReceivedAt":"2022-01-01T00:12:12+01:00",
+      "minCloudBase":1024,
+      "minCloudBaseReceivedAt":"2022-01-01T00:13:12+01:00",
+      "maxCloudBase":1024,
+      "maxCloudBaseReceivedAt":"2022-01-01T00:13:12+01:00",
+      "maxHeatIndex":8.3,
+      "maxHeatIndexReceivedAt":"2022-01-01T00:13:12+01:00",
+      "minHeatIndex":7.3,
+      "minHeatIndexReceivedAt":"2022-01-01T00:12:12+01:00"
+  }
     """
 
   @database
@@ -368,4 +271,4 @@ Feature: Weather Data
     Given I load the fixture "weatherData"
     When I request the url "/api/weatherData/CCC/graph/daily" with http verb "GET"
     Then the status code should be 200
-    Then the response should contains "4" number of result
+    Then the response should contains "2" number of result

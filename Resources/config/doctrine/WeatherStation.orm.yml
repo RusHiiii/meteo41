@@ -6,7 +6,7 @@ App\Entity\WebApp\WeatherStation:
     id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     name:
       type: string

@@ -36,7 +36,6 @@ class ContactTransformerTest extends TestCase
         $contactView = $this->contactTransformer->transformContactToView($entities['contact_1']);
 
         $this->assertInstanceOf(ContactView::class, $contactView);
-        $this->assertEquals('1', $contactView->getId());
         $this->assertEquals('etst@orange.fr', $contactView->getEmail());
         $this->assertEquals('nom', $contactView->getName());
         $this->assertEquals('subject', $contactView->getSubject());

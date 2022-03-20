@@ -9,13 +9,16 @@ jobs:
         name: Meteo41 - CI
         runs-on: ubuntu-18.04
         services:
-            mysql:
-                image: mysql:5.7
+            postgres:
+                image: postgres:13
                 env:
-                    MYSQL_ROOT_PASSWORD: root
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: ~
+                    POSTGRES_DB: postgres
+                    TZ: "Europe/Paris"
                 ports:
-                    - 3306:3306
-                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+                    - 5432/tcp
+                options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         strategy:
             fail-fast: true
             matrix:

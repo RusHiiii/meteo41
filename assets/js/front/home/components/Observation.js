@@ -407,7 +407,11 @@ export default function Observation(props) {
                 </div>
               </div>
             )}
-            {!weatherData && <p className="loading" />}
+            {!weatherData && (
+              <p className="loading">
+                Aucune données actuellement
+              </p>
+            )}
           </div>
         </div>
       </div>

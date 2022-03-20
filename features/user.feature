@@ -274,29 +274,3 @@ Feature: User
        ]
     }
     """
-
-  @database
-  Scenario: Show list of users
-    Given I load the fixture "user"
-    And I am logged with the email "damiens.florent@orange.fr"
-    When I request the url "/api/user?searchBy[email]=orange&searchBy[role]=EDITOR" with http verb "GET"
-    Then the status code should be 200
-    And the response should have the following content
-    """
-     {
-       "numberOfResult":1,
-       "users":[
-          {
-             "firstname":"florent",
-             "lastname":"damiens",
-             "email":"admin@orange.fr",
-             "roles":[
-                "ROLE_EDITOR"
-             ],
-             "createdAt":"2020-12-11T00:12:12+01:00",
-             "updatedAt":"2020-12-11T00:12:12+01:00",
-             "id":2
-          }
-       ]
-    }
-    """

@@ -9,7 +9,7 @@ App\Entity\WebApp\Unit:
     id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     temperatureUnit:
       type: string

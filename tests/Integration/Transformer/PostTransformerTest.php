@@ -37,12 +37,10 @@ class PostTransformerTest extends TestCase
         $postView = $this->postTransformer->transformPostToView($entities['post_1']);
 
         $this->assertInstanceOf(PostView::class, $postView);
-        $this->assertEquals('1', $postView->getId());
         $this->assertEquals('subject', $postView->getDescription());
         $this->assertEquals('nale', $postView->getName());
 
         $this->assertInstanceOf(UserView::class, $postView->getUser());
-        $this->assertEquals('1', $postView->getUser()->getId());
         $this->assertEquals('florent', $postView->getUser()->getFirstname());
         $this->assertEquals('damiens', $postView->getUser()->getLastname());
         $this->assertNull($postView->getUser()->getEmail());
@@ -64,9 +62,7 @@ class PostTransformerTest extends TestCase
 
         $this->assertInstanceOf(PostSearchView::class, $postView);
         $this->assertEquals('1', $postView->getNumberOfResult());
-        $this->assertEquals('1', $postView->getPosts()[0]->getId());
         $this->assertEquals('nale', $postView->getPosts()[0]->getName());
         $this->assertInstanceOf(UserView::class, $postView->getPosts()[0]->getUser());
-        $this->assertEquals('1', $postView->getPosts()[0]->getUser()->getId());
     }
 }

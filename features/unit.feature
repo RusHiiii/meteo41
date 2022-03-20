@@ -49,7 +49,7 @@ Feature: Unit
       "windDirUnit": "°",
       "pressureUnit": "hPa",
       "humidityUnit": "%",
-      "type": "metric"
+      "type": "Metric"
     }
     """
     Then the status code should be 400
@@ -75,7 +75,7 @@ Feature: Unit
       "pressureUnit": "hPa",
       "pmUnit": "µg/m3",
       "humidityUnit": "%",
-      "type": "metric"
+      "type": "Metric"
     }
     """
     Then the status code should be 403

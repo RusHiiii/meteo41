@@ -36,7 +36,6 @@ class UserTransformerTest extends TestCase
 
         $this->assertInstanceOf(UserView::class, $userView);
 
-        $this->assertEquals('1', $userView->getId());
         $this->assertEquals('florent', $userView->getFirstname());
         $this->assertEquals('damiens', $userView->getLastname());
         $this->assertNull($userView->getEmail());

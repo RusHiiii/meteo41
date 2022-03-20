@@ -9,7 +9,7 @@ App\Entity\WebApp\User:
     id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     firstname:
       type: string

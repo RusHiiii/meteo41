@@ -100,7 +100,7 @@ export default function SummaryWeatherData(props) {
                   title={degToCompass(state.weatherData?.windDirectionAvg)}
                 />
               </span>
-              <strong>{state.weatherData?.windSpeedAvg}</strong>
+              <strong>{showFixedValue(state.weatherData?.windSpeedAvg)}</strong>
               {state.weatherData?.unit?.speedUnit}
             </div>
           </li>
@@ -110,7 +110,7 @@ export default function SummaryWeatherData(props) {
               <span>
                 <i className="wi wi-humidity" />
               </span>
-              <strong>{state.weatherData?.humidity}</strong>
+              <strong>{showFixedValue(state.weatherData?.humidity)}</strong>
               {state.weatherData?.unit?.humidityUnit}
             </div>
           </li>

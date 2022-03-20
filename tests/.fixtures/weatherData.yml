@@ -85,10 +85,8 @@ App\Entity\WebApp\WeatherData:
         aqi: 53
         aqiAvg: 53
         createdAt: '<date_create("2022-01-01 00:12:12")>'
+        date: '<date_create("2022-01-01")>'
         heatIndex: 7.3
-        year: 2022
-        month: 1
-        day: 1
     weather_data_2:
         __construct: false
         unit: '@unit_1'
@@ -122,9 +120,7 @@ App\Entity\WebApp\WeatherData:
         aqi: 53
         aqiAvg: 53
         createdAt: '<date_create()>'
-        year: '<dateCreate("Y")>'
-        month: '<dateCreate("m")>'
-        day: '<dateCreate("d")>'
+        date: '<date_create()>'
         heatIndex: 7.3
     weather_data_3:
         __construct: false
@@ -159,9 +155,7 @@ App\Entity\WebApp\WeatherData:
         aqi: 53
         aqiAvg: 53
         createdAt: '<date_create("-1 hours")>'
-        year: '<dateCreate("Y")>'
-        month: '<dateCreate("m")>'
-        day: '<dateCreate("d")>'
+        date: '<date_create()>'
         heatIndex: 7.3
     weather_data_4:
         __construct: false
@@ -196,9 +190,7 @@ App\Entity\WebApp\WeatherData:
         aqi: 53
         aqiAvg: 53
         createdAt: '<date_create("-2 hours")>'
-        year: '<dateCreate("Y")>'
-        month: '<dateCreate("m")>'
-        day: '<dateCreate("d")>'
+        date: '<date_create()>'
         heatIndex: 7.3
     weather_data_5:
         __construct: false
@@ -233,9 +225,7 @@ App\Entity\WebApp\WeatherData:
         aqi: 53
         aqiAvg: 53
         createdAt: '<date_create("-3 hours")>'
-        year: '<dateCreate("Y")>'
-        month: '<dateCreate("m")>'
-        day: '<dateCreate("d")>'
+        date: '<date_create()>'
         heatIndex: 7.3
     weather_data_6:
         __construct: false
@@ -270,9 +260,7 @@ App\Entity\WebApp\WeatherData:
         aqi: 54
         aqiAvg: 54
         createdAt: '<date_create("2022-01-01 00:13:12")>'
-        year: 2022
-        month: 1
-        day: 1
+        date: '<date_create("2022-01-01")>'
         heatIndex: 8.3
     weather_data_7:
         __construct: false
@@ -307,9 +295,7 @@ App\Entity\WebApp\WeatherData:
         aqi: 54
         aqiAvg: 54
         createdAt: '<date_create()>'
-        year: '<dateCreate("Y")>'
-        month: '<dateCreate("m")>'
-        day: '<dateCreate("d")>'
+        date: '<date_create()>'
         heatIndex: 8.3
     weather_data_8:
         __construct: false
@@ -344,9 +330,7 @@ App\Entity\WebApp\WeatherData:
         aqi: 54
         aqiAvg: 54
         createdAt: '<date_create()>'
-        year: '<dateCreate("Y")>'
-        month: '<dateCreate("m")>'
-        day: '<dateCreate("d")>'
+        date: '<date_create()>'
         heatIndex: 8.3
     weather_data_9:
         __construct: false
@@ -381,9 +365,7 @@ App\Entity\WebApp\WeatherData:
         aqi: 54
         aqiAvg: 54
         createdAt: '<date_create()>'
-        year: '<dateCreate("Y")>'
-        month: '<dateCreate("m")>'
-        day: '<dateCreate("d")>'
+        date: '<date_create()>'
         heatIndex: 8.3
     weather_data_10:
         __construct: false
@@ -418,9 +400,7 @@ App\Entity\WebApp\WeatherData:
         aqi: 54
         aqiAvg: 54
         createdAt: '<date_create()>'
-        year: '<dateCreate("Y")>'
-        month: '<dateCreate("m")>'
-        day: '<dateCreate("d")>'
+        date: '<date_create()>'
         heatIndex: 8.3
 
 App\Entity\WebApp\User:
