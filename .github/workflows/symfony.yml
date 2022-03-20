@@ -92,3 +92,6 @@ jobs:
 
             - name: Run infection
               run: vendor/bin/infection --min-msi=60 --threads=4
+              env:
+                APP_ENV: test
+                DATABASE_URL: pgsql://postgres:postgres@127.0.0.1:${{ job.services.postgres.ports[5432] }}/meteo41_test?charset=UTF-8
