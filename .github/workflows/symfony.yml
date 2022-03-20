@@ -10,10 +10,10 @@ jobs:
         runs-on: ubuntu-latest
         services:
             postgres:
-                image: postgres
+                image: postgres:11.5
                 env:
                     POSTGRES_USER: postgres
-                    POSTGRES_PASSWORD: postgres
+                    POSTGRES_PASSWORD: ~
                     POSTGRES_DB: postgres
                     TZ: "Europe/Paris"
                 ports:
@@ -58,10 +58,14 @@ jobs:
             - name: Check Symfony requirements
               run: vendor/bin/requirements-checker
 
+            - name: Create DB
+              run: |
+                psql -c 'create database meteo41_test;' -U postgres -h 127.0.0.1 -p ${{ job.services.postgres.ports[5432] }}
+
             - name: Database migration
               run: |
-                 bin/console doctrine:database:create --env=test
-                 bin/console doctrine:migration:migrate --env=test
+                 bin/console doctrine:migration:migrate --no-interaction --env=test
+                 bin/console doctrine:schema:validate --env=test
               env:
                 DATABASE_URL: pgsql://postgres:@127.0.0.1:${{ job.services.postgres.ports[5432] }}/meteo41_test?charset=UTF-8
 
