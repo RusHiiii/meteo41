@@ -2,14 +2,11 @@ App\Entity\WebApp\Contact:
   type: entity
   table: contact
   repositoryClass: App\Repository\Doctrine\ContactRepository
-  indexes:
-    email:
-      columns: [ email ]
   id:
     id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     name:
       type: string

@@ -10,7 +10,7 @@ class PeriodConverter
      * @param string $period
      * @return array
      */
-    public function convertPeriodToDate(string $period)
+    public static function convertPeriodToDate(string $period)
     {
         $startDate = $endDate = date('Y-m-d H:i:s', strtotime('now'));
 
@@ -20,24 +20,79 @@ class PeriodConverter
 
         if ($period === Period::MONTHLY) {
             $startDate = date('Y-m-01 00:00:00', strtotime('now'));
-            $endDate = date('Y-m-t 23:59:59', strtotime('now'));
         }
 
         if ($period === Period::WEEKLY) {
             $startDate = date('Y-m-d 00:00:00', strtotime('this week'));
-            $endDate = date('Y-m-d 23:59:59', strtotime('+6 day', strtotime('this week')));
         }
 
         if ($period === Period::YEARLY) {
             $startDate = date('Y-01-01 00:00:00', strtotime('now'));
-            $endDate = date('Y-12-31 23:59:59', strtotime('now'));
         }
 
         if ($period === Period::RECORD) {
             $startDate = date('1970-01-01 00:00:00', strtotime('now'));
-            $endDate = date('Y-12-31 23:59:59', strtotime('now'));
         }
 
         return [$endDate, $startDate];
+    }
+
+    /**
+     * @param string $period
+     * @return int
+     */
+    public static function convertPeriodToTtl(string $period)
+    {
+        // 30mn cache duration
+        $ttl = 1800;
+
+        // 2h cache duration
+        if ($period === Period::WEEKLY) {
+            return 7200;
+        }
+
+        // 4h cache duration
+        if ($period === Period::MONTHLY) {
+            return 14400;
+        }
+
+        // 6h cache duration
+        if ($period === Period::YEARLY) {
+            return 21600;
+        }
+
+        // 8h cache duration
+        if ($period === Period::RECORD) {
+            return 28800;
+        }
+
+        return $ttl;
+    }
+
+    /**
+     * @param string $period
+     * @return int
+     */
+    public static function convertPeriodToMod(string $period)
+    {
+        // every 2mn
+        $mod = 2;
+
+        // every 15mn
+        if ($period === Period::WEEKLY) {
+            return 15;
+        }
+
+        // every 40mn
+        if ($period === Period::MONTHLY) {
+            return 40;
+        }
+
+        // every 180mn
+        if ($period === Period::YEARLY) {
+            return 180;
+        }
+
+        return $mod;
     }
 }

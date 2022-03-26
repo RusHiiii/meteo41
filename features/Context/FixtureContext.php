@@ -4,6 +4,8 @@ namespace Behat\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Webmozart\Assert\Assert;
 
@@ -14,10 +16,17 @@ final class FixtureContext implements Context
      */
     private $kernel;
 
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
     public function __construct(
-        KernelInterface $kernel
+        KernelInterface $kernel,
+        EntityManagerInterface $entityManager
     ) {
         $this->kernel = $kernel;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -25,6 +34,8 @@ final class FixtureContext implements Context
      */
     public function iLoadTheFixture($fixtureName)
     {
+        $this->resetAutoIncrement();
+
         $loader = $this->kernel->getContainer()->get('fidry_alice_data_fixtures.loader.doctrine');
 
         $fixtureFile = sprintf('tests/.fixtures/%s.yml', $fixtureName);
@@ -86,5 +97,20 @@ final class FixtureContext implements Context
             ->findOneBy(array_column($tableNode->getHash(), 'value', 'attribute'));
 
         Assert::notNull($entity);
+    }
+
+    /**
+     * Restart auto increment
+     * @throws \Doctrine\DBAL\Exception
+     */
+    private function resetAutoIncrement()
+    {
+        $this->entityManager->getConnection()->executeStatement('ALTER SEQUENCE contact_id_seq RESTART WITH 1');
+        $this->entityManager->getConnection()->executeStatement('ALTER SEQUENCE observation_id_seq RESTART WITH 1');
+        $this->entityManager->getConnection()->executeStatement('ALTER SEQUENCE post_id_seq RESTART WITH 1');
+        $this->entityManager->getConnection()->executeStatement('ALTER SEQUENCE unit_id_seq RESTART WITH 1');
+        $this->entityManager->getConnection()->executeStatement('ALTER SEQUENCE user_id_seq RESTART WITH 1');
+        $this->entityManager->getConnection()->executeStatement('ALTER SEQUENCE weather_data_id_seq RESTART WITH 1');
+        $this->entityManager->getConnection()->executeStatement('ALTER SEQUENCE weather_station_id_seq RESTART WITH 1');
     }
 }

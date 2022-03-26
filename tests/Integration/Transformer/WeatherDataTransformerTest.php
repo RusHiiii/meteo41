@@ -81,9 +81,8 @@ class WeatherDataTransformerTest extends TestCase
         $startDate = date('Y-01-01 00:00:00', strtotime('now'));
 
         $data = $this->weatherDataRepository->findWeatherDataHistory($startDate, $endDate, Period::YEARLY, 'AAA');
-        $weatherStation = $this->weatherStationRepository->find(1);
 
-        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataToPeriod($data, $weatherStation);
+        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataToPeriod($data, $entities['weather_station_1']);
 
         $this->assertInstanceOf(WeatherDataPeriodView::class, $weatherDataView);
 
@@ -103,9 +102,8 @@ class WeatherDataTransformerTest extends TestCase
         $startDate = date('Y-01-01 00:00:00', strtotime('now'));
 
         $data = $this->weatherDataRepository->findWeatherDataGraph($startDate, $endDate, Period::YEARLY, 'AAA');
-        $weatherStation = $this->weatherStationRepository->find(1);
 
-        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataGraphSearchView($weatherStation, $data, new \DateTime($startDate), new \DateTime($endDate));
+        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataGraphSearchView($entities['weather_station_1'], $data, new \DateTime($startDate), new \DateTime($endDate));
 
         $this->assertInstanceOf(WeatherDataGraphSearchView::class, $weatherDataView);
 
@@ -123,15 +121,14 @@ class WeatherDataTransformerTest extends TestCase
         $startDate = date('Y-01-01 00:00:00', strtotime('now'));
 
         $data = $this->weatherDataRepository->findWeatherDataGraph($startDate, $endDate, Period::DAILY, 'AAA');
-        $weatherStation = $this->weatherStationRepository->find(1);
 
-        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataGraphSearchView($weatherStation, $data, new \DateTime($startDate), new \DateTime($endDate));
+        $weatherDataView = $this->weatherDataTransformer->transformWeatherDataGraphSearchView($entities['weather_station_1'], $data, new \DateTime($startDate), new \DateTime($endDate));
 
         $this->assertInstanceOf(WeatherDataGraphSearchView::class, $weatherDataView);
 
         $this->assertInstanceOf(WeatherStationView::class, $weatherDataView->getWeatherStation());
         $this->assertInstanceOf(UnitView::class, $weatherDataView->getUnit());
-        $this->assertEquals(2, $weatherDataView->getNumberOfResult());
+        $this->assertEquals(1, $weatherDataView->getNumberOfResult());
         $this->assertIsArray($weatherDataView->getDatas());
     }
 }

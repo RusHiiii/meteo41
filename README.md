@@ -12,6 +12,7 @@ Site de météo pour les stations supportant le protocole Ecowitt, les données 
 - PHP 7.4
 - React 17
 - Symfony 4.4
+- PostgreSQL
 
 Déploiement et build de PR automatique via Github Action. Utilisation de OpenVPN pour le déploiement sur mon serveur. J'utilise Proxmox pour mon infrastructure, le serveur Web est une des machines de mon sous-réseau. 
 

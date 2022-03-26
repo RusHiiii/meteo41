@@ -5,7 +5,7 @@ export function Date(props) {
   const { format, date } = props;
 
   if (!props.date) {
-    return null;
+    return '-';
   }
 
   return useMemo(() => {
