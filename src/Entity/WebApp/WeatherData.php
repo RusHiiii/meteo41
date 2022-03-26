@@ -136,8 +136,7 @@ class WeatherData
         $this->beaufortScale = $beaufortScale;
         $this->aqi = $aqi;
         $this->aqiAvg = $aqiAvg;
-        $this->createdAt = $createdAt;
-        $this->date = \DateTime::createFromFormat('Y-m-d', $createdAt);
+        $this->createdAt = $this->date = $createdAt;
     }
 
     /**
