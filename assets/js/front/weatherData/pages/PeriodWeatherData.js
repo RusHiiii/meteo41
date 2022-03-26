@@ -138,7 +138,7 @@ export default function PeriodWeatherData(props) {
                       </div>
                     ))}
 
-                    {!state.loaded && (
+                    {!state.loaded && state.errors.length === 0 && (
                       <p className="loading">
                         Veuillez patienter
                       </p>

@@ -185,12 +185,14 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
             ->andWhere('weatherStation.reference = :reference')
             ->orderBy('weatherData.createdAt', 'ASC')
             ->setParameter('mod', $mod)
-            ->setParameter('startDate', $startDate)
-            ->setParameter('endDate', $endDate)
+            ->setParameter('startDate', \DateTime::createFromFormat('Y-m-d H:i:s', $startDate)->format('Y-m-d'))
+            ->setParameter('endDate', \DateTime::createFromFormat('Y-m-d H:i:s', $endDate)->format('Y-m-d'))
             ->setParameter('reference', $reference);
 
         return $qb
             ->getQuery()
+            ->useQueryCache(true)
+            ->enableResultCache(1800)
             ->getResult();
     }
 
@@ -215,12 +217,14 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
             )
             ->andWhere('weatherStation.reference = :reference')
             ->orderBy('value', 'DESC')
-            ->setParameter('startDate', $startDate)
-            ->setParameter('endDate', $endDate)
+            ->setParameter('startDate', \DateTime::createFromFormat('Y-m-d H:i:s', $startDate)->format('Y-m-d'))
+            ->setParameter('endDate', \DateTime::createFromFormat('Y-m-d H:i:s', $endDate)->format('Y-m-d'))
             ->setParameter('reference', $reference);
 
         return $qb
             ->getQuery()
+            ->useQueryCache(true)
+            ->enableResultCache(1800)
             ->setMaxResults(1)
             ->getOneOrNullResult();
     }
@@ -253,10 +257,12 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         return $qb
             ->select($qb->expr()->count('existQB.id') . ' AS exist')
             ->where($qb->expr()->exists($qbSub->getDQL()))
-            ->setParameter('startDate', $startDate)
-            ->setParameter('endDate', $endDate)
+            ->setParameter('startDate', \DateTime::createFromFormat('Y-m-d H:i:s', $startDate)->format('Y-m-d'))
+            ->setParameter('endDate', \DateTime::createFromFormat('Y-m-d H:i:s', $endDate)->format('Y-m-d'))
             ->setParameter('reference', $reference)
             ->getQuery()
+            ->useQueryCache(true)
+            ->enableResultCache(1800)
             ->getOneOrNullResult();
     }
 
@@ -304,12 +310,14 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
                 $qb->expr()->between('weatherData.date', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
-            ->setParameter('startDate', $startDate)
-            ->setParameter('endDate', $endDate)
+            ->setParameter('startDate', \DateTime::createFromFormat('Y-m-d H:i:s', $startDate)->format('Y-m-d'))
+            ->setParameter('endDate', \DateTime::createFromFormat('Y-m-d H:i:s', $endDate)->format('Y-m-d'))
             ->setParameter('reference', $reference);
 
         return $qb
             ->getQuery()
+            ->useQueryCache(true)
+            ->enableResultCache(1800)
             ->setMaxResults(1)
             ->getOneOrNullResult();
     }
@@ -335,12 +343,14 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
             )
             ->andWhere('weatherStation.reference = :reference')
             ->orderBy('value', 'ASC')
-            ->setParameter('startDate', $startDate)
-            ->setParameter('endDate', $endDate)
+            ->setParameter('startDate', \DateTime::createFromFormat('Y-m-d H:i:s', $startDate)->format('Y-m-d'))
+            ->setParameter('endDate', \DateTime::createFromFormat('Y-m-d H:i:s', $endDate)->format('Y-m-d'))
             ->setParameter('reference', $reference);
 
         return $qb
             ->getQuery()
+            ->useQueryCache(true)
+            ->enableResultCache(1800)
             ->setMaxResults(1)
             ->getOneOrNullResult();
     }
