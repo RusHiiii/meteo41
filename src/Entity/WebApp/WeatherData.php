@@ -137,7 +137,7 @@ class WeatherData
         $this->aqi = $aqi;
         $this->aqiAvg = $aqiAvg;
         $this->createdAt = $createdAt;
-        $this->date = $createdAt->format('Y-m-d');
+        $this->date = \DateTime::createFromFormat('Y-m-d', $createdAt);
     }
 
     /**
