@@ -34,7 +34,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     public function findPaginatedUsers(array $searchBy, string $order, int $page, int $maxResult)
     {
         $qb = $this
-            ->createQueryBuilder('user');
+            ->createQueryBuilder('users');
 
         return $this
             ->addSearchBy($qb, $searchBy)
@@ -53,13 +53,8 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
             switch ($key) {
                 case ApiSearch::USER_SEARCH_BY_EMAIL:
                     $qb
-                        ->andWhere('user.email LIKE :email')
+                        ->andWhere('users.email LIKE :email')
                         ->setParameter('email', sprintf('%%%s%%', $value));
-                    break;
-                case ApiSearch::USER_SEARCH_BY_ROLE:
-                    $qb
-                        ->andWhere('user.roles LIKE :role')
-                        ->setParameter('role', sprintf('%%%s%%', $value));
                     break;
                 default:
                     throw new \InvalidArgumentException('Invalid search value');
@@ -81,7 +76,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
         }
 
         $qb
-            ->addOrderBy('user.id', $order);
+            ->addOrderBy('users.id', $order);
 
         return $this;
     }

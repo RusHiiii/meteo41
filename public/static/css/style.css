@@ -1950,8 +1950,9 @@ padding-left: 0;
 
 p.loading {
     color: white;
-    font: 300 4em/150% Impact;
-    text-align: center;}
+    padding: 7em;
+    text-align: center;
+}
 
 .apexcharts-tooltip {
     background: #1e202b !important;

@@ -56,11 +56,12 @@ jobs:
                       cp ${{ secrets.TARGET_PATH }}/current/config/jwt/private.pem config/jwt/private.pem
                       cp ${{ secrets.TARGET_PATH }}/current/config/jwt/public.pem config/jwt/public.pem
                       cp ${{ secrets.TARGET_PATH }}/current/.env.local .env.local
-                      chown -R deploy:www-data var/
                       composer install --no-dev --optimize-autoloader --quiet
                       npm install --quiet --loglevel=error
                       composer dump-env prod
                       bin/console cache:clear --env=prod --no-debug
+                      chown -R www-data:www-data var/
+                      chmod 755 -R var/
                       yarn production
                       ln -sfn ${{ secrets.TARGET_PATH }}/$RELEASE ${{ secrets.TARGET_PATH }}/current
 

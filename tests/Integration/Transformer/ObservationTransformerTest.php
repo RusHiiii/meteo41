@@ -40,10 +40,7 @@ class ObservationTransformerTest extends TestCase
         $observationView = $this->observationTransformer->transformObservationToView($entities['obs_1']);
 
         $this->assertInstanceOf(ObservationView::class, $observationView);
-        $this->assertEquals('1', $observationView->getId());
         $this->assertEquals('test de message', $observationView->getMessage());
-        $this->assertEquals('1', $observationView->getUser()->getId());
-        $this->assertEquals('1', $observationView->getWeatherStation()->getId());
     }
 
     public function testTransformToSearchView()

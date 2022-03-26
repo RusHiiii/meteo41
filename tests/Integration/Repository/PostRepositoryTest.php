@@ -53,22 +53,4 @@ class PostRepositoryTest extends TestCase
         $this->assertInstanceOf(Paginator::class, $posts);
         $this->assertEquals(0, $posts->count());
     }
-
-    public function testFindPaginatedPostWithSearchByUser()
-    {
-        $this->loadFile('tests/.fixtures/post.yml');
-
-        $posts = $this->postRepository->findPaginatedPosts(
-            [
-                ApiSearch::POST_SEARCH_BY_USER => '1',
-            ],
-            ApiSearch::POST_ORDER_BY_ASC,
-            1,
-            10
-        );
-
-        $this->assertInstanceOf(Paginator::class, $posts);
-        $this->assertEquals(1, $posts->count());
-    }
-
 }

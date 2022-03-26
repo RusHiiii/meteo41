@@ -1,15 +1,15 @@
 App\Entity\WebApp\User:
   type: entity
-  table: user
+  table: "`user`"
   repositoryClass: App\Repository\Doctrine\UserRepository
   indexes:
-    email:
+    user_email:
       columns: [ email ]
   id:
     id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     firstname:
       type: string

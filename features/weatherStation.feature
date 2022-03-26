@@ -45,7 +45,7 @@ Feature: Weather station
       "apiToken": "XYXYXXYX",
       "model": "HP 2551",
       "elevation": "250m",
-      "preferedUnit": "metric"
+      "preferedUnit": "Metric"
     }
     """
     Then the status code should be 201

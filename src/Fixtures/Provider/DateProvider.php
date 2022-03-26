@@ -7,22 +7,8 @@ use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
 class DateProvider extends BaseProvider
 {
-    public function dateCreate(string $period)
+    public function dateCreate()
     {
-        $date = new \DateTime();
-
-        if ($period === 'Y') {
-            return $date->format("Y");
-        }
-
-        if ($period === 'm') {
-            return $date->format("m");
-        }
-
-        if ($period === 'd') {
-            return $date->format("d");
-        }
-
-        throw new \RuntimeException();
+        return (new \DateTime())->format("Y-m-d");
     }
 }

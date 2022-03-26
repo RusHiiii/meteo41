@@ -2,22 +2,20 @@
 
 # Requirement
 - PHP >= 7.4 + extensions (json, xml, simplexml, mysql, ctype, iconv, dom)
-- MYSQL
+- PostgreSQL
 - Google MAP API and Geocoding API key (free)
 - OpenWeatherMap API (free)
 		
 ## Installation
 - ```git clone https://github.com/RusHiiii/meteo41.git```
-- ```echo "create database meteo41" | mysql -uroot -p```
-- ```echo "create database meteo41_test" | mysql -uroot -p```
+- ```psql -c 'create database meteo41_test;' -U postgres -h 127.0.0.1 -p 5432 }}```
+- ```psql -c 'create database meteo41;' -U postgres -h 127.0.0.1 -p 5432 }}```
 - ```composer install```
 - ```npm install```
 - ```bin/console doctrine:migration:migrate```
 
 Don't forget to setup MYSQL connection (password, username) with .env file
 Don't forget to setup JWT private and public key [here](https://symfonycasts.com/screencast/symfony-rest4/lexikjwt-authentication-bundle#generating-the-public-and-private-key).
-
-NB: A setup file has been created, you can import it [here](/documentation/data.sql) (username: test@test.fr // password: pass123*)
 
 ## Toolkit
 

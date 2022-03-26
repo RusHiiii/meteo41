@@ -71,11 +71,6 @@ class WeatherDataController extends AbstractController
     private $weatherDataTransformer;
 
     /**
-     * @var PeriodConverter
-     */
-    private $periodConverter;
-
-    /**
      * WeatherDataController constructor.
      * @param CommandBus $commandBus
      * @param CommandMapper $commandMapper
@@ -84,7 +79,6 @@ class WeatherDataController extends AbstractController
      * @param WeatherStationRepository $weatherStationRepository
      * @param WeatherDataRepository $weatherDataRepository
      * @param WeatherDataTransformer $weatherDataTransformer
-     * @param PeriodConverter $periodConverter
      */
     public function __construct(
         CommandBus $commandBus,
@@ -93,8 +87,7 @@ class WeatherDataController extends AbstractController
         SerializerInterface $serializer,
         WeatherStationRepository $weatherStationRepository,
         WeatherDataRepository $weatherDataRepository,
-        WeatherDataTransformer $weatherDataTransformer,
-        PeriodConverter $periodConverter
+        WeatherDataTransformer $weatherDataTransformer
     ) {
         $this->commandBus = $commandBus;
         $this->commandMapper = $commandMapper;
@@ -103,7 +96,6 @@ class WeatherDataController extends AbstractController
         $this->weatherStationRepository = $weatherStationRepository;
         $this->weatherDataRepository = $weatherDataRepository;
         $this->weatherDataTransformer = $weatherDataTransformer;
-        $this->periodConverter = $periodConverter;
     }
 
     /**
@@ -194,7 +186,7 @@ class WeatherDataController extends AbstractController
             return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);
         }
 
-        list($endDate, $startDate) = $this->periodConverter->convertPeriodToDate($period);
+        list($endDate, $startDate) = PeriodConverter::convertPeriodToDate($period);
 
         $weatherDataPeriod = $this->weatherDataRepository->findWeatherDataHistory($startDate, $endDate, $period, $reference);
         if (!$weatherDataPeriod['has_data']['exist']) {
@@ -220,7 +212,7 @@ class WeatherDataController extends AbstractController
             return new SerializedErrorResponse($this->serializer->serialize($error, 'json'), 404);
         }
 
-        list($endDate, $startDate) = $this->periodConverter->convertPeriodToDate($period);
+        list($endDate, $startDate) = PeriodConverter::convertPeriodToDate($period);
 
         $weatherDataGraph = $this->weatherDataRepository->findWeatherDataGraph($startDate, $endDate, $period, $reference);
         if (!$weatherDataGraph) {

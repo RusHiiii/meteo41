@@ -1,18 +1,12 @@
 doctrine:
     dbal:
       default_connection: default
-      connections:
-        default:
-          driver: pdo_mysql
-          host: '%env(BDD_DEFAULT_HOST)%'
-          port: '%env(BDD_DEFAULT_PORT)%'
-          dbname: '%env(BDD_DEFAULT_DBNAME)%'
-          user: '%env(BDD_DEFAULT_USERNAME)%'
-          password: '%env(BDD_DEFAULT_PASS)%'
-          charset: UTF8
-          server_version: '5.7'
+      url: '%env(resolve:DATABASE_URL)%'
     orm:
         auto_generate_proxy_classes: true
+        result_cache_driver:
+            type: pool
+            pool: doctrine.result_cache_pool
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
