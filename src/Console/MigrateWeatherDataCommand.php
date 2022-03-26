@@ -18,7 +18,7 @@ class MigrateWeatherDataCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Creates a new user.');
+            ->setDescription('Migrate datas...');
     }
 
     /**

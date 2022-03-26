@@ -293,20 +293,6 @@ export default function Observation(props) {
                               data-for="cloud"
                             >
                               <strong>{weatherData?.cloudBase}</strong>
-                              {weatherDataDaily && (
-                                <Tooltip
-                                  id="cloud"
-                                  min={weatherDataDaily.minCloudBase}
-                                  max={weatherDataDaily.maxCloudBase}
-                                  minReceivedAt={
-                                    weatherDataDaily.minCloudBaseReceivedAt
-                                  }
-                                  maxReceivedAt={
-                                    weatherDataDaily.maxCloudBaseReceivedAt
-                                  }
-                                  unit={weatherDataDaily.unit.cloudBaseUnit}
-                                />
-                              )}
                             </td>
                             <td>
                               <small>{weatherData?.unit.cloudBaseUnit}</small>

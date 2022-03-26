@@ -267,7 +267,7 @@ export default function Home(props) {
 
           <div className="fullwidth-block">
             <div className="container">
-              <h2 className="section-title">Précipitation</h2>
+              <h2 className="section-title">Pluviomètre</h2>
               <div className="gauge col-md-3 col-sm-6">
                 <RainRate
                   value={state.weatherData?.rainRate}
@@ -301,7 +301,7 @@ export default function Home(props) {
 
           <div className="fullwidth-block">
             <div className="container">
-              <h2 className="section-title">Vent</h2>
+              <h2 className="section-title">Anémomètre</h2>
               <div className="gauge col-md-3 col-sm-6">
                 <WindSpeed
                   value={state.weatherData?.windSpeedAvg}

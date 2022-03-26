@@ -3,6 +3,7 @@
 namespace App\Repository\Doctrine;
 
 use App\Core\Constant\WeatherData\Period;
+use App\Core\Converter\Period\PeriodConverter;
 use App\Entity\WebApp\WeatherData;
 use App\Repository\WeatherDataRepository as WeatherDataRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -100,52 +101,53 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
     public function findWeatherDataHistory(string $startDate, string $endDate, string $period, string $reference)
     {
         $history = [];
+        $ttl = PeriodConverter::convertPeriodToTtl($period);
 
         // Temperature and Humidity history
-        $history['temperature_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'temperature');
-        $history['temperature_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'temperature');
-        $history['humidex_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'humidex');
-        $history['humidex_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'humidex');
-        $history['dewpoint_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'dewPoint');
-        $history['dewpoint_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'dewPoint');
-        $history['windchill_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'windChill');
-        $history['windchill_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'windChill');
-        $history['humidity_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'humidity');
-        $history['humidity_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'humidity');
-        $history['heat_index_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'heatIndex');
-        $history['heat_index_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'heatIndex');
+        $history['temperature_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'temperature');
+        $history['temperature_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'temperature');
+        $history['humidex_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'humidex');
+        $history['humidex_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'humidex');
+        $history['dewpoint_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'dewPoint');
+        $history['dewpoint_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'dewPoint');
+        $history['windchill_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'windChill');
+        $history['windchill_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'windChill');
+        $history['humidity_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'humidity');
+        $history['humidity_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'humidity');
+        $history['heat_index_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'heatIndex');
+        $history['heat_index_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'heatIndex');
 
         // Pressure history
-        $history['relative_pressure_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'relativePressure');
-        $history['relative_pressure_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'relativePressure');
+        $history['relative_pressure_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'relativePressure');
+        $history['relative_pressure_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'relativePressure');
 
         // Rain history
-        $history['rain_rate_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'rainRate');
-        $history['rain_event_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'rainEvent');
+        $history['rain_rate_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'rainRate');
+        $history['rain_event_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'rainEvent');
 
         $history['rain_period'] = [ 'value' => null, 'createdAt' => null ];
         if ($period !== Period::RECORD) {
-            $history['rain_period'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, sprintf('%s%s', 'rain', ucfirst($period)));
+            $history['rain_period'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, sprintf('%s%s', 'rain', ucfirst($period)));
         }
 
         // Wind speed
-        $history['wind_gust_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'windGust');
-        $history['beaufort_scale_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'beaufortScale');
+        $history['wind_gust_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'windGust');
+        $history['beaufort_scale_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'beaufortScale');
 
         // Air quality
-        $history['pm25_avg'] = $this->findAvgWeatherDataHistory($startDate, $endDate, $reference, 'pm25Avg');
-        $history['aqi_avg'] = $this->findAvgWeatherDataHistory($startDate, $endDate, $reference, 'aqiAvg');
-        $history['pm25_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'pm25');
-        $history['aqi_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'aqi');
-        $history['pm25_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'pm25');
-        $history['aqi_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, 'aqi');
+        $history['pm25_avg'] = $this->findAvgWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'pm25Avg');
+        $history['aqi_avg'] = $this->findAvgWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'aqiAvg');
+        $history['pm25_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'pm25');
+        $history['aqi_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'aqi');
+        $history['pm25_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'pm25');
+        $history['aqi_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'aqi');
 
         // Solar radiation and UV
-        $history['solar_radiation_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'solarRadiation');
-        $history['uv_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, 'uv');
+        $history['solar_radiation_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'solarRadiation');
+        $history['uv_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'uv');
 
         // Check data
-        $history['has_data'] = $this->hasWeatherDataHistory($startDate, $endDate, $reference);
+        $history['has_data'] = $this->hasWeatherDataHistory($startDate, $endDate, $reference, $ttl);
 
         return $history;
     }
@@ -159,19 +161,8 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
      */
     public function findWeatherDataGraph(string $startDate, string $endDate, string $period, string $reference)
     {
-        $mod = 2;
-
-        if ($period === Period::WEEKLY) {
-            $mod = 15;
-        }
-
-        if ($period === Period::MONTHLY) {
-            $mod = 40;
-        }
-
-        if ($period === Period::YEARLY) {
-            $mod = 180;
-        }
+        $ttl = PeriodConverter::convertPeriodToTtl($period);
+        $mod = PeriodConverter::convertPeriodToMod($period);
 
         $qb = $this
             ->createQueryBuilder('weatherData')
@@ -192,7 +183,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         return $qb
             ->getQuery()
             ->useQueryCache(true)
-            ->enableResultCache(1800)
+            ->enableResultCache($ttl)
             ->getResult();
     }
 
@@ -200,11 +191,12 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
      * @param string $startDate
      * @param string $endDate
      * @param string $reference
+     * @param int $ttl
      * @param string $field
      * @return int|mixed|string|null
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    private function findMaxWeatherDataHistory(string $startDate, string $endDate, string $reference, string $field)
+    private function findMaxWeatherDataHistory(string $startDate, string $endDate, string $reference, int $ttl, string $field)
     {
         $qb = $this
             ->createQueryBuilder('weatherData')
@@ -224,7 +216,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         return $qb
             ->getQuery()
             ->useQueryCache(true)
-            ->enableResultCache(1800)
+            ->enableResultCache($ttl)
             ->setMaxResults(1)
             ->getOneOrNullResult();
     }
@@ -236,7 +228,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
      * @return bool
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function hasWeatherDataHistory(string $startDate, string $endDate, string $reference)
+    public function hasWeatherDataHistory(string $startDate, string $endDate, string $reference, int $ttl)
     {
 
         $qbSub = $this
@@ -262,7 +254,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
             ->setParameter('reference', $reference)
             ->getQuery()
             ->useQueryCache(true)
-            ->enableResultCache(1800)
+            ->enableResultCache($ttl)
             ->getOneOrNullResult();
     }
 
@@ -294,11 +286,12 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
      * @param string $startDate
      * @param string $endDate
      * @param string $reference
+     * @param int $ttl
      * @param string $field
      * @return int|mixed|string|null
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    private function findAvgWeatherDataHistory(string $startDate, string $endDate, string $reference, string $field)
+    private function findAvgWeatherDataHistory(string $startDate, string $endDate, string $reference, int $ttl, string $field)
     {
         $qb = $this
             ->createQueryBuilder('weatherData')
@@ -317,7 +310,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         return $qb
             ->getQuery()
             ->useQueryCache(true)
-            ->enableResultCache(1800)
+            ->enableResultCache($ttl)
             ->setMaxResults(1)
             ->getOneOrNullResult();
     }
@@ -326,11 +319,12 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
      * @param string $startDate
      * @param string $endDate
      * @param string $reference
+     * @param int $ttl
      * @param string $field
      * @return int|mixed|string|null
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    private function findMinWeatherDataHistory(string $startDate, string $endDate, string $reference, string $field)
+    private function findMinWeatherDataHistory(string $startDate, string $endDate, string $reference, int $ttl, string $field)
     {
         $qb = $this
             ->createQueryBuilder('weatherData')
@@ -350,7 +344,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         return $qb
             ->getQuery()
             ->useQueryCache(true)
-            ->enableResultCache(1800)
+            ->enableResultCache($ttl)
             ->setMaxResults(1)
             ->getOneOrNullResult();
     }
