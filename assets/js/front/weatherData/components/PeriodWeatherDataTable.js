@@ -41,7 +41,7 @@ export default function PeriodWeatherDataTable(props) {
           </td>
         </tr>
         <tr className="table-obs-first-data min-max">
-          <td>Température maximal</td>
+          <td>Température maximale</td>
           <td>
             {weatherData.maxTemperature} {weatherData.unit.temperatureUnit}
           </td>
@@ -52,7 +52,7 @@ export default function PeriodWeatherDataTable(props) {
           </td>
         </tr>
         <tr className="min-max">
-          <td>Température minimal</td>
+          <td>Température minimale</td>
           <td>
             {weatherData.minTemperature} {weatherData.unit.temperatureUnit}
           </td>
@@ -66,6 +66,38 @@ export default function PeriodWeatherDataTable(props) {
           <td>Écart de température</td>
           <td>
             {(weatherData.maxTemperature - weatherData.minTemperature).toFixed(
+              1
+            )}{' '}
+            {weatherData.unit.temperatureUnit}
+          </td>
+          <td></td>
+        </tr>
+        <tr className="min-max">
+          <td>Température du sol maximale</td>
+          <td>
+            {weatherData.maxSoilTemperature} {weatherData.unit.temperatureUnit}
+          </td>
+          <td>
+            à <Date date={weatherData.maxSoilTemperatureReceivedAt} format={'LT'} />
+            , le{' '}
+            <Date date={weatherData.maxSoilTemperatureReceivedAt} format={'LL'} />
+          </td>
+        </tr>
+        <tr className="min-max">
+          <td>Température du sol minimale</td>
+          <td>
+            {weatherData.minSoilTemperature} {weatherData.unit.temperatureUnit}
+          </td>
+          <td>
+            à <Date date={weatherData.minSoilTemperatureReceivedAt} format={'LT'} />
+            , le{' '}
+            <Date date={weatherData.minSoilTemperatureReceivedAt} format={'LL'} />
+          </td>
+        </tr>
+        <tr className="min-max">
+          <td>Écart de température du sol</td>
+          <td>
+            {(weatherData.maxSoilTemperature - weatherData.minSoilTemperature).toFixed(
               1
             )}{' '}
             {weatherData.unit.temperatureUnit}
@@ -162,7 +194,7 @@ export default function PeriodWeatherDataTable(props) {
             le <Date date={weatherData.maxHumidityReceivedAt} format={'LL'} />
           </td>
         </tr>
-        <tr className="table-obs-last-data min-max">
+        <tr className="min-max">
           <td>Humidité minimale</td>
           <td>
             {weatherData.minHumidity} {weatherData.unit.humidityUnit}
@@ -170,6 +202,16 @@ export default function PeriodWeatherDataTable(props) {
           <td>
             à <Date date={weatherData.minHumidityReceivedAt} format={'LT'} />,
             le <Date date={weatherData.minHumidityReceivedAt} format={'LL'} />
+          </td>
+        </tr>
+        <tr className="table-obs-last-data min-max">
+          <td>Humidité foliaire maximale</td>
+          <td>
+            {weatherData.maxLeafWetness} {weatherData.unit.humidityUnit}
+          </td>
+          <td>
+            à <Date date={weatherData.maxLeafWetnessReceivedAt} format={'LT'} />,
+            le <Date date={weatherData.maxLeafWetnessReceivedAt} format={'LL'} />
           </td>
         </tr>
         <tr>

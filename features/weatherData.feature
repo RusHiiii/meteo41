@@ -127,6 +127,50 @@ Feature: Weather Data
       | heatIndex         | 7.3          |
 
   @database
+  Scenario: Register weather data n°4
+    Given I load the fixture "weatherStation"
+    When I request the url "/api/weatherData" with http verb "POST" and with the payload
+    """
+    PASSKEY=5C909136C44BE31AB4F58FA0A5A54D68&stationtype=EasyWeatherV1.4.6&dateutc=2020-07-17+20:05:30&tempinf=69.8&humidityin=41&baromrelin=30.36&baromabsin=29.93&tempf=48.0&humidity=55&winddir=18&winddir_avg10m=18&windspeedmph=6.0&windspdmph_avg10m=6.0&windgustmph=13.6&maxdailygust=20.6&rainratein=0.000&eventrainin=0.00&hourlyrainin=0.00&dailyrainin=0.00&weeklyrainin=0.24&monthlyrainin=0.89&yearlyrainin=6.93&solarradiation=468.1&uv=4&pm25_ch1=13.0&pm25_avg_24h_ch1=13.0&wh65batt=0&wh25batt=0&pm25batt1=5&tf_ch1=56.5&leafwetness_ch1=24&tf_batt1=1.72&leaf_batt1=1.72&freq=868M&model=HP1000SE-PRO_Pro_V1.6.0
+    """
+    Then the status code should be 201
+    And Object "WeatherData" in namespace "WebApp" with the following data should exist in database
+      | attribute         | value        |
+      | unit              | 1            |
+      | weatherStation    | 1            |
+      | temperature       | 8.9          |
+      | humidity          | 55           |
+      | relativePressure  | 1028.1       |
+      | absolutePressure  | 1013.5       |
+      | windDirection     | 18           |
+      | windDirectionAvg  | 18           |
+      | windSpeed         | 9.7          |
+      | windSpeedAvg      | 9.7          |
+      | windGust          | 21.9         |
+      | windMaxDailyGust  | 33.1         |
+      | rainRate          | 0            |
+      | rainEvent         | 0            |
+      | rainHourly        | 0            |
+      | rainDaily         | 0            |
+      | rainWeekly        | 6.1          |
+      | rainMonthly       | 22.6         |
+      | rainYearly        | 176          |
+      | solarRadiation    | 468.1        |
+      | uv                | 4            |
+      | pm25              | 13           |
+      | pm25Avg           | 13           |
+      | humidex           | 8.9          |
+      | dewPoint          | 0.3          |
+      | windChill         | 7.4          |
+      | cloudBase         | 1067         |
+      | beaufortScale     | 2            |
+      | aqi               | 53           |
+      | aqiAvg            | 53           |
+      | heatIndex         | 7.3          |
+      | soilTemperature   | 13.6         |
+      | leafWetness       | 24           |
+
+  @database
   Scenario: Show summary weather data
     Given I load the fixture "weatherData"
     When I request the url "/api/weatherData/AAA/currentData/summary" with http verb "GET"
@@ -245,7 +289,13 @@ Feature: Weather Data
       "maxHeatIndex":8.3,
       "maxHeatIndexReceivedAt":"2022-01-01T00:13:12+01:00",
       "minHeatIndex":7.3,
-      "minHeatIndexReceivedAt":"2022-01-01T00:12:12+01:00"
+      "minHeatIndexReceivedAt":"2022-01-01T00:12:12+01:00",
+      "maxSoilTemperature":20,
+      "maxSoilTemperatureReceivedAt":"2022-01-01T00:13:12+01:00",
+      "minSoilTemperature":20,
+      "minSoilTemperatureReceivedAt":"2022-01-01T00:13:12+01:00",
+      "maxLeafWetness":19,
+      "maxLeafWetnessReceivedAt":"2022-01-01T00:13:12+01:00"
   }
     """
 

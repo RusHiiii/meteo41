@@ -19,6 +19,8 @@ import TemperaturePeriodGraphic from '../components/TemperaturePeriodGraphic';
 import RainPeriodGraphic from '../components/RainPeriodGraphic';
 import PMPeriodGraphic from '../components/PMPeriodGraphic';
 import WindPeriodGraphic from '../components/WindPeriodGraphic';
+import LeafWetnessPeriodGraphic from "../components/LeafWetnessPeriodGraphic";
+import SoilTemperaturePeriodGraphic from "../components/SoilTemperaturePeriodGraphic";
 
 const choices = [
   {
@@ -74,6 +76,8 @@ const formatData = (weatherData) => {
     aqiAvg: [],
     windGust: [],
     windSpeed: [],
+    leafWetness: [],
+    soilTemperature: [],
   };
 
   weatherData.datas.map((data) => {
@@ -133,6 +137,14 @@ const formatData = (weatherData) => {
     formatedGraphicData.windSpeed.push([
       new Date(data.receivedAt).getTime(),
       data.windSpeed,
+    ]);
+    formatedGraphicData.leafWetness.push([
+      new Date(data.receivedAt).getTime(),
+      data.leafWetness,
+    ]);
+    formatedGraphicData.soilTemperature.push([
+      new Date(data.receivedAt).getTime(),
+      data.soilTemperature,
     ]);
   });
 
@@ -346,8 +358,20 @@ export default function PeriodGraphic(props) {
                   period={state.period}
                   unit={state.weatherGraphic?.unit.temperatureUnit}
                 />
+                <SoilTemperaturePeriodGraphic
+                  dataSoilTemp={state.formatedGraphicData.soilTemperature}
+                  history={state.weatherHistory}
+                  period={state.period}
+                  unit={state.weatherGraphic?.unit.temperatureUnit}
+                />
                 <HumidityPeriodGraphic
                   data={state.formatedGraphicData.humidity}
+                  history={state.weatherHistory}
+                  period={state.period}
+                  unit={state.weatherGraphic?.unit.humidityUnit}
+                />
+                <LeafWetnessPeriodGraphic
+                  data={state.formatedGraphicData.leafWetness}
                   history={state.weatherHistory}
                   period={state.period}
                   unit={state.weatherGraphic?.unit.humidityUnit}

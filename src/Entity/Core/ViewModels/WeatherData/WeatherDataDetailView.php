@@ -79,6 +79,12 @@ class WeatherDataDetailView
 
     private float $heatIndex;
 
+    private ?int $leafWetness;
+
+    private ?float $soilTemperature;
+
+    private ?float $soilTemperatureVariation;
+
     private \DateTime $receivedAt;
 
     /**
@@ -119,9 +125,12 @@ class WeatherDataDetailView
      * @param int $aqi
      * @param int $aqiAvg
      * @param float $heatIndex
+     * @param float|null $soilTemperature
+     * @param float|null $soilTemperatureVariation
+     * @param int|null $leafWetness
      * @param \DateTime $receivedAt
      */
-    public function __construct(int $id, WeatherStationView $weatherStation, UnitView $unit, float $temperature, ?float $temperatureVariation, int $humidity, float $relativePressure, ?float $relativePressureVariation, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, ?float $solarRadiationVariation, int $uv, int $pm25, int $pm25Avg, float $humidex, ?float $humidexVariation, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, int $aqi, int $aqiAvg, float $heatIndex, \DateTime $receivedAt)
+    public function __construct(int $id, WeatherStationView $weatherStation, UnitView $unit, float $temperature, ?float $temperatureVariation, int $humidity, float $relativePressure, ?float $relativePressureVariation, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, ?float $solarRadiationVariation, int $uv, int $pm25, int $pm25Avg, float $humidex, ?float $humidexVariation, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, int $aqi, int $aqiAvg, float $heatIndex, ?float $soilTemperature, ?int $leafWetness, ?float $soilTemperatureVariation, \DateTime $receivedAt)
     {
         $this->id = $id;
         $this->weatherStation = $weatherStation;
@@ -160,6 +169,9 @@ class WeatherDataDetailView
         $this->aqiAvg = $aqiAvg;
         $this->heatIndex = $heatIndex;
         $this->receivedAt = $receivedAt;
+        $this->soilTemperature = $soilTemperature;
+        $this->leafWetness = $leafWetness;
+        $this->soilTemperatureVariation = $soilTemperatureVariation;
     }
 
     /**
@@ -192,6 +204,30 @@ class WeatherDataDetailView
     public function getTemperature(): float
     {
         return $this->temperature;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLeafWetness(): ?int
+    {
+        return $this->leafWetness;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getSoilTemperature(): ?float
+    {
+        return $this->soilTemperature;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getSoilTemperatureVariation(): ?float
+    {
+        return $this->soilTemperatureVariation;
     }
 
     /**

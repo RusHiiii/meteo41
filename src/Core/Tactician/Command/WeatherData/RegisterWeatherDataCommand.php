@@ -62,6 +62,14 @@ class RegisterWeatherDataCommand
 
     private string $pm25batt1;
 
+    private ?string $leafwetness_ch1;
+
+    private ?string $tf_ch1;
+
+    private ?string $leaf_batt1;
+
+    private ?string $tf_batt1;
+
     private string $freq;
 
     private string $model;
@@ -98,6 +106,10 @@ class RegisterWeatherDataCommand
      * @param string $pm25batt1
      * @param string $freq
      * @param string $model
+     * @param string|null $leafwetness_ch1
+     * @param string|null $tf_ch1
+     * @param string|null $leaf_batt1
+     * @param string|null $tf_batt1
      */
     public function __construct(
         string $stationtype,
@@ -129,7 +141,11 @@ class RegisterWeatherDataCommand
         string $wh25batt,
         string $pm25batt1,
         string $freq,
-        string $model
+        string $model,
+        ?string $leafwetness_ch1 = null,
+        ?string $tf_ch1 = null,
+        ?string $leaf_batt1 = null,
+        ?string $tf_batt1 = null
     ) {
         $this->stationtype = $stationtype;
         $this->dateutc = $dateutc;
@@ -161,6 +177,10 @@ class RegisterWeatherDataCommand
         $this->pm25batt1 = $pm25batt1;
         $this->freq = $freq;
         $this->model = $model;
+        $this->leafwetness_ch1 = $leafwetness_ch1;
+        $this->leaf_batt1 = $leaf_batt1;
+        $this->tf_ch1 = $tf_ch1;
+        $this->tf_batt1 = $tf_batt1;
     }
 
 
@@ -214,9 +234,27 @@ class RegisterWeatherDataCommand
         return (float) $this->tempinf;
     }
 
+    public function getSoilTemperatureF()
+    {
+        if ($this->tf_ch1) {
+            return (float) $this->tf_ch1;
+        }
+
+        return null;
+    }
+
     public function getIndoorHumidity()
     {
         return (int) $this->humidityin;
+    }
+
+    public function getLeafWetness()
+    {
+        if ($this->leafwetness_ch1) {
+            return (int) $this->leafwetness_ch1;
+        }
+
+        return null;
     }
 
     public function getRelativePressureInhg()

@@ -1,6 +1,6 @@
-export function showFixedValue(value) {
+export function showFixedValue(value, precision = 1) {
   if (value) {
-    return value.toFixed(1);
+    return value.toFixed(precision);
   }
 
   return '-';

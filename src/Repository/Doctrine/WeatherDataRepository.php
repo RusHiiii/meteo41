@@ -146,6 +146,11 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         $history['solar_radiation_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'solarRadiation');
         $history['uv_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'uv');
 
+        // Optionnal sensors
+        $history['soil_temperature_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'soilTemperature');
+        $history['soil_temperature_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'soilTemperature');
+        $history['leaf_wetness_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'leafWetness');
+
         // Check data
         $history['has_data'] = $this->hasWeatherDataHistory($startDate, $endDate, $reference, $ttl);
 
@@ -208,6 +213,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
                 $qb->expr()->between('weatherData.date', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
+            ->andWhere($qb->expr()->isNotNull($this->alias($field, 'weatherData')))
             ->orderBy('value', 'DESC')
             ->setParameter('startDate', \DateTime::createFromFormat('Y-m-d H:i:s', $startDate)->format('Y-m-d'))
             ->setParameter('endDate', \DateTime::createFromFormat('Y-m-d H:i:s', $endDate)->format('Y-m-d'))
@@ -336,6 +342,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
                 $qb->expr()->between('weatherData.date', ':startDate', ':endDate')
             )
             ->andWhere('weatherStation.reference = :reference')
+            ->andWhere($qb->expr()->isNotNull($this->alias($field, 'weatherData')))
             ->orderBy('value', 'ASC')
             ->setParameter('startDate', \DateTime::createFromFormat('Y-m-d H:i:s', $startDate)->format('Y-m-d'))
             ->setParameter('endDate', \DateTime::createFromFormat('Y-m-d H:i:s', $endDate)->format('Y-m-d'))

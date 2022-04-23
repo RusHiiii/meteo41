@@ -96,7 +96,13 @@ class WeatherDataTransformer
             $weatherData['heat_index_min']['value'],
             $weatherData['heat_index_min']['createdAt'],
             $weatherData['heat_index_max']['value'],
-            $weatherData['heat_index_max']['createdAt']
+            $weatherData['heat_index_max']['createdAt'],
+            $weatherData['soil_temperature_min']['value'],
+            $weatherData['soil_temperature_min']['createdAt'],
+            $weatherData['soil_temperature_max']['value'],
+            $weatherData['soil_temperature_max']['createdAt'],
+            $weatherData['leaf_wetness_max']['value'],
+            $weatherData['leaf_wetness_max']['createdAt']
         );
     }
 
@@ -173,6 +179,8 @@ class WeatherDataTransformer
             $weatherData->getWindChill(),
             $weatherData->getAqi(),
             $weatherData->getAqiAvg(),
+            $weatherData->getSoilTemperature(),
+            $weatherData->getLeafWetness(),
             $weatherData->getCreatedAt()
         );
     }
@@ -188,6 +196,7 @@ class WeatherDataTransformer
         $weatherStation = $this->weatherStationTransformer->transformWeatherStationToView($currentWeatherData->getWeatherStation());
 
         $temperatureVariation = $lastHourWeatherData ? round($currentWeatherData->getTemperature() - $lastHourWeatherData->getTemperature(), 1) : null;
+        $soilTemperatureVariation = $lastHourWeatherData ? round($currentWeatherData->getSoilTemperature() - $lastHourWeatherData->getSoilTemperature(), 1) : null;
         $relativePressureVariation = $lastHourWeatherData ? round($currentWeatherData->getRelativePressure() - $lastHourWeatherData->getRelativePressure(), 1) : null;
         $solarRadiationVariation = $lastHourWeatherData ? round($currentWeatherData->getSolarRadiation() - $lastHourWeatherData->getSolarRadiation(), 1) : null;
         $humidexVariation = $lastHourWeatherData ? round($currentWeatherData->getHumidex() - $lastHourWeatherData->getHumidex(), 1) : null;
@@ -229,6 +238,9 @@ class WeatherDataTransformer
             $currentWeatherData->getAqi(),
             $currentWeatherData->getAqiAvg(),
             $currentWeatherData->getHeatIndex(),
+            $currentWeatherData->getSoilTemperature(),
+            $currentWeatherData->getLeafWetness(),
+            $soilTemperatureVariation,
             $currentWeatherData->getCreatedAt()
         );
     }
