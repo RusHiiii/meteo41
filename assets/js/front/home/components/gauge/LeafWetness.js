@@ -9,6 +9,7 @@ let gleaf = null;
 function initGauge(canvas, value, unit) {
   gleaf = new RadialGauge(canvas, {
     units: ` ${unit}`,
+    valueFormat: { dec: 0 },
     minValue: 0,
     maxValue: 100,
     majorTicks: ['0', '20', '40', '60', '80', '100'],
