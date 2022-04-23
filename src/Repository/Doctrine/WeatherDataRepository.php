@@ -203,7 +203,6 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
      */
     private function findMaxWeatherDataHistory(string $startDate, string $endDate, string $reference, int $ttl, string $field)
     {
-        $field = 'soilTemperature';
         $qb = $this
             ->createQueryBuilder('weatherData')
             ->leftJoin('weatherData.weatherStation', 'weatherStation');
