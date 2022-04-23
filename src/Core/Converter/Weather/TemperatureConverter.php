@@ -6,7 +6,7 @@ class TemperatureConverter implements Converter
 {
     /**
      * @param float $value
-     * @return float
+     * @return float|null
      */
     public function convertImperialToMetric(?float $value)
     {
@@ -21,7 +21,7 @@ class TemperatureConverter implements Converter
 
     /**
      * @param float $value
-     * @return float
+     * @return float|null
      */
     public function convertMetricToImperial(?float $value)
     {
