@@ -245,7 +245,13 @@ Feature: Weather Data
       "maxHeatIndex":8.3,
       "maxHeatIndexReceivedAt":"2022-01-01T00:13:12+01:00",
       "minHeatIndex":7.3,
-      "minHeatIndexReceivedAt":"2022-01-01T00:12:12+01:00"
+      "minHeatIndexReceivedAt":"2022-01-01T00:12:12+01:00",
+      "maxSoilTemperature":20,
+      "maxSoilTemperatureReceivedAt":"2022-01-01T00:13:12+01:00",
+      "minSoilTemperature":20,
+      "minSoilTemperatureReceivedAt":"2022-01-01T00:13:12+01:00",
+      "maxLeafWetness":19,
+      "maxLeafWetnessReceivedAt":"2022-01-01T00:13:12+01:00"
   }
     """
 
