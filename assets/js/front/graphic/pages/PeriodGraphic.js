@@ -138,14 +138,24 @@ const formatData = (weatherData) => {
       new Date(data.receivedAt).getTime(),
       data.windSpeed,
     ]);
-    formatedGraphicData.leafWetness.push([
-      new Date(data.receivedAt).getTime(),
-      data.leafWetness,
-    ]);
-    formatedGraphicData.soilTemperature.push([
-      new Date(data.receivedAt).getTime(),
-      data.soilTemperature,
-    ]);
+
+    /**
+     * Optionnals sensors
+     */
+
+    if (data.leafWetness !== null) {
+      formatedGraphicData.leafWetness.push([
+        new Date(data.receivedAt).getTime(),
+        data.leafWetness,
+      ]);
+    }
+
+    if (data.soilTemperature !== null) {
+      formatedGraphicData.soilTemperature.push([
+        new Date(data.receivedAt).getTime(),
+        data.soilTemperature,
+      ]);
+    }
   });
 
   return formatedGraphicData;
@@ -258,6 +268,8 @@ function useGraphicWeatherData(weatherStation) {
       pressure: null,
       windDirection: null,
       temperature: null,
+      soilTemperature: null,
+      leafWetness: null,
       dewpoint: null,
       windchill: null,
       rainRate: null,
