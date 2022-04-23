@@ -5,7 +5,7 @@ import { beaufortScaleToText } from '../utils/beaufortScaleToText';
 import { aqiToText } from '../utils/aqiToText';
 
 const showVariation = (value, unit) => {
-  if (value) {
+  if (value !== null) {
     const sign = value > 0 ? '+' : '';
 
     return `${sign}${value.toFixed(1)} ${unit}`;
@@ -15,7 +15,7 @@ const showVariation = (value, unit) => {
 };
 
 const showOptionnalSensor = (value, unit, precision = 1) => {
-  if (value) {
+  if (value !== null) {
     return `${value.toFixed(precision)} ${unit}`;
   }
 
