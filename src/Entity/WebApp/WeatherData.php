@@ -64,6 +64,10 @@ class WeatherData
 
     private int $aqiAvg;
 
+    private ?float $soilTemperature;
+
+    private ?int $leafWetness;
+
     private \DateTime $createdAt;
 
     private \DateTime $date;
@@ -103,9 +107,12 @@ class WeatherData
      * @param int $beaufortScale
      * @param int $aqi
      * @param int $aqiAvg
+     * @param float|null $soilTemperature
+     * @param int|null $leafWetness
+     * @param int $aqiAvg
      * @param \DateTime $createdAt
      */
-    public function __construct(float $heatIndex, float $temperature, float $humidity, float $relativePressure, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, float $pm25, float $pm25Avg, float $humidex, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, int $aqi, int $aqiAvg, \DateTime $createdAt)
+    public function __construct(float $heatIndex, float $temperature, float $humidity, float $relativePressure, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, float $pm25, float $pm25Avg, float $humidex, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, int $aqi, int $aqiAvg, ?float $soilTemperature, ?int $leafWetness, \DateTime $createdAt)
     {
         $this->temperature = $temperature;
         $this->heatIndex = $heatIndex;
@@ -137,6 +144,8 @@ class WeatherData
         $this->aqi = $aqi;
         $this->aqiAvg = $aqiAvg;
         $this->createdAt = $this->date = $createdAt;
+        $this->leafWetness = $leafWetness;
+        $this->soilTemperature = $soilTemperature;
     }
 
     /**
@@ -673,5 +682,37 @@ class WeatherData
     public function setHeatIndex(float $heatIndex): void
     {
         $this->heatIndex = $heatIndex;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getSoilTemperature(): ?float
+    {
+        return $this->soilTemperature;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLeafWetness(): ?int
+    {
+        return $this->leafWetness;
+    }
+
+    /**
+     * @param float|null $soilTemperature
+     */
+    public function setSoilTemperature(?float $soilTemperature): void
+    {
+        $this->soilTemperature = $soilTemperature;
+    }
+
+    /**
+     * @param int|null $leafWetness
+     */
+    public function setLeafWetness(?int $leafWetness): void
+    {
+        $this->leafWetness = $leafWetness;
     }
 }

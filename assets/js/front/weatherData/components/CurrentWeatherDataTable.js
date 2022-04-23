@@ -14,6 +14,14 @@ const showVariation = (value, unit) => {
   return '-';
 };
 
+const showOptionnalSensor = (value, unit, precision = 1) => {
+  if (value) {
+    return `${value.toFixed(precision)} ${unit}`;
+  }
+
+  return '-';
+};
+
 const showObservation = (value) => {
   if (value) {
     return value.message;
@@ -54,6 +62,19 @@ export default function CurrentWeatherDataTable(props) {
           </td>
         </tr>
         <tr>
+          <td>Température du sol (-30cm)</td>
+          <td>
+            {showOptionnalSensor(weatherData.soilTemperature, weatherData.unit.temperatureUnit)}
+          </td>
+          <td>Variation depuis 1h</td>
+          <td>
+            {showVariation(
+              weatherData.soilTemperatureVariation,
+              weatherData.unit.temperatureUnit
+            )}
+          </td>
+        </tr>
+        <tr>
           <td>Humidex</td>
           <td>
             {weatherData.humidex} {weatherData.unit.temperatureUnit}
@@ -87,13 +108,21 @@ export default function CurrentWeatherDataTable(props) {
             {weatherData.unit.humidityUnit}
           </td>
         </tr>
-        <tr className="table-obs-last-data">
+        <tr>
+          <td>Humidité foliaire</td>
+          <td>
+            {showOptionnalSensor(weatherData.leafWetness, weatherData.unit.humidityUnit, 0)}
+          </td>
           <td>Couvert. nuageuse</td>
           <td>
             {weatherData.cloudBase} {weatherData.unit.cloudBaseUnit}
           </td>
+        </tr>
+        <tr className="table-obs-last-data">
           <td>Observation</td>
           <td>{showObservation(observation)}</td>
+          <td></td>
+          <td></td>
         </tr>
         <tr>
           <td colSpan="4" className="table-obs-header">

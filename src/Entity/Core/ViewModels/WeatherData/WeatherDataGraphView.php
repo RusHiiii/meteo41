@@ -11,7 +11,11 @@ class WeatherDataGraphView
 
     private float $temperature;
 
+    private ?float $soilTemperature;
+
     private int $humidity;
+
+    private ?int $leafWetness;
 
     private float $relativePressure;
 
@@ -42,7 +46,7 @@ class WeatherDataGraphView
     private \DateTime $receivedAt;
 
     /**
-     * WeatherDataGraphItemView constructor.
+     * WeatherDataGraphView constructor.
      * @param int $id
      * @param float $temperature
      * @param int $humidity
@@ -59,9 +63,11 @@ class WeatherDataGraphView
      * @param float $windChill
      * @param int $aqi
      * @param int $aqiAvg
+     * @param float|null $soilTemperature
+     * @param int|null $leafWetness
      * @param \DateTime $receivedAt
      */
-    public function __construct(int $id, float $temperature, int $humidity, float $relativePressure, int $windDirection, float $windSpeed, float $windGust, float $rainRate, float $rainDaily, float $solarRadiation, int $uv, int $pm25, float $dewPoint, float $windChill, int $aqi, int $aqiAvg, \DateTime $receivedAt)
+    public function __construct(int $id, float $temperature, int $humidity, float $relativePressure, int $windDirection, float $windSpeed, float $windGust, float $rainRate, float $rainDaily, float $solarRadiation, int $uv, int $pm25, float $dewPoint, float $windChill, int $aqi, int $aqiAvg, ?float $soilTemperature, ?int $leafWetness, \DateTime $receivedAt)
     {
         $this->id = $id;
         $this->temperature = $temperature;
@@ -79,6 +85,8 @@ class WeatherDataGraphView
         $this->windChill = $windChill;
         $this->aqi = $aqi;
         $this->aqiAvg = $aqiAvg;
+        $this->leafWetness = $leafWetness;
+        $this->soilTemperature = $soilTemperature;
         $this->receivedAt = $receivedAt;
     }
 
@@ -104,6 +112,22 @@ class WeatherDataGraphView
     public function getHumidity(): int
     {
         return $this->humidity;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getSoilTemperature(): ?float
+    {
+        return $this->soilTemperature;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLeafWetness(): ?int
+    {
+        return $this->leafWetness;
     }
 
     /**
