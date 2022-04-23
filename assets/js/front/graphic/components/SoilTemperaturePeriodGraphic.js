@@ -163,6 +163,9 @@ function useSoilTemperaturePeriodGraphic({
           datetimeUTC: false,
         },
       },
+      legend: {
+        showForSingleSeries: true,
+      },
       yaxis: {
         min: -5,
         max: 35,
