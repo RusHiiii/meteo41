@@ -236,11 +236,7 @@ class RegisterWeatherDataCommand
 
     public function getSoilTemperatureF()
     {
-        if ($this->tf_ch1) {
-            return (float) $this->tf_ch1;
-        }
-
-        return null;
+        return (float) $this->tf_ch1;
     }
 
     public function getIndoorHumidity()
@@ -250,11 +246,7 @@ class RegisterWeatherDataCommand
 
     public function getLeafWetness()
     {
-        if ($this->leafwetness_ch1) {
-            return (int) $this->leafwetness_ch1;
-        }
-
-        return null;
+        return (int) $this->leafwetness_ch1;
     }
 
     public function getRelativePressureInhg()

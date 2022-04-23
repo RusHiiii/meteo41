@@ -131,7 +131,7 @@ Feature: Weather Data
     Given I load the fixture "weatherStation"
     When I request the url "/api/weatherData" with http verb "POST" and with the payload
     """
-    PASSKEY=5C909136C44BE31AB4F58FA0A5A54D68&stationtype=EasyWeatherV1.4.6&dateutc=2020-07-17+20:05:30&tempinf=69.8&humidityin=41&baromrelin=30.36&baromabsin=29.93&tempf=48.0&humidity=55&winddir=18&winddir_avg10m=18&windspeedmph=6.0&windspdmph_avg10m=6.0&windgustmph=13.6&maxdailygust=20.6&rainratein=0.000&eventrainin=0.00&hourlyrainin=0.00&dailyrainin=0.00&weeklyrainin=0.24&monthlyrainin=0.89&yearlyrainin=6.93&solarradiation=468.1&uv=4&pm25_ch1=13.0&pm25_avg_24h_ch1=13.0&wh65batt=0&wh25batt=0&pm25batt1=5&tf_ch1=56.5&leafwetness_ch1=24&tf_batt1=1.72&leaf_batt1=1.72&freq=868M&model=HP1000SE-PRO_Pro_V1.6.0
+    PASSKEY=5C909136C44BE31AB4F58FA0A5A54D68&stationtype=EasyWeatherV1.4.6&dateutc=2020-07-17+20:05:30&tempinf=69.8&humidityin=41&baromrelin=30.36&baromabsin=29.93&tempf=48.0&humidity=55&winddir=18&winddir_avg10m=18&windspeedmph=6.0&windspdmph_avg10m=6.0&windgustmph=13.6&maxdailygust=20.6&rainratein=0.000&eventrainin=0.00&hourlyrainin=0.00&dailyrainin=0.00&weeklyrainin=0.24&monthlyrainin=0.89&yearlyrainin=6.93&solarradiation=468.1&uv=4&pm25_ch1=13.0&pm25_avg_24h_ch1=13.0&wh65batt=0&wh25batt=0&pm25batt1=5&tf_ch1=56.5&leafwetness_ch1=0&tf_batt1=1.72&leaf_batt1=1.72&freq=868M&model=HP1000SE-PRO_Pro_V1.6.0
     """
     Then the status code should be 201
     And Object "WeatherData" in namespace "WebApp" with the following data should exist in database
@@ -168,7 +168,7 @@ Feature: Weather Data
       | aqiAvg            | 53           |
       | heatIndex         | 7.3          |
       | soilTemperature   | 13.6         |
-      | leafWetness       | 24           |
+      | leafWetness       | 0            |
 
   @database
   Scenario: Show summary weather data
