@@ -191,6 +191,12 @@ class RegisterWeatherDataHandler
         $rainYearly = $command->getYearlyRainInch();
 
         /**
+         * External sensors
+         */
+        $soilTemperature = $command->getSoilTemperatureF();
+        $leafWetness = $command->getLeafWetness();
+
+        /**
          * Calculated weather station data
          */
         $dewPoint = $this->dewPointCalculator->getDewPoint($temperature, $command->getHumidity());
@@ -225,9 +231,11 @@ class RegisterWeatherDataHandler
             $windChill = $this->temperatureConverter->convertImperialToMetric($windChill);
             $cloudBase = $this->cloudBaseConverter->convertImperialToMetric($cloudBase);
             $heatIndex = $this->temperatureConverter->convertImperialToMetric($heatIndex);
+
+            $soilTemperature = $this->temperatureConverter->convertImperialToMetric($soilTemperature);
         }
 
-        $weatherData = $this->weatherDataFactory->createWeatherDataFromCommand($command, $heatIndex, $temperature, $relativePressure, $absolutePressure, $windSpeed, $windSpeedAvg, $windGust, $windMaxDailyGust, $rainRate, $rainEvent, $rainHourly, $rainDaily, $rainWeekly, $rainMonthly, $rainYearly, $humidex, $dewPoint, $windChill, $cloudBase, $beaufortScale, $aqi, $aqiAvg, $weatherStation->getPreferedUnit(), $weatherStation);
+        $weatherData = $this->weatherDataFactory->createWeatherDataFromCommand($command, $heatIndex, $temperature, $relativePressure, $absolutePressure, $windSpeed, $windSpeedAvg, $windGust, $windMaxDailyGust, $rainRate, $rainEvent, $rainHourly, $rainDaily, $rainWeekly, $rainMonthly, $rainYearly, $humidex, $dewPoint, $windChill, $cloudBase, $beaufortScale, $aqi, $aqiAvg, $leafWetness, $soilTemperature, $weatherStation->getPreferedUnit(), $weatherStation);
         $this->entityManager->persist($weatherData);
     }
 }

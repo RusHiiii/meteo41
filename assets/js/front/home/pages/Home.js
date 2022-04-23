@@ -23,6 +23,8 @@ import RainMonthly from '../components/gauge/RainMonthly';
 import WindGust from '../components/gauge/WindGust';
 import WindMaxGust from '../components/gauge/WindMaxGust';
 import RainYearly from '../components/gauge/RainYearly';
+import LeafWetness from "../components/gauge/LeafWetness";
+import SoilTemperature from "../components/gauge/SoilTemperature";
 
 const WEATHER_DATA_LOAD = 'WEATHER_DATA_LOAD';
 const WEATHER_DATA_PERIOD_LOAD = 'WEATHER_DATA_PERIOD_LOAD';
@@ -330,9 +332,33 @@ export default function Home(props) {
             </div>
           </div>
 
+          <div className="fullwidth-block">
+            <div className="container">
+              <h2 className="section-title">Capteurs au sol</h2>
+              <div className="gauge col-md-3 col-sm-6">
+                <LeafWetness
+                  value={state.weatherData?.leafWetness}
+                  unit={state.weatherData?.unit.humidityUnit}
+                />
+                <h3>Humidité foliaire</h3>
+              </div>
+              <div className="gauge col-md-3 col-sm-6">
+                <SoilTemperature
+                  value={state.weatherData?.soilTemperature}
+                  unit={state.weatherData?.unit.temperatureUnit}
+                />
+                <h3>Température (-30cm)</h3>
+              </div>
+              <div className="gauge col-md-3 col-sm-6">
+                <Aqi value={state.weatherData?.aqi} />
+                <h3>Qualité de l'air</h3>
+              </div>
+            </div>
+          </div>
+
           <div className="fullwidth-block other-sensor">
             <div className="container">
-              <h2 className="section-title">Autres capteurs</h2>
+              <h2 className="section-title">Capteurs solaires</h2>
               <div className="gauge col-md-3 col-sm-6">
                 <Uv value={state.weatherData?.uv} />
                 <h3>UV</h3>
@@ -343,10 +369,6 @@ export default function Home(props) {
                   unit={state.weatherData?.unit.solarRadiationUnit}
                 />
                 <h3>Radiation solaire</h3>
-              </div>
-              <div className="gauge col-md-3 col-sm-6">
-                <Aqi value={state.weatherData?.aqi} />
-                <h3>Qualité de l'air</h3>
               </div>
             </div>
           </div>

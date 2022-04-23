@@ -56,7 +56,7 @@ class WeatherDataFactoryTest extends TestCase
             '868',
             'model'
         );
-        $weatherData = $this->weatherDataFactory->createWeatherDataFromCommand($command, 23, 23, 1020.3, 1003.3, 12, 13, 45, 12, 0, 0, 0, 0, 0, 0, 123, 24, 12, 23, 960, 1, 12, 23, $entities['unit_1'], $entities['weather_station_1']);
+        $weatherData = $this->weatherDataFactory->createWeatherDataFromCommand($command, 23, 23, 1020.3, 1003.3, 12, 13, 45, 12, 0, 0, 0, 0, 0, 0, 123, 24, 12, 23, 960, 1, 12, 23, 20, 20, $entities['unit_1'], $entities['weather_station_1']);
 
         $this->assertEquals(23, $weatherData->getTemperature());
         $this->assertEquals(23, $weatherData->getHeatIndex());

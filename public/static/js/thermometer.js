@@ -30,7 +30,8 @@
  * @authors: Jordi Nonell ( Barelly 3 lines )
  *
  */
-var Thermometer = function( container, config) {
+
+export var Thermometer = function(container, config) {
 
 	/**
 	 *	Div container
@@ -160,8 +161,9 @@ var Thermometer = function( container, config) {
 	var
 		canvas = this.container.tagName ? this.container : document.getElementById( this.container),
 		ctx = canvas.getContext( '2d'),
-		cache, CW, CH, CX, CY, max
+		cache, CW, CH, CX, CY, max, cctx
 	;
+
 	function baseInit() {
 		canvas.width  = config.width;
 		canvas.height = config.height;
@@ -225,7 +227,6 @@ var Thermometer = function( container, config) {
 			
 			cache.i8d = true;
 			ctx = tmp;
-			delete tmp;
 		}
 		
 		// clear the canvas
@@ -428,7 +429,7 @@ var Thermometer = function( container, config) {
 			fromValue = Math.abs(config.minValue) + fromValue;
 		}
 
-		v1=((fromValue/(config.maxValue - config.minValue)*100))*100/70;
+		var v1=((fromValue/(config.maxValue - config.minValue)*100))*100/70;
 		
 		ctx.fillStyle='#1e202b';
 		ctx.save();
@@ -457,7 +458,7 @@ var Thermometer = function( container, config) {
 		var
 			text = padValue( value),
 			x0 = -max / 100 * 46,
-			y0 = max / 100 * 86
+			y0 = max / 100 * 86,
 			unit=null;
 		;
 		if (config.units) {
@@ -512,12 +513,3 @@ var Thermometer = function( container, config) {
 		return degrees * Math.PI / 180;
 	};
 };
-var DThermometer = function (container, value, options) 
-{
-	var gauge = new Thermometer(container, options); 
-	gauge.draw();
-
-		//setInterval( function() { 
-			gauge.setValue(value);
-		//}, 1000);
-}

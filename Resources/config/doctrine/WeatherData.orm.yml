@@ -16,6 +16,11 @@ App\Entity\WebApp\WeatherData:
       precision: 3
       scale: 1
       nullable: false
+    soilTemperature:
+      type: decimal
+      precision: 3
+      scale: 1
+      nullable: true
     heatIndex:
       type: decimal
       precision: 3
@@ -24,6 +29,9 @@ App\Entity\WebApp\WeatherData:
     humidity:
       type: integer
       nullable: false
+    leafWetness:
+      type: integer
+      nullable: true
     relativePressure:
       type: decimal
       precision: 5

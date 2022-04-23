@@ -110,7 +110,7 @@ export default function SummaryWeatherData(props) {
               <span>
                 <i className="wi wi-humidity" />
               </span>
-              <strong>{showFixedValue(state.weatherData?.humidity)}</strong>
+              <strong>{showFixedValue(state.weatherData?.humidity, 0)}</strong>
               {state.weatherData?.unit?.humidityUnit}
             </div>
           </li>

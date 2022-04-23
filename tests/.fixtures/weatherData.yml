@@ -84,6 +84,8 @@ App\Entity\WebApp\WeatherData:
         beaufortScale: 2
         aqi: 53
         aqiAvg: 53
+        soilTemperature: 20
+        leafWetness: 19
         createdAt: '<date_create("2022-01-01 00:12:12")>'
         date: '<date_create("2022-01-01")>'
         heatIndex: 7.3
@@ -118,6 +120,8 @@ App\Entity\WebApp\WeatherData:
         cloudBase: 1024
         beaufortScale: 2
         aqi: 53
+        soilTemperature: 20
+        leafWetness: 19
         aqiAvg: 53
         createdAt: '<date_create()>'
         date: '<date_create()>'
@@ -146,6 +150,8 @@ App\Entity\WebApp\WeatherData:
         solarRadiation: 400
         uv: 4
         pm25: 5
+        soilTemperature: 20
+        leafWetness: 19
         pm25Avg: 12
         humidex: 8.1
         dewPoint: 0.3
@@ -172,6 +178,8 @@ App\Entity\WebApp\WeatherData:
         windGust: 21
         windMaxDailyGust: 33
         rainRate: 0
+        soilTemperature: 20
+        leafWetness: 19
         rainEvent: 0
         rainHourly: 0
         rainDaily: 1
@@ -205,6 +213,8 @@ App\Entity\WebApp\WeatherData:
         windSpeed: 2
         windSpeedAvg: 9.7
         windGust: 21
+        soilTemperature: 20
+        leafWetness: 19
         windMaxDailyGust: 33
         rainRate: 0
         rainEvent: 0
@@ -241,6 +251,8 @@ App\Entity\WebApp\WeatherData:
         windSpeedAvg: 10.7
         windGust: 22
         windMaxDailyGust: 35
+        soilTemperature: 20
+        leafWetness: 19
         rainRate: 3
         rainEvent: 5
         rainHourly: 6
@@ -271,6 +283,8 @@ App\Entity\WebApp\WeatherData:
         relativepressure: 1026.6
         absolutepressure: 1013.6
         windDirection: 19
+        soilTemperature: 20
+        leafWetness: 19
         windDirectionAvg: 19
         windSpeed: 3
         windSpeedAvg: 10.7
@@ -311,6 +325,8 @@ App\Entity\WebApp\WeatherData:
         windSpeedAvg: 10.7
         windGust: 22
         windMaxDailyGust: 35
+        soilTemperature: 20
+        leafWetness: 19
         rainRate: 3
         rainEvent: 5
         rainHourly: 6
@@ -344,6 +360,8 @@ App\Entity\WebApp\WeatherData:
         windDirectionAvg: 19
         windSpeed: 3
         windSpeedAvg: 10.7
+        soilTemperature: 20
+        leafWetness: 19
         windGust: 22
         windMaxDailyGust: 35
         rainRate: 3
@@ -375,6 +393,8 @@ App\Entity\WebApp\WeatherData:
         humidity: 56
         relativepressure: 1026.6
         absolutepressure: 1013.6
+        soilTemperature: 20
+        leafWetness: 19
         windDirection: 19
         windDirectionAvg: 19
         windSpeed: 3
