@@ -33,15 +33,15 @@ class WeatherDataGraphView
 
     private int $uv;
 
-    private int $pm25;
+    private ?int $pm25;
 
     private float $dewPoint;
 
     private float $windChill;
 
-    private int $aqi;
+    private ?int $aqi;
 
-    private int $aqiAvg;
+    private ?int $aqiAvg;
 
     private \DateTime $receivedAt;
 
@@ -58,16 +58,16 @@ class WeatherDataGraphView
      * @param float $rainDaily
      * @param float $solarRadiation
      * @param int $uv
-     * @param int $pm25
+     * @param int|null $pm25
      * @param float $dewPoint
      * @param float $windChill
-     * @param int $aqi
-     * @param int $aqiAvg
+     * @param int|null $aqi
+     * @param int|null $aqiAvg
      * @param float|null $soilTemperature
      * @param int|null $leafWetness
      * @param \DateTime $receivedAt
      */
-    public function __construct(int $id, float $temperature, int $humidity, float $relativePressure, int $windDirection, float $windSpeed, float $windGust, float $rainRate, float $rainDaily, float $solarRadiation, int $uv, int $pm25, float $dewPoint, float $windChill, int $aqi, int $aqiAvg, ?float $soilTemperature, ?int $leafWetness, \DateTime $receivedAt)
+    public function __construct(int $id, float $temperature, int $humidity, float $relativePressure, int $windDirection, float $windSpeed, float $windGust, float $rainRate, float $rainDaily, float $solarRadiation, int $uv, ?int $pm25, float $dewPoint, float $windChill, ?int $aqi, ?int $aqiAvg, ?float $soilTemperature, ?int $leafWetness, \DateTime $receivedAt)
     {
         $this->id = $id;
         $this->temperature = $temperature;
@@ -195,9 +195,9 @@ class WeatherDataGraphView
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPm25(): int
+    public function getPm25(): ?int
     {
         return $this->pm25;
     }
@@ -219,17 +219,17 @@ class WeatherDataGraphView
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAqi(): int
+    public function getAqi(): ?int
     {
         return $this->aqi;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAqiAvg(): int
+    public function getAqiAvg(): ?int
     {
         return $this->aqiAvg;
     }

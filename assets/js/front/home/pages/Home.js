@@ -335,24 +335,30 @@ export default function Home(props) {
           <div className="fullwidth-block">
             <div className="container">
               <h2 className="section-title">Capteurs au sol</h2>
-              <div className="gauge col-md-3 col-sm-6">
-                <Aqi value={state.weatherData?.aqi} />
-                <h3>Qualité de l'air</h3>
-              </div>
-              <div className="gauge col-md-3 col-sm-6">
-                <LeafWetness
-                  value={state.weatherData?.leafWetness}
-                  unit={state.weatherData?.unit.humidityUnit}
-                />
-                <h3>Humidité foliaire</h3>
-              </div>
-              <div className="gauge col-md-3 col-sm-6">
-                <SoilTemperature
-                  value={state.weatherData?.soilTemperature}
-                  unit={state.weatherData?.unit.temperatureUnit}
-                />
-                <h3>Température (-30cm)</h3>
-              </div>
+              {state.weatherData?.aqi && (
+                <div className="gauge col-md-3 col-sm-6">
+                  <Aqi value={state.weatherData?.aqi} />
+                  <h3>Qualité de l'air</h3>
+                </div>
+              )}
+              {state.weatherData?.leafWetness && (
+                <div className="gauge col-md-3 col-sm-6">
+                  <LeafWetness
+                    value={state.weatherData?.leafWetness}
+                    unit={state.weatherData?.unit.humidityUnit}
+                  />
+                  <h3>Humidité foliaire</h3>
+                </div>
+              )}
+              {state.weatherData?.soilTemperature && (
+                <div className="gauge col-md-3 col-sm-6">
+                  <SoilTemperature
+                    value={state.weatherData?.soilTemperature}
+                    unit={state.weatherData?.unit.temperatureUnit}
+                  />
+                  <h3>Température (-30cm)</h3>
+                </div>
+              )}
             </div>
           </div>
 

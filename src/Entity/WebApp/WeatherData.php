@@ -44,9 +44,9 @@ class WeatherData
 
     private int $uv;
 
-    private float $pm25;
+    private ?float $pm25;
 
-    private float $pm25Avg;
+    private ?float $pm25Avg;
 
     private float $humidex;
 
@@ -60,9 +60,9 @@ class WeatherData
 
     private int $beaufortScale;
 
-    private int $aqi;
+    private ?int $aqi;
 
-    private int $aqiAvg;
+    private ?int $aqiAvg;
 
     private ?float $soilTemperature;
 
@@ -98,21 +98,21 @@ class WeatherData
      * @param float $rainYearly
      * @param float $solarRadiation
      * @param int $uv
-     * @param float $pm25
-     * @param float $pm25Avg
+     * @param float|null $pm25
+     * @param float|null $pm25Avg
      * @param float $humidex
      * @param float $dewPoint
      * @param float $windChill
      * @param int $cloudBase
      * @param int $beaufortScale
-     * @param int $aqi
-     * @param int $aqiAvg
+     * @param int|null $aqi
+     * @param int|null $aqiAvg
      * @param float|null $soilTemperature
      * @param int|null $leafWetness
      * @param int $aqiAvg
      * @param \DateTime $createdAt
      */
-    public function __construct(float $heatIndex, float $temperature, float $humidity, float $relativePressure, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, float $pm25, float $pm25Avg, float $humidex, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, int $aqi, int $aqiAvg, ?float $soilTemperature, ?int $leafWetness, \DateTime $createdAt)
+    public function __construct(float $heatIndex, float $temperature, float $humidity, float $relativePressure, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, ?float $pm25, ?float $pm25Avg, float $humidex, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, ?int $aqi, ?int $aqiAvg, ?float $soilTemperature, ?int $leafWetness, \DateTime $createdAt)
     {
         $this->temperature = $temperature;
         $this->heatIndex = $heatIndex;
@@ -477,33 +477,33 @@ class WeatherData
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getPm25(): float
+    public function getPm25(): ?float
     {
         return $this->pm25;
     }
 
     /**
-     * @param float $pm25
+     * @param float|null $pm25
      */
-    public function setPm25(float $pm25): void
+    public function setPm25(?float $pm25): void
     {
         $this->pm25 = $pm25;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getPm25Avg(): float
+    public function getPm25Avg(): ?float
     {
         return $this->pm25Avg;
     }
 
     /**
-     * @param float $pm25Avg
+     * @param float|null $pm25Avg
      */
-    public function setPm25Avg(float $pm25Avg): void
+    public function setPm25Avg(?float $pm25Avg): void
     {
         $this->pm25Avg = $pm25Avg;
     }
@@ -589,33 +589,33 @@ class WeatherData
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAqi(): int
+    public function getAqi(): ?int
     {
         return $this->aqi;
     }
 
     /**
-     * @param int $aqi
+     * @param int|null $aqi
      */
-    public function setAqi(int $aqi): void
+    public function setAqi(?int $aqi): void
     {
         $this->aqi = $aqi;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAqiAvg(): int
+    public function getAqiAvg(): ?int
     {
         return $this->aqiAvg;
     }
 
     /**
-     * @param int $aqiAvg
+     * @param int|null $aqiAvg
      */
-    public function setAqiAvg(int $aqiAvg): void
+    public function setAqiAvg(?int $aqiAvg): void
     {
         $this->aqiAvg = $aqiAvg;
     }

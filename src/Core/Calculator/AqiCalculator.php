@@ -17,12 +17,16 @@ class AqiCalculator
     ];
 
     /**
-     * @param float $pm
-     * @return int|string
+     * @param float|null $pm
+     * @return int|string|null
      * @throws OutOfRangeException
      */
-    public function getAqi(float $pm)
+    public function getAqi(?float $pm)
     {
+        if (!$pm) {
+            return null;
+        }
+
         foreach ($this->value as $index => $value) {
             if ($pm < (float) $index) {
                 $value = ($value['I_high'] - $value['I_low']) / ($value['C_high'] - $value['C_low']) * ($pm - $value['C_low']) + $value['I_low'];
