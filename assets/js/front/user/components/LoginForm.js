@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { USER_LOGGED } from '../../../common/reducers/user';
 import { useHistory } from 'react-router-dom';
 import { apiClient } from '../../../common/utils/apiClient';
-import { cookieManager } from '../../../common/utils/cookieManager';
+import { localStorageManager } from '../../../common/utils/localStorageManager';
 
 export default function LoginForm(props) {
   const [hasError, setHasError] = useState(false);
@@ -37,7 +37,7 @@ export default function LoginForm(props) {
       })
       .then((response) => response.json())
       .then((value) => {
-        cookieManager().set(value.token, 'token');
+        localStorageManager().set(value.token, 'token');
 
         dispatch({ type: USER_LOGGED, token: value.token });
 

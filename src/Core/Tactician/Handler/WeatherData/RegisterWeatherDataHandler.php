@@ -205,6 +205,7 @@ class RegisterWeatherDataHandler
         $cloudBase = $this->cloudBaseCalculator->getCloudBase($temperature, $dewPoint);
         $heatIndex = $this->heatIndexCalculator->getHeatIndex($temperature, $command->getHumidity());
         $beaufortScale = $this->beaufortScaleCalculator->getBeaufortScale($windSpeed);
+
         $aqi = $this->aqiCalculator->getAqi($command->getPm25());
         $aqiAvg = $this->aqiCalculator->getAqi($command->getAveragePm25Days());
 

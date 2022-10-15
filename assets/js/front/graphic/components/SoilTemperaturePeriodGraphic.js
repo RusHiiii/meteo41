@@ -9,6 +9,7 @@ import {
 } from '../../../common/constant';
 import { periodToDateBegin, periodToDateEnd } from '../utils/periodToData';
 import {useInView} from "react-intersection-observer";
+import {hasDatas} from "../utils/hasData";
 
 const GRAPHIC_DATA_SERIES_LOAD = 'GRAPHIC_DATA_SERIES_LOAD';
 const GRAPHIC_DATA_HISTORY_LOAD = 'GRAPHIC_DATA_HISTORY_LOAD';
@@ -180,6 +181,10 @@ function useSoilTemperaturePeriodGraphic({
       return;
     }
 
+    if (dataSoilTemp.length === 0 || !hasDatas(dataSoilTemp)) {
+      return;
+    }
+
     dispatch({
       type: GRAPHIC_DATA_SERIES_LOAD,
       dataTemp: dataSoilTemp,
@@ -189,6 +194,10 @@ function useSoilTemperaturePeriodGraphic({
 
   useEffect(() => {
     if (!history || !inView) {
+      return;
+    }
+
+    if (!history.minSoilTemperature || history.maxSoilTemperature) {
       return;
     }
 

@@ -1,16 +1,16 @@
 import Cookies from 'js-cookie';
 
-export const cookieManager = () => {
+export const localStorageManager = () => {
   const get = (key) => {
-    return Cookies.get(key);
+    return localStorage.getItem(key);
   };
 
   const set = (value, name) => {
-    return Cookies.set(name, value, { expires: 1 });
+    return localStorage.setItem(name, value);
   };
 
   const remove = (key) => {
-    Cookies.remove(key);
+    localStorage.removeItem(key);
   };
 
   return {

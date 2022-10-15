@@ -115,12 +115,12 @@ App\Entity\WebApp\WeatherData:
       type: decimal
       precision: 4
       scale: 1
-      nullable: false
+      nullable: true
     pm25Avg:
       type: decimal
       precision: 4
       scale: 1
-      nullable: false
+      nullable: true
     humidex:
       type: decimal
       precision: 3
@@ -144,10 +144,10 @@ App\Entity\WebApp\WeatherData:
       nullable: false
     aqi:
       type: integer
-      nullable: false
+      nullable: true
     aqiAvg:
       type: integer
-      nullable: false
+      nullable: true
     createdAt:
       type: datetime
       nullable: false

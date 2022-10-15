@@ -89,17 +89,17 @@ class WeatherDataPeriodView
 
     private \DateTime $maxBeaufortScaleReceivedAt;
 
-    private float $avgPm25;
+    private ?float $avgPm25;
 
-    private float $avgAqi;
+    private ?float $avgAqi;
 
-    private float $maxPm25;
+    private ?float $maxPm25;
 
-    private \DateTime $maxPm25ReceivedAt;
+    private ?\DateTime $maxPm25ReceivedAt;
 
-    private int $maxAqi;
+    private ?int $maxAqi;
 
-    private \DateTime $maxAqiReceivedAt;
+    private ?\DateTime $maxAqiReceivedAt;
 
     private float $maxSolarRadiation;
 
@@ -109,13 +109,13 @@ class WeatherDataPeriodView
 
     private \DateTime $maxUvReceivedAt;
 
-    private float $minPm25;
+    private ?float $minPm25;
 
-    private \DateTime $minPm25ReceivedAt;
+    private ?\DateTime $minPm25ReceivedAt;
 
-    private int $minAqi;
+    private ?int $minAqi;
 
-    private \DateTime $minAqiReceivedAt;
+    private ?\DateTime $minAqiReceivedAt;
 
     private float $maxHeatIndex;
 
@@ -162,20 +162,20 @@ class WeatherDataPeriodView
      * @param \DateTime $maxWindGustReceivedAt
      * @param int $maxBeaufortScale
      * @param \DateTime $maxBeaufortScaleReceivedAt
-     * @param float $avgPm25
-     * @param float $avgAqi
-     * @param float $maxPm25
-     * @param \DateTime $maxPm25ReceivedAt
-     * @param int $maxAqi
-     * @param \DateTime $maxAqiReceivedAt
+     * @param float|null $avgPm25
+     * @param float|null $avgAqi
+     * @param float|null $maxPm25
+     * @param \DateTime|null $maxPm25ReceivedAt
+     * @param int|null $maxAqi
+     * @param \DateTime|null $maxAqiReceivedAt
      * @param float $maxSolarRadiation
      * @param \DateTime $maxSolarRadiationReceivedAt
      * @param int $maxUv
      * @param \DateTime $maxUvReceivedAt
-     * @param float $minPm25
-     * @param \DateTime $minPm25ReceivedAt
-     * @param int $minAqi
-     * @param \DateTime $minAqiReceivedAt
+     * @param float|null $minPm25
+     * @param \DateTime|null $minPm25ReceivedAt
+     * @param int|null $minAqi
+     * @param \DateTime|null $minAqiReceivedAt
      * @param float $minHeatIndex
      * @param \DateTime $minHeatIndexReceivedAt
      * @param float $maxHeatIndex
@@ -187,7 +187,7 @@ class WeatherDataPeriodView
      * @param int|null $maxLeafWetness
      * @param \DateTime|null $maxLeafWetnessReceivedAt
      */
-    public function __construct(WeatherStationView $weatherStation, UnitView $unit, float $maxTemperature, \DateTime $maxTemperatureReceivedAt, float $minTemperature, \DateTime $minTemperatureReceivedAt, float $maxHumidex, \DateTime $maxHumidexReceivedAt, float $minHumidex, \DateTime $minHumidexReceivedAt, float $maxDewPoint, \DateTime $maxDewPointReceivedAt, float $minDewPoint, \DateTime $minDewPointReceivedAt, float $maxWindChill, \DateTime $maxWindChillReceivedAt, float $minWindChill, \DateTime $minWindChillReceivedAt, int $maxHumidity, \DateTime $maxHumidityReceivedAt, int $minHumidity, \DateTime $minHumidityReceivedAt, float $maxRelativePressure, \DateTime $maxRelativePressureReceivedAt, float $minRelativePressure, \DateTime $minRelativePressureReceivedAt, float $maxRainRate, \DateTime $maxRainRateReceivedAt, float $maxRainEvent, \DateTime $maxRainEventReceivedAt, ?float $rainPeriod, float $maxWindGust, \DateTime $maxWindGustReceivedAt, int $maxBeaufortScale, \DateTime $maxBeaufortScaleReceivedAt, float $avgPm25, float $avgAqi, float $maxPm25, \DateTime $maxPm25ReceivedAt, int $maxAqi, \DateTime $maxAqiReceivedAt, float $maxSolarRadiation, \DateTime $maxSolarRadiationReceivedAt, int $maxUv, \DateTime $maxUvReceivedAt, float $minPm25, \DateTime $minPm25ReceivedAt, int $minAqi, \DateTime $minAqiReceivedAt, float $minHeatIndex, \DateTime $minHeatIndexReceivedAt, float $maxHeatIndex, \DateTime $maxHeatIndexReceivedAt, ?float $minSoilTemperature, ?\DateTime $minSoilTemperatureReceivedAt, ?float $maxSoilTemperature, ?\DateTime $maxSoilTemperatureReceivedAt, ?int $maxLeafWetness, ?\DateTime $maxLeafWetnessReceivedAt)
+    public function __construct(WeatherStationView $weatherStation, UnitView $unit, float $maxTemperature, \DateTime $maxTemperatureReceivedAt, float $minTemperature, \DateTime $minTemperatureReceivedAt, float $maxHumidex, \DateTime $maxHumidexReceivedAt, float $minHumidex, \DateTime $minHumidexReceivedAt, float $maxDewPoint, \DateTime $maxDewPointReceivedAt, float $minDewPoint, \DateTime $minDewPointReceivedAt, float $maxWindChill, \DateTime $maxWindChillReceivedAt, float $minWindChill, \DateTime $minWindChillReceivedAt, int $maxHumidity, \DateTime $maxHumidityReceivedAt, int $minHumidity, \DateTime $minHumidityReceivedAt, float $maxRelativePressure, \DateTime $maxRelativePressureReceivedAt, float $minRelativePressure, \DateTime $minRelativePressureReceivedAt, float $maxRainRate, \DateTime $maxRainRateReceivedAt, float $maxRainEvent, \DateTime $maxRainEventReceivedAt, ?float $rainPeriod, float $maxWindGust, \DateTime $maxWindGustReceivedAt, int $maxBeaufortScale, \DateTime $maxBeaufortScaleReceivedAt, ?float $avgPm25, ?float $avgAqi, ?float $maxPm25, ?\DateTime $maxPm25ReceivedAt, ?int $maxAqi, ?\DateTime $maxAqiReceivedAt, float $maxSolarRadiation, \DateTime $maxSolarRadiationReceivedAt, int $maxUv, \DateTime $maxUvReceivedAt, ?float $minPm25, ?\DateTime $minPm25ReceivedAt, ?int $minAqi, ?\DateTime $minAqiReceivedAt, float $minHeatIndex, \DateTime $minHeatIndexReceivedAt, float $maxHeatIndex, \DateTime $maxHeatIndexReceivedAt, ?float $minSoilTemperature, ?\DateTime $minSoilTemperatureReceivedAt, ?float $maxSoilTemperature, ?\DateTime $maxSoilTemperatureReceivedAt, ?int $maxLeafWetness, ?\DateTime $maxLeafWetnessReceivedAt)
     {
         $this->weatherStation = $weatherStation;
         $this->unit = $unit;
@@ -531,49 +531,49 @@ class WeatherDataPeriodView
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getAvgPm25(): float
+    public function getAvgPm25(): ?float
     {
         return $this->avgPm25;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getAvgAqi(): float
+    public function getAvgAqi(): ?float
     {
         return $this->avgAqi;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getMaxPm25(): float
+    public function getMaxPm25(): ?float
     {
         return $this->maxPm25;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getMaxPm25ReceivedAt(): \DateTime
+    public function getMaxPm25ReceivedAt(): ?\DateTime
     {
         return $this->maxPm25ReceivedAt;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMaxAqi(): int
+    public function getMaxAqi(): ?int
     {
         return $this->maxAqi;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getMaxAqiReceivedAt(): \DateTime
+    public function getMaxAqiReceivedAt(): ?\DateTime
     {
         return $this->maxAqiReceivedAt;
     }
@@ -611,33 +611,33 @@ class WeatherDataPeriodView
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getMinPm25(): float
+    public function getMinPm25(): ?float
     {
         return $this->minPm25;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getMinPm25ReceivedAt(): \DateTime
+    public function getMinPm25ReceivedAt(): ?\DateTime
     {
         return $this->minPm25ReceivedAt;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMinAqi(): int
+    public function getMinAqi(): ?int
     {
         return $this->minAqi;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getMinAqiReceivedAt(): \DateTime
+    public function getMinAqiReceivedAt(): ?\DateTime
     {
         return $this->minAqiReceivedAt;
     }

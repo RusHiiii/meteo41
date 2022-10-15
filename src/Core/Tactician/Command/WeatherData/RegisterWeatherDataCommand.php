@@ -52,15 +52,15 @@ class RegisterWeatherDataCommand
 
     private string $uv;
 
-    private string $pm25_ch1;
+    private ?string $pm25_ch1;
 
-    private string $pm25_avg_24h_ch1;
+    private ?string $pm25_avg_24h_ch1;
 
     private string $wh65batt;
 
     private string $wh25batt;
 
-    private string $pm25batt1;
+    private ?string $pm25batt1;
 
     private ?string $leafwetness_ch1;
 
@@ -135,13 +135,13 @@ class RegisterWeatherDataCommand
         string $yearlyrainin,
         string $solarradiation,
         string $uv,
-        string $pm25_ch1,
-        string $pm25_avg_24h_ch1,
         string $wh65batt,
         string $wh25batt,
-        string $pm25batt1,
         string $freq,
         string $model,
+        ?string $pm25_ch1 = null,
+        ?string $pm25_avg_24h_ch1 = null,
+        ?string $pm25batt1 = null,
         ?string $leafwetness_ch1 = null,
         ?string $tf_ch1 = null,
         ?string $leaf_batt1 = null,
@@ -336,12 +336,20 @@ class RegisterWeatherDataCommand
 
     public function getPm25()
     {
-        return (float) $this->pm25_ch1;
+        if ($this->pm25_ch1) {
+            return (float) $this->pm25_ch1;
+        }
+
+        return null;
     }
 
     public function getAveragePm25Days()
     {
-        return (float) $this->pm25_avg_24h_ch1;
+        if ($this->pm25_avg_24h_ch1) {
+            return (float) $this->pm25_avg_24h_ch1;
+        }
+
+        return null;
     }
 
     public function getWh65Battery()
