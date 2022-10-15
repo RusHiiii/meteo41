@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { USER_LOGOUT } from '../reducers/user';
-import { cookieManager } from '../utils/cookieManager';
 import { useDispatch } from 'react-redux';
+import {localStorageManager} from "../utils/localStorageManager";
 
 function logout(history, dispatch) {
-  cookieManager().remove('token');
+  localStorageManager().remove('token');
 
   dispatch({
     type: USER_LOGOUT,

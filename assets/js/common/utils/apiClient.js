@@ -1,9 +1,9 @@
-import { cookieManager } from './cookieManager';
+import { localStorageManager } from './localStorageManager';
 import { useHistory } from 'react-router-dom';
 
 export const apiClient = () => {
   const request = (request, options = {}) => {
-    const token = cookieManager().get('token');
+    const token = localStorageManager().get('token');
 
     if (token) {
       request.headers.set('Authorization', 'Bearer ' + token);
@@ -16,7 +16,7 @@ export const apiClient = () => {
 
     return fetch(request, options).then((response) => {
       if (response.status === 401) {
-        cookieManager().remove('token');
+        localStorageManager().remove('token');
 
         location.reload();
       }
