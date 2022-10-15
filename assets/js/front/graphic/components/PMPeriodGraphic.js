@@ -9,6 +9,7 @@ import {
 } from '../../../common/constant';
 import { periodToDateBegin, periodToDateEnd } from '../utils/periodToData';
 import {useInView} from "react-intersection-observer";
+import {hasDatas} from "../utils/hasData";
 
 const GRAPHIC_DATA_SERIES_LOAD = 'GRAPHIC_DATA_SERIES_LOAD';
 const GRAPHIC_DATA_HISTORY_LOAD = 'GRAPHIC_DATA_HISTORY_LOAD';
@@ -213,6 +214,10 @@ function usePMPeriodGraphic({
       return;
     }
 
+    if (dataAqi.length === 0 || !hasDatas(dataAqi)) {
+      return;
+    }
+
     dispatch({
       type: GRAPHIC_DATA_SERIES_LOAD,
       dataPm25: dataPm25,
@@ -224,6 +229,10 @@ function usePMPeriodGraphic({
 
   useEffect(() => {
     if (!history || !inView) {
+      return;
+    }
+
+    if (!history.minPm25 || history.maxPm25) {
       return;
     }
 

@@ -1,10 +1,10 @@
 import jwtDecode from 'jwt-decode';
-import { cookieManager } from '../utils/cookieManager';
+import { localStorageManager } from '../utils/localStorageManager';
 
 export const USER_LOGGED = 'USER_LOGGED';
 export const USER_LOGOUT = 'USER_LOGOUT';
 
-const token = cookieManager().get('token');
+const token = localStorageManager().get('token');
 
 const initialState = token
   ? {
