@@ -341,7 +341,7 @@ export default function Home(props) {
                   <h3>Qualité de l'air</h3>
                 </div>
               )}
-              {state.weatherData?.leafWetness && (
+              {state.weatherData?.leafWetness !== null && (
                 <div className="gauge col-md-3 col-sm-6">
                   <LeafWetness
                     value={state.weatherData?.leafWetness}
@@ -350,7 +350,7 @@ export default function Home(props) {
                   <h3>Humidité foliaire</h3>
                 </div>
               )}
-              {state.weatherData?.soilTemperature && (
+              {state.weatherData?.soilTemperature !== null && (
                 <div className="gauge col-md-3 col-sm-6">
                   <SoilTemperature
                     value={state.weatherData?.soilTemperature}
