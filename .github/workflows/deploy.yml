@@ -31,7 +31,7 @@ jobs:
               uses: golfzaptw/action-connect-ovpn@master
               id: connect_vpn
               with:
-                  PING_URL: '127.0.0.1'
+                  PING_URL: '192.168.9.32'
                   FILE_OVPN: '.github/vpn/config.ovpn'
                   SECRET: ${{ secrets.SECRET_USERNAME_PASSWORD }}
                   TLS_KEY: ${{ secrets.TLS_KEY }}
