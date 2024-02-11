@@ -8,7 +8,7 @@ let gsoil = null;
 
 function initGauge(canvas, value, unit) {
   gsoil = new Thermometer(canvas, {
-    units: ` ${unit}`,
+    units: ` ${unit ?? '°C'}`,
     minValue: 0,
     maxValue: 25,
     majorTicks: ['0', '5', '10', '15', '20', '25'],
@@ -36,6 +36,10 @@ export default function SoilTemperature(props) {
 
   useEffect(() => {
     if (props.value === undefined) {
+      return;
+    }
+
+    if (props.unit === undefined) {
       return;
     }
 

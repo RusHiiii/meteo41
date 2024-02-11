@@ -30,6 +30,10 @@ App\Entity\WebApp\WeatherStation:
       type: string
       length: 100
       nullable: false
+    postalCode:
+      type: string
+      length: 100
+      nullable: true
     reference:
       type: string
       length: 100

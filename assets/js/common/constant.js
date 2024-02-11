@@ -40,6 +40,6 @@ export const PERIOD_WEEKLY = 'weekly';
 export const PERIOD_YEALY = 'yearly';
 export const PERIOD_RECORD = 'record';
 
-export const DEFAULT_CITY_LAT = 47.5861;
-export const DEFAULT_CITY_LNG = 1.3359;
-export const DEFAULT_CITY_TEXT = '41000 Blois, France';
+export const DEFAULT_CITY_LAT = 47.6106;
+export const DEFAULT_CITY_LNG = 1.2743;
+export const DEFAULT_CITY_TEXT = '41000 Saint-Sulpice, France';

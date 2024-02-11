@@ -16,6 +16,8 @@ class RegisterWeatherStationCommand
 
     private string $city;
 
+    private string $postalCode;
+
     private float $lat;
 
     private float $lng;
@@ -38,6 +40,7 @@ class RegisterWeatherStationCommand
      * @param string $country
      * @param string $address
      * @param string $city
+     * @param string $postalCode
      * @param float $lat
      * @param float $lng
      * @param string|null $apiToken
@@ -53,6 +56,7 @@ class RegisterWeatherStationCommand
         string $country,
         string $address,
         string $city,
+        string $postalCode,
         float $lat,
         float $lng,
         ?string $apiToken,
@@ -62,6 +66,7 @@ class RegisterWeatherStationCommand
         ?string $preferedUnit = null
     ) {
         $this->name = $name;
+        $this->postalCode = $postalCode;
         $this->description = $description;
         $this->shortDescription = $shortDescription;
         $this->country = $country;
@@ -90,6 +95,14 @@ class RegisterWeatherStationCommand
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostalCode(): string
+    {
+        return $this->postalCode;
     }
 
     /**

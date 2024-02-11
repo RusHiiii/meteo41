@@ -80,7 +80,7 @@ class WeatherDataTransformerTest extends TestCase
         $endDate = date('Y-m-d H:i:s', strtotime('now'));
         $startDate = date('Y-01-01 00:00:00', strtotime('now'));
 
-        $data = $this->weatherDataRepository->findWeatherDataHistory($startDate, $endDate, Period::YEARLY, 'AAA');
+        $data = $this->weatherDataRepository->findWeatherDataHistory($startDate, $endDate, Period::YEARLY, 'EEE');
 
         $weatherDataView = $this->weatherDataTransformer->transformWeatherDataToPeriod($data, $entities['weather_station_1']);
 
@@ -88,10 +88,10 @@ class WeatherDataTransformerTest extends TestCase
 
         $this->assertInstanceOf(WeatherStationView::class, $weatherDataView->getWeatherStation());
         $this->assertInstanceOf(UnitView::class, $weatherDataView->getUnit());
-        $this->assertEquals(8.7, $weatherDataView->getMaxTemperature());
-        $this->assertEquals(56, $weatherDataView->getMaxHumidity());
-        $this->assertEquals(1025.6, $weatherDataView->getMinRelativePressure());
-        $this->assertEquals(22.0, $weatherDataView->getMaxWindGust());
+        $this->assertEquals(8.6, $weatherDataView->getMaxTemperature());
+        $this->assertEquals(55, $weatherDataView->getMaxHumidity());
+        $this->assertEquals(1020.6, $weatherDataView->getMinRelativePressure());
+        $this->assertEquals(21.0, $weatherDataView->getMaxWindGust());
     }
 
     public function testTransformToGraphViewYearly()
@@ -120,7 +120,7 @@ class WeatherDataTransformerTest extends TestCase
         $endDate = date('Y-m-d H:i:s', strtotime('now'));
         $startDate = date('Y-01-01 00:00:00', strtotime('now'));
 
-        $data = $this->weatherDataRepository->findWeatherDataGraph($startDate, $endDate, Period::DAILY, 'AAA');
+        $data = $this->weatherDataRepository->findWeatherDataGraph($startDate, $endDate, Period::DAILY, 'EEE');
 
         $weatherDataView = $this->weatherDataTransformer->transformWeatherDataGraphSearchView($entities['weather_station_1'], $data, new \DateTime($startDate), new \DateTime($endDate));
 
@@ -128,7 +128,7 @@ class WeatherDataTransformerTest extends TestCase
 
         $this->assertInstanceOf(WeatherStationView::class, $weatherDataView->getWeatherStation());
         $this->assertInstanceOf(UnitView::class, $weatherDataView->getUnit());
-        $this->assertEquals(1, $weatherDataView->getNumberOfResult());
+        $this->assertEquals(2, $weatherDataView->getNumberOfResult());
         $this->assertIsArray($weatherDataView->getDatas());
     }
 }

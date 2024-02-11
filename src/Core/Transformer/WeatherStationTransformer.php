@@ -46,6 +46,7 @@ class WeatherStationTransformer
             $weatherStation->getModel(),
             $weatherStation->getElevation(),
             $weatherStation->getReference(),
+            $weatherStation->getPostalCode(),
             $weatherStation->getCreatedAt(),
             $weatherStation->getUpdatedAt()
         );

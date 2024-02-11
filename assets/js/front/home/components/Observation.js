@@ -17,10 +17,11 @@ export default function Observation(props) {
           <div className="today forecast">
             <div className="forecast-header">
               <div className="day">
-                Observations à{' '}
+                Observations à {weatherData?.weatherStation?.city} {' '}
+                le {' '}
+                <DateComponent date={weatherData?.receivedAt} format={'LL'} /> {' '}
+                à {' '}
                 <DateComponent date={weatherData?.receivedAt} format={'LT'} />,
-                le{' '}
-                <DateComponent date={weatherData?.receivedAt} format={'LL'} />
               </div>
             </div>
             {weatherData && (

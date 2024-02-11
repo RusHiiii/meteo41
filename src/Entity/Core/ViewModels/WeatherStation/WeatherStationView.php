@@ -28,6 +28,8 @@ class WeatherStationView
 
     private string $reference;
 
+    private string $postalCode;
+
     private \DateTime $createdAt;
 
     private \DateTime $updatedAt;
@@ -45,9 +47,10 @@ class WeatherStationView
      * @param float $lng
      * @param string $model
      * @param string $elevation
+     * @param string $postalCode
      * @param string $reference
      */
-    public function __construct(int $id, string $name, string $description, string $shortDescription, string $country, string $address, string $city, float $lat, float $lng, string $model, string $elevation, string $reference, \DateTime $createdAt, \DateTime $updatedAt)
+    public function __construct(int $id, string $name, string $description, string $shortDescription, string $country, string $address, string $city, float $lat, float $lng, string $model, string $elevation, string $reference, string $postalCode, \DateTime $createdAt, \DateTime $updatedAt)
     {
         $this->id = $id;
         $this->name = $name;
@@ -59,6 +62,7 @@ class WeatherStationView
         $this->lat = $lat;
         $this->lng = $lng;
         $this->model = $model;
+        $this->postalCode = $postalCode;
         $this->reference = $reference;
         $this->elevation = $elevation;
         $this->createdAt = $createdAt;
@@ -127,6 +131,14 @@ class WeatherStationView
     public function getLat(): float
     {
         return $this->lat;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostalCode(): string
+    {
+        return $this->postalCode;
     }
 
     /**

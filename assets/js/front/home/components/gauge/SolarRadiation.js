@@ -12,7 +12,7 @@ let gsol = null;
 
 function initGauge(canvas, value, unit) {
   gsol = new RadialGauge(canvas, {
-    units: ` ${unit}`,
+    units: ` ${unit ?? 'W/m²'}`,
     minValue: 0,
     maxValue: 1500,
     majorTicks: ['0', '300', '600', '900', '1200', '1500'],

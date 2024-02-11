@@ -32,7 +32,7 @@ export default function PeriodWeatherDataTable(props) {
   return (
     <table className="table-obs" width="100%">
       <caption className="caption-obs">
-        <strong>{periodToText(period)}</strong> (heure locale)
+        <strong>{periodToText(period)} à {weatherData?.weatherStation?.city}</strong> (heure locale)
       </caption>
       <tbody>
         <tr>

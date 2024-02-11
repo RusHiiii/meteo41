@@ -28,6 +28,7 @@ class EditWeatherStationCommand extends RegisterWeatherStationCommand
         string $country,
         string $address,
         string $city,
+        string $postalCode,
         float $lat,
         float $lng,
         string $model,
@@ -35,7 +36,7 @@ class EditWeatherStationCommand extends RegisterWeatherStationCommand
         string $reference,
         ?string $apiToken = null
     ) {
-        parent::__construct($name, $description, $shortDescription, $country, $address, $city, $lat, $lng, $apiToken, $model, $elevation, $reference);
+        parent::__construct($name, $description, $shortDescription, $country, $address, $city, $postalCode, $lat, $lng, $apiToken, $model, $elevation, $reference);
     }
 
     /**

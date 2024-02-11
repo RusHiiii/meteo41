@@ -39,6 +39,7 @@ class WeatherStationFactoryTest extends TestCase
             'FR',
             'address',
             'Blois',
+            '41000',
             4.1562,
             4.5623,
             'XXXX',
@@ -58,6 +59,7 @@ class WeatherStationFactoryTest extends TestCase
         $this->assertEquals(4.1562, $weatherStation->getLat());
         $this->assertEquals(4.5623, $weatherStation->getLng());
         $this->assertEquals('HP2551', $weatherStation->getModel());
+        $this->assertEquals('41000', $weatherStation->getPostalCode());
         $this->assertEquals('250m', $weatherStation->getElevation());
         $this->assertEquals('1', $weatherStation->getReference());
     }
@@ -73,6 +75,7 @@ class WeatherStationFactoryTest extends TestCase
             'FR',
             'address',
             'Blois',
+            '41000',
             4.1562,
             4.5623,
             'HP2551',
@@ -89,6 +92,7 @@ class WeatherStationFactoryTest extends TestCase
         $this->assertEquals('FR', $weatherStation->getCountry());
         $this->assertEquals('address', $weatherStation->getAddress());
         $this->assertEquals('Blois', $weatherStation->getCity());
+        $this->assertEquals('41000', $weatherStation->getPostalCode());
         $this->assertEquals(4.1562, $weatherStation->getLat());
         $this->assertEquals(4.5623, $weatherStation->getLng());
         $this->assertEquals('HP2551', $weatherStation->getModel());

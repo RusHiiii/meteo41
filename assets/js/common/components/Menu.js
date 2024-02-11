@@ -83,6 +83,7 @@ export default function Menu(props) {
             <img src={'/static/images/logo.png'} alt="" className="logo" />
           </Link>
           <div className="logo-type">
+            <small className="site-description">Changez de station ↓</small>
             <WeatherStationSelect
               className="site-title select-weatherstation"
               onChange={(ref) =>
@@ -93,7 +94,6 @@ export default function Menu(props) {
               }
               value={reference}
             />
-            <small className="site-description">La météo du voisinage</small>
           </div>
         </div>
 
