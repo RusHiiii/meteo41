@@ -13,10 +13,12 @@ App\Core\Tactician\Command\WeatherStation\RegisterWeatherStationCommand:
                 min: 10
                 max: 255
         country:
-            - Country: ~
+            - NotBlank: ~
         address:
             - NotBlank: ~
         city:
+            - NotBlank: ~
+        postalCode:
             - NotBlank: ~
         lat:
             - NotBlank: ~

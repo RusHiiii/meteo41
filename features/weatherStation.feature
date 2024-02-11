@@ -39,6 +39,7 @@ Feature: Weather station
       "country": "FR",
       "address": "rue du moulin",
       "city": "Blois",
+      "postalCode": "42000",
       "lat": 4.5632,
       "lng": 4.1236,
       "reference": "AAAA",
@@ -55,6 +56,7 @@ Feature: Weather station
       | description       | ma description        |
       | shortDescription  | ma short description  |
       | country           | FR                    |
+      | postalCode        | 42000                 |
       | address           | rue du moulin         |
       | city              | Blois                 |
       | reference         | AAAA                  |
@@ -76,6 +78,7 @@ Feature: Weather station
       "country": "France",
       "address": "rue du moulin",
       "city": "Blois",
+      "postalCode": "",
       "reference": "AAA",
       "lat": 4.5632,
       "lng": 4.1236,
@@ -90,9 +93,9 @@ Feature: Weather station
     """
      [
        {
-          "message": "Ce pays n'est pas valide.",
-          "messageTemplate": "This value is not a valid country.",
-          "propertyPath": "country"
+          "message": "Cette valeur ne doit pas être vide.",
+          "messageTemplate": "This value should not be blank.",
+          "propertyPath": "postalCode"
        }
      ]
     """
@@ -110,6 +113,7 @@ Feature: Weather station
       "country": "FR",
       "address": "46 rue des moulins",
       "city": "Blois",
+      "postalCode": "41000",
       "reference": "AAA",
       "lat": 4.5632,
       "lng": 4.1236,
@@ -141,6 +145,7 @@ Feature: Weather station
       "country": "FR",
       "address": "rue du moulin",
       "city": "Blois",
+      "postalCode": "41000",
       "reference": "AAA",
       "lat": 4.5632,
       "lng": 4.1236,
@@ -157,6 +162,7 @@ Feature: Weather station
       | description       | ma description        |
       | shortDescription  | ma short description  |
       | country           | FR                    |
+      | postalCode        | 41000                 |
       | address           | rue du moulin         |
       | reference         | AAA                   |
       | city              | Blois                 |
@@ -178,6 +184,7 @@ Feature: Weather station
       "country": "FRA",
       "address": "rue du moulin",
       "city": "Blois",
+      "postalCode": "41000",
       "lat": 4.5632,
       "reference": "AAA",
       "lng": 4.1236,
@@ -191,11 +198,6 @@ Feature: Weather station
     And the response should have the following content
     """
      [
-       {
-          "message": "Ce pays n'est pas valide.",
-          "messageTemplate": "This value is not a valid country.",
-          "propertyPath": "country"
-       },
        {
           "message": "Cette valeur ne doit pas être vide.",
           "messageTemplate": "This value should not be blank.",
@@ -219,6 +221,7 @@ Feature: Weather station
        "country":"FR",
        "address":"46 rue des moulins",
        "city":"Blois",
+       "postalCode":"41000",
        "reference":"AAA",
        "lat":4.5956,
        "lng":4.2356,
@@ -245,6 +248,7 @@ Feature: Weather station
        "country":"FR",
        "address":"46 rue des moulins",
        "city":"Blois",
+       "postalCode":"41000",
        "reference":"AAA",
        "lat":4.5956,
        "lng":4.2356,
@@ -287,6 +291,7 @@ Feature: Weather station
              "country":"FR",
              "address":"46 rue des moulins",
              "city":"Blois",
+             "postalCode":"41000",
              "lat":4.5956,
              "reference":"AAAA",
              "lng":4.2356,
@@ -303,6 +308,7 @@ Feature: Weather station
              "country":"FR",
              "address":"46 rue des moulins",
              "city":"Blois",
+             "postalCode":"41000",
              "lat":4.5956,
              "lng":4.2356,
              "reference":"AAA",
@@ -347,6 +353,7 @@ Feature: Weather station
              "address":"46 rue des moulins",
              "reference":"AAAA",
              "city":"Blois",
+             "postalCode":"41000",
              "lat":4.5956,
              "lng":4.2356,
              "model":"HP 2551",

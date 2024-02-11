@@ -27,9 +27,11 @@ import LeafWetness from "../components/gauge/LeafWetness";
 import SoilTemperature from "../components/gauge/SoilTemperature";
 
 const WEATHER_DATA_LOAD = 'WEATHER_DATA_LOAD';
+const WEATHER_STATION_LOAD = 'WEATHER_STATION_LOAD';
 const WEATHER_DATA_PERIOD_LOAD = 'WEATHER_DATA_PERIOD_LOAD';
 const WEATHER_DATA_PERIOD_ERRORS = 'WEATHER_DATA_PERIOD_ERRORS';
 const WEATHER_DATA_ERRORS = 'WEATHER_DATA_ERRORS';
+const WEATHER_STATION_ERRORS = 'WEATHER_STATION_ERRORS';
 const GEOCODING_LOAD = 'GEOCODING_LOAD';
 const GEOCODING_ERRORS = 'GEOCODING_ERRORS';
 
@@ -43,6 +45,14 @@ const reducer = (state, action) => {
         loading: false,
         loaded: true,
       };
+    case WEATHER_STATION_LOAD:
+      return {
+        ...state,
+        weatherStation: action.weatherStation,
+        errors: [],
+        loading: false,
+        loaded: true,
+      };
     case WEATHER_DATA_PERIOD_LOAD:
       return {
         ...state,
@@ -52,6 +62,13 @@ const reducer = (state, action) => {
         loaded: true,
       };
     case WEATHER_DATA_ERRORS:
+      return {
+        ...state,
+        errors: action.errors,
+        loading: false,
+        loaded: false,
+      };
+    case WEATHER_STATION_ERRORS:
       return {
         ...state,
         errors: action.errors,
@@ -124,6 +141,36 @@ function loadWeatherData(weatherStation, dispatch) {
     });
 }
 
+function loadWeatherStation(weatherStation, dispatch) {
+  apiClient()
+      .request(
+          new Request(
+              `/api/weatherStation/${weatherStation.reference}`
+          )
+      )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+
+        return response.json().then((errors) => {
+          throw errors;
+        });
+      })
+      .then((data) => {
+        dispatch({
+          type: WEATHER_STATION_LOAD,
+          weatherStation: data,
+        });
+      })
+      .catch((errors) => {
+        dispatch({
+          type: WEATHER_STATION_ERRORS,
+          errors: errors,
+        });
+      });
+}
+
 function loadWeatherDataDaily(weatherStation, dispatch) {
   apiClient()
     .request(
@@ -187,6 +234,7 @@ function loadForecastAddress(text, dispatch) {
 function useHome(weatherStation) {
   const initialState = {
     weatherData: null,
+    weatherStation: null,
     weatherDataDaily: null,
     errors: [],
     errorsDaily: [],
@@ -209,6 +257,7 @@ function useHome(weatherStation) {
   useEffect(() => {
     loadWeatherData(weatherStation, dispatch);
     loadWeatherDataDaily(weatherStation, dispatch);
+    loadWeatherStation(weatherStation, dispatch);
 
     const intervalId = setInterval(() => {
       loadWeatherData(weatherStation, dispatch);
@@ -232,6 +281,7 @@ export default function Home(props) {
           <div className="container">
             <ForecastSearchForm
               initialValues={{ text: DEFAULT_CITY_TEXT }}
+              weatherStation={state.weatherStation}
               onSubmit={(data) => loadForecastAddress(data.text, dispatch)}
             />
             {state.forecast.errors.map((error, index) => (

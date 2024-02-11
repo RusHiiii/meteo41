@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
-import { Date } from '../../../common/components/Date';
+import {Date as DateComponent, Date} from '../../../common/components/Date';
 import { degToCompass } from '../utils/degreesToCompass';
 import { beaufortScaleToText } from '../utils/beaufortScaleToText';
 import { aqiToText } from '../utils/aqiToText';
@@ -37,8 +37,11 @@ export default function CurrentWeatherDataTable(props) {
     <table className="table-obs" width="100%">
       <caption className="caption-obs">
         <strong>
-          Observations à <Date date={weatherData.receivedAt} format={'LT'} />,
-          le <Date date={weatherData.receivedAt} format={'LL'} />
+          Observations à {weatherData?.weatherStation?.city} {' '}
+          le {' '}
+          <DateComponent date={weatherData?.receivedAt} format={'LL'} /> {' '}
+          à {' '}
+          <DateComponent date={weatherData?.receivedAt} format={'LT'} />
         </strong>{' '}
         (heure locale)
       </caption>

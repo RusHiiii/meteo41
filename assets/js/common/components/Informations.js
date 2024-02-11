@@ -59,7 +59,7 @@ export default function Informations(props) {
             <h2 className="section-title">Informations</h2>
             <ul className="arrow-feature">
               <li>
-                <h3>Ma station météo</h3>
+                <h3>La station météo</h3>
                 {state.weatherStation && (
                   <p>{state.weatherStation.shortDescription}</p>
                 )}

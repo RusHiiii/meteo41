@@ -163,6 +163,27 @@ export default function WeatherStationForm(props) {
       </div>
       <div className="row">
         <div className="col-sm-3 text-center">
+          <label className="label-center">Code postal</label>
+        </div>
+        <div className="col-sm-9">
+          <Input
+              type="text"
+              name="postalCode"
+              placeholder="Code postal"
+              onChange={handleInputChange}
+              value={inputs.postalCode}
+          />
+          <ul className="error-list">
+            {errors
+                .filter((error) => error.propertyPath === 'postalCode')
+                .map((error, index) => (
+                    <li key={index}>{error.message}</li>
+                ))}
+          </ul>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-sm-3 text-center">
           <label className="label-center">Latitude</label>
         </div>
         <div className="col-sm-9">
