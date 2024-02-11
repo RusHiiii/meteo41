@@ -12,7 +12,7 @@ let gwspd = null;
 
 function initGauge(canvas, value, unit) {
   gwspd = new RadialGauge(canvas, {
-    units: ` ${unit}`,
+    units: ` ${unit ?? 'km/h'}`,
     minValue: 0,
     maxValue: 60,
     majorTicks: ['0', '10', '20', '30', '40', '50', '60'],

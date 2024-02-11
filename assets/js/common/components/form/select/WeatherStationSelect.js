@@ -61,7 +61,7 @@ export default function WeatherStationSelect(props) {
     >
       {state.weatherStations.map((weatherStation) => (
         <option key={weatherStation.id} value={weatherStation.reference}>
-          {weatherStation.city}
+          {weatherStation.city} ({weatherStation.postalCode.substring(0, 2)})
         </option>
       ))}
     </select>
