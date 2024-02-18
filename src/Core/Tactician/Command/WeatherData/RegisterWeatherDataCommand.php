@@ -226,9 +226,9 @@ class RegisterWeatherDataCommand
     }
 
     /**
-     * @return string|null
+     * @return \DateTime|null
      */
-    public function getLightningDate(): ?string
+    public function getLightningDate(): ?\DateTime
     {
         if (!$this->lightning_time) {
             return null;
