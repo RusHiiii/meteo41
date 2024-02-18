@@ -75,6 +75,8 @@ class WeatherDataDetailView
 
     private ?int $aqi;
 
+    private ?int $lightningDaily;
+
     private ?int $aqiAvg;
 
     private float $heatIndex;
@@ -130,7 +132,7 @@ class WeatherDataDetailView
      * @param int|null $leafWetness
      * @param \DateTime $receivedAt
      */
-    public function __construct(int $id, WeatherStationView $weatherStation, UnitView $unit, float $temperature, ?float $temperatureVariation, int $humidity, float $relativePressure, ?float $relativePressureVariation, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, ?float $solarRadiationVariation, int $uv, ?int $pm25, ?int $pm25Avg, float $humidex, ?float $humidexVariation, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, ?int $aqi, ?int $aqiAvg, float $heatIndex, ?float $soilTemperature, ?int $leafWetness, ?float $soilTemperatureVariation, \DateTime $receivedAt)
+    public function __construct(int $id, WeatherStationView $weatherStation, UnitView $unit, float $temperature, ?float $temperatureVariation, int $humidity, float $relativePressure, ?float $relativePressureVariation, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, ?float $solarRadiationVariation, int $uv, ?int $pm25, ?int $pm25Avg, float $humidex, ?float $humidexVariation, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, ?int $aqi, ?int $aqiAvg, float $heatIndex, ?float $soilTemperature, ?int $leafWetness, ?float $soilTemperatureVariation, ?int $lightningDaily, \DateTime $receivedAt)
     {
         $this->id = $id;
         $this->weatherStation = $weatherStation;
@@ -157,6 +159,7 @@ class WeatherDataDetailView
         $this->solarRadiation = $solarRadiation;
         $this->solarRadiationVariation = $solarRadiationVariation;
         $this->uv = $uv;
+        $this->lightningDaily = $lightningDaily;
         $this->pm25 = $pm25;
         $this->pm25Avg = $pm25Avg;
         $this->humidex = $humidex;
@@ -212,6 +215,14 @@ class WeatherDataDetailView
     public function getLeafWetness(): ?int
     {
         return $this->leafWetness;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLightningDaily(): ?int
+    {
+        return $this->lightningDaily;
     }
 
     /**

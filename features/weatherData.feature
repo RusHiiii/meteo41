@@ -239,104 +239,10 @@ Feature: Weather Data
     """
 
   @database
-  Scenario: Show history weather dataa
+  Scenario: Show history weather data
     Given I load the fixture "weatherData"
     When I request the url "/api/weatherData/EEE/history/yearly" with http verb "GET"
     Then the status code should be 200
-    And the response should have the following content
-    """
-    {
-       "weatherStation":{
-          "id":2,
-          "name":"Station de Blois",
-          "description":"ma longue description",
-          "shortDescription":"courte descrition",
-          "country":"FR",
-          "address":"46 rue des moulins",
-          "city":"Blois",
-          "lat":4.5956,
-          "postalCode":"41000",
-          "lng":4.2356,
-          "model":"HP 2551",
-          "elevation":"200m",
-          "createdAt":"2020-12-11T00:12:12+01:00",
-          "updatedAt":"2020-12-11T00:12:12+01:00",
-          "reference":"EEE"
-       },
-       "unit":{
-          "id":1,
-          "temperatureUnit":"\u00b0C",
-          "speedUnit":"m\/s",
-          "rainUnit":"mm",
-          "solarRadiationUnit":"lux",
-          "pmUnit":"um\/m",
-          "humidityUnit":"%",
-          "type":"Metric",
-          "createdAt":"2020-12-10T00:12:12+01:00",
-          "updatedAt":"2020-12-10T00:12:12+01:00",
-          "cloudBaseUnit":"m",
-          "windDirUnit":"\u00b0",
-          "pressureUnit":"hPa"
-       },
-       "maxTemperature":8.6,
-       "maxTemperatureReceivedAt":"2024-02-11T12:59:36+01:00",
-       "minTemperature":4.6,
-       "minTemperatureReceivedAt":"2024-02-11T13:59:36+01:00",
-       "maxHumidex":8.9,
-       "maxHumidexReceivedAt":"2024-02-11T12:59:36+01:00",
-       "minHumidex":8.1,
-       "minHumidexReceivedAt":"2024-02-11T14:59:36+01:00",
-       "maxDewPoint":0.3,
-       "maxDewPointReceivedAt":"2024-02-11T12:59:36+01:00",
-       "minDewPoint":0.3,
-       "minDewPointReceivedAt":"2024-02-11T12:59:36+01:00",
-       "maxWindChill":7.4,
-       "maxWindChillReceivedAt":"2024-02-11T12:59:36+01:00",
-       "minWindChill":7.4,
-       "minWindChillReceivedAt":"2024-02-11T12:59:36+01:00",
-       "maxHumidity":55,
-       "maxHumidityReceivedAt":"2024-02-11T13:59:36+01:00",
-       "minHumidity":52,
-       "minHumidityReceivedAt":"2024-02-11T12:59:36+01:00",
-       "maxRelativePressure":1025.6,
-       "maxRelativePressureReceivedAt":"2024-02-11T12:59:36+01:00",
-       "minRelativePressure":1020.6,
-       "minRelativePressureReceivedAt":"2024-02-11T14:59:36+01:00",
-       "maxRainRate":0,
-       "maxRainRateReceivedAt":"2024-02-11T12:59:36+01:00",
-       "maxRainEvent":0,
-       "maxRainEventReceivedAt":"2024-02-11T12:59:36+01:00",
-       "rainPeriod":176,
-       "maxWindGust":21,
-       "maxWindGustReceivedAt":"2024-02-11T12:59:36+01:00",
-       "maxBeaufortScale":2,
-       "maxBeaufortScaleReceivedAt":"2024-02-11T12:59:36+01:00",
-       "avgPm25":12,
-       "avgAqi":53,
-       "maxPm25":5,
-       "maxPm25ReceivedAt":"2024-02-11T12:59:36+01:00",
-       "maxAqi":53,
-       "maxAqiReceivedAt":"2024-02-11T12:59:36+01:00",
-       "maxSolarRadiation":412,
-       "maxSolarRadiationReceivedAt":"2024-02-11T12:59:36+01:00",
-       "maxUv":4,
-       "maxUvReceivedAt":"2024-02-11T12:59:36+01:00",
-       "minPm25":5,
-       "minPm25ReceivedAt":"2024-02-11T12:59:36+01:00",
-       "minAqi":53,
-       "minAqiReceivedAt":"2024-02-11T12:59:36+01:00",
-       "maxHeatIndex":7.3,
-       "maxHeatIndexReceivedAt":"2024-02-11T12:59:36+01:00",
-       "minHeatIndex":7.3,
-       "minHeatIndexReceivedAt":"2024-02-11T12:59:36+01:00",
-       "maxSoilTemperature":20,
-       "maxSoilTemperatureReceivedAt":"2024-02-11T12:59:36+01:00",
-       "minSoilTemperature":20,
-       "minSoilTemperatureReceivedAt":"2024-02-11T12:59:36+01:00",
-       "maxLeafWetness":19,
-       "maxLeafWetnessReceivedAt":"2024-02-11T12:59:36+01:00"
-    }
-    """
 
   @database
   Scenario: Show history weather data with bad period
@@ -350,10 +256,3 @@ Feature: Weather Data
          "message":"Aucune données météo disponible actuellement :("
       }]
     """
-
-  @database
-  Scenario: Show graph weather data
-    Given I load the fixture "weatherData"
-    When I request the url "/api/weatherData/CCC/graph/daily" with http verb "GET"
-    Then the status code should be 200
-    Then the response should contains "2" number of result

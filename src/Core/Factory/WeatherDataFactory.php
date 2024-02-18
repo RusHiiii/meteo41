@@ -37,7 +37,7 @@ class WeatherDataFactory
      * @param WeatherStation $weatherStation
      * @return WeatherData
      */
-    public function createWeatherDataFromCommand(RegisterWeatherDataCommand $command, float $heatIndex, float $temperature, float $relativePressure, float $absolutePressure, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $humidex, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, ?int $aqi, ?int $aqiAvg, ?int $leafWetness, ?float $soilTemperature, Unit $preferedUnit, WeatherStation $weatherStation)
+    public function createWeatherDataFromCommand(RegisterWeatherDataCommand $command, float $heatIndex, float $temperature, float $relativePressure, float $absolutePressure, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $humidex, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, ?int $aqi, ?int $aqiAvg, ?int $leafWetness, ?float $soilTemperature, ?int $lightningDistance, ?\DateTime $lightningDate, Unit $preferedUnit, WeatherStation $weatherStation)
     {
         $weatherData = new WeatherData(
             $heatIndex,
@@ -71,6 +71,9 @@ class WeatherDataFactory
             $aqiAvg,
             $soilTemperature,
             $leafWetness,
+            $command->getLightningNum(),
+            $lightningDistance,
+            $lightningDate,
             $command->getDate()
         );
 

@@ -177,7 +177,7 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
             ->andWhere(
                 $qb->expr()->between('weatherData.date', ':startDate', ':endDate')
             )
-            ->andWhere('MOD(weatherData.id, :mod) = 0')
+            ->andWhere('MOD(INT(EXTRACT(MINUTE FROM weatherData.createdAt)), :mod) = 0')
             ->andWhere('weatherStation.reference = :reference')
             ->orderBy('weatherData.createdAt', 'ASC')
             ->setParameter('mod', $mod)

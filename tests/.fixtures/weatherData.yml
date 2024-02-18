@@ -92,6 +92,9 @@ App\Entity\WebApp\WeatherData:
         createdAt: '<date_create("2022-01-01 00:12:12")>'
         date: '<date_create("2022-01-01")>'
         heatIndex: 7.3
+        lightningDaily: 1
+        lightningDate: ~
+        lightningDistance: ~
     weather_data_2:
         __construct: false
         unit: '@unit_1'
@@ -129,6 +132,9 @@ App\Entity\WebApp\WeatherData:
         createdAt: '<date_create()>'
         date: '<date_create()>'
         heatIndex: 7.3
+        lightningDaily: 1
+        lightningDate: ~
+        lightningDistance: ~
     weather_data_3:
         __construct: false
         unit: '@unit_1'
@@ -166,6 +172,9 @@ App\Entity\WebApp\WeatherData:
         createdAt: '<date_create("-1 hours")>'
         date: '<date_create()>'
         heatIndex: 7.3
+        lightningDaily: 1
+        lightningDate: ~
+        lightningDistance: ~
     weather_data_4:
         __construct: false
         unit: '@unit_1'
@@ -203,6 +212,9 @@ App\Entity\WebApp\WeatherData:
         createdAt: '<date_create("-2 hours")>'
         date: '<date_create()>'
         heatIndex: 7.3
+        lightningDaily: 1
+        lightningDate: ~
+        lightningDistance: ~
     weather_data_5:
         __construct: false
         unit: '@unit_1'
@@ -240,6 +252,9 @@ App\Entity\WebApp\WeatherData:
         createdAt: '<date_create("-3 hours")>'
         date: '<date_create()>'
         heatIndex: 7.3
+        lightningDaily: 1
+        lightningDate: ~
+        lightningDistance: ~
     weather_data_6:
         __construct: false
         unit: '@unit_1'
@@ -277,6 +292,9 @@ App\Entity\WebApp\WeatherData:
         createdAt: '<date_create("2022-01-01 00:13:12")>'
         date: '<date_create("2022-01-01")>'
         heatIndex: 8.3
+        lightningDaily: 1
+        lightningDate: ~
+        lightningDistance: ~
     weather_data_7:
         __construct: false
         unit: '@unit_1'
@@ -314,6 +332,9 @@ App\Entity\WebApp\WeatherData:
         createdAt: '<date_create()>'
         date: '<date_create()>'
         heatIndex: 8.3
+        lightningDaily: 1
+        lightningDate: ~
+        lightningDistance: ~
     weather_data_8:
         __construct: false
         unit: '@unit_1'
@@ -351,6 +372,9 @@ App\Entity\WebApp\WeatherData:
         createdAt: '<date_create()>'
         date: '<date_create()>'
         heatIndex: 8.3
+        lightningDaily: 1
+        lightningDate: ~
+        lightningDistance: ~
     weather_data_9:
         __construct: false
         unit: '@unit_1'
@@ -388,6 +412,9 @@ App\Entity\WebApp\WeatherData:
         createdAt: '<date_create()>'
         date: '<date_create()>'
         heatIndex: 8.3
+        lightningDaily: 1
+        lightningDate: ~
+        lightningDistance: ~
     weather_data_10:
         __construct: false
         unit: '@unit_1'
@@ -425,6 +452,9 @@ App\Entity\WebApp\WeatherData:
         createdAt: '<date_create()>'
         date: '<date_create()>'
         heatIndex: 8.3
+        lightningDaily: 1
+        lightningDate: ~
+        lightningDistance: ~
 
 App\Entity\WebApp\User:
     user_1:
