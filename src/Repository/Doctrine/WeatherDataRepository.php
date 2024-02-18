@@ -62,6 +62,32 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
 
     /**
      * @param string $reference
+     * @return float|int|mixed|string|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findLastInsertedLightningDataByWeatherStationReference(string $reference)
+    {
+
+        $qb = $this
+            ->createQueryBuilder('weatherData')
+            ->leftJoin('weatherData.weatherStation', 'weatherStation');
+
+        $qb
+            ->andWhere('weatherStation.reference = :reference')
+            ->andWhere(
+                $qb->expr()->isNotNull('weatherData.lightningDate')
+            )
+            ->orderBy('weatherData.createdAt', 'DESC')
+            ->setParameter('reference', $reference);
+
+        return $qb
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param string $reference
      * @return int|mixed|string|null
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
