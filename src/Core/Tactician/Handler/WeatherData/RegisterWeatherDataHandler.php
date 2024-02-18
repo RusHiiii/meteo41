@@ -164,7 +164,6 @@ class RegisterWeatherDataHandler
 
     public function handle(RegisterWeatherDataCommand $command)
     {
-        /** @var WeatherStation $weatherStation */
         $weatherStation = $this->weatherStationRepository->find($command->getWeatherStationId());
         if ($weatherStation === null) {
             throw new WeatherStationNotFoundException();
