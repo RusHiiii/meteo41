@@ -241,6 +241,7 @@ class WeatherDataTransformer
             $currentWeatherData->getSoilTemperature(),
             $currentWeatherData->getLeafWetness(),
             $soilTemperatureVariation,
+            $currentWeatherData->getLightningDaily(),
             $currentWeatherData->getCreatedAt()
         );
     }

@@ -52,6 +52,12 @@ class RegisterWeatherDataCommand
 
     private string $uv;
 
+    private ?string $lightning_num;
+
+    private ?string $lightning_time;
+
+    private ?string $lightning;
+
     private ?string $pm25_ch1;
 
     private ?string $pm25_avg_24h_ch1;
@@ -145,7 +151,10 @@ class RegisterWeatherDataCommand
         ?string $leafwetness_ch1 = null,
         ?string $tf_ch1 = null,
         ?string $leaf_batt1 = null,
-        ?string $tf_batt1 = null
+        ?string $tf_batt1 = null,
+        ?string $lightning_num = null,
+        ?string $lightning_time = null,
+        ?string $lightning = null
     ) {
         $this->stationtype = $stationtype;
         $this->dateutc = $dateutc;
@@ -181,6 +190,9 @@ class RegisterWeatherDataCommand
         $this->leaf_batt1 = $leaf_batt1;
         $this->tf_ch1 = $tf_ch1;
         $this->tf_batt1 = $tf_batt1;
+        $this->lightning_num = $lightning_num;
+        $this->lightning = $lightning;
+        $this->lightning_time = $lightning_time;
     }
 
 
@@ -203,6 +215,30 @@ class RegisterWeatherDataCommand
     public function getModel()
     {
         return (string) $this->model;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLightningNum(): ?string
+    {
+        return $this->lightning_num;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLightningTime(): ?string
+    {
+        return $this->lightning_time;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLightning(): ?string
+    {
+        return $this->lightning;
     }
 
 

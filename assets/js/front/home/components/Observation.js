@@ -74,7 +74,7 @@ export default function Observation(props) {
                           unit={weatherDataDaily.unit.temperatureUnit}
                         />
                       )}
-                      <div>
+                      <div className="dewpoint">
                         Point de rosée
                         <strong
                           className="dewpoint-value"
@@ -95,7 +95,7 @@ export default function Observation(props) {
                           unit={weatherDataDaily.unit.temperatureUnit}
                         />
                       )}
-                      <div>
+                      <div className="humidex">
                         Humidex
                         <strong
                           className="humidex-value"
@@ -116,7 +116,7 @@ export default function Observation(props) {
                           unit={weatherDataDaily.unit.temperatureUnit}
                         />
                       )}
-                      <div>
+                      <div className="heatindex">
                         Heat Index
                         <strong
                           className="heatindex-value"
@@ -277,6 +277,26 @@ export default function Observation(props) {
                             </td>
                             <td>
                               <small>{weatherData?.unit.pmUnit}</small>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>
+                                <i
+                                  className="wi wi-lightning"
+                                  title="Impact de foudre (jour)"
+                                ></i>
+                              </span>
+                            </td>
+                            <td
+                              className="td-value-obs"
+                              data-tip
+                              data-for="lightningDaily"
+                            >
+                              <strong>{weatherData?.lightningDaily}</strong>
+                            </td>
+                            <td>
+                              <small>impact(s)</small>
                             </td>
                           </tr>
                           <tr>

@@ -148,6 +148,15 @@ App\Entity\WebApp\WeatherData:
     aqiAvg:
       type: integer
       nullable: true
+    lightningDate:
+      type: datetime
+      nullable: true
+    lightningDistance:
+      type: integer
+      nullable: true
+    lightningDaily:
+      type: integer
+      nullable: true
     createdAt:
       type: datetime
       nullable: false

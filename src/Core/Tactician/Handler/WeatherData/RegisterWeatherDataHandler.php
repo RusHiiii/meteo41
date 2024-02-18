@@ -19,6 +19,8 @@ use App\Core\Exception\WeatherStation\WeatherStationNotFoundException;
 use App\Core\Factory\WeatherDataFactory;
 use App\Core\Tactician\Command\WeatherData\RegisterWeatherDataCommand;
 use App\Entity\WebApp\Unit;
+use App\Entity\WebApp\WeatherData;
+use App\Entity\WebApp\WeatherStation;
 use App\Repository\Doctrine\WeatherDataRepository;
 use App\Repository\Doctrine\WeatherStationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -162,6 +164,7 @@ class RegisterWeatherDataHandler
 
     public function handle(RegisterWeatherDataCommand $command)
     {
+        /** @var WeatherStation $weatherStation */
         $weatherStation = $this->weatherStationRepository->find($command->getWeatherStationId());
         if ($weatherStation === null) {
             throw new WeatherStationNotFoundException();
@@ -171,6 +174,9 @@ class RegisterWeatherDataHandler
         if ($weatherData !== null) {
             throw new WeatherDataAlreadyInsertedException();
         }
+
+        /** @var WeatherData $lastWeatherData */
+        $lastWeatherData = $this->weatherDataRepository->findLastInsertedByWeatherStationReference($weatherStation->getReference());
 
         /**
          * Basic weather station data
@@ -191,10 +197,23 @@ class RegisterWeatherDataHandler
         $rainYearly = $command->getYearlyRainInch();
 
         /**
-         * External sensors
+         * External sensors soil + leaf wetness
          */
         $soilTemperature = $command->getSoilTemperatureF();
         $leafWetness = $command->getLeafWetness();
+
+        /**
+         * External lightning sensor
+         */
+        $lastLighningDate = null;
+        $lastLighningDistance = null;
+        if ($command->getLightningTime()) {
+            $lastLighningDateReceived = \DateTime::createFromFormat('U', $command->getLightningTime());
+            if ($lastLighningDateReceived > $lastWeatherData->getLightningDate()) {
+                $lastLighningDate = $lastLighningDateReceived;
+                $lastLighningDistance = $command->getLightning();
+            }
+        }
 
         /**
          * Calculated weather station data
@@ -236,7 +255,7 @@ class RegisterWeatherDataHandler
             $soilTemperature = $this->temperatureConverter->convertImperialToMetric($soilTemperature);
         }
 
-        $weatherData = $this->weatherDataFactory->createWeatherDataFromCommand($command, $heatIndex, $temperature, $relativePressure, $absolutePressure, $windSpeed, $windSpeedAvg, $windGust, $windMaxDailyGust, $rainRate, $rainEvent, $rainHourly, $rainDaily, $rainWeekly, $rainMonthly, $rainYearly, $humidex, $dewPoint, $windChill, $cloudBase, $beaufortScale, $aqi, $aqiAvg, $leafWetness, $soilTemperature, $weatherStation->getPreferedUnit(), $weatherStation);
+        $weatherData = $this->weatherDataFactory->createWeatherDataFromCommand($command, $heatIndex, $temperature, $relativePressure, $absolutePressure, $windSpeed, $windSpeedAvg, $windGust, $windMaxDailyGust, $rainRate, $rainEvent, $rainHourly, $rainDaily, $rainWeekly, $rainMonthly, $rainYearly, $humidex, $dewPoint, $windChill, $cloudBase, $beaufortScale, $aqi, $aqiAvg, $leafWetness, $soilTemperature, $lastLighningDistance, $lastLighningDate, $weatherStation->getPreferedUnit(), $weatherStation);
         $this->entityManager->persist($weatherData);
     }
 }
