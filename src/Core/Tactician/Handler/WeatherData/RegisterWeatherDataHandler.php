@@ -203,14 +203,11 @@ class RegisterWeatherDataHandler
          */
         $lastLighningDate = null;
         $lastLighningDistance = null;
-        if ($command->getLightningTime()) {
+        if ($command->getLightningDate()) {
             $lastWeatherData = $this->weatherDataRepository->findLastInsertedLightningDataByWeatherStationReference($weatherStation->getReference());
 
-            $lastLighningDateReceived = \DateTime::createFromFormat('U', $command->getLightningTime());
-            $lastLighningDateReceived->setTimezone('Europe/Paris');
-
-            if (!$lastWeatherData || ($lastLighningDateReceived > $lastWeatherData->getLightningDate())) {
-                $lastLighningDate = $lastLighningDateReceived;
+            if (!$lastWeatherData || ($command->getLightningDate() > $lastWeatherData->getLightningDate())) {
+                $lastLighningDate = $command->getLightningDate();
                 $lastLighningDistance = $command->getLightning();
             }
         }

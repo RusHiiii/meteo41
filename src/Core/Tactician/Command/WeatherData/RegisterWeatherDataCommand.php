@@ -228,9 +228,16 @@ class RegisterWeatherDataCommand
     /**
      * @return string|null
      */
-    public function getLightningTime(): ?string
+    public function getLightningDate(): ?string
     {
-        return $this->lightning_time;
+        if (!$this->lightning_time) {
+            return null;
+        }
+
+        $date = \DateTime::createFromFormat('U', $this->lightning_time, new \DateTimeZone('UTC'));
+        $date->setTimezone(new \DateTimeZone('Europe/Paris'));
+
+        return $date;
     }
 
     /**
