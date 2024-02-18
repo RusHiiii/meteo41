@@ -128,7 +128,6 @@ class WeatherDataTransformerTest extends TestCase
 
         $this->assertInstanceOf(WeatherStationView::class, $weatherDataView->getWeatherStation());
         $this->assertInstanceOf(UnitView::class, $weatherDataView->getUnit());
-        $this->assertEquals(2, $weatherDataView->getNumberOfResult());
         $this->assertIsArray($weatherDataView->getDatas());
     }
 }

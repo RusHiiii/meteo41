@@ -78,19 +78,19 @@ class PeriodConverter
         // every 2mn
         $mod = 2;
 
-        // every 15mn
+        // every 10mn
         if ($period === Period::WEEKLY) {
-            return 15;
+            return 10;
         }
 
-        // every 40mn
+        // every 30mn
         if ($period === Period::MONTHLY) {
-            return 40;
+            return 30;
         }
 
-        // every 180mn
+        // every 120mn
         if ($period === Period::YEARLY) {
-            return 180;
+            return 120;
         }
 
         return $mod;

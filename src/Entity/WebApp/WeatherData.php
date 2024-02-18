@@ -40,6 +40,12 @@ class WeatherData
 
     private float $rainYearly;
 
+    private ?int $lightningDaily;
+
+    private ?int $lightningDistance;
+
+    private ?\DateTime $lightningDate;
+
     private float $solarRadiation;
 
     private int $uv;
@@ -112,7 +118,7 @@ class WeatherData
      * @param int $aqiAvg
      * @param \DateTime $createdAt
      */
-    public function __construct(float $heatIndex, float $temperature, float $humidity, float $relativePressure, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, ?float $pm25, ?float $pm25Avg, float $humidex, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, ?int $aqi, ?int $aqiAvg, ?float $soilTemperature, ?int $leafWetness, \DateTime $createdAt)
+    public function __construct(float $heatIndex, float $temperature, float $humidity, float $relativePressure, float $absolutePressure, int $windDirection, int $windDirectionAvg, float $windSpeed, float $windSpeedAvg, float $windGust, float $windMaxDailyGust, float $rainRate, float $rainEvent, float $rainHourly, float $rainDaily, float $rainWeekly, float $rainMonthly, float $rainYearly, float $solarRadiation, int $uv, ?float $pm25, ?float $pm25Avg, float $humidex, float $dewPoint, float $windChill, int $cloudBase, int $beaufortScale, ?int $aqi, ?int $aqiAvg, ?float $soilTemperature, ?int $leafWetness, ?int $lightningDaily, ?int $lightningDistance, ?\DateTime $lightningDate, \DateTime $createdAt)
     {
         $this->temperature = $temperature;
         $this->heatIndex = $heatIndex;
@@ -146,6 +152,9 @@ class WeatherData
         $this->createdAt = $this->date = $createdAt;
         $this->leafWetness = $leafWetness;
         $this->soilTemperature = $soilTemperature;
+        $this->lightningDate = $lightningDate;
+        $this->lightningDaily = $lightningDaily;
+        $this->lightningDistance = $lightningDistance;
     }
 
     /**
@@ -226,6 +235,54 @@ class WeatherData
     public function getAbsolutePressure(): float
     {
         return $this->absolutePressure;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLightningDaily(): ?int
+    {
+        return $this->lightningDaily;
+    }
+
+    /**
+     * @param int|null $lightningDaily
+     */
+    public function setLightningDaily(?int $lightningDaily): void
+    {
+        $this->lightningDaily = $lightningDaily;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLightningDistance(): ?int
+    {
+        return $this->lightningDistance;
+    }
+
+    /**
+     * @param int|null $lightningDistance
+     */
+    public function setLightningDistance(?int $lightningDistance): void
+    {
+        $this->lightningDistance = $lightningDistance;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getLightningDate(): ?\DateTime
+    {
+        return $this->lightningDate;
+    }
+
+    /**
+     * @param \DateTime|null $lightningDate
+     */
+    public function setLightningDate(?\DateTime $lightningDate): void
+    {
+        $this->lightningDate = $lightningDate;
     }
 
     /**
