@@ -27,18 +27,18 @@ jobs:
                   sudo apt-get install openvpn
 
             # —— Connect to VPN
-            - name: Connect VPN
-              uses: golfzaptw/action-connect-ovpn@master
-              id: connect_vpn
-              with:
-                  PING_URL: '192.168.9.32'
-                  FILE_OVPN: '.github/vpn/config.ovpn'
-                  SECRET: ${{ secrets.SECRET_USERNAME_PASSWORD }}
-                  TLS_KEY: ${{ secrets.TLS_KEY }}
-              env:
-                  CA_CRT: ${{ secrets.CA_CRT }}
-                  USER_CRT: ${{ secrets.USER_CRT }}
-                  USER_KEY: ${{ secrets.USER_KEY }}
+            #- name: Connect VPN
+            #  uses: golfzaptw/action-connect-ovpn@master
+            #  id: connect_vpn
+            #  with:
+            #      PING_URL: '192.168.9.32'
+            #      FILE_OVPN: '.github/vpn/config.ovpn'
+            #      SECRET: ${{ secrets.SECRET_USERNAME_PASSWORD }}
+            #      TLS_KEY: ${{ secrets.TLS_KEY }}
+            #  env:
+            #      CA_CRT: ${{ secrets.CA_CRT }}
+            #      USER_CRT: ${{ secrets.USER_CRT }}
+            #      USER_KEY: ${{ secrets.USER_KEY }}
 
             # —— Run SSH command for deploy
             #- name: SSH to server
