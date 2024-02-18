@@ -174,9 +174,6 @@ class RegisterWeatherDataHandler
             throw new WeatherDataAlreadyInsertedException();
         }
 
-        /** @var WeatherData $lastWeatherData */
-        $lastWeatherData = $this->weatherDataRepository->findLastInsertedByWeatherStationReference($weatherStation->getReference());
-
         /**
          * Basic weather station data
          */
@@ -207,6 +204,8 @@ class RegisterWeatherDataHandler
         $lastLighningDate = null;
         $lastLighningDistance = null;
         if ($command->getLightningTime()) {
+            $lastWeatherData = $this->weatherDataRepository->findLastInsertedLightningDataByWeatherStationReference($weatherStation->getReference());
+
             $lastLighningDateReceived = \DateTime::createFromFormat('U', $command->getLightningTime());
             if ($lastLighningDateReceived > $lastWeatherData->getLightningDate()) {
                 $lastLighningDate = $lastLighningDateReceived;
