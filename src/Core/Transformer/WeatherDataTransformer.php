@@ -103,6 +103,11 @@ class WeatherDataTransformer
             $weatherData['soil_temperature_max']['createdAt'] ?? null,
             $weatherData['leaf_wetness_max']['value'] ?? null,
             $weatherData['leaf_wetness_max']['createdAt'] ?? null,
+            $weatherData['lightning_distance_min']['value'] ?? null,
+            $weatherData['lightning_distance_min']['createdAt'] ?? null,
+            $weatherData['lightning_distance_max']['value'] ?? null,
+            $weatherData['lightning_distance_max']['createdAt'] ?? null,
+            $weatherData['lightning_number'] ?? 0,
         );
     }
 

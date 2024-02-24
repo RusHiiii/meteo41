@@ -11,7 +11,7 @@ let grainrate = null;
 
 function initGauge(canvas, value, unit) {
   grainrate = new RadialGauge(canvas, {
-    units: ` ${unit ?? 'mm/h'}`,
+    units: ` ${unit ?? 'mm'}/h`,
     minValue: 0,
     maxValue: 60,
     colors: { majorTicks: '#FFFFFF' },

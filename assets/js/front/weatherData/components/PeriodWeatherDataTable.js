@@ -389,6 +389,34 @@ export default function PeriodWeatherDataTable(props) {
             <Date date={weatherData.maxUvReceivedAt} format={'LL'} />
           </td>
         </tr>
+        <tr>
+          <td colSpan="4" className="table-obs-header">
+            <strong>Foudre</strong>
+          </td>
+        </tr>
+        <tr className="table-obs-first-data min-max">
+          <td>Impact de foudre</td>
+          <td>
+            {weatherData.lightningNumber} impact(s)
+          </td>
+          <td></td>
+        </tr>
+        <tr className="min-max">
+          <td>Distance minimale</td>
+          <td>{weatherData.maxLightningDistance} km</td>
+          <td>
+            à <Date date={weatherData.maxLightningDistanceReceivedAt} format={'LT'} />, le{' '}
+            <Date date={weatherData.maxLightningDistanceReceivedAt} format={'LL'} />
+          </td>
+        </tr>
+        <tr className="table-obs-last-data min-max">
+          <td>Distance maximale</td>
+          <td>{weatherData.minLightningDistance} km</td>
+          <td>
+            à <Date date={weatherData.minLightningDistanceReceivedAt} format={'LT'} />, le{' '}
+            <Date date={weatherData.minLightningDistanceReceivedAt} format={'LL'} />
+          </td>
+        </tr>
       </tbody>
     </table>
   );
