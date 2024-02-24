@@ -323,7 +323,7 @@ export default function Home(props) {
               <div className="gauge col-md-3 col-sm-6">
                 <RainRate
                   value={state.weatherData?.rainRate}
-                  unit={`${state.weatherData?.unit.rainUnit}/h`}
+                  unit={state.weatherData?.unit.rainUnit}
                 />
                 <h3>Averse</h3>
               </div>

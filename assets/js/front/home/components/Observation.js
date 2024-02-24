@@ -3,7 +3,6 @@ import { Date as DateComponent } from '../../../common/components/Date';
 import { degToCompass } from '../../weatherData/utils/degreesToCompass';
 import { getSunrise, getSunset } from 'sunrise-sunset-js';
 import { getMoonTimes } from 'suncalc';
-import ReactTooltip from 'react-tooltip';
 import Tooltip from './Tooltip';
 import { showFixedValue } from '../utils/showFixedValue';
 
@@ -294,6 +293,20 @@ export default function Observation(props) {
                               data-for="lightningDaily"
                             >
                               <strong>{weatherData?.lightningDaily}</strong>
+                              {weatherDataDaily && weatherData?.lightningDaily > 0 && (
+                                <Tooltip
+                                  id="lightningDaily"
+                                  min={weatherDataDaily.minLightningDistance}
+                                  max={weatherDataDaily.maxLightningDistance}
+                                  minReceivedAt={
+                                    weatherDataDaily.minLightningDistanceReceivedAt
+                                  }
+                                  maxReceivedAt={
+                                    weatherDataDaily.maxLightningDistanceReceivedAt
+                                  }
+                                  unit="km"
+                                />
+                              )}
                             </td>
                             <td>
                               <small>impact(s)</small>
