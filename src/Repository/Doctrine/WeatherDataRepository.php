@@ -172,10 +172,15 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
         $history['solar_radiation_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'solarRadiation');
         $history['uv_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'uv');
 
-        // Optionnal sensors
+        // Soil and leaf sensor
         $history['soil_temperature_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'soilTemperature');
         $history['soil_temperature_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'soilTemperature');
         $history['leaf_wetness_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'leafWetness');
+
+        // Lightning sensor
+        $history['lightning_distance_max'] = $this->findMaxWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'lightningDistance');
+        $history['lightning_distance_min'] = $this->findMinWeatherDataHistory($startDate, $endDate, $reference, $ttl, 'lightningDistance');
+        $history['lightning_number'] = $this->findCountLightningDataHistory($startDate, $endDate, $reference, $ttl);
 
         // Check data
         $history['has_data'] = $this->hasWeatherDataHistory($startDate, $endDate, $reference, $ttl);
@@ -312,6 +317,43 @@ class WeatherDataRepository extends AbstractRepository implements WeatherDataRep
             ->select('COUNT(weatherData.id) AS numberOfResult')
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param string $startDate
+     * @param string $endDate
+     * @param string $reference
+     * @param int $ttl
+     * @return float|int|mixed|string|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findCountLightningDataHistory(string $startDate, string $endDate, string $reference, int $ttl)
+    {
+        $qb = $this
+            ->createQueryBuilder('weatherData')
+            ->leftJoin('weatherData.weatherStation', 'weatherStation');
+
+        $qb
+            ->select('MAX(weatherData.lightningDaily) AS numberOfImpactByPeriod, weatherData.date')
+            ->andWhere(
+                $qb->expr()->between('weatherData.date', ':startDate', ':endDate')
+            )
+            ->andWhere('weatherStation.reference = :reference')
+            ->andWhere($qb->expr()->isNotNull($this->alias('lightningDaily', 'weatherData')))
+            ->groupBy('weatherData.date')
+            ->setParameter('startDate', \DateTime::createFromFormat('Y-m-d H:i:s', $startDate)->format('Y-m-d'))
+            ->setParameter('endDate', \DateTime::createFromFormat('Y-m-d H:i:s', $endDate)->format('Y-m-d'))
+            ->setParameter('reference', $reference);
+
+        $result = $qb
+            ->getQuery()
+            ->useQueryCache(true)
+            ->enableResultCache($ttl)
+            ->getResult();
+
+        return array_reduce($result, function ($numberOfImpact, $item) {
+            return $numberOfImpact + $item['numberOfImpactByPeriod'];
+        }, 0);
     }
 
     /**

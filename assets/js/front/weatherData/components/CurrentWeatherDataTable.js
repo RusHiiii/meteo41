@@ -278,6 +278,17 @@ export default function CurrentWeatherDataTable(props) {
         </tr>
         <tr>
           <td colSpan="4" className="table-obs-header">
+            <strong>Foudre</strong>
+          </td>
+        </tr>
+        <tr className="table-obs-first-data table-obs-last-data">
+          <td>Impact de foudre</td>
+          <td>
+            {weatherData?.lightningDaily} impact(s)
+          </td>
+        </tr>
+        <tr>
+          <td colSpan="4" className="table-obs-header">
             <strong>Notre localisation</strong>
           </td>
         </tr>

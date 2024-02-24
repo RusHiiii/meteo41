@@ -125,8 +125,17 @@ class WeatherDataPeriodView
 
     private \DateTime $minHeatIndexReceivedAt;
 
+    private ?int $minLightningDistance;
+
+    private ?\DateTime $minLightningDistanceReceivedAt;
+
+    private ?int $maxLightningDistance;
+
+    private ?\DateTime $maxLightningDistanceReceivedAt;
+
+    private int $lightningNumber;
+
     /**
-     * WeatherDataPeriodView constructor.
      * @param WeatherStationView $weatherStation
      * @param UnitView $unit
      * @param float $maxTemperature
@@ -186,8 +195,13 @@ class WeatherDataPeriodView
      * @param \DateTime|null $maxSoilTemperatureReceivedAt
      * @param int|null $maxLeafWetness
      * @param \DateTime|null $maxLeafWetnessReceivedAt
+     * @param int|null $minLightningDistance
+     * @param \DateTime|null $minLightningDistanceReceivedAt
+     * @param int|null $maxLightningDistance
+     * @param \DateTime|null $maxLightningDistanceReceivedAt
+     * @param int $lightningNumber
      */
-    public function __construct(WeatherStationView $weatherStation, UnitView $unit, float $maxTemperature, \DateTime $maxTemperatureReceivedAt, float $minTemperature, \DateTime $minTemperatureReceivedAt, float $maxHumidex, \DateTime $maxHumidexReceivedAt, float $minHumidex, \DateTime $minHumidexReceivedAt, float $maxDewPoint, \DateTime $maxDewPointReceivedAt, float $minDewPoint, \DateTime $minDewPointReceivedAt, float $maxWindChill, \DateTime $maxWindChillReceivedAt, float $minWindChill, \DateTime $minWindChillReceivedAt, int $maxHumidity, \DateTime $maxHumidityReceivedAt, int $minHumidity, \DateTime $minHumidityReceivedAt, float $maxRelativePressure, \DateTime $maxRelativePressureReceivedAt, float $minRelativePressure, \DateTime $minRelativePressureReceivedAt, float $maxRainRate, \DateTime $maxRainRateReceivedAt, float $maxRainEvent, \DateTime $maxRainEventReceivedAt, ?float $rainPeriod, float $maxWindGust, \DateTime $maxWindGustReceivedAt, int $maxBeaufortScale, \DateTime $maxBeaufortScaleReceivedAt, ?float $avgPm25, ?float $avgAqi, ?float $maxPm25, ?\DateTime $maxPm25ReceivedAt, ?int $maxAqi, ?\DateTime $maxAqiReceivedAt, float $maxSolarRadiation, \DateTime $maxSolarRadiationReceivedAt, int $maxUv, \DateTime $maxUvReceivedAt, ?float $minPm25, ?\DateTime $minPm25ReceivedAt, ?int $minAqi, ?\DateTime $minAqiReceivedAt, float $minHeatIndex, \DateTime $minHeatIndexReceivedAt, float $maxHeatIndex, \DateTime $maxHeatIndexReceivedAt, ?float $minSoilTemperature, ?\DateTime $minSoilTemperatureReceivedAt, ?float $maxSoilTemperature, ?\DateTime $maxSoilTemperatureReceivedAt, ?int $maxLeafWetness, ?\DateTime $maxLeafWetnessReceivedAt)
+    public function __construct(WeatherStationView $weatherStation, UnitView $unit, float $maxTemperature, \DateTime $maxTemperatureReceivedAt, float $minTemperature, \DateTime $minTemperatureReceivedAt, float $maxHumidex, \DateTime $maxHumidexReceivedAt, float $minHumidex, \DateTime $minHumidexReceivedAt, float $maxDewPoint, \DateTime $maxDewPointReceivedAt, float $minDewPoint, \DateTime $minDewPointReceivedAt, float $maxWindChill, \DateTime $maxWindChillReceivedAt, float $minWindChill, \DateTime $minWindChillReceivedAt, int $maxHumidity, \DateTime $maxHumidityReceivedAt, int $minHumidity, \DateTime $minHumidityReceivedAt, float $maxRelativePressure, \DateTime $maxRelativePressureReceivedAt, float $minRelativePressure, \DateTime $minRelativePressureReceivedAt, float $maxRainRate, \DateTime $maxRainRateReceivedAt, float $maxRainEvent, \DateTime $maxRainEventReceivedAt, ?float $rainPeriod, float $maxWindGust, \DateTime $maxWindGustReceivedAt, int $maxBeaufortScale, \DateTime $maxBeaufortScaleReceivedAt, ?float $avgPm25, ?float $avgAqi, ?float $maxPm25, ?\DateTime $maxPm25ReceivedAt, ?int $maxAqi, ?\DateTime $maxAqiReceivedAt, float $maxSolarRadiation, \DateTime $maxSolarRadiationReceivedAt, int $maxUv, \DateTime $maxUvReceivedAt, ?float $minPm25, ?\DateTime $minPm25ReceivedAt, ?int $minAqi, ?\DateTime $minAqiReceivedAt, float $minHeatIndex, \DateTime $minHeatIndexReceivedAt, float $maxHeatIndex, \DateTime $maxHeatIndexReceivedAt, ?float $minSoilTemperature, ?\DateTime $minSoilTemperatureReceivedAt, ?float $maxSoilTemperature, ?\DateTime $maxSoilTemperatureReceivedAt, ?int $maxLeafWetness, ?\DateTime $maxLeafWetnessReceivedAt, ?int $minLightningDistance, ?\DateTime $minLightningDistanceReceivedAt, ?int $maxLightningDistance, ?\DateTime $maxLightningDistanceReceivedAt, int $lightningNumber)
     {
         $this->weatherStation = $weatherStation;
         $this->unit = $unit;
@@ -248,6 +262,11 @@ class WeatherDataPeriodView
         $this->minSoilTemperatureReceivedAt = $minSoilTemperatureReceivedAt;
         $this->maxSoilTemperature = $maxSoilTemperature;
         $this->maxSoilTemperatureReceivedAt = $maxSoilTemperatureReceivedAt;
+        $this->minLightningDistance = $minLightningDistance;
+        $this->minLightningDistanceReceivedAt = $minLightningDistanceReceivedAt;
+        $this->maxLightningDistance = $maxLightningDistance;
+        $this->maxLightningDistanceReceivedAt = $maxLightningDistanceReceivedAt;
+        $this->lightningNumber = $lightningNumber;
     }
 
     /**
@@ -720,5 +739,45 @@ class WeatherDataPeriodView
     public function getMaxLeafWetnessReceivedAt(): ?\DateTime
     {
         return $this->maxLeafWetnessReceivedAt;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMinLightningDistance(): ?int
+    {
+        return $this->minLightningDistance;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getMinLightningDistanceReceivedAt(): ?\DateTime
+    {
+        return $this->minLightningDistanceReceivedAt;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMaxLightningDistance(): ?int
+    {
+        return $this->maxLightningDistance;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getMaxLightningDistanceReceivedAt(): ?\DateTime
+    {
+        return $this->maxLightningDistanceReceivedAt;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLightningNumber(): int
+    {
+        return $this->lightningNumber;
     }
 }
