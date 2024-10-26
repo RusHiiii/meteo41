@@ -8,7 +8,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class OpenWeather
 {
-    const URL = 'https://api.openweathermap.org/data/2.5/onecall';
+    const URL = 'https://api.openweathermap.org/data/3.0/onecall';
     /**
      * @var HttpClientInterface
      */
