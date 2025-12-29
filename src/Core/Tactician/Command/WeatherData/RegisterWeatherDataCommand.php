@@ -62,9 +62,9 @@ class RegisterWeatherDataCommand
 
     private ?string $pm25_avg_24h_ch1;
 
-    private string $wh65batt;
+    private ?string $wh65batt;
 
-    private string $wh25batt;
+    private ?string $wh25batt;
 
     private ?string $pm25batt1;
 
@@ -141,10 +141,10 @@ class RegisterWeatherDataCommand
         string $yearlyrainin,
         string $solarradiation,
         string $uv,
-        string $wh65batt,
-        string $wh25batt,
         string $freq,
         string $model,
+        ?string $wh65batt = null,
+        ?string $wh25batt = null,
         ?string $pm25_ch1 = null,
         ?string $pm25_avg_24h_ch1 = null,
         ?string $pm25batt1 = null,
